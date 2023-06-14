@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "22073589686",
+    "firebase_url": "https://api-project-22073589686.firebaseio.com",
+    "project_id": "api-project-22073589686",
+    "storage_bucket": "api-project-22073589686.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22073589686:android:e12947a39bfac0bbb1cb17",
+        "android_client_info": {
+          "package_name": "com.impres.erp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22073589686-0ien8kathp0qgn1stvo9mdcko9mrrldv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYd2LIZSpLqE1lYi7a4fOExATfI_E4xoM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22073589686-0ien8kathp0qgn1stvo9mdcko9mrrldv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "22073589686-1f7tnfsogr89sffng0phdin1vc0cm23f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nithra.tamil.quiz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
