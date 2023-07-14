@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:add_dev_dolphin/Model/Staff_Screen/Staff_screen_c_2.dart';
 import 'package:add_dev_dolphin/Model/Staff_Screen/staff_screen_c_1.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:add_dev_dolphin/Data/Staff_Data.dart';
@@ -552,8 +553,8 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                                   child:
                                                                   Stack(
                                                                       children: [
-                                                                        Center(child: CircularProgressIndicator()),
-                                                                        Image.network("${StaffImageIP}${data[0].StaffImg}",scale: 1,fit: BoxFit.cover,)
+                                                                        //Center(child: CircularProgressIndicator()),
+                                                                        Image.network("${StaffImageIP}${data[0].StaffImg}",scale: 1,fit: BoxFit.cover)
                                                                       ])),
                                                             ),
                                                           ],
@@ -804,7 +805,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                   onTap: (){
                                                     checkInternet();
                                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                                                        Staff_Leave_Apply(username: widget.username, password: widget.password,)));
+                                                        ApplyScreen(username: widget.username, password: widget.password,)));
                                                   },
                                                 ),
                                               if(status.contains("1Leave Inbox - Staff"))

@@ -37,10 +37,13 @@ class Staff_Leave_Apply extends StatefulWidget {
 class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
   late Future<LeaveBalanceData_List> LeaveBalanceAPIData;
   late Future<FindHodDataList> HOD_Find_API_Data;
+  late Future<FacultyorHod_List> FacultyorHOD_Api_Data;
   late List<String> RecordType = [];
   late List<String> HOD_Staff_List = [];
+  late List<String> HOD_Staff_Id = [];
   late List<String> Active_Acadamic_Year = [];
   late List<String> Acadamic_Year = [];
+  late List<String> Type_Id = [];
   late List<String> Session_Type_FRom = ['FN', 'AN', 'BOTH'];
   int? One_Fn = 1;
   int? One_An = 1;
@@ -63,6 +66,10 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
   String? Multi_TO_Date;
   String? Multi_From_Date;
   String? LeaveName;
+  String? fromdateuh;
+  String? HOD_ID;
+  String? Type_id;
+  final Addreason = TextEditingController();
 
   bool Multiday_select = false;
   DateTime? Add_Date;
@@ -278,6 +285,366 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
     }
   }
 
+  Date_Validation1() async {
+    if (checkboxValue1 == true
+        && LeaveFromDate == null ||
+        One_An == 1.toInt() ||
+        One_Fn == 1.toInt() ||
+        One_Both == 1.toInt()) {
+      await Fluttertoast.showToast(
+          backgroundColor: Colors.red,
+          msg: "Kindly! Select From Date and Session",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      Leave_NONTeaching();
+    }
+  }
+
+  MultipleDay_Date_validation1() async {
+    if (Multiday_select == true) {
+      if (Multi_From_Date == null ||
+          Multi_TO_Date == null ||
+          Multi_From_FN == 1.toInt() ||
+          Multi_From_Both == 1.toInt() ||
+          Multi_From_AN == 1.toInt() ||
+          Multi_TO_FN == 1.toInt() ||
+          Multi_TO_Both == 1.toInt() ||
+          Multi_TO_AN == 1.toInt()) {
+        await Fluttertoast.showToast(
+            backgroundColor: Colors.red,
+            msg: "Kindly! Select From and TO Date and Session",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.SNACKBAR,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Leave_NONTeaching();
+      }
+    } else {}
+  }
+
+
+
+  Leave_NONTeaching() async {
+    final form = _ReasonValid.currentState;
+    if (form!.validate()) {
+      form.save();
+      if (OneDay_Select == true) {
+        if (One_Both != -1) {
+            print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Both}&toSessionId=${One_Both}&Password=${widget.password}");
+            final resp = await http.get(Uri.parse(""
+                "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Both}&toSessionId=${One_Both}&Password=${widget.password}"));
+            if (resp.statusCode == 200) {
+              Responce_For_Facultyorhod = json.decode(resp.body);
+              print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+              Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+              Fluttertoast.showToast(
+                  backgroundColor: Colors.deepPurple,
+                  msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.SNACKBAR,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            } else {
+              print("");
+              await Fluttertoast.showToast(
+                  backgroundColor: Colors.grey,
+                  msg: "Leave Request is Not Sent",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.SNACKBAR,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
+        }
+        else if (One_An != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_An}&toSessionId=${One_An}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_An}&toSessionId=${One_An}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+            else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (One_Fn != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Fn}&toSessionId=${One_Fn}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Fn}&toSessionId=${One_Fn}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+      }
+      if (Multiday_select == true) {
+        if (Multi_From_Both != -1 && Multi_TO_Both != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (Multi_From_AN != -1 && Multi_TO_AN != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+          else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (Multi_From_FN != -1 && Multi_TO_FN != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (Multi_From_FN != -1 && Multi_TO_AN != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (Multi_From_FN != -1 && Multi_TO_Both != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (Multi_From_AN != -1 && Multi_TO_FN != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (Multi_From_AN != -1 && Multi_TO_Both != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (Multi_From_Both != -1 && Multi_TO_FN != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        else if (Multi_From_Both != -1 && Multi_TO_AN != -1) {
+          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+      }
+    }
+  }
+
+  late List Responce_For_Facultyorhod = [];
+  String? Leave_Apply_MSG;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -288,1197 +655,1098 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
     Hod_Find_Network hod_find_network = Hod_Find_Network(
         "FindHodForLeave?StaffCode=${widget.username}&Password=${widget.password}");
     HOD_Find_API_Data = hod_find_network.HODloadData();
+    Faculty_Network faculty_network = Faculty_Network(
+        "Faclutyorhod?StaffCode=${widget.username}&Password=${widget.password}");
+    FacultyorHOD_Api_Data = faculty_network.Faculty_Data();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: HOD_Find_API_Data,
-        builder: (context, AsyncSnapshot<FindHodDataList> HodFindsnapshot) {
-          if (HodFindsnapshot.hasError) {
-            ErrorShowingWidget(context);
-          }
-          List<FindHodData> HOD_Find_API_Data;
-          if (HodFindsnapshot.hasData) {
-            HOD_Find_API_Data = HodFindsnapshot.data!.HOD_list;
-            HOD_Staff_List = [
-              for (int i = HOD_Find_API_Data.length - 1; i >= 0; i--)
-                "${HOD_Find_API_Data[i].staffName}"
-            ];
-            return FutureBuilder(
-                future: LeaveBalanceAPIData,
-                builder: (context,
-                    AsyncSnapshot<LeaveBalanceData_List> LeaveBalancesnapshot) {
-                  if (LeaveBalancesnapshot.hasError) {
-                    ErrorShowingWidget(context);
-                  }
-                  List<LeaveBalanceAPI_data> LeaveBalancedata;
-                  if (LeaveBalancesnapshot.hasData) {
-                    LeaveBalancedata =
-                        LeaveBalancesnapshot.data!.LeaveBalancedata_list;
-                    Leave_Category = [
-                      for (int i = LeaveBalancedata.length - 1; i >= 0; i--)
-                        "${LeaveBalancedata[i].LeaveName}"
-                    ].reversed.toList();
-                    Acadamic_Year = [for (int i= Active_Acadamic_Year.length -1; i>= 0; i--)  "${LeaveBalancedata[i].acadYear}"];
-                    Active_Acadamic_Year = [LeaveBalancedata[0].acadYear];
-                    if (LeaveBalancedata.length > 0) {
-                      return Scaffold(
-                        backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
-                        appBar: AppBar(
-                          title: Text(
-                            "Leave Apply",
-                            style: PrimaryText(context),
-                          ),
-                          centerTitle: true,
-                          backgroundColor: Color.fromRGBO(255, 98, 118, 1),
-                          elevation: 5.0,
-                        ),
-                        body: Container(
-                          margin: EdgeInsets.only(left: 10, right: 10),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Column(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: sHeight(1.5, context),
-                                    ),
-                                    Text(
-                                      "ACADEMIC YEAR :",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: sHeight(1, context),
-                                    ),
-                                    Container(
-                                      height: sHeight(
-                                          5, context),
-                                      width: sWidth(
-                                          95, context),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius
-                                              .circular(
-                                              7),
-                                          color: Colors
-                                              .white),
-                                      child: FormField<String>(
-                                        builder:
-                                            (FormFieldState<String> state) {
-                                          return DropdownButtonHideUnderline(
-                                            child: DropdownSearch<String>(
-                                              popupProps: PopupProps.menu(),
-                                              dropdownDecoratorProps:
-                                                  DropDownDecoratorProps(),
-                                              dropdownButtonProps:
-                                                  DropdownButtonProps(
-                                                      // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                      icon: Icon(Icons
-                                                          .arrow_drop_down_circle_rounded),
-                                                      color: Color.fromRGBO(
-                                                          255, 98, 118, 1)),
-                                              items: Active_Acadamic_Year,
-                                              selectedItem: "select",
-                                              onChanged: (value) {},
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: sHeight(0.3, context),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: sHeight(1.5, context),
-                                    ),
-                                    Text(
-                                      "APPLYING FOR :",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: sHeight(1, context),
-                                    ),
-                                    Container(
-                                      height: sHeight(
-                                          5, context),
-                                      width: sWidth(
-                                          95, context),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius
-                                              .circular(
-                                              7),
-                                          color: Colors
-                                              .white),                                      child: FormField<String>(
-                                        builder:
-                                            (FormFieldState<String> state) {
-                                          return DropdownButtonHideUnderline(
-                                            child: DropdownSearch<String>(
-                                              popupProps: PopupProps.menu(),
-                                              dropdownDecoratorProps:
-                                                  DropDownDecoratorProps(),
-                                              dropdownButtonProps:
-                                                  DropdownButtonProps(
-                                                      // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                      icon: Icon(Icons
-                                                          .arrow_drop_down_circle_rounded),
-                                                      color: Color.fromRGBO(
-                                                          255, 98, 118, 1)),
-                                              items: Leave_Category,
-                                              selectedItem: Leave_Category[0],
-                                              onChanged: (value) {
-                                                LeaveName = value.toString();
-                                                print(LeaveName);
-                                                LeaveGetIndex =
-                                                    Leave_Category.indexOf(
-                                                            value!)
-                                                        .toInt();
-                                                setState(() {});
-                                              },
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: sHeight(2.5, context),
-                                ),
-                                Container(
-                                  width: sWidth(100, context),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(8))),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: sHeight(1, context),
-                                      ),
-                                      Text(
-                                        "LEAVE AVAILABILITY",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.green,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      SizedBox(
-                                        height: sHeight(0.3, context),
-                                      ),
-                                      Divider(
-                                        thickness: 0.4,
-                                        color: Colors.black45,
-                                      ),
-                                      SizedBox(
-                                        height: sHeight(1, context),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "ALLOCATED",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                              SizedBox(
-                                                height: sHeight(1, context),
-                                              ),
-                                              Text(
-                                                "${LeaveBalancedata[LeaveGetIndex!].day}",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "MONTH",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                              SizedBox(
-                                                height: sHeight(1, context),
-                                              ),
-                                              Text(
-                                                "${LeaveBalancedata[LeaveGetIndex!].month}",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "YEAR",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                              SizedBox(
-                                                height: sHeight(1, context),
-                                              ),
-                                              Text(
-                                                "${LeaveBalancedata[LeaveGetIndex!].year}",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "BALANCE",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                              SizedBox(
-                                                height: sHeight(1, context),
-                                              ),
-                                              Text(
-                                                "${LeaveBalancedata[LeaveGetIndex!].Balance}",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w900),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: sHeight(2, context),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: sHeight(2.5, context),
-                                ),
-                                LeaveBalancedata[LeaveGetIndex!].Balance ==
-                                            0.0 &&
-                                        LeaveName != "LLOP".toString() &&
-                                        LeaveName != "On Duty".toString()
-                                    ? Container(
-                                        child: Center(
-                                          child: Image.asset(
-                                              "images/Dataimg/leave_not_eligible.png"),
-                                        ),
-                                      )
-                                    : Column(
-                                        children: [
-                                          Container(
-                                            width: sWidth(
-                                                95, context),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius
-                                                    .circular(
-                                                    7),
-                                                color: Colors
-                                                    .white),
-                                            child: Container(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(height: sHeight(1, context),),
-                                                  Text(
-                                                    "LEAVE DURATION : ",
-                                                    style: TextStyle(
-                                                        fontSize: 13,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w700),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Checkbox(
-                                                                  value: checkboxValue1,
-                                                                  onChanged: (value) {
-                                                                    setState(() {
-                                                                      checkboxValue1 =
-                                                                          value!;
-                                                                      OneDay_Select = true;
-                                                                      checkboxValue2 =
-                                                                          false;
-                                                                      Multiday_select =
-                                                                          false;
-                                                                    });
-                                                                  },
-                                                                  activeColor:
-                                                                      Color.fromRGBO(
-                                                                          255, 98, 118, 1),
-                                                                ),
-                                                            Text(
-                                                              "ONE DAY",
-                                                              style: TextStyle(
-                                                                  color: Color.fromRGBO(
-                                                                      31, 16, 148, 1.0),
-                                                                  fontWeight:
-                                                                  FontWeight.w600),)
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Checkbox(
-                                                                  value: checkboxValue2,
-                                                                  onChanged: (value) {
-                                                                    setState(() {
-                                                                      checkboxValue2 =
-                                                                          value!;
-                                                                      checkboxValue1 =
-                                                                          false;
-                                                                      Multiday_select =
-                                                                          true;
-                                                                      OneDay_Select = false;
-                                                                    });
-                                                                  },
-                                                                  activeColor:
-                                                                      Color.fromRGBO(
-                                                                          255, 98, 118, 1),
-                                                                ),
-                                                                Text(
-                                                                  "MULTIPLE DAY",
-                                                                  style: TextStyle(
-                                                                      color: Color.fromRGBO(
-                                                                          31, 16, 148, 1.0),
-                                                                      fontWeight:
-                                                                      FontWeight.w600),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Leave Apply",
+          style: PrimaryText(context),
+        ),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+      ),
+      backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+      body: FutureBuilder(
+          future: HOD_Find_API_Data,
+          builder: (context, AsyncSnapshot<FindHodDataList> HodFindsnapshot) {
+            if (HodFindsnapshot.hasError) {
+              ErrorShowingWidget(context);
+            }
+            List<FindHodData> HOD_Find_API_Data;
+            if (HodFindsnapshot.hasData) {
+              HOD_Find_API_Data = HodFindsnapshot.data!.HOD_list;
+              HOD_Staff_List = [
+                for (int i = HOD_Find_API_Data.length - 1; i >= 0; i--)
+                  "${HOD_Find_API_Data[i].staffName}"
+              ];
+              HOD_Staff_Id = [for(int i = HOD_Find_API_Data.length - 1; i >= 0; i--)
+                "${HOD_Find_API_Data[i].staffId}"
+                ];
+              return FutureBuilder(
+                  future: LeaveBalanceAPIData,
+                  builder: (context,
+                      AsyncSnapshot<LeaveBalanceData_List>
+                          LeaveBalancesnapshot) {
+                    if (LeaveBalancesnapshot.hasError) {
+                      ErrorShowingWidget(context);
+                    }
+                    List<LeaveBalanceAPI_data> LeaveBalancedata;
+                    if (LeaveBalancesnapshot.hasData) {
+                      LeaveBalancedata =
+                          LeaveBalancesnapshot.data!.LeaveBalancedata_list;
+                      Leave_Category = [
+                        for (int i = LeaveBalancedata.length - 1; i >= 0; i--)
+                          "${LeaveBalancedata[i].LeaveName}"
+                      ].reversed.toList();
+                      Acadamic_Year = [
+                        for (int i = Active_Acadamic_Year.length - 1; i >= 0; i--)
+                          "${LeaveBalancedata[i].acadYear}"
+                      ];
+                      Type_Id = [
+                        for (int i = LeaveBalancedata.length - 1; i >= 0; i--)
+                          "${LeaveBalancedata[i].Typeid}"
+                      ];
+
+                      Active_Acadamic_Year = [LeaveBalancedata[0].acadYear];
+                      if (LeaveBalancedata.length > 0) {
+                        return FutureBuilder(
+                            future: FacultyorHOD_Api_Data,
+                            builder: (context,
+                                AsyncSnapshot<FacultyorHod_List>
+                                    HodorFacultysnapshot) {
+                              if (HodorFacultysnapshot.hasError) {
+                                ErrorShowingWidget(context);
+                              }
+                              List<FacultyorHod_Data> Facultyorhod;
+                              if (HodorFacultysnapshot.hasData) {
+                                Facultyorhod =
+                                    HodorFacultysnapshot.data!.Staff_List;
+                                if (Facultyorhod.length > 0) {
+                                  return Scaffold(
+                                    body: Container(
+                                      margin:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.vertical,
+                                        child: Column(
+                                          children: [
+                                           /* Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: sHeight(1.5, context),
+                                                ),
+                                                Text(
+                                                  "ACADEMIC YEAR :",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                SizedBox(
+                                                  height: sHeight(1, context),
+                                                ),
+                                                Container(
+                                                  height: sHeight(5, context),
+                                                  width: sWidth(95, context),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              7),
+                                                      color: Colors.white),
+                                                  child: FormField<String>(
+                                                    builder:
+                                                        (FormFieldState<String>
+                                                            state) {
+                                                      return DropdownButtonHideUnderline(
+                                                        child: DropdownSearch<
+                                                            String>(
+                                                          popupProps:
+                                                              PopupProps.menu(),
+                                                          dropdownDecoratorProps:
+                                                              DropDownDecoratorProps(),
+                                                          dropdownButtonProps:
+                                                              DropdownButtonProps(
+                                                                  // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                  icon: Icon(Icons
+                                                                      .arrow_drop_down_circle_rounded),
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          255,
+                                                                          98,
+                                                                          118,
+                                                                          1)),
+                                                          items:
+                                                              Active_Acadamic_Year,
+                                                          selectedItem:
+                                                              "select",
+                                                          onChanged: (value) {},
                                                         ),
-                                                        OneDay_Select == true
-                                                            ? Column(
-                                                          children: [
-                                                            Container(
-                                                              width: sWidth(
-                                                                  95, context),
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                      7),
-                                                                  color: Colors
-                                                                      .white),
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.all(8.0),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                                  children: [
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          "FROM DATE : ",
-                                                                          style: TextStyle(
-                                                                              fontSize: 13,
-                                                                              color: Colors
-                                                                                  .black,
-                                                                              fontWeight:
-                                                                              FontWeight
-                                                                                  .w600),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height: sHeight(
-                                                                              0.7, context),
-                                                                        ),
-                                                                        Container(
-                                                                          height: 40,
-                                                                          width: 150,
-                                                                          decoration:
-                                                                          BoxDecoration(
-                                                                            border: Border.all(
-                                                                                color: Colors
-                                                                                    .black),
-                                                                            borderRadius:
-                                                                            BorderRadius
-                                                                                .all(
-                                                                              Radius
-                                                                                  .circular(
-                                                                                  7),
-                                                                            ),
-                                                                          ),
-                                                                          child: Row(
-                                                                            mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .spaceEvenly,
-                                                                            children: [
-                                                                              LeaveFromDate ==
-                                                                                  null
-                                                                                  ? Text(
-                                                                                  "Select")
-                                                                                  : Text(
-                                                                                  "${LeaveFromDate}"),
-                                                                              IconButton(
-                                                                                onPressed:
-                                                                                    () async {
-                                                                                  showDatePicker(
-                                                                                    context:
-                                                                                    context,
-                                                                                    initialDate:
-                                                                                    DateTime.now(),
-                                                                                    firstDate:
-                                                                                    DateTime.now(),
-                                                                                    lastDate:
-                                                                                    DateTime(2100),
-                                                                                  ).then(
-                                                                                          (value) async {
-                                                                                        LeaveFromDate =
-                                                                                            DateFormat('dd/MM/yyyy').format(value!);
-                                                                                        if (checkboxValue1 ==
-                                                                                            true) {
-                                                                                          LeaveFromDate =
-                                                                                              DateFormat('dd/MM/yyyy').format(value);
-                                                                                          LeaveTODate =
-                                                                                              DateFormat('dd/MM/yyyy').format(value);
-                                                                                          From_To_Pass =
-                                                                                              value;
-                                                                                        }
-
-                                                                                        setState(
-                                                                                                () {});
-                                                                                      });
-                                                                                },
-                                                                                icon: Icon(
-                                                                                    Icons
-                                                                                        .calendar_month,
-                                                                                    color: Color.fromRGBO(
-                                                                                        255,
-                                                                                        98,
-                                                                                        118,
-                                                                                        1)),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height: sHeight(
-                                                                              2, context),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          "SESSION : ",
-                                                                          style: TextStyle(
-                                                                              fontSize: 13,
-                                                                              color: Colors
-                                                                                  .black,
-                                                                              fontWeight:
-                                                                              FontWeight
-                                                                                  .w600),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height: sHeight(
-                                                                              0.7, context),
-                                                                        ),
-                                                                        Container(
-                                                                          height: 40,
-                                                                          width: 150,
-                                                                          child: FormField<
-                                                                              String>(
-                                                                            builder:
-                                                                                (FormFieldState<
-                                                                                String>
-                                                                            state) {
-                                                                              return DropdownButtonHideUnderline(
-                                                                                child: DropdownSearch<
-                                                                                    String>(
-                                                                                  popupProps:
-                                                                                  PopupProps
-                                                                                      .menu(),
-                                                                                  dropdownDecoratorProps:
-                                                                                  DropDownDecoratorProps(),
-                                                                                  dropdownButtonProps: DropdownButtonProps(
-                                                                                    // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                                      icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                                                                                      color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                  items:
-                                                                                  Session_Type_FRom,
-                                                                                  selectedItem:
-                                                                                  'SESSION',
-                                                                                  onChanged:
-                                                                                      (value) {
-                                                                                    if (value.toString() == 'FN'.toString()) {
-                                                                                      One_Fn = 19.toInt();
-                                                                                      One_An =-1;
-                                                                                      One_Both = -1;
-                                                                                      print(One_An);
-                                                                                    }
-                                                                                    if (value.toString() ==
-                                                                                        'AN'.toString()) {
-                                                                                      One_An = 20.toInt();
-                                                                                      One_Fn = -1;
-                                                                                      One_Both = -1;
-                                                                                      print(One_An);
-                                                                                    }
-                                                                                    if (value.toString() ==
-                                                                                        'BOTH'.toString()) {
-                                                                                      One_Both = 0.toInt();
-                                                                                      One_Fn = -1;
-                                                                                      One_An = -1;
-                                                                                    }
-                                                                                  },
-                                                                                ),
-                                                                              );
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height: sHeight(
-                                                                              2, context),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                            : new Container(),
-                                                        Multiday_select == true
-                                                            ? Column(
-                                                          children: [
-                                                            Container(
-                                                              width: sWidth(
-                                                                  95, context),
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                      7),
-                                                                  color: Colors
-                                                                      .white),
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.all(8.0),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                                  children: [
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          "FROM DATE : ",
-                                                                          style: TextStyle(
-                                                                              fontSize: 13,
-                                                                              color: Colors
-                                                                                  .black,
-                                                                              fontWeight:
-                                                                              FontWeight
-                                                                                  .w600),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height: sHeight(
-                                                                              0.7, context),
-                                                                        ),
-                                                                        Container(
-                                                                          height: 40,
-                                                                          width: 150,
-                                                                          decoration:
-                                                                          BoxDecoration(
-                                                                            border: Border.all(
-                                                                                color: Colors
-                                                                                    .black),
-                                                                            borderRadius:
-                                                                            BorderRadius
-                                                                                .all(
-                                                                              Radius
-                                                                                  .circular(
-                                                                                  7),
-                                                                            ),
-                                                                          ),
-                                                                          child: Row(
-                                                                            mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .spaceEvenly,
-                                                                            children: [
-                                                                              Multi_From_Date ==
-                                                                                  null
-                                                                                  ? Text(
-                                                                                  "Select")
-                                                                                  : Text(
-                                                                                  "${Multi_From_Date}"),
-                                                                              IconButton(
-                                                                                onPressed:
-                                                                                    () async {
-                                                                                  showDatePicker(
-                                                                                    context:
-                                                                                    context,
-                                                                                    initialDate:
-                                                                                    DateTime.now(),
-                                                                                    firstDate:
-                                                                                    DateTime.now(),
-                                                                                    lastDate:
-                                                                                    DateTime(2100),
-                                                                                  ).then(
-                                                                                          (value) async {
-                                                                                        Multi_From_Date =
-                                                                                            DateFormat('dd/MM/yyyy').format(value!);
-                                                                                        Add_Date =
-                                                                                            value;
-
-                                                                                        setState(
-                                                                                                () {});
-                                                                                      });
-                                                                                },
-                                                                                icon: Icon(
-                                                                                    Icons
-                                                                                        .calendar_month,
-                                                                                    color: Color.fromRGBO(
-                                                                                        255,
-                                                                                        98,
-                                                                                        118,
-                                                                                        1)),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height: sHeight(
-                                                                              2, context),
-                                                                        ),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                          children: [
-                                                                            Text(
-                                                                              "TO DATE:",
-                                                                              style: TextStyle(
-                                                                                  fontSize:
-                                                                                  13,
-                                                                                  color: Colors
-                                                                                      .black,
-                                                                                  fontWeight:
-                                                                                  FontWeight
-                                                                                      .w600),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: sHeight(
-                                                                                  0.7,
-                                                                                  context),
-                                                                            ),
-                                                                            Container(
-                                                                              height: 40,
-                                                                              width: 150,
-                                                                              decoration:
-                                                                              BoxDecoration(
-                                                                                border: Border.all(
-                                                                                    color: Colors
-                                                                                        .black),
-                                                                                borderRadius:
-                                                                                BorderRadius
-                                                                                    .all(
-                                                                                  Radius
-                                                                                      .circular(
-                                                                                      7),
-                                                                                ),
-                                                                              ),
-                                                                              child: Row(
-                                                                                mainAxisAlignment:
-                                                                                MainAxisAlignment
-                                                                                    .spaceEvenly,
-                                                                                children: [
-                                                                                  Multi_TO_Date ==
-                                                                                      null
-                                                                                      ? Text(
-                                                                                      "Select")
-                                                                                      : Text(
-                                                                                      "${Multi_TO_Date}"),
-                                                                                  IconButton(
-                                                                                    onPressed:
-                                                                                        () async {
-                                                                                      showDatePicker(
-                                                                                        context:
-                                                                                        context,
-                                                                                        initialDate:
-                                                                                        DateTime.parse(Add_Date.toString()).add(Duration(days: 1)),
-                                                                                        firstDate:
-                                                                                        DateTime.parse(Add_Date.toString()).add(Duration(days: 1)),
-                                                                                        lastDate:
-                                                                                        DateTime(2100),
-                                                                                      ).then(
-                                                                                              (value) async {
-                                                                                            Multi_TO_Date =
-                                                                                                DateFormat('dd/MM/yyyy').format(value!);
-                                                                                            From_To_Pass =
-                                                                                                value;
-                                                                                            setState(() {});
-                                                                                          });
-                                                                                    },
-                                                                                    icon: Icon(
-                                                                                        Icons
-                                                                                            .calendar_month,
-                                                                                        color: Color.fromRGBO(
-                                                                                            255,
-                                                                                            98,
-                                                                                            118,
-                                                                                            1)),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          "SESSION : ",
-                                                                          style: TextStyle(
-                                                                              fontSize: 13,
-                                                                              color: Colors
-                                                                                  .black,
-                                                                              fontWeight:
-                                                                              FontWeight
-                                                                                  .w600),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height: sHeight(
-                                                                              0.7, context),
-                                                                        ),
-                                                                        Container(
-                                                                          height: 40,
-                                                                          width: 150,
-                                                                          child: FormField<
-                                                                              String>(
-                                                                            builder:
-                                                                                (FormFieldState<
-                                                                                String>
-                                                                            state) {
-                                                                              return DropdownButtonHideUnderline(
-                                                                                child: DropdownSearch<
-                                                                                    String>(
-                                                                                  popupProps:
-                                                                                  PopupProps
-                                                                                      .menu(),
-                                                                                  dropdownDecoratorProps:
-                                                                                  DropDownDecoratorProps(),
-                                                                                  dropdownButtonProps: DropdownButtonProps(
-                                                                                    // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                                      icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                                                                                      color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                  items:
-                                                                                  Session_Type_FRom,
-                                                                                  selectedItem:
-                                                                                  'SESSION',
-                                                                                  onChanged:
-                                                                                      (value) {
-                                                                                    if (value.toString() ==
-                                                                                        'FN'.toString()) {
-                                                                                      Multi_From_FN =
-                                                                                          19.toInt();
-                                                                                      Multi_From_AN =
-                                                                                      -1;
-                                                                                      Multi_From_Both =
-                                                                                      -1;
-                                                                                    }
-                                                                                    if (value.toString() ==
-                                                                                        'AN'.toString()) {
-                                                                                      Multi_From_AN =
-                                                                                          20.toInt();
-                                                                                      Multi_From_FN =
-                                                                                      -1;
-                                                                                      Multi_From_Both =
-                                                                                      -1;
-                                                                                    }
-                                                                                    if (value.toString() ==
-                                                                                        'BOTH'.toString()) {
-                                                                                      Multi_From_Both =
-                                                                                          0.toInt();
-                                                                                      Multi_From_AN =
-                                                                                      -1;
-                                                                                      Multi_From_FN =
-                                                                                      -1;
-                                                                                    }
-                                                                                  },
-                                                                                ),
-                                                                              );
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height: sHeight(
-                                                                              2, context),
-                                                                        ),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                          children: [
-                                                                            Text(
-                                                                              "SESSION : ",
-                                                                              style: TextStyle(
-                                                                                  fontSize:
-                                                                                  13,
-                                                                                  color: Colors
-                                                                                      .black,
-                                                                                  fontWeight:
-                                                                                  FontWeight
-                                                                                      .w600),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: sHeight(
-                                                                                  0.7,
-                                                                                  context),
-                                                                            ),
-                                                                            Container(
-                                                                              height: 40,
-                                                                              width: 150,
-                                                                              child:
-                                                                              FormField<
-                                                                                  String>(
-                                                                                builder: (FormFieldState<
-                                                                                    String>
-                                                                                state) {
-                                                                                  return DropdownButtonHideUnderline(
-                                                                                    child: DropdownSearch<
-                                                                                        String>(
-                                                                                      popupProps:
-                                                                                      PopupProps.menu(),
-                                                                                      dropdownDecoratorProps:
-                                                                                      DropDownDecoratorProps(),
-                                                                                      dropdownButtonProps: DropdownButtonProps(
-                                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                                          icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                                                                                          color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                      items:
-                                                                                      Session_Type_TO,
-                                                                                      selectedItem:
-                                                                                      'SESSION',
-                                                                                      onChanged:
-                                                                                          (value) {
-                                                                                        if (value.toString() ==
-                                                                                            'FN'.toString()) {
-                                                                                          Multi_TO_FN = 19.toInt();
-                                                                                          Multi_TO_AN = -1;
-                                                                                          Multi_TO_Both = -1;
-                                                                                        }
-                                                                                        if (value.toString() ==
-                                                                                            'AN'.toString()) {
-                                                                                          Multi_TO_AN = 20.toInt();
-                                                                                          Multi_TO_FN = -1;
-                                                                                          Multi_TO_Both = -1;
-                                                                                        }
-                                                                                        if (value.toString() ==
-                                                                                            'BOTH'.toString()) {
-                                                                                          Multi_TO_Both = 0.toInt();
-                                                                                          Multi_TO_AN = -1;
-                                                                                          Multi_TO_FN = -1;
-                                                                                        }
-                                                                                      },
-                                                                                    ),
-                                                                                  );
-                                                                                },
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                            : new Container(),
-                                                      ],
-                                                    ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),*/
+                                            /*SizedBox(
+                                              height: sHeight(0.3, context),
+                                            ),*/
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: sHeight(1.5, context),
+                                                ),
+                                                Text(
+                                                  "APPLYING FOR :",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                SizedBox(
+                                                  height: sHeight(1, context),
+                                                ),
+                                                Container(
+                                                  height: sHeight(5, context),
+                                                  width: sWidth(95, context),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              7),
+                                                      color: Colors.white),
+                                                  child: FormField<String>(
+                                                    builder:
+                                                        (FormFieldState<String>
+                                                            state) {
+                                                      return DropdownButtonHideUnderline(
+                                                        child: DropdownSearch<
+                                                            String>(
+                                                          popupProps:
+                                                              PopupProps.menu(),
+                                                          dropdownDecoratorProps:
+                                                              DropDownDecoratorProps(),
+                                                          dropdownButtonProps:
+                                                              DropdownButtonProps(
+                                                                  // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                  icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                                                                  color: Color.fromRGBO(255, 98, 118, 1)),
+                                                          items: Leave_Category,
+                                                          selectedItem: "Select Catergory",
+                                                          onChanged: (value) {
+                                                            int Passing_leave = Leave_Category.indexOf(value.toString()).toInt();
+                                                            Type_id = Type_Id[Passing_leave].toString();
+                                                            print(Type_id);
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: sHeight(2.5, context),
+                                            ),
+                                            Container(
+                                              width: sWidth(100, context),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(8))),
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: sHeight(1, context),
+                                                  ),
+                                                  Text(
+                                                    "LEAVE AVAILABILITY",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.green,
+                                                        fontWeight:
+                                                            FontWeight.w900),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                        sHeight(0.3, context),
+                                                  ),
+                                                  Divider(
+                                                    thickness: 0.4,
+                                                    color: Colors.black45,
+                                                  ),
+                                                  SizedBox(
+                                                    height: sHeight(1, context),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Column(
+                                                        children: [
+                                                          Text(
+                                                            "ALLOCATED",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1, context),
+                                                          ),
+                                                          Text(
+                                                            "${LeaveBalancedata[LeaveGetIndex!].day}",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          Text(
+                                                            "MONTH",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1, context),
+                                                          ),
+                                                          Text(
+                                                            "${LeaveBalancedata[LeaveGetIndex!].month}",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          Text(
+                                                            "YEAR",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1, context),
+                                                          ),
+                                                          Text(
+                                                            "${LeaveBalancedata[LeaveGetIndex!].year}",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          Text(
+                                                            "BALANCE",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1, context),
+                                                          ),
+                                                          Text(
+                                                            "${LeaveBalancedata[LeaveGetIndex!].Balance}",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: sHeight(2, context),
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                height: sHeight(1.5, context),
-                                              ),
-                                              Text(
-                                                "REASON TYPE :",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              SizedBox(
-                                                height: sHeight(1, context),
-                                              ),
-                                              Container(
-                                                width: sWidth(
-                                                    95, context),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(
-                                                        7),
-                                                    color: Colors
-                                                        .white),
-                                                child: Form(
-                                                  key: _ReasonValid,
-                                                  child: TextFormField(
-                                                    cursorColor: Colors.black,
-                                                    inputFormatters: [
-                                                      FilteringTextInputFormatter
-                                                          .deny(RegExp(r'^\s')),
-                                                    ],
-                                                    validator: (e) {
-                                                      if (e!.isEmpty) {
-                                                        return "Kindly Enter the Reason Type";
-                                                      }
-                                                    },
-                                                    style: TextStyle(
-                                                        color: Colors.black
-                                                            .withOpacity(0.9)),
-                                                    decoration: InputDecoration(
-                                                      contentPadding:
-                                                          EdgeInsets.symmetric(
-                                                        horizontal: 5.0,
-                                                      ),
-                                                      labelStyle: TextStyle(
-                                                          color: Colors.black
-                                                              .withOpacity(0.9),
-                                                          fontSize: 10),
-                                                      border: OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(7.0),
-                                                          borderSide: BorderSide(
-                                                              width: 5,
-                                                              style: BorderStyle
-                                                                  .none)),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                height: sHeight(1.5, context),
-                                              ),
-                                              Text(
-                                                "FORWARD LEAVE REQUEST TO:",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              SizedBox(
-                                                height: sHeight(1, context),
-                                              ),
-                                              Container(
-                                                width: sWidth(
-                                                    95, context),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(
-                                                        7),
-                                                    color: Colors
-                                                        .white),
-                                                child: FormField<String>(
-                                                  builder:
-                                                      (FormFieldState<String>
-                                                          state) {
-                                                    return DropdownButtonHideUnderline(
-                                                      child: DropdownSearch<
-                                                          String>(
-                                                        popupProps:
-                                                            PopupProps.menu(),
-                                                        dropdownDecoratorProps:
-                                                            DropDownDecoratorProps(),
-                                                        dropdownButtonProps:
-                                                            DropdownButtonProps(
-                                                                // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                icon: Icon(Icons
-                                                                    .arrow_drop_down_circle_rounded),
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        255,
-                                                                        98,
-                                                                        118,
-                                                                        1)),
-                                                        items: HOD_Find_API_Data
-                                                                    .length ==
-                                                                0
-                                                            ? RecordType
-                                                            : HOD_Staff_List,
-                                                        selectedItem:
-                                                            HOD_Find_API_Data
-                                                                        .length ==
-                                                                    0
-                                                                ? "Not Specified"
-                                                                : HOD_Staff_List[
-                                                                    0],
-                                                        onChanged: (value) {},
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: sHeight(2.5, context),
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: 50,
-                                            margin: const EdgeInsets.fromLTRB(
-                                                40, 10, 40, 20),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
-                                            child: ElevatedButton(
-                                              onPressed: () async {
-                                                if (checkboxValue1 == true) {
-                                                  await Date_Validation();
-                                                }
-                                                if (Multiday_select == true) {
-                                                  await MultipleDay_Date_validation();
-                                                }
-                                              },
-                                              style: ButtonStyle(
-                                                  backgroundColor:
-                                                      MaterialStateProperty
-                                                          .resolveWith(
-                                                              (states) {
-                                                    if (states.contains(
-                                                        MaterialState
-                                                            .pressed)) {
-                                                      return Color.fromRGBO(
-                                                          255, 52, 62, 1);
-                                                    }
-                                                    return Color.fromRGBO(
-                                                        255, 52, 62, 1);
-                                                  }),
-                                                  shape: MaterialStateProperty.all<
-                                                          RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)))),
-                                              child: Text(
-                                                'APPLY FOR LEAVE',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16),
-                                              ),
+                                            SizedBox(
+                                              height: sHeight(2.5, context),
                                             ),
-                                          ),
-                                        ],
+                                           /* LeaveBalancedata[LeaveGetIndex!]
+                                                            .Balance ==
+                                                        0.0 &&
+                                                    LeaveName !=
+                                                        "LLOP".toString() &&
+                                                    LeaveName !=
+                                                        "On Duty".toString()
+                                                ? Container(
+                                                    child: Center(
+                                                      child: Image.asset(
+                                                          "images/Dataimg/leave_not_eligible.png"),
+                                                    ),
+                                                  )
+                                                :*/ Column(
+                                                    children: [
+                                                      Container(
+                                                        width:
+                                                            sWidth(95, context),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        7),
+                                                            color:
+                                                                Colors.white),
+                                                        child: Container(
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              SizedBox(
+                                                                height: sHeight(
+                                                                    1, context),
+                                                              ),
+                                                              Text(
+                                                                "LEAVE DURATION : ",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        13,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: Column(
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Row(
+                                                                          children: [
+                                                                            Checkbox(
+                                                                              value: checkboxValue1,
+                                                                              onChanged: (value) {
+                                                                                setState(() {
+                                                                                  checkboxValue1 = value!;
+                                                                                  OneDay_Select = true;
+                                                                                  checkboxValue2 = false;
+                                                                                  Multiday_select = false;
+                                                                                });
+                                                                              },
+                                                                              activeColor: Color.fromRGBO(255, 98, 118, 1),
+                                                                            ),
+                                                                            Text(
+                                                                              "ONE DAY",
+                                                                              style: TextStyle(color: Color.fromRGBO(31, 16, 148, 1.0), fontWeight: FontWeight.w600),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                        Row(
+                                                                          children: [
+                                                                            Checkbox(
+                                                                              value: checkboxValue2,
+                                                                              onChanged: (value) {
+                                                                                setState(() {
+                                                                                  checkboxValue2 = value!;
+                                                                                  checkboxValue1 = false;
+                                                                                  Multiday_select = true;
+                                                                                  OneDay_Select = false;
+                                                                                });
+                                                                              },
+                                                                              activeColor: Color.fromRGBO(255, 98, 118, 1),
+                                                                            ),
+                                                                            Text(
+                                                                              "MULTIPLE DAY",
+                                                                              style: TextStyle(color: Color.fromRGBO(31, 16, 148, 1.0), fontWeight: FontWeight.w600),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    OneDay_Select ==
+                                                                            true
+                                                                        ? Column(
+                                                                            children: [
+                                                                              Container(
+                                                                                width: sWidth(95, context),
+                                                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white),
+                                                                                child: Padding(
+                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Column(
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Text(
+                                                                                            "FROM DATE : ",
+                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(0.7, context),
+                                                                                          ),
+                                                                                          Container(
+                                                                                            height: 40,
+                                                                                            width: 150,
+                                                                                            decoration: BoxDecoration(
+                                                                                              border: Border.all(color: Colors.black),
+                                                                                              borderRadius: BorderRadius.all(
+                                                                                                Radius.circular(7),
+                                                                                              ),
+                                                                                            ),
+                                                                                            child: Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              children: [
+                                                                                                LeaveFromDate == null ? Text("Select") : Text("${LeaveFromDate}"),
+                                                                                                IconButton(
+                                                                                                  onPressed: () async {
+                                                                                                    showDatePicker(
+                                                                                                      context: context,
+                                                                                                      initialDate: DateTime.now(),
+                                                                                                      firstDate: DateTime.now(),
+                                                                                                      lastDate: DateTime(2100),
+                                                                                                    ).then((value) async {
+                                                                                                      LeaveFromDate = DateFormat('dd/MM/yyyy').format(value!);
+                                                                                                      if (checkboxValue1 == true) {
+                                                                                                        LeaveFromDate = DateFormat('dd/MM/yyyy').format(value);
+                                                                                                        LeaveTODate = DateFormat('dd/MM/yyyy').format(value);
+                                                                                                        From_To_Pass = value;
+                                                                                                      }
+
+                                                                                                      setState(() {});
+                                                                                                    });
+                                                                                                  },
+                                                                                                  icon: Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(2, context),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                      Column(
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Text(
+                                                                                            "SESSION : ",
+                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(0.7, context),
+                                                                                          ),
+                                                                                          Container(
+                                                                                            height: 40,
+                                                                                            width: 150,
+                                                                                            child: FormField<String>(
+                                                                                              builder: (FormFieldState<String> state) {
+                                                                                                return DropdownButtonHideUnderline(
+                                                                                                  child: DropdownSearch<String>(
+                                                                                                    popupProps: PopupProps.menu(),
+                                                                                                    dropdownDecoratorProps: DropDownDecoratorProps(),
+                                                                                                    dropdownButtonProps: DropdownButtonProps(
+                                                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                                                        icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                                                                                                        color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                    items: Session_Type_FRom,
+                                                                                                    selectedItem: 'SESSION',
+                                                                                                    onChanged: (value) {
+                                                                                                      if (value.toString() == 'FN'.toString()) {
+                                                                                                        One_Fn = 19.toInt();
+                                                                                                        One_An = -1;
+                                                                                                        One_Both = -1;
+                                                                                                        print(One_Fn);
+                                                                                                      }
+                                                                                                      if (value.toString() == 'AN'.toString()) {
+                                                                                                        One_An = 20.toInt();
+                                                                                                        One_Fn = -1;
+                                                                                                        One_Both = -1;
+                                                                                                        print(One_An);
+                                                                                                      }
+                                                                                                      if (value.toString() == 'BOTH'.toString()) {
+                                                                                                        One_Both = 0.toInt();
+                                                                                                        One_Fn = -1;
+                                                                                                        One_An = -1;
+                                                                                                      }
+                                                                                                    },
+                                                                                                  ),
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(2, context),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          )
+                                                                        : new Container(),
+                                                                    Multiday_select ==
+                                                                            true
+                                                                        ? Column(
+                                                                            children: [
+                                                                              Container(
+                                                                                width: sWidth(95, context),
+                                                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white),
+                                                                                child: Padding(
+                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Column(
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Text(
+                                                                                            "FROM DATE : ",
+                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(0.7, context),
+                                                                                          ),
+                                                                                          Container(
+                                                                                            height: 40,
+                                                                                            width: 150,
+                                                                                            decoration: BoxDecoration(
+                                                                                              border: Border.all(color: Colors.black),
+                                                                                              borderRadius: BorderRadius.all(
+                                                                                                Radius.circular(7),
+                                                                                              ),
+                                                                                            ),
+                                                                                            child: Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              children: [
+                                                                                                Multi_From_Date == null ? Text("Select") : Text("${Multi_From_Date}"),
+                                                                                                IconButton(
+                                                                                                  onPressed: () async {
+                                                                                                    showDatePicker(
+                                                                                                      context: context,
+                                                                                                      initialDate: DateTime.now(),
+                                                                                                      firstDate: DateTime.now(),
+                                                                                                      lastDate: DateTime(2100),
+                                                                                                    ).then((value) async {
+                                                                                                      Multi_From_Date = DateFormat('dd/MM/yyyy').format(value!);
+                                                                                                      Add_Date = value;
+
+                                                                                                      setState(() {});
+                                                                                                    });
+                                                                                                  },
+                                                                                                  icon: Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(2, context),
+                                                                                          ),
+                                                                                          Column(
+                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                "TO DATE:",
+                                                                                                style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                              ),
+                                                                                              SizedBox(
+                                                                                                height: sHeight(0.7, context),
+                                                                                              ),
+                                                                                              Container(
+                                                                                                height: 40,
+                                                                                                width: 150,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  border: Border.all(color: Colors.black),
+                                                                                                  borderRadius: BorderRadius.all(
+                                                                                                    Radius.circular(7),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                child: Row(
+                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                  children: [
+                                                                                                    Multi_TO_Date == null ? Text("Select") : Text("${Multi_TO_Date}"),
+                                                                                                    IconButton(
+                                                                                                      onPressed: () async {
+                                                                                                        showDatePicker(
+                                                                                                          context: context,
+                                                                                                          initialDate: DateTime.parse(Add_Date.toString()).add(Duration(days: 1)),
+                                                                                                          firstDate: DateTime.parse(Add_Date.toString()).add(Duration(days: 1)),
+                                                                                                          lastDate: DateTime(2100),
+                                                                                                        ).then((value) async {
+                                                                                                          Multi_TO_Date = DateFormat('dd/MM/yyyy').format(value!);
+                                                                                                          From_To_Pass = value;
+                                                                                                          setState(() {});
+                                                                                                        });
+                                                                                                      },
+                                                                                                      icon: Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                      Column(
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Text(
+                                                                                            "SESSION : ",
+                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(0.7, context),
+                                                                                          ),
+                                                                                          Container(
+                                                                                            height: 40,
+                                                                                            width: 150,
+                                                                                            child: FormField<String>(
+                                                                                              builder: (FormFieldState<String> state) {
+                                                                                                return DropdownButtonHideUnderline(
+                                                                                                  child: DropdownSearch<String>(
+                                                                                                    popupProps: PopupProps.menu(),
+                                                                                                    dropdownDecoratorProps: DropDownDecoratorProps(),
+                                                                                                    dropdownButtonProps: DropdownButtonProps(
+                                                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                                                        icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                                                                                                        color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                    items: Session_Type_FRom,
+                                                                                                    selectedItem: 'SESSION',
+                                                                                                    onChanged: (value) {
+                                                                                                      if (value.toString() == 'FN'.toString()) {
+                                                                                                        Multi_From_FN = 19.toInt();
+                                                                                                        Multi_From_AN = -1;
+                                                                                                        Multi_From_Both = -1;
+                                                                                                      }
+                                                                                                      if (value.toString() == 'AN'.toString()) {
+                                                                                                        Multi_From_AN = 20.toInt();
+                                                                                                        Multi_From_FN = -1;
+                                                                                                        Multi_From_Both = -1;
+                                                                                                      }
+                                                                                                      if (value.toString() == 'BOTH'.toString()) {
+                                                                                                        Multi_From_Both = 0.toInt();
+                                                                                                        Multi_From_AN = -1;
+                                                                                                        Multi_From_FN = -1;
+                                                                                                      }
+                                                                                                    },
+                                                                                                  ),
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(2, context),
+                                                                                          ),
+                                                                                          Column(
+                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                "SESSION : ",
+                                                                                                style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                              ),
+                                                                                              SizedBox(
+                                                                                                height: sHeight(0.7, context),
+                                                                                              ),
+                                                                                              Container(
+                                                                                                height: 40,
+                                                                                                width: 150,
+                                                                                                child: FormField<String>(
+                                                                                                  builder: (FormFieldState<String> state) {
+                                                                                                    return DropdownButtonHideUnderline(
+                                                                                                      child: DropdownSearch<String>(
+                                                                                                        popupProps: PopupProps.menu(),
+                                                                                                        dropdownDecoratorProps: DropDownDecoratorProps(),
+                                                                                                        dropdownButtonProps: DropdownButtonProps(
+                                                                                                            // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                                                            icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                                                                                                            color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                        items: Session_Type_TO,
+                                                                                                        selectedItem: 'SESSION',
+                                                                                                        onChanged: (value) {
+                                                                                                          if (value.toString() == 'FN'.toString()) {
+                                                                                                            Multi_TO_FN = 19.toInt();
+                                                                                                            Multi_TO_AN = -1;
+                                                                                                            Multi_TO_Both = -1;
+                                                                                                          }
+                                                                                                          if (value.toString() == 'AN'.toString()) {
+                                                                                                            Multi_TO_AN = 20.toInt();
+                                                                                                            Multi_TO_FN = -1;
+                                                                                                            Multi_TO_Both = -1;
+                                                                                                          }
+                                                                                                          if (value.toString() == 'BOTH'.toString()) {
+                                                                                                            Multi_TO_Both = 0.toInt();
+                                                                                                            Multi_TO_AN = -1;
+                                                                                                            Multi_TO_FN = -1;
+                                                                                                          }
+                                                                                                        },
+                                                                                                      ),
+                                                                                                    );
+                                                                                                  },
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          )
+                                                                        : new Container(),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1.5, context),
+                                                          ),
+                                                          Text(
+                                                            "REASON TYPE :",
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1, context),
+                                                          ),
+                                                          Container(
+                                                            width: sWidth(
+                                                                95, context),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            7),
+                                                                color: Colors
+                                                                    .white),
+                                                            child: Form(
+                                                              key: _ReasonValid,
+                                                              child:
+                                                                  TextFormField(
+                                                                    controller: Addreason,
+                                                                cursorColor: Colors.black,
+                                                                inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'^\s')),],
+                                                                validator: (e) {
+                                                                  if (e!.isEmpty) {
+                                                                    return "Kindly Enter the Reason Type";
+                                                                  }
+                                                                  return null;
+                                                                },
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black
+                                                                        .withOpacity(
+                                                                            0.9)),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .symmetric(
+                                                                    horizontal:
+                                                                        5.0,
+                                                                  ),
+                                                                  labelStyle: TextStyle(
+                                                                      color: Colors
+                                                                          .black
+                                                                          .withOpacity(
+                                                                              0.9),
+                                                                      fontSize:
+                                                                          10),
+                                                                  border: OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              7.0),
+                                                                      borderSide: BorderSide(
+                                                                          width:
+                                                                              5,
+                                                                          style:
+                                                                              BorderStyle.none)),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1.5, context),
+                                                          ),
+                                                          Text(
+                                                            "FORWARD LEAVE REQUEST TO:",
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1, context),
+                                                          ),
+                                                          Container(
+                                                            width: sWidth(
+                                                                95, context),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            7),
+                                                                color: Colors
+                                                                    .white),
+                                                            child: FormField<
+                                                                String>(
+                                                              builder:
+                                                                  (FormFieldState<
+                                                                          String>
+                                                                      state) {
+                                                                return DropdownButtonHideUnderline(
+                                                                  child:
+                                                                      DropdownSearch<
+                                                                          String>(
+                                                                    popupProps:
+                                                                        PopupProps
+                                                                            .menu(),
+                                                                    dropdownDecoratorProps:
+                                                                        DropDownDecoratorProps(),
+                                                                    dropdownButtonProps: DropdownButtonProps(
+                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                        icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                                                                        color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                    items: HOD_Find_API_Data.length == 0 ? RecordType : HOD_Staff_List,
+                                                                    selectedItem: "Select HOD or principal ",
+                                                                        //? "Not Specified" : HOD_Staff_List[0],
+                                                                    onChanged: (value) {
+                                                                      int Passing_club =
+                                                                      HOD_Staff_List.indexOf(value.toString())
+                                                                          .toInt();
+                                                                      HOD_ID = HOD_Staff_Id[Passing_club.toInt()];
+                                                                      print(HOD_ID);
+                                                                    },
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: sHeight(
+                                                            2.5, context),
+                                                      ),
+                                                      for (int i = 0;i < Facultyorhod.length;i++)
+                                                        Container(
+                                                          width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width,
+                                                          height: 50,
+                                                          margin:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  40,
+                                                                  10,
+                                                                  40,
+                                                                  20),
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30)),
+                                                          child: ElevatedButton(
+                                                            onPressed:
+                                                                () async {
+                                                              print(
+                                                                  "LAWAH : ${Facultyorhod[i].lawah}");
+                                                              if (Facultyorhod[i].lawah == 0) {
+                                                                if (checkboxValue1 == true) {
+                                                                  print(Addreason);
+                                                                  Date_Validation1();
+                                                                }
+                                                                if (Multiday_select ==
+                                                                    true) {
+                                                                  MultipleDay_Date_validation1();
+                                                                }
+
+                                                              } else {
+                                                                if (checkboxValue1 ==
+                                                                    true) {
+                                                                  await Date_Validation();
+                                                                }
+                                                                if (Multiday_select ==
+                                                                    true) {
+                                                                  await MultipleDay_Date_validation();
+                                                                }
+                                                              }
+                                                              //Navigator.pop(context);
+                                                            },
+                                                            style: ButtonStyle(
+                                                                backgroundColor:
+                                                                    MaterialStateProperty
+                                                                        .resolveWith(
+                                                                            (states) {
+                                                                  if (states.contains(
+                                                                      MaterialState
+                                                                          .pressed)) {
+                                                                    return Color
+                                                                        .fromRGBO(
+                                                                            255,
+                                                                            52,
+                                                                            62,
+                                                                            1);
+                                                                  }
+                                                                  return Color
+                                                                      .fromRGBO(
+                                                                          255,
+                                                                          52,
+                                                                          62,
+                                                                          1);
+                                                                }),
+                                                                shape: MaterialStateProperty.all<
+                                                                        RoundedRectangleBorder>(
+                                                                    RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10)))),
+                                                            child: Text(
+                                                              'APPLY FOR LEAVE',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 16),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                          ],
+                                        ),
                                       ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                                    ),
+                                  );
+                                } else {
+                                  return Container(
+                                    child: Center(
+                                        child: SearchingDataLottie(context)),
+                                    color: Colors.white,
+                                  );
+                                }
+                              } else {
+                                return Container(
+                                  child: Center(
+                                      child: SearchingDataLottie(context)),
+                                  color: Colors.white,
+                                );
+                              }
+                            });
+                      } else {
+                        return Scaffold(
+                          body: Builder(
+                              builder: (BuildContext context) => ListView(
+                                    scrollDirection: Axis.vertical,
+                                    children: <Widget>[
+                                      Image.asset(
+                                        'images/Dataimg/data_not_found.png',
+                                      )
+                                    ],
+                                  )),
+                        );
+                      }
                     } else {
-                      return Scaffold(
-                        body: Builder(
-                            builder: (BuildContext context) => ListView(
-                                  scrollDirection: Axis.vertical,
-                                  children: <Widget>[
-                                    Image.asset(
-                                      'images/Dataimg/data_not_found.png',
-                                    )
-                                  ],
-                                )),
+                      return Container(
+                        child: Center(child: SearchingDataLottie(context)),
+                        color: Colors.white,
                       );
                     }
-                  } else {
-                    return Container(
-                      child: Center(child: SearchingDataLottie(context)),
-                      color: Colors.white,
-                    );
-                  }
-                });
-          } else {
-            return Container(
-              child: Center(child: SearchingDataLottie(context)),
-              color: Colors.white,
-            );
-          }
-        });
+                  });
+            } else {
+              return Container(
+                child: Center(child: SearchingDataLottie(context)),
+                color: Colors.white,
+              );
+            }
+          }),
+    );
   }
 }
 
@@ -1505,7 +1773,6 @@ class Staff_Leave_Apply_Alter_List extends StatefulWidget {
 
   @override
   State<Staff_Leave_Apply_Alter_List> createState() =>
-
       _Staff_Leave_Apply_Alter_ListState();
 }
 
@@ -2026,23 +2293,174 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                         onWillPop: () async =>
                                             _onBackButtonPressed(),
                                         child: Scaffold(
-                                          backgroundColor: Color.fromRGBO(
-                                              242, 249, 250, 0.9),
+                                          /*backgroundColor: Color.fromRGBO(
+                                              242, 249, 250, 0.9),*/
                                           appBar: AppBar(
                                             title: Text(
                                               "Alternate Types",
                                               style: PrimaryText(context),
                                             ),
-                                            centerTitle: true,
                                             backgroundColor:
                                                 Color.fromRGBO(255, 98, 118, 1),
-                                            elevation: 20.0,
+                                            centerTitle: true,
                                           ),
                                           body: SingleChildScrollView(
                                             scrollDirection: Axis.vertical,
                                             child: Column(
                                               children: [
-                                                Row(
+                                                SizedBox(
+                                                  height: sHeight(2, context),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10, right: 10),
+                                                    padding: EdgeInsets.only(
+                                                        left: 10, right: 10),
+                                                    width: sWidth(95, context),
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFECFFF4),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(10),
+                                                      ),
+                                                    ),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              "Alternate Types",
+                                                              style:
+                                                                  PrimaryText2(),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Divider(
+                                                          thickness: 0.5,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Checkbox(
+                                                              value:
+                                                                  Selected_checkBox,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  Selected_checkBox =
+                                                                      value!;
+                                                                });
+                                                                Future_checkBox =
+                                                                    false;
+                                                                OtherType_checkBox =
+                                                                    false;
+                                                                Future_List =
+                                                                    false;
+                                                              },
+                                                              activeColor: Color
+                                                                  .fromRGBO(
+                                                                      255,
+                                                                      98,
+                                                                      118,
+                                                                      1),
+                                                            ),
+                                                            Text(
+                                                              "Selected Date",
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Checkbox(
+                                                              value:
+                                                                  Future_checkBox,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  Future_checkBox =
+                                                                      value!;
+                                                                });
+                                                                Selected_checkBox =
+                                                                    false;
+                                                                OtherType_checkBox =
+                                                                    false;
+                                                                Future_List =
+                                                                    false;
+                                                              },
+                                                              activeColor: Color
+                                                                  .fromRGBO(
+                                                                      255,
+                                                                      98,
+                                                                      118,
+                                                                      1),
+                                                            ),
+                                                            Text(
+                                                              "Future Date",
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Container(
+                                                              child: Row(
+                                                                children: [
+                                                                  Checkbox(
+                                                                    value:
+                                                                        OtherType_checkBox,
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        OtherType_checkBox =
+                                                                            value!;
+                                                                      });
+                                                                      Selected_checkBox =
+                                                                          false;
+                                                                      Future_checkBox =
+                                                                          false;
+                                                                      Future_List =
+                                                                          false;
+                                                                    },
+                                                                    activeColor:
+                                                                        Color.fromRGBO(
+                                                                            255,
+                                                                            98,
+                                                                            118,
+                                                                            1),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "Other Type Engaged",
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                /*Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   children: [
@@ -2162,7 +2580,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                           color: Colors.blue),
                                                     ),
                                                   ],
-                                                ),
+                                                ),*/
                                                 Future_checkBox == true
                                                     ? Container(
                                                         height: 40,
@@ -4069,6 +4487,7 @@ class Club_Function extends StatefulWidget {
 }
 
 class _Club_FunctionState extends State<Club_Function> {
+
   late Future<Club_Fun_Data_List> Club_Fun_API_Data;
   late Future<AddClubFun_List> ADD_Club_Data;
   late Future<Staff_List_Data_List> Staff_API_Data;
@@ -4082,7 +4501,7 @@ class _Club_FunctionState extends State<Club_Function> {
   String? txt;
   String? Clubid;
   bool checkboxValue1 = true;
-  bool allnull  = true;
+  bool allnull = true;
   int? ClubFunIndex = 0;
   final _addFunname = GlobalKey<FormState>();
   final _addPrograme = GlobalKey<FormState>();
@@ -4144,7 +4563,8 @@ class _Club_FunctionState extends State<Club_Function> {
   late List Responce_For_AddClubFun = [];
 
   Responce_ClubFunAdd() async {
-    print("http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=${Clubid}&FunctionName=${addFunname.text}&FromDate=${ClubFromDate}&ToDate=${ClubToDate}&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}");
+    print(
+        "http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=${Clubid}&FunctionName=${addFunname.text}&FromDate=${ClubFromDate}&ToDate=${ClubToDate}&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}");
     final resp = await http.get(Uri.parse(
         "http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=${Clubid}&FunctionName=${addFunname.text}&FromDate=${ClubFromDate}&ToDate=${ClubToDate}&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}"));
     if (resp.statusCode == 200) {
@@ -4607,7 +5027,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                         Colors.white, // foreground (text) color
                                   ),
                                   onPressed: () async {
-                                   // bool allnull = allnull([_addFun, _addPro, _addLev, _addgue, _high]);
+                                    // bool allnull = allnull([_addFun, _addPro, _addLev, _addgue, _high]);
                                     await _addFun();
                                     await _addPro();
                                     await _addLev();
@@ -4619,15 +5039,15 @@ class _Club_FunctionState extends State<Club_Function> {
                                         _addLev == null &&
                                         _addgue == null &&
                                         _high == null) {
-                                    /*  return  showDialog(
+                                      /*  return  showDialog(
                                           context: context,
                                           barrierDismissible: true,
                                           builder: (context)=> AlertDialog(
-                                            *//* title: Row(
+                                            */ /* title: Row(
                                               children: [
                                                 Text("")
                                               ],
-                                            ),*//*
+                                            ),*/ /*
                                               content: Container(
                                                 height: sHeight(15, context),
                                                 width: sWidth(60, context),
@@ -4670,58 +5090,86 @@ class _Club_FunctionState extends State<Club_Function> {
                                       showDialog(
                                           context: context,
                                           barrierDismissible: true,
-                                          builder: (context)=> AlertDialog(
-                                           /* title: Row(
+                                          builder: (context) => AlertDialog(
+                                                  /* title: Row(
                                               children: [
                                                 Text("")
                                               ],
                                             ),*/
-                                                content: Container(
-                                                  height: sHeight(15, context),
-                                                  width: sWidth(60, context),
-                                                  child: Column(
-                                                    children: [
-                                                      Text("Do you want to Create the club function?"),
-                                                      SizedBox(height: sHeight(5, context),),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          InkWell(
-                                                            child: Container(
-                                                              height: sHeight(5, context),
-                                                              width: sWidth(17, context),
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(10),
-                                                                color: Colors.red,
-                                                              ),
-                                                              child: Center(child: Text("NO",style: ErrorText(),)),
+                                                  content: Container(
+                                                height: sHeight(15, context),
+                                                width: sWidth(60, context),
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                        "Do you want to Create the club function?"),
+                                                    SizedBox(
+                                                      height:
+                                                          sHeight(5, context),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        InkWell(
+                                                          child: Container(
+                                                            height: sHeight(
+                                                                5, context),
+                                                            width: sWidth(
+                                                                17, context),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              color: Colors.red,
                                                             ),
-                                                            onTap: (){
-                                                              Navigator.pop(context);
-                                                            },
+                                                            child: Center(
+                                                                child: Text(
+                                                              "NO",
+                                                              style:
+                                                                  ErrorText(),
+                                                            )),
                                                           ),
-                                                          InkWell(
-                                                            child: Container(
-                                                              height: sHeight(5, context),
-                                                              width: sWidth(17, context),
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(10),
-                                                                color: Colors.green,
-                                                              ),
-                                                              child: Center(child: Text("Yes",style: ErrorText(),)),
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                        ),
+                                                        InkWell(
+                                                          child: Container(
+                                                            height: sHeight(
+                                                                5, context),
+                                                            width: sWidth(
+                                                                17, context),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              color:
+                                                                  Colors.green,
                                                             ),
-                                                            onTap: () async {
-                                                              await Responce_ClubFunAdd();
-                                                              ClearText();
-                                                            },
-                                                          )
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                          )
-                                      );
+                                                            child: Center(
+                                                                child: Text(
+                                                              "Yes",
+                                                              style:
+                                                                  ErrorText(),
+                                                            )),
+                                                          ),
+                                                          onTap: () async {
+                                                            await Responce_ClubFunAdd();
+                                                            ClearText();
+                                                          },
+                                                        )
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              )));
                                       //Navigator.pop(context);
                                     }
                                   },
@@ -4911,10 +5359,11 @@ class _Club_AttendanceState extends State<Club_Attendance> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => ClubAttend_Page(
-                                            username: widget.username,
-                                            password: widget.password,
-                                            id: Selectclub[i].Clubid,
-                                            Funtionid: Selectclub[i].id,)));
+                                              username: widget.username,
+                                              password: widget.password,
+                                              id: Selectclub[i].Clubid,
+                                              Funtionid: Selectclub[i].id,
+                                            )));
                               },
                             ),
                           )
@@ -4952,7 +5401,6 @@ class ClubAttend_Page extends StatefulWidget {
   final int id;
   final int Funtionid;
 
-
   @override
   State<ClubAttend_Page> createState() => _ClubAttend_PageState();
 }
@@ -4969,8 +5417,8 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
   String? Studentid;
   int? One_Both = 1;
   late List<String> Session_Type_FRom = ['FN', 'AN', 'BOTH'];
-  late List <int> StudentNoList = [0];
-  late List <LessonPlanPracticalAPI_data> FinalList = [];
+  late List<int> StudentNoList = [0];
+  late List<LessonPlanPracticalAPI_data> FinalList = [];
   String? Accept_ClubFun_MSG;
   late List Responce_For_AddClubFun = [];
   late List<String> Terms = [];
@@ -4978,404 +5426,494 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
   String? Term;
   String? AttendId;
 
-    @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      ClubStud_Network clubstud_network = ClubStud_Network(
-          "ClubAttend?StaffCode=${widget.username}&ClubId=${widget
-              .id}&InstId=1&FunctionId=${widget
-              .Funtionid}&SemSettingId=9&Date=${CirATdate}&Password=${widget
-              .password}");
-      Stud_Club_API = clubstud_network.ClubStud_loadData();
-      AttendTerms_Network attendterms_network = AttendTerms_Network(
-        "AttendanceTerms?StaffCode=${widget.username}&Password=${widget.password}"
-      );
-      Attendterms_API = attendterms_network.FinalTerms_LoadData();
-    }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ClubStud_Network clubstud_network = ClubStud_Network(
+        "ClubAttend?StaffCode=${widget.username}&ClubId=${widget.id}&InstId=1&FunctionId=${widget.Funtionid}&SemSettingId=9&Date=${CirATdate}&Password=${widget.password}");
+    Stud_Club_API = clubstud_network.ClubStud_loadData();
+    AttendTerms_Network attendterms_network = AttendTerms_Network(
+        "AttendanceTerms?StaffCode=${widget.username}&Password=${widget.password}");
+    Attendterms_API = attendterms_network.FinalTerms_LoadData();
+  }
 
-    @override
-    Widget build(BuildContext context) {
-      String list = "";
-      late List Reason_Club_valid = [];
-      for (int i = 0; i <= StudentNoList.length - 1; i++) {
-        list = list + StudentNoList[i].toString();
-        if (i != StudentNoList.length - 1)
-          list = list + ",";
-      }
-      print(list);
-      return FutureBuilder(
-          future: Stud_Club_API,
-          builder: (context, AsyncSnapshot<ClubStud_List> clubstudsnapshot) {
-            if (clubstudsnapshot.hasError) {
-              ErrorShowingWidget(context);
-            }
-            List<ClubStud_Data> data;
-            if (clubstudsnapshot.hasData) {
-              data = clubstudsnapshot.data!.Club_Stud_List;
-             return FutureBuilder(
-               future: Attendterms_API,
-                 builder: (context, AsyncSnapshot<AttendTerms_List> termssnapshot){
-                 if(termssnapshot.hasError){
-                   ErrorShowingWidget(context);
-                 }
-                 List<Attend_data> terms;
-                 if(termssnapshot.hasData){
-                   terms = termssnapshot.data!.AttendTerm_List;
-                   Terms = [
-                     for (int i = terms.length - 1; i >= 0; i--) terms[i].Term
-                   ].reversed.toList();
-                   AttendanceIds = [
-                     for (int i = terms.length - 1; i >= 0; i--) "${terms[i].AttendanceId}"
-                   ].reversed.toList();
-                   /*AttendanceIds = [
+  @override
+  Widget build(BuildContext context) {
+    String list = "";
+    late List Reason_Club_valid = [];
+    for (int i = 0; i <= StudentNoList.length - 1; i++) {
+      list = list + StudentNoList[i].toString();
+      if (i != StudentNoList.length - 1) list = list + ",";
+    }
+    print(list);
+    return FutureBuilder(
+        future: Stud_Club_API,
+        builder: (context, AsyncSnapshot<ClubStud_List> clubstudsnapshot) {
+          if (clubstudsnapshot.hasError) {
+            ErrorShowingWidget(context);
+          }
+          List<ClubStud_Data> data;
+          if (clubstudsnapshot.hasData) {
+            data = clubstudsnapshot.data!.Club_Stud_List;
+            return FutureBuilder(
+                future: Attendterms_API,
+                builder:
+                    (context, AsyncSnapshot<AttendTerms_List> termssnapshot) {
+                  if (termssnapshot.hasError) {
+                    ErrorShowingWidget(context);
+                  }
+                  List<Attend_data> terms;
+                  if (termssnapshot.hasData) {
+                    terms = termssnapshot.data!.AttendTerm_List;
+                    Terms = [
+                      for (int i = terms.length - 1; i >= 0; i--) terms[i].Term
+                    ].reversed.toList();
+                    AttendanceIds = [
+                      for (int i = terms.length - 1; i >= 0; i--)
+                        "${terms[i].AttendanceId}"
+                    ].reversed.toList();
+                    /*AttendanceIds = [
                      for (int i = terms.length - 1; i >= 0; i--) "${terms[i].AttendanceId}"
                    ].reversed.toList();*/
-                   if(data.length > 0){
-                     return Scaffold(
-                       appBar: AppBar(
-                         title: Text(
-                           'Club Attendance',
-                           style: PrimaryText(context),
-                         ),
-                         centerTitle: true,
-                         backgroundColor: Color.fromRGBO(255, 98, 118, 1),
-                         elevation: 05.0,
-                       ),
-                       body: Builder(
-                           builder: (BuildContext context) =>
-                               SingleChildScrollView(
-                                 scrollDirection: Axis.vertical,
-                                 child: Column(
-                                   children: [
-                                     SizedBox(height: sHeight(2, context),),
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                       children: [
-                                         Container(
-                                           height: sHeight(6, context),
-                                           width: sWidth(40, context),
-                                           child: FormField<
-                                               String>(
-                                             builder:
-                                                 (FormFieldState<
-                                                 String>
-                                             state) {
-                                               return DropdownButtonHideUnderline(
-                                                 child: DropdownSearch<
-                                                     String>(
-                                                   popupProps:
-                                                   PopupProps
-                                                       .menu(),
-                                                   dropdownDecoratorProps:
-                                                   DropDownDecoratorProps(),
-                                                   dropdownButtonProps: DropdownButtonProps(
-                                                     // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                       icon: Icon(Icons
-                                                           .arrow_drop_down_circle_rounded),
-                                                       color: Color.fromRGBO(
-                                                           255, 98, 118, 1)),
-                                                   items: Session_Type_FRom,
-                                                   selectedItem:
-                                                   'SESSION',
-                                                   onChanged:
-                                                       (value) {
-                                                     if (value.toString() ==
-                                                         'FN'.toString()) {
-                                                       One_Fn = 0.toInt();
-                                                       One_An = -1;
-                                                       One_Both = -1;
-                                                       print(One_Fn);
-                                                     }
-                                                     if (value.toString() ==
-                                                         'AN'.toString()) {
-                                                       One_An = 1.toInt();
-                                                       One_Fn = -1;
-                                                       One_Both = -1;
-                                                       print(One_An);
-                                                     }
-                                                     if (value.toString() ==
-                                                         'BOTH'.toString()) {
-                                                       One_Both = 2.toInt();
-                                                       One_An = -1;
-                                                       One_Fn = -1;
-                                                       print(One_Both);
-                                                     }
-                                                   },
-                                                 ),
-                                               );
-                                             },
-                                           ),
-                                         ),
-                                         Container(
-                                           height: sHeight(6, context),
-                                           width: sWidth(40, context),
-                                           child: FormField<
-                                               String>(
-                                             builder:
-                                                 (FormFieldState<
-                                                 String>
-                                             state) {
-                                                   return DropdownButtonHideUnderline(
-                                                     child: DropdownSearch<String>(
-                                                       popupProps: PopupProps.menu(),
-                                                       dropdownDecoratorProps:
-                                                       DropDownDecoratorProps(),
-                                                       dropdownButtonProps: DropdownButtonProps(
-                                                         // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                           icon: Icon(Icons
-                                                               .arrow_drop_down_circle_rounded),
-                                                           color: Color.fromRGBO(255, 98, 118, 1)),
-                                                       items: Terms,
-                                                       selectedItem: Terms[1],
-                                                       //selectedItem: "Type",
-                                                       onChanged: (value) {
-                                                         int Passing_Term =
-                                                         Terms.indexOf(value.toString())
-                                                             .toInt();
-                                                         AttendId = AttendanceIds[Passing_Term.toInt()];
-                                                         print(AttendId);
-                                                         // txt = value.toString();
-                                                         // print(txt);
-                                                         // ClubFunIndex = Clubs.indexOf(value!).toInt();
-                                                         // setState(() {
-                                                         // });
-                                                       },
-                                                     ),
-                                                   );
-                                             },
-                                           ),
-                                         ),
-                                       ],
-                                     ),
-                                     for (int i = 0; i <= data.length - 1; i++)
-                                       InkWell(
-                                         child: ClubStudentListGenerator(
-                                             context, data[i], StudentNoList),
-                                         onTap: () {
-                                           setState(() {});
-                                           if (StudentNoList.contains(
-                                               data[i].Studentid)) {
-                                             StudentNoList.remove(data[i].Studentid);
-                                             FinalList.remove(data[i]);
-                                           }
-                                           else {
-                                             StudentNoList.add(data[i].Studentid);
-                                             // FinalList.add(data[i]);
-                                           }
-                                           print("${data[i].Studentid}");
-                                         },
-                                       )
-                                   ],
-                                 ),
-                               )
-                       ),
-                       floatingActionButton: Row(
-                         mainAxisAlignment: MainAxisAlignment.end,
-                         children: [
-                           InkWell(
-                             child: Container(
-                               width: 55,
-                               height: 55,
-                               margin: EdgeInsets.only(left: 10.0),
-                               decoration: PrimaryRoundBox(),
-                               child: Icon(Icons.check_sharp, color: Colors.white,),
-                             ),
-                             onTap: () async {
-                               /*Navigator.pop(context);
+                    if (data.length > 0) {
+                      return Scaffold(
+                        appBar: AppBar(
+                          title: Text(
+                            'Club Attendance',
+                            style: PrimaryText(context),
+                          ),
+                          centerTitle: true,
+                          backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                          elevation: 05.0,
+                        ),
+                        body: Builder(
+                            builder: (BuildContext context) =>
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: sHeight(2, context),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Container(
+                                            height: sHeight(6, context),
+                                            width: sWidth(40, context),
+                                            child: FormField<String>(
+                                              builder: (FormFieldState<String>
+                                                  state) {
+                                                return DropdownButtonHideUnderline(
+                                                  child: DropdownSearch<String>(
+                                                    popupProps:
+                                                        PopupProps.menu(),
+                                                    dropdownDecoratorProps:
+                                                        DropDownDecoratorProps(),
+                                                    dropdownButtonProps:
+                                                        DropdownButtonProps(
+                                                            // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                            icon: Icon(Icons
+                                                                .arrow_drop_down_circle_rounded),
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    255,
+                                                                    98,
+                                                                    118,
+                                                                    1)),
+                                                    items: Session_Type_FRom,
+                                                    selectedItem: 'SESSION',
+                                                    onChanged: (value) {
+                                                      if (value.toString() ==
+                                                          'FN'.toString()) {
+                                                        One_Fn = 0.toInt();
+                                                        One_An = -1;
+                                                        One_Both = -1;
+                                                        print(One_Fn);
+                                                      }
+                                                      if (value.toString() ==
+                                                          'AN'.toString()) {
+                                                        One_An = 1.toInt();
+                                                        One_Fn = -1;
+                                                        One_Both = -1;
+                                                        print(One_An);
+                                                      }
+                                                      if (value.toString() ==
+                                                          'BOTH'.toString()) {
+                                                        One_Both = 2.toInt();
+                                                        One_An = -1;
+                                                        One_Fn = -1;
+                                                        print(One_Both);
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          Container(
+                                            height: sHeight(6, context),
+                                            width: sWidth(40, context),
+                                            child: FormField<String>(
+                                              builder: (FormFieldState<String>
+                                                  state) {
+                                                return DropdownButtonHideUnderline(
+                                                  child: DropdownSearch<String>(
+                                                    popupProps:
+                                                        PopupProps.menu(),
+                                                    dropdownDecoratorProps:
+                                                        DropDownDecoratorProps(),
+                                                    dropdownButtonProps:
+                                                        DropdownButtonProps(
+                                                            // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                            icon: Icon(Icons
+                                                                .arrow_drop_down_circle_rounded),
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    255,
+                                                                    98,
+                                                                    118,
+                                                                    1)),
+                                                    items: Terms,
+                                                    selectedItem: Terms[1],
+                                                    //selectedItem: "Type",
+                                                    onChanged: (value) {
+                                                      int Passing_Term =
+                                                          Terms.indexOf(value
+                                                                  .toString())
+                                                              .toInt();
+                                                      AttendId = AttendanceIds[
+                                                          Passing_Term.toInt()];
+                                                      print(AttendId);
+                                                      // txt = value.toString();
+                                                      // print(txt);
+                                                      // ClubFunIndex = Clubs.indexOf(value!).toInt();
+                                                      // setState(() {
+                                                      // });
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      for (int i = 0; i <= data.length - 1; i++)
+                                        InkWell(
+                                          child: ClubStudentListGenerator(
+                                              context, data[i], StudentNoList),
+                                          onTap: () {
+                                            setState(() {});
+                                            if (StudentNoList.contains(
+                                                data[i].Studentid)) {
+                                              StudentNoList.remove(
+                                                  data[i].Studentid);
+                                              FinalList.remove(data[i]);
+                                            } else {
+                                              StudentNoList.add(
+                                                  data[i].Studentid);
+                                              // FinalList.add(data[i]);
+                                            }
+                                            print("${data[i].Studentid}");
+                                          },
+                                        )
+                                    ],
+                                  ),
+                                )),
+                        floatingActionButton: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              child: Container(
+                                width: 55,
+                                height: 55,
+                                margin: EdgeInsets.only(left: 10.0),
+                                decoration: PrimaryRoundBox(),
+                                child: Icon(
+                                  Icons.check_sharp,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              onTap: () async {
+                                /*Navigator.pop(context);
                         Navigator.pop(context);*/
-                               if (Terms == -1.toInt() &&
-                                  One_An == 2.toInt() ||
-                                   One_Fn == 1.toInt() ||
-                                   One_Both == 1.toInt()) {
-                                 return  showDialog(
-                                     context: context,
-                                     barrierDismissible: true,
-                                     builder: (context)=> AlertDialog(
-                                       /* title: Row(
+                                if (Terms == -1.toInt() &&
+                                        One_An == 2.toInt() ||
+                                    One_Fn == 1.toInt() ||
+                                    One_Both == 1.toInt()) {
+                                  return showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (context) => AlertDialog(
+                                              /* title: Row(
                                               children: [
                                                 Text("")
                                               ],
                                             ),*/
-                                         content: Container(
-                                           height: sHeight(15, context),
-                                           width: sWidth(60, context),
-                                           child: Column(
-                                             children: [
-                                               Text("Pleace Select Session or Attendance type"),
-                                               SizedBox(height: sHeight(5, context),),
-                                               Row(
-                                                 mainAxisAlignment: MainAxisAlignment.end,
-                                                 children: [
-                                                   InkWell(
-                                                     child: Container(
-                                                       height: sHeight(5, context),
-                                                       width: sWidth(17, context),
-                                                       decoration: BoxDecoration(
-                                                         borderRadius: BorderRadius.circular(10),
-                                                         color: Colors.red,
-                                                       ),
-                                                       child: Center(child: Text("Back",style: ErrorText(),)),
-                                                     ),
-                                                     onTap: (){
-                                                       Navigator.pop(context);
-                                                     },
-                                                   ),
-                                                 ],
-                                               )
-                                             ],
-                                           ),
-                                         )
-                                     )
-                                 );
-                                 /*await Fluttertoast.showToast(
+                                              content: Container(
+                                            height: sHeight(15, context),
+                                            width: sWidth(60, context),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                    "Pleace Select Session or Attendance type"),
+                                                SizedBox(
+                                                  height: sHeight(5, context),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    InkWell(
+                                                      child: Container(
+                                                        height:
+                                                            sHeight(5, context),
+                                                        width:
+                                                            sWidth(17, context),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          color: Colors.red,
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                          "Back",
+                                                          style: ErrorText(),
+                                                        )),
+                                                      ),
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          )));
+                                  /*await Fluttertoast.showToast(
                                      backgroundColor: Colors.red,
                                      msg: "Kindly! Select From Date and Session",
                                      toastLength: Toast.LENGTH_SHORT,
                                      gravity: ToastGravity.SNACKBAR,
                                      textColor: Colors.white,
                                      fontSize: 16.0);*/
-                               } else {
-                                 showDialog(
-                                   context: context,
-                                   barrierDismissible: true,
-                                   builder: (context)=> AlertDialog(
-                                     /* title: Row(
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (context) => AlertDialog(
+                                              /* title: Row(
                                               children: [
                                                 Text("")
                                               ],
                                             ),*/
-                                       content: Container(
-                                         height: sHeight(15, context),
-                                         width: sWidth(60, context),
-                                         child: Column(
-                                           children: [
-                                             Text("Do you want to Submit the Attendance?"),
-                                             SizedBox(height: sHeight(5, context),),
-                                             Row(
-                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                               children: [
-                                                 InkWell(
-                                                   child: Container(
-                                                     height: sHeight(5, context),
-                                                     width: sWidth(17, context),
-                                                     decoration: BoxDecoration(
-                                                       borderRadius: BorderRadius.circular(10),
-                                                       color: Colors.red,
-                                                     ),
-                                                     child: Center(child: Text("NO",style: ErrorText(),)),
-                                                   ),
-                                                   onTap: (){
-                                                     Navigator.pop(context);
-                                                   },
-                                                 ),
-                                                 InkWell(
-                                                   child: Container(
-                                                     height: sHeight(5, context),
-                                                     width: sWidth(17, context),
-                                                     decoration: BoxDecoration(
-                                                       borderRadius: BorderRadius.circular(10),
-                                                       color: Colors.green,
-                                                     ),
-                                                     child: Center(child: Text("Yes",style: ErrorText(),)),
-                                                   ),
-                                                   onTap: () async {
-                                                     if (One_Fn != -1) {
-                                                       print("${One_Fn!.toInt()}");
-                                                       await Navigator.push(
-                                                           context,
-                                                           MaterialPageRoute(
-                                                               builder: (context) =>
-                                                                   ClubAttfinal(username: widget.username,
-                                                                       Session: One_Fn!.toInt(),
-                                                                       password: widget.password,
-                                                                       id: widget.id,
-                                                                       Studentid: list,
-                                                                       Terms: AttendId.toString(),
-                                                                       Funtionid: widget.Funtionid)));
-                                                       print(One_Both);
-                                                     } else if (One_An != -1) {
-                                                       await Navigator.push(
-                                                           context,
-                                                           MaterialPageRoute(
-                                                               builder: (context) =>
-                                                                   ClubAttfinal(username: widget.username,
-                                                                       password: widget.password,
-                                                                       Session: One_An!.toInt(),
-                                                                       id: widget.id,
-                                                                       Studentid: list,
-                                                                       Terms: AttendId.toString(),
-                                                                       Funtionid: widget.Funtionid)));
-                                                       print(One_An);
-                                                     } else if (One_Both != -1) {
-                                                       await Navigator.push(
-                                                           context,
-                                                           MaterialPageRoute(
-                                                               builder: (context) =>
-                                                                   ClubAttfinal(username: widget.username,
-                                                                       password: widget.password,
-                                                                       Session: One_Both!.toInt(),
-                                                                       id: widget.id,
-                                                                       Studentid: list,
-                                                                       Terms: AttendId.toString(),
-                                                                       Funtionid: widget.Funtionid)));
-                                                       print(One_Fn);
-                                                     }
-                                                     else if (One_Both != -1) {
-                                                       await Navigator.push(
-                                                           context,
-                                                           MaterialPageRoute(
-                                                               builder: (context) =>
-                                                                   ClubAttfinal(username: widget.username,
-                                                                       password: widget.password,
-                                                                       Session: One_Both!.toInt(),
-                                                                       id: widget.id,
-                                                                       Studentid: list,
-                                                                       Terms: AttendId.toString(),
-                                                                       Funtionid: widget.Funtionid)));
-                                                       print(One_Fn);
-                                                     }
-                                                   },
-                                                 )
-                                               ],
-                                             )
-                                           ],
-                                         ),
-                                       )
-                                   )
-                               );
-                                 //Reason_Club_valid();
-                               }
-                               print(list);
-                             },
-                           ),
-                         ],
-                       ),
-                     );
-                   }
-                   else{
-                     return Scaffold();
-                   }
-
-                 }
-                 else{
-                   return Scaffold();
-                 }
-                 }
-             );
-            } else {
-              return Container(
-                child: Center(child: StudentsSearching(context)),
-                color: Colors.white,
-              );
-            }
-          });
-    }
+                                              content: Container(
+                                            height: sHeight(15, context),
+                                            width: sWidth(60, context),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                    "Do you want to Submit the Attendance?"),
+                                                SizedBox(
+                                                  height: sHeight(5, context),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    InkWell(
+                                                      child: Container(
+                                                        height:
+                                                            sHeight(5, context),
+                                                        width:
+                                                            sWidth(17, context),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          color: Colors.red,
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                          "NO",
+                                                          style: ErrorText(),
+                                                        )),
+                                                      ),
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    InkWell(
+                                                      child: Container(
+                                                        height:
+                                                            sHeight(5, context),
+                                                        width:
+                                                            sWidth(17, context),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          color: Colors.green,
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                          "Yes",
+                                                          style: ErrorText(),
+                                                        )),
+                                                      ),
+                                                      onTap: () async {
+                                                        if (One_Fn != -1) {
+                                                          print(
+                                                              "${One_Fn!.toInt()}");
+                                                          await Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => ClubAttfinal(
+                                                                      username:
+                                                                          widget
+                                                                              .username,
+                                                                      Session:
+                                                                          One_Fn!
+                                                                              .toInt(),
+                                                                      password:
+                                                                          widget
+                                                                              .password,
+                                                                      id: widget
+                                                                          .id,
+                                                                      Studentid:
+                                                                          list,
+                                                                      Terms: AttendId
+                                                                          .toString(),
+                                                                      Funtionid:
+                                                                          widget
+                                                                              .Funtionid)));
+                                                          print(One_Both);
+                                                        } else if (One_An !=
+                                                            -1) {
+                                                          await Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => ClubAttfinal(
+                                                                      username:
+                                                                          widget
+                                                                              .username,
+                                                                      password:
+                                                                          widget
+                                                                              .password,
+                                                                      Session:
+                                                                          One_An!
+                                                                              .toInt(),
+                                                                      id: widget
+                                                                          .id,
+                                                                      Studentid:
+                                                                          list,
+                                                                      Terms: AttendId
+                                                                          .toString(),
+                                                                      Funtionid:
+                                                                          widget
+                                                                              .Funtionid)));
+                                                          print(One_An);
+                                                        } else if (One_Both !=
+                                                            -1) {
+                                                          await Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => ClubAttfinal(
+                                                                      username:
+                                                                          widget
+                                                                              .username,
+                                                                      password:
+                                                                          widget
+                                                                              .password,
+                                                                      Session:
+                                                                          One_Both!
+                                                                              .toInt(),
+                                                                      id: widget
+                                                                          .id,
+                                                                      Studentid:
+                                                                          list,
+                                                                      Terms: AttendId
+                                                                          .toString(),
+                                                                      Funtionid:
+                                                                          widget
+                                                                              .Funtionid)));
+                                                          print(One_Fn);
+                                                        } else if (One_Both !=
+                                                            -1) {
+                                                          await Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => ClubAttfinal(
+                                                                      username:
+                                                                          widget
+                                                                              .username,
+                                                                      password:
+                                                                          widget
+                                                                              .password,
+                                                                      Session:
+                                                                          One_Both!
+                                                                              .toInt(),
+                                                                      id: widget
+                                                                          .id,
+                                                                      Studentid:
+                                                                          list,
+                                                                      Terms: AttendId
+                                                                          .toString(),
+                                                                      Funtionid:
+                                                                          widget
+                                                                              .Funtionid)));
+                                                          print(One_Fn);
+                                                        }
+                                                      },
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          )));
+                                  //Reason_Club_valid();
+                                }
+                                print(list);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Scaffold();
+                    }
+                  } else {
+                    return Scaffold();
+                  }
+                });
+          } else {
+            return Container(
+              child: Center(child: StudentsSearching(context)),
+              color: Colors.white,
+            );
+          }
+        });
   }
-
+}
 
 class ClubAttfinal extends StatefulWidget {
-  const ClubAttfinal({Key? key,required this.Terms, required this.Session, required this.username, required this.password, required this.id,required this.Studentid, required this.Funtionid}) : super(key: key);
+  const ClubAttfinal(
+      {Key? key,
+      required this.Terms,
+      required this.Session,
+      required this.username,
+      required this.password,
+      required this.id,
+      required this.Studentid,
+      required this.Funtionid})
+      : super(key: key);
   final String username;
   final String password;
   final int id;
@@ -5389,103 +5927,107 @@ class ClubAttfinal extends StatefulWidget {
 }
 
 class _ClubAttfinalState extends State<ClubAttfinal> {
-late Future <ClubFinalAttend_List> AttendFinalClub;
-late Future<ClubAttend_List> ClubAttend_API;
-String CirATdate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+  late Future<ClubFinalAttend_List> AttendFinalClub;
+  late Future<ClubAttend_List> ClubAttend_API;
+  String CirATdate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
-@override
-void initState() {
-  // TODO: implement initState
-  super.initState();
-  Club_Final_Network attendclubnetwork = Club_Final_Network("clubstudattend?StaffCode=${widget.username}&SettingId=0&ClubId=${widget.Funtionid}&Date=${CirATdate}&SemSettingId=9&StudId=${widget.Studentid.toString()}&AttendanceId=${widget.Terms}&Session=${widget.Session.toInt()}&Password=${widget.password}");
-  AttendFinalClub = attendclubnetwork.FinalClub_LoadData();
-}
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Club_Final_Network attendclubnetwork = Club_Final_Network(
+        "clubstudattend?StaffCode=${widget.username}&SettingId=0&ClubId=${widget.Funtionid}&Date=${CirATdate}&SemSettingId=9&StudId=${widget.Studentid.toString()}&AttendanceId=${widget.Terms}&Session=${widget.Session.toInt()}&Password=${widget.password}");
+    AttendFinalClub = attendclubnetwork.FinalClub_LoadData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: AttendFinalClub,
-        builder: (context, AsyncSnapshot<ClubFinalAttend_List> Finalsnapshot){
-        if(Finalsnapshot.hasError){
-          ErrorShowingWidget(context);
-        }
-        print(Finalsnapshot.hasError);
-        List<ClubFinalAttend_Data> data_club;
-        if(Finalsnapshot.hasData){
-          data_club = Finalsnapshot.data!.ClubAtted_List;
-          if(data_club.length>0){
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  'Club Attendance',
-                  style: PrimaryText(context),
+        future: AttendFinalClub,
+        builder: (context, AsyncSnapshot<ClubFinalAttend_List> Finalsnapshot) {
+          if (Finalsnapshot.hasError) {
+            ErrorShowingWidget(context);
+          }
+          print(Finalsnapshot.hasError);
+          List<ClubFinalAttend_Data> data_club;
+          if (Finalsnapshot.hasData) {
+            data_club = Finalsnapshot.data!.ClubAtted_List;
+            if (data_club.length > 0) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    'Club Attendance',
+                    style: PrimaryText(context),
+                  ),
+                  centerTitle: true,
+                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  elevation: 05.0,
                 ),
-                centerTitle: true,
-                backgroundColor: Color.fromRGBO(255, 98, 118, 1),
-                elevation: 05.0,
-              ),
-              backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
-              body: Builder(
-                  builder: (BuildContext context) => SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Center(
-
-                      child: Column(
-                        children: [
-                          SizedBox(height: sHeight(20, context),),
-                          for (int i = data_club.length - 1; i >= 0; i--)
-                          Text(
-                            "${data_club[i].msg}", style: PrimaryText2Big(),
-                          ),
-                          InkWell(
-                            child: Container(
-                                margin: EdgeInsets.only(top: 50.0),
-                                width: sWidth(50, context),
-                                height: sHeight(7, context),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(20.0),
+                backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+                body: Builder(
+                    builder: (BuildContext context) => SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: sHeight(20, context),
                                 ),
-                                child: Center(
-                                  child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
-                                )),
-                            onTap: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
+                                for (int i = data_club.length - 1; i >= 0; i--)
+                                  Text(
+                                    "${data_club[i].msg}",
+                                    style: PrimaryText2Big(),
+                                  ),
+                                InkWell(
+                                  child: Container(
+                                      margin: EdgeInsets.only(top: 50.0),
+                                      width: sWidth(50, context),
+                                      height: sHeight(7, context),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      child: Center(
+                                        child: Text("OK",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20)),
+                                      )),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                  )),
-            );
-          }else{
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  'Club Attendance',
-                  style: PrimaryText(context),
+                        )),
+              );
+            } else {
+              return Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    'Club Attendance',
+                    style: PrimaryText(context),
+                  ),
+                  centerTitle: true,
+                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  elevation: 05.0,
                 ),
-                centerTitle: true,
-                backgroundColor: Color.fromRGBO(255, 98, 118, 1),
-                elevation: 05.0,
-              ),
-              body: Container(
-                child: Center(child: Image.asset(
-                    "images/Dataimg/data_not_found.png")),
-                color: Colors.white,
-              ),
+                body: Container(
+                  child: Center(
+                      child: Image.asset("images/Dataimg/data_not_found.png")),
+                  color: Colors.white,
+                ),
+              );
+            }
+          } else {
+            return Container(
+              child: Center(child: StudentsSearching(context)),
+              color: Colors.white,
             );
           }
-        }
-        else{
-          return Container(
-            child: Center(child: StudentsSearching(context)),
-            color: Colors.white,
-          );
-        }
-        }
-    );
+        });
   }
 }
-

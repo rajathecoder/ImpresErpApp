@@ -201,6 +201,30 @@ class _StudentHomePageState extends State<StudentHomePage> {
       }),
     );
   }*/
+  Widget Attendance_Widget(){
+    return InkWell(
+        child: Container(
+          margin: EdgeInsets.all(8),
+          width: MediaQuery.of(context).size.width / 2.4,
+          height: 80,
+          decoration: PrimaryRoundBox1(),
+          child: Row(
+            children: [
+              SizedBox(width: sWidth(3, context),),
+              Image.asset("images/introscreen/attendance.png",scale: 3,),
+              SizedBox(width: sWidth(2, context),),
+              Center(
+                child: Text("Attendance", style: SecondaryText1()),
+              ),
+            ],
+          ),
+        ),
+        onTap: (){
+          checkInternet();
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> StudentAttendance(username: widget.username, password: widget.password,)));
+        }
+    );
+  }
   Widget InterNal_Widget(){
     return InkWell(
         child: Container(
@@ -226,30 +250,6 @@ class _StudentHomePageState extends State<StudentHomePage> {
               StudentInternalMark(username: widget.username,
                 password: widget.password,)));
           print(isConnected);
-        }
-    );
-  }
-  Widget Attendance_Widget(){
-    return InkWell(
-        child: Container(
-          margin: EdgeInsets.all(8),
-          width: MediaQuery.of(context).size.width / 2.4,
-          height: 80,
-          decoration: PrimaryRoundBox1(),
-          child: Row(
-            children: [
-              SizedBox(width: sWidth(3, context),),
-              Image.asset("images/introscreen/attendance.png",scale: 3,),
-              SizedBox(width: sWidth(2, context),),
-              Center(
-                child: Text("Attendance", style: SecondaryText1()),
-              ),
-            ],
-          ),
-        ),
-        onTap: (){
-          checkInternet();
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> StudentAttendance(username: widget.username, password: widget.password,)));
         }
     );
   }
@@ -765,7 +765,19 @@ class _StudentHomePageState extends State<StudentHomePage> {
                                                           child: Text('${data[0].StudentName}',textAlign: TextAlign.left, maxLines: 1,
                                                               overflow: TextOverflow.ellipsis , style: TextStyle(fontWeight:
                                                               FontWeight.w900,fontSize: 20,color: Colors.red)),
-                                                        )
+                                                        ),
+                                                        Container(
+                                                          width: sWidth(40, context),
+                                                          child: Text('${data[0].RollNum.toUpperCase()}',textAlign: TextAlign.left, maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis ,  style: TextStyle(fontWeight:
+                                                              FontWeight.w900,fontSize: 20,color: Colors.deepPurple)),
+                                                        ),
+                                                        Container(
+                                                          width: sWidth(40, context),
+                                                          child: Text('${data[0].CourseFullName}',textAlign: TextAlign.left, maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis ,  style: TextStyle(fontWeight:
+                                                              FontWeight.w900,fontSize: 20,color: Colors.black54)),
+                                                        ),
                                                       ],
                                                     ),
                                                     SizedBox(width: sWidth(5, context),),
@@ -800,10 +812,10 @@ class _StudentHomePageState extends State<StudentHomePage> {
                                         physics: NeverScrollableScrollPhysics(),
                                         childAspectRatio: 2,
                                         children: [
-                                          if(status.contains("1Internal Marks - Students"))
-                                            InterNal_Widget(),
                                           if(status.contains("1Attendance - Students"))
                                             Attendance_Widget(),
+                                          if(status.contains("1Internal Marks - Students"))
+                                            InterNal_Widget(),
                                           if(status.contains("1Time Table - Students"))
                                            TimeTable_Widget(),
                                           if(status.contains("1University Marks - Students"))

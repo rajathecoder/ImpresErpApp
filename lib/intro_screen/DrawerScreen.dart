@@ -500,9 +500,10 @@ class _AboutUsState extends State<AboutUs> {
                       width: sWidth(90, context),
                       child: Column(
                     children: [
-                      Text("Impress ERP is a college automation software"
-                          "product by Subiksham Software Solutions Private"
-                          "Limited, Coimbatore.",style: TextStyle(fontSize: 18,)),
+                      Text("IMPRES ERP "),
+                      Text("is a College Automation Software"
+                          " product by M/s Subiksham Software Solutions Private"
+                          " Limited, Coimbatore.",style: TextStyle(fontSize: 18,)),
 
                       SizedBox(
                         height: sHeight(3, context),

@@ -202,7 +202,8 @@ Widget AttendanceClassList(
                           Icons.arrow_forward_ios_sharp,
                           color: Colors.white,
                         )),
-                  ) : InkWell(
+                  ) :
+                  InkWell(
                     child: CircleAvatar(
                         backgroundColor: Colors.grey,
                         child: Icon(
@@ -418,7 +419,9 @@ Widget AttendanceClassList(
       ],
     );
   }
-}
+ {
+
+    }}
 
 Widget StudentListGenerator(BuildContext context, StudentListAPI_data data,
         List<int> StudentList) =>
@@ -3725,18 +3728,41 @@ Widget StaffCircularGenerator(
                   height: sHeight(2, context),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Date :",
-                      style: TextStyle(color: Colors.black54),
-                    ),
                     Container(
                         margin: EdgeInsets.only(top: 2, left: 0),
                         height: 20.0,
                         child: SizedBox(
-                            child: Text(" ${data.CircularDate}",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700)))),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Date :",
+                                  style: TextStyle(color: Colors.black54),
+                                ),
+                                Text(" ${data.CircularDate}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700)),
+                              ],
+                            ),
+                        )
+                    ), Container(
+                        margin: EdgeInsets.only(top: 2, left: 0),
+                        height: 20.0,
+                        child: SizedBox(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Day :",
+                                  style: TextStyle(color: Colors.black54),
+                                ),
+                                Text(" ${data.Day}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700)),
+                              ],
+                            ),
+                        )
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -3828,18 +3854,37 @@ Widget StaffCircularGenerator(
                   height: sHeight(2, context),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Date :",
-                      style: TextStyle(color: Colors.black54),
-                    ),
                     Container(
                         margin: EdgeInsets.only(top: 2, left: 0),
                         height: 20.0,
                         child: SizedBox(
-                            child: Text(" ${data.CircularDate}",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700)))),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Date :",
+                                  style: TextStyle(color: Colors.black54),
+                                ),
+                                Text(" ${data.CircularDate}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700)),
+                              ],
+                            ))),Container(
+                        margin: EdgeInsets.only(top: 2, left: 0),
+                        height: 20.0,
+                        child: SizedBox(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Day :",
+                                  style: TextStyle(color: Colors.black54),
+                                ),
+                                Text(" ${data.Day}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700)),
+                              ],
+                            ))),
                   ],
                 ),
                 SizedBox(
@@ -4440,30 +4485,7 @@ Widget StaffLibraryGenerator(
                                         children: [
                                           Container(
                                             child: Text(
-                                              "Remark",
-                                              style: SecondaryText(),
-                                            ),
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "${data[index].Remark}",
-                                              style: SecondaryText4(),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: sHeight(1, context),
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "Issue  ",
+                                              "Issue Date",
                                               style: SecondaryText(),
                                             ),
                                           ),
@@ -4486,7 +4508,7 @@ Widget StaffLibraryGenerator(
                                         children: [
                                           Container(
                                             child: Text(
-                                              "Due ",
+                                              "Due Date",
                                               style: SecondaryText(),
                                             ),
                                           ),
@@ -4509,13 +4531,58 @@ Widget StaffLibraryGenerator(
                                         children: [
                                           Container(
                                             child: Text(
-                                              "Amount ",
+                                              "Return Date ",
                                               style: SecondaryText(),
                                             ),
                                           ),
                                           Container(
                                             child: Text(
-                                              "₹ ${data[index].OverDueAmount}",
+                                              "${data[index].ReturnDate}",
+                                              style: SecondaryText4(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: sHeight(1, context),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              "Remark ",
+                                              style: SecondaryText(),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              " ${data[index].Remark}",
+                                              style: SecondaryText4(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: sHeight(1, context),
+                                    ),Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              "Over Due ",
+                                              style: SecondaryText(),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              " ₹ ${data[index].OverDueAmount}",
                                               style: SecondaryText4(),
                                             ),
                                           ),
@@ -4759,30 +4826,7 @@ Widget StaffLibraryGenerator(
                                           children: [
                                             Container(
                                               child: Text(
-                                                "Remark",
-                                                style: SecondaryText(),
-                                              ),
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                "${data[index+1].Remark}",
-                                                style: SecondaryText4(),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: sHeight(1, context),
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              child: Text(
-                                                "Issue  ",
+                                                "Issue Date",
                                                 style: SecondaryText(),
                                               ),
                                             ),
@@ -4805,7 +4849,7 @@ Widget StaffLibraryGenerator(
                                           children: [
                                             Container(
                                               child: Text(
-                                                "Due ",
+                                                "Due Date  ",
                                                 style: SecondaryText(),
                                               ),
                                             ),
@@ -4819,6 +4863,51 @@ Widget StaffLibraryGenerator(
                                         ),
                                       ),
                                       SizedBox(
+                                        height: sHeight(1, context),
+                                      ),
+                                      Container(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              child: Text(
+                                                "Return Date ",
+                                                style: SecondaryText(),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "${data[index+1].ReturnDate}",
+                                                style: SecondaryText4(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: sHeight(1, context),
+                                      ),
+                                      Container(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              child: Text(
+                                                "Remark ",
+                                                style: SecondaryText(),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "${data[index + 1].Remark}",
+                                                style: SecondaryText4(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),SizedBox(
                                         height: sHeight(1, context),
                                       ),
                                       Container(

@@ -113,6 +113,11 @@ TextStyle PrimaryText4() => TextStyle(
   fontWeight: FontWeight.w700,
   color: Colors.black,
 );
+TextStyle PrimaryText8() => TextStyle(
+  fontSize: 10,
+  fontWeight: FontWeight.w700,
+  color: Colors.deepPurple,
+);
 TextStyle PrimaryText7() => TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w700,

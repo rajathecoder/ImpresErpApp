@@ -576,6 +576,8 @@ class _StudentAttendanceState extends State<StudentAttendance> {
       ],
     ));
   }
+  List<int> numericalDataList = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10];
+
   startStreaming(){
     subscription = Connectivity().onConnectivityChanged.listen((event)async {
       checkInternet();
@@ -885,7 +887,7 @@ class _StudentAttendanceAbstansiaState extends State<StudentAttendanceAbstansia>
                                     ),
                                     toolbarHeight: 70,
                                     backgroundColor: PrimaryColor(),
-                                    elevation: 20.0,
+                                    elevation: 5.0,
                                     actions: <Widget>[
 
                                     ],
@@ -899,6 +901,243 @@ class _StudentAttendanceAbstansiaState extends State<StudentAttendanceAbstansia>
                                                 SizedBox(
                                                   height: sHeight(1.5, context),
                                                 ),
+                                               /* Column(
+                                                  children: [
+                                                    SizedBox(height: sHeight(2, context),),
+                                                    Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text("       ${Attendancedata.SemesterName}",style: TextStyle(fontSize: 18,color: Colors.green,fontWeight: FontWeight.w900),),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: sHeight(2.5, context),),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        Column(
+                                                          children: [
+                                                            Text("Sem  ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Text("${Attendancedata.SemesterNumber}",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Container(
+                                                              width: sWidth(15, context),
+                                                              decoration: BoxDecoration(
+                                                                  color: Color(0xFFE23F8B),
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5),)),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                  Center(
+                                                                    child: Text("Days",style: TextStyle(fontSize: 10,color: Colors.white,fontWeight: FontWeight.w600),),
+                                                                  ),
+                                                                  Center(
+                                                                    child: Text("${Attendancedata.TotalDays}",style: TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.w900),),
+                                                                  ),
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Container(
+                                                              width: sWidth(15, context),
+                                                              decoration: BoxDecoration(
+                                                                  color: Color(0xFFE23F8B),
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5),)),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                  Center(
+                                                                    child: Text("Hours",style: TextStyle(fontSize: 10,color: Colors.white,fontWeight: FontWeight.w600),),
+                                                                  ),
+                                                                  Center(
+                                                                    child: Text("${Attendancedata.TotalHours}",style: TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.w900),),
+                                                                  ),
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Text("Year  ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Text("${Attendancedata.Year}",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Container(
+                                                              width: sWidth(15, context),
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.green,
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5),)),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                  Center(
+                                                                    child: Text("Pre",style: TextStyle(fontSize: 10,color: Colors.white,fontWeight: FontWeight.w600),),
+                                                                  ),
+                                                                  Center(
+                                                                    child: Text("${Attendancedata.DaysPresent}",style: TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.w900),),
+                                                                  ),
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Container(
+                                                              width: sWidth(15, context),
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.green,
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5),)),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                  Center(
+                                                                    child: Text("Pre",style: TextStyle(fontSize: 10,color: Colors.white,fontWeight: FontWeight.w600),),
+                                                                  ),
+                                                                  Center(
+                                                                    child: Text("${Attendancedata.HoursPresent}",style: TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.w900),),
+                                                                  ),
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Text("From  ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Text("${Attendancedata.AttendanceFromDate}",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Container(
+                                                              width: sWidth(15, context),
+                                                              decoration: BoxDecoration(
+                                                                  color: Color(0XFFF5BADF2),
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5),)),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                  Center(
+                                                                    child: Text("Abs",style: TextStyle(fontSize: 10,color: Colors.white,fontWeight: FontWeight.w600),),
+                                                                  ),
+                                                                  Center(
+                                                                    child: Text("${Attendancedata.DayAbsent}",style: TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.w900),),
+                                                                  ),
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Container(
+                                                              width: sWidth(15, context),
+                                                              decoration: BoxDecoration(
+                                                                  color: Color(0XFFF5BADF2),
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5),)),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                  Center(
+                                                                    child: Text("Abs",style: TextStyle(fontSize: 10,color: Colors.white,fontWeight: FontWeight.w600),),
+                                                                  ),
+                                                                  Center(
+                                                                    child: Text("${Attendancedata.HoursAbsent}",style: TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.w900),),
+                                                                  ),
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Text("To  ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Text("${Attendancedata.AttendanceToDate}",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Container(
+                                                              width: sWidth(15, context),
+                                                              decoration: BoxDecoration(
+                                                                  color: Color(0XFFF97A52),
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5),)),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                  Center(
+                                                                    child: Text("Per%",style: TextStyle(fontSize: 10,color: Colors.white,fontWeight: FontWeight.w600),),
+                                                                  ),
+                                                                  Center(
+                                                                    child: Text("${Attendancedata.DaysPresentPercentage}",style: TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.w900),),
+                                                                  ),
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: sHeight(1, context),),
+                                                            Container(
+                                                              width: sWidth(15, context),
+                                                              decoration: BoxDecoration(
+                                                                  color: Color(0XFFF97A52),
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5),)),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                  Center(
+                                                                    child: Text("Per%",style: TextStyle(fontSize: 10,color: Colors.white,fontWeight: FontWeight.w600),),
+                                                                  ),
+                                                                  Center(
+                                                                    child: Text("${Attendancedata.HoursPercentage}",style: TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.w900),),
+                                                                  ),
+                                                                  SizedBox(height: sHeight(1, context),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: sHeight(2.5, context),),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        InkWell(
+                                                          child: Container(
+                                                            margin: EdgeInsets.only(right: 25),
+                                                            height: sHeight(5, context),
+                                                            width: sWidth(30, context),
+                                                            decoration: BoxDecoration(
+                                                              color:
+                                                              Color(0XFF7C6AFF),
+                                                              borderRadius: BorderRadius.all(
+                                                                Radius.circular(10),
+                                                              ),
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                'View More',
+                                                                style: TextStyle(
+                                                                    color: Colors.white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          onTap: () {
+
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (BuildContext context) => StudentAttendanceAbstansia(
+                                                                      username: username,
+                                                                      SemestedID: Attendancedata.SemesterId.toString(),
+                                                                      SemNo: SemNo,
+                                                                      password: password,
+                                                                    )));
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: sHeight(2, context),),
+                                                  ],
+                                                ),*/
                                                 Container(
                                                   margin: EdgeInsets.only(left: 20,right: 20),
                                                   width: sWidth(90, context),
@@ -918,10 +1157,14 @@ class _StudentAttendanceAbstansiaState extends State<StudentAttendanceAbstansia>
                                                             widget.username,
                                                             widget.SemNo,
                                                             widget.password),
-                                                        SizedBox(
-                                                          height: sHeight(2, context),
-                                                        ),
                                                         // Text("SEM NO: $SemNo "),
+                                                        /*Divider(
+                                                          height: 10,
+                                                          thickness: 1,
+                                                          indent: 5.0,
+                                                          endIndent: 5.0,
+                                                          color: LineColor2(),
+                                                        ),*/
                                                         AbstantiaDetailsDesignTitle(context),
                                                         for (int i =
                                                             absdata.length -
@@ -1008,6 +1251,7 @@ class StudentAttendanceDetails extends StatefulWidget {
 }
 
 class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
+
   late Future<AttendanceData_List> AttendanceAPIData;
   late Future<Data_List> APIData;
   late Future<AttendanceDetailsData_List> AttendanceDetailsData;
@@ -1161,13 +1405,22 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
                                                                   margin: EdgeInsets.only(
                                                                       left: 30.0, top: 20.0),
                                                                   child: Text(
-                                                                      "Sem No : ${detailsdata[0].Semester.toString()}",
+                                                                      "Semester  : ${detailsdata[0].Semester.toString()}",
                                                                       style: PrimaryText2()),
                                                                 ),
                                                               ],
                                                             ),
+                                                            Divider(
+                                                       height: 20,
+                                                       thickness: 2,
+                                                       indent: 20.0,
+                                                       endIndent: 20.0,
+                                                       color: LineColor2(),
+                                                     ),
                                                             DisplayAttendanceDetails(
                                                                 context, detailsdata),
+                                                            Text(" ********** End Of Statement ********** "),
+                                                            SizedBox(height: sHeight(3, context),)
                                                           ],
                                                         ),
                                                       ),
@@ -1930,7 +2183,7 @@ class _StudentHolidayState extends State<StudentHoliday> {
                             Holidaydata = snapshot.data!.Holidaydata_list;
                             if (Holidaydata.length > 0) {
                               return Scaffold(
-                                backgroundColor: Color.fromRGBO(242,249,255,0.9),
+                                //backgroundColor: Color.fromRGBO(211,223,253,0.9),
                                 appBar: AppBar(
                                   title: Text("Holidays",
                                       style: PrimaryText(context)),
@@ -3340,13 +3593,13 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                                                          Text('${data[0].BatchYear}',style: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w600),)
                                                        ],
                                                      ),
-                                                     Divider(
+                                                     /*Divider(
                                                        height: 20,
                                                        thickness: 1,
                                                        indent: 20.0,
                                                        endIndent: 20.0,
                                                        color: LineColor2(),
-                                                     ),
+                                                     ),*/
                                                      StudentExamCertificateGenerator(context,ExamCertificatedata[i],),
                                                    ],
                                                  ),
@@ -4221,7 +4474,7 @@ class _Homepage3State extends State<Homepage3> {
                                             child: Text('Marks',style: TextStyle(color: Colors.black),),
                                           ),
                                           Tab(
-                                            child: Text('Marksheets',style: TextStyle(color: Colors.black),),
+                                            child: Text('Marksheets \n Download',style: TextStyle(color: Colors.black),),
                                           ),
 
                                         ],

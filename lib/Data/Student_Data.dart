@@ -183,6 +183,7 @@ class AttendanceNetwork{
 
   Future <AttendanceData_List> AttendanceloadData () async {
     final response = await get(Uri.parse("http://$IpAddress/api/$url"));
+    print("http://$IpAddress/api/$url");
     if (response.statusCode == 200){
       return AttendanceData_List.fromJson(json.decode(response.body));
     }
@@ -530,14 +531,17 @@ class TimetableAPI_data {
 }
 
 class TimetableNetwork{
+
   final String url;
 
   TimetableNetwork(this.url);
 
   Future <TimetableData_List> TimetableloadData () async {
     final response = await get(Uri.parse("http://$IpAddress/api/$url"));
+    print("http://$IpAddress/api/$url");
     if (response.statusCode == 200){
       return TimetableData_List.fromJson(json.decode(response.body));
+
     }
     else{
       throw Exception("Failed to load data");
@@ -612,16 +616,17 @@ class CircularAPI_data {
   final String CreatedDateTime;
   final String Remark;
   final String File;
+  final String Day;
 
 
   CircularAPI_data({required this.CircularDate, required this.Discription, required this.CreatedBy, required this.CreatedDateTime
-    , required this.Remark, required this.File});
+    , required this.Remark, required this.File, required this.Day});
 
   factory CircularAPI_data.fromJson (Map<String, dynamic> Circularapi_test){
     return CircularAPI_data(
       CircularDate: Circularapi_test['CircularDate'], Discription: Circularapi_test['Discription'],
       CreatedBy: Circularapi_test['CreatedBy'], CreatedDateTime: Circularapi_test['CreatedDateTime'],
-      Remark: Circularapi_test['Remark'], File: Circularapi_test['File'],
+      Remark: Circularapi_test['Remark'], File: Circularapi_test['File'], Day: Circularapi_test['Day'],
     );
   }
 }
@@ -633,6 +638,7 @@ class CircularNetwork{
 
   Future <CircularData_List> CircularloadData () async {
     final response = await get(Uri.parse("http://$IpAddress/api/$url"));
+    print("http://$IpAddress/api/$url");
     if (response.statusCode == 200){
       return CircularData_List.fromJson(json.decode(response.body));
     }
@@ -727,6 +733,7 @@ class StudentDCBNetwork{
 
   Future <StudentDCBData_List> StudentDCBloadData () async {
     final response = await get(Uri.parse("http://$IpAddress/api/$url"));
+    print("http://$IpAddress/api/$url");
     if (response.statusCode == 200){
       return StudentDCBData_List.fromJson(json.decode(response.body));
     }
@@ -759,15 +766,17 @@ class StudentDCBHistoryAPI_data {
   final String LastDate;
   final String ReceiptNo;
   final String ReceiptDate;
+  final String Fine;
 
   StudentDCBHistoryAPI_data({required this.Semester, required this.FeeMainHead, required this.Demand, required this.Concession
-    , required this.Paid, required this.Balance, required this.LastDate ,required this.ReceiptNo,required this.ReceiptDate});
+    , required this.Paid,required this.Fine, required this.Balance, required this.LastDate ,required this.ReceiptNo,required this.ReceiptDate});
 
   factory StudentDCBHistoryAPI_data.fromJson (Map<String, dynamic> StudentDCBHistoryapi_test){
     return StudentDCBHistoryAPI_data(
         Semester: StudentDCBHistoryapi_test['Semester'], FeeMainHead: StudentDCBHistoryapi_test['FeeMainHead'],
         Demand: StudentDCBHistoryapi_test['Demand'], Concession: StudentDCBHistoryapi_test['Concession'],
         Paid: StudentDCBHistoryapi_test['Paid'], Balance: StudentDCBHistoryapi_test['Balance'],
+        Fine: StudentDCBHistoryapi_test['Fine'],
         LastDate: StudentDCBHistoryapi_test['LastDate'],ReceiptNo: StudentDCBHistoryapi_test['ReceiptNo'],ReceiptDate: StudentDCBHistoryapi_test['ReceiptDate']
     );
   }
@@ -780,6 +789,7 @@ class StudentDCBHistoryNetwork{
 
   Future <StudentDCBHistoryData_List> StudentDCBHistoryloadData () async {
     final response = await get(Uri.parse("http://$IpAddress/api/$url"));
+    print("http://$IpAddress/api/$url");
     if (response.statusCode == 200){
       return StudentDCBHistoryData_List.fromJson(json.decode(response.body));
     }
