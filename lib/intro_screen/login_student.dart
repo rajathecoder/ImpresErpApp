@@ -185,7 +185,7 @@ class _Login_ScreenState extends State<Login_Screen_Student> {
     if(Check_Stu.length.toString() == 0.toString()){
       await Fluttertoast.showToast(
           backgroundColor: Colors.red,
-          msg: "Wrong User ID or Password",
+          msg: "Wrong User ID and/or Password",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,
@@ -219,7 +219,7 @@ class _Login_ScreenState extends State<Login_Screen_Student> {
       else if(Check_Sta.length.toString() != 1.toString()){
         await Fluttertoast.showToast(
             backgroundColor: Colors.red,
-            msg: "Wrong User ID or Password",
+            msg: "Wrong User ID and/or Password",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.SNACKBAR,
             textColor: Colors.white,
@@ -230,7 +230,7 @@ class _Login_ScreenState extends State<Login_Screen_Student> {
     else if(respl.statusCode != 200){
       await Fluttertoast.showToast(
           backgroundColor: Colors.red,
-          msg: "Wrong User ID or Password",
+          msg: "Wrong User ID and/or Password",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,
@@ -254,18 +254,18 @@ class _Login_ScreenState extends State<Login_Screen_Student> {
       else if(Check_Ad.length.toString() == 0.toString()){
         await Fluttertoast.showToast(
             backgroundColor: Colors.red,
-            msg: "Wrong User ID or Password",
+            msg: "Wrong User ID and/or Password",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.SNACKBAR,
             textColor: Colors.white,
-            fontSize: 16.0
+            fontSize: 16.0,
         );
       }
     }
     else if(respl.statusCode != 200){
       await Fluttertoast.showToast(
           backgroundColor: Colors.red,
-          msg: "Wrong User ID or Password",
+          msg: "Wrong User ID and/or Password",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,
@@ -316,7 +316,7 @@ class _Login_ScreenState extends State<Login_Screen_Student> {
         else if(UserID.toString() == 0.toString()){
           await Fluttertoast.showToast(
               backgroundColor: Colors.red,
-              msg: "Wrong User ID or Password",
+              msg: "Wrong User ID and/or Password",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.SNACKBAR,
               textColor: Colors.white,
@@ -341,7 +341,7 @@ class _Login_ScreenState extends State<Login_Screen_Student> {
           else if(UserID.toString() == 0.toString()){
             await Fluttertoast.showToast(
                 backgroundColor: Colors.red,
-                msg: "Wrong User ID or Password",
+                msg: "Wrong User ID and/or Password",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.SNACKBAR,
                 textColor: Colors.white,

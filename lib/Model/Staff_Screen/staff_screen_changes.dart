@@ -1199,6 +1199,15 @@ class _StaffCircularState extends State<StaffCircular> {
               );
             } else {
               return Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    "Circulars",
+                    style: PrimaryText(context),
+                  ),
+                  centerTitle: true,
+                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  elevation: 20.0,
+                ),
                 body: Builder(
                     builder:(BuildContext context) => ListView(
                       scrollDirection: Axis.vertical,
@@ -1209,9 +1218,17 @@ class _StaffCircularState extends State<StaffCircular> {
               );
             }
           } else {
-            return Container(
-              child: Center(child: SearchingDataLottie(context)),
-              color: Colors.white,
+            return Scaffold(
+                appBar: AppBar(
+                title: Text(
+                "Circulars",
+                style: PrimaryText(context),
+          ),
+                  backgroundColor: Color(0xFFF84259),),
+              body: Container(
+                child: Center(child: SearchingDataLottie(context)),
+                color: Colors.white,
+              ),
             );
           }
         });
@@ -3121,8 +3138,6 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
     }
   }
 }
-
-
 
 class Staff_Lib_Home extends StatefulWidget {
   const Staff_Lib_Home({Key? key,required this.staffID, required this.StaffAPI, }) : super(key: key);

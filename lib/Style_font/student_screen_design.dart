@@ -27,6 +27,7 @@ double sWidth(double per, BuildContext context){
   double w = MediaQuery.of(context).size.width;
   return w * per / 100;
 }
+
 void SetAttendanceHours(int value){
   AttendanceHou = value;
 }
@@ -491,46 +492,49 @@ Widget InfoDesignAttendance(BuildContext context, String title,
           margin: EdgeInsets.only(left: 15.0),
           child: Text(title, style: PrimaryText2Big()),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Container(
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
 
-              child: Text("Sem No: $SemNo", style: TextStyle(fontSize: 20,fontWeight: FontWeight.w800)),
-            ),
-            InkWell(
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: 20.0,
-                  // bottom: 20.0,
-                ),
-                width: sWidth(28, context),
-                height: sHeight(6, context),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(8, 197, 110, 1),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    'Full Details',
-                    style: TextStyle(color: Colors.white, fontSize: 14,fontWeight: FontWeight.w900),
-                  ),
-                ),
+                child: Text("Semester : $SemNo", style: TextStyle(fontSize: 20,fontWeight: FontWeight.w800)),
               ),
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          StudentAttendanceDetails(
-                            username: username,
-                            SemestedID: semesterID,
-                            password: password,
-                            SemNo: SemNo,
-                          ))),
-            ),
-          ],
+              InkWell(
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: 20.0,
+                    // bottom: 20.0,
+                  ),
+                  width: sWidth(28, context),
+                  height: sHeight(6, context),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(8, 197, 110, 1),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Full Details',
+                      style: TextStyle(color: Colors.white, fontSize: 14,fontWeight: FontWeight.w900),
+                    ),
+                  ),
+                ),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            StudentAttendanceDetails(
+                              username: username,
+                              SemestedID: semesterID,
+                              password: password,
+                              SemNo: SemNo,
+                            ))),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -743,6 +747,7 @@ Widget AttendanceDetailsDesign(BuildContext context, List<AttendanceDetailsAPI_d
             ],
           ),
         ),
+
       ],
     );
     break;
@@ -1429,6 +1434,13 @@ Widget AbstantiaDetailsDesign(BuildContext context, String date, String day,
           height: 70.0,
           child: Column(
             children: <Widget>[
+              Divider(
+                height: 10,
+                thickness: 1,
+                indent: 5.0,
+                endIndent: 5.0,
+                color: LineColor2(),
+              ),
               Row(
                 children: <Widget>[
                   Container(
@@ -1438,6 +1450,7 @@ Widget AbstantiaDetailsDesign(BuildContext context, String date, String day,
                             textAlign: TextAlign.center,
                             style: PrimaryText4())),
                   ),
+                 // VerticalDivider(width: 10,),
                   Container(
                     width: sWidth(15, context),
                     margin: EdgeInsets.only(left: 10.0),
@@ -1454,8 +1467,16 @@ Widget AbstantiaDetailsDesign(BuildContext context, String date, String day,
                     child: Center(
                         child: Text(grandTotal, style: PrimaryText4())),
                   ),
+
                 ],
               ),
+              /*Divider(
+                height: 10,
+                thickness: 1,
+                indent: 5.0,
+                endIndent: 5.0,
+                color: LineColor2(),
+              ),*/
             ],
           ),
         ),
@@ -1604,17 +1625,14 @@ Widget UniversityTestTitle(UniversityAPI_data data, int minus) => Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text("TEST NAME ", style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900)),
+        Text("UNIVERSITY EXAM MARKS", style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,color: Colors.deepPurple)),
         SizedBox(height: 5,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               child:
-              Text("Semester Test: ${data.SemesterNo}", style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600)),
-            ),
-            Container(
-              child: Text("Sem No: ${data.SemesterNo.toString()}", style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600)),
+              Text("Semester : ${data.SemesterNo}", style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600)),
             ),
           ],
         ),
@@ -2381,7 +2399,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 50.0, top: 10),
                         child: Text("${data.s1}",
-                            style: PrimaryText4(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2423,7 +2441,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s2}",
-                            style: PrimaryText4(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2465,7 +2483,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s3}",
-                            style: PrimaryText4(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2507,7 +2525,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s4}",
-                            style: PrimaryText4(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2575,7 +2593,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 50.0, top: 10),
                         child: Text("${data.s1}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2617,7 +2635,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s2}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2659,7 +2677,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s3}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2701,7 +2719,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s4}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2743,7 +2761,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s5}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2811,7 +2829,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 50.0, top: 10),
                         child: Text("${data.s1}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2853,7 +2871,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s2}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2895,7 +2913,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s3}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2937,7 +2955,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s4}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -2979,7 +2997,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s5}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3021,7 +3039,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s6}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3089,7 +3107,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 30,
                         margin: EdgeInsets.only(left: 50.0, top: 10),
                         child: Text("${data.s1}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3131,7 +3149,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s2}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3173,7 +3191,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s3}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3215,7 +3233,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s4}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3257,7 +3275,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s5}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3299,7 +3317,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s6}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3341,7 +3359,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s7}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3409,7 +3427,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 50.0, top: 10),
                         child: Text("${data.s1}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3451,7 +3469,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s2}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3493,7 +3511,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s3}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3535,7 +3553,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s4}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3577,7 +3595,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s5}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3619,7 +3637,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s6}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3661,7 +3679,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s7}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3703,7 +3721,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s8}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3771,7 +3789,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 50.0, top: 10),
                         child: Text("${data.s1}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3813,7 +3831,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s2}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3855,7 +3873,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s3}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3897,7 +3915,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s4}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3939,7 +3957,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s5}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -3981,7 +3999,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s6}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4023,7 +4041,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s7}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4065,7 +4083,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s8}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4107,7 +4125,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s9}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4175,7 +4193,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 50.0, top: 10),
                         child: Text("${data.s1}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4217,7 +4235,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s2}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4259,7 +4277,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s3}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4301,7 +4319,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s4}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4343,7 +4361,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s5}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4385,7 +4403,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s6}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4427,7 +4445,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s7}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4469,7 +4487,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s8}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4511,7 +4529,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s9}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4553,7 +4571,7 @@ Widget StudentsTimetableGenerator(BuildContext context, TimetableAPI_data data) 
                         height: 20,
                         margin: EdgeInsets.only(left: 20.0, top: 10),
                         child: Text("${data.s10}",
-                            style: SecondaryTextSmall1(),
+                            style: PrimaryText8(),
                             textAlign: TextAlign.center),
                       ),
                     ),
@@ -4581,7 +4599,7 @@ Widget StudentsHolidayGenerator(BuildContext context, HolidayAPI_data data) =>
           padding: EdgeInsets.only(right: 10.0, left: 10.0),
           width: sWidth(90, context),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Color.fromRGBO(233,239,255, 1),
             borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
@@ -4604,7 +4622,7 @@ Widget StudentsHolidayGenerator(BuildContext context, HolidayAPI_data data) =>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                      data.Name.length < 20 ?Text("${data.Name.characters.take(20)}",style:
-                                    TextStyle(fontSize: 16,fontWeight: FontWeight.w800),):Text("${data.Name.characters.take(18)}...",style:
+                                    TextStyle(fontSize: 16,fontWeight: FontWeight.w800,color: Color.fromRGBO(26,63,148,1)),):Text("${data.Name.characters.take(18)}...",style:
                                     TextStyle(fontSize: 16,fontWeight: FontWeight.w800),),
                                 SizedBox(
                                   height: sHeight(1, context),
@@ -4649,7 +4667,7 @@ Widget StudentsHolidayGenerator(BuildContext context, HolidayAPI_data data) =>
                         height: sHeight(4, context),
                         width: sWidth(15, context),
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: Colors.blueGrey,
                           borderRadius: BorderRadius.all(
                             Radius.circular(3),
                           ),
@@ -4730,14 +4748,29 @@ Widget StudentsCircularGenerator(BuildContext context, CircularAPI_data data) {
                   ),
                   SizedBox(height: sHeight(1.5, context),),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Date :",style: TextStyle(color: Colors.black54),),
                       Container(
                           margin: EdgeInsets.only(top: 2, left: 0),
                           height: 20.0,
                           child: SizedBox(
-                              child: Text(" ${data.CircularDate}",
-                                  style: TextStyle(fontWeight: FontWeight.w700)))),
+                              child: Row(
+                                children: [
+                                  Text("Date :",style: TextStyle(color: Colors.black54),),
+                                  Text(" ${data.CircularDate}",
+                                      style: TextStyle(fontWeight: FontWeight.w700)),
+                                ],
+                              ))), Container(
+                          margin: EdgeInsets.only(top: 2, left: 0),
+                          height: 20.0,
+                          child: SizedBox(
+                              child: Row(
+                                children: [
+                                  Text("Day :",style: TextStyle(color: Colors.black54),),
+                                  Text("${data.Day} ",
+                                      style: TextStyle(fontWeight: FontWeight.w700)),
+                                ],
+                              ))),
                     ],
                   ),
                   SizedBox(height: sHeight(1.5, context),),
@@ -4890,39 +4923,40 @@ Widget StudentsDCBGenerator(BuildContext context, StudentDCBAPI_data data) =>
                   margin: EdgeInsets.only(top: 5, left: 0),
                   height: 20.0,
                   child: SizedBox(
-                      child: Text("  Fees             :      ${indiaFormat.format(data.Demand)}",
+                      child: Text("  Fee Payable         :      ${indiaFormat.format(data.Demand)}",
                           style: PrimaryText5()))),
               Container(
                   margin: EdgeInsets.only(top: 5, left: 0),
                   height: 20.0,
                   child: SizedBox(
-                      child: Text(" Concession  :      ${indiaFormat.format(data.Concession)}",
+                      child: Text("  Fee Concession  :      ${indiaFormat.format(data.Concession)}",
                           style: PrimaryText5()))),
               Container(
                   margin: EdgeInsets.only(top: 5, left: 0),
                   height: 20.0,
                   child: SizedBox(
-                      child: Text("  Fine              :      ${indiaFormat.format(data.Fine)}",
+                      child: Text("  Fee Paid               :      ${indiaFormat.format(data.Paid)}",
                           style: PrimaryText5()))),
               Container(
                   margin: EdgeInsets.only(top: 5, left: 0),
                   height: 20.0,
                   child: SizedBox(
-                      child: Text("  Paid              :      ${indiaFormat.format(data.Paid)}",
+                      child: Text("  Fine                       :      ${indiaFormat.format(data.Fine)}",
                           style: PrimaryText5()))),
+
               Container(
                   margin: EdgeInsets.only(top: 5, left: 0),
                   height: sHeight(7, context),
                   width: sWidth(100, context),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Color.fromRGBO(220,248,221,1),
                     borderRadius:
                     BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
                   ),
                   child: SizedBox(
                       child: Center(
                         child: Text("Balance       :      ${indiaFormat.format(data.Balance)}",textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 20,fontWeight: FontWeight.w800,color: Colors.white),),
+                            style: TextStyle(fontSize: 19,color: Colors.black,fontWeight: FontWeight.bold),),
                       ))),
               // AttendanceProfile(
               //     "${data.Day}", 10, 0),
@@ -4981,11 +5015,11 @@ Widget StudentsDCBHistoryGenerator(
                                 child: Row(
                                   children: [
                                    data[index].ReceiptNo.toString() == "".toString()? Text(
-                                    "  Receipt no      : -",
+                                    "  Receipt no             : -",
                                       style: PrimaryText5(),
                                       textAlign: TextAlign.start,
                                     ):Text(
-                                "  Receipt no      : ${data[index].ReceiptNo}",                                     style: PrimaryText5(),
+                                "  Receipt no             : ${data[index].ReceiptNo}",                                     style: PrimaryText5(),
                                      textAlign: TextAlign.start,
                                    ),
                                   ],
@@ -4997,18 +5031,18 @@ Widget StudentsDCBHistoryGenerator(
                                   child: Row(
                                     children: [
                                       data[index].ReceiptDate.toString() == "".toString()? Text(
-                                        "  Receipt date  : -",
+                                        "  Receipt date          : -",
                                         style: PrimaryText5(),
                                         textAlign: TextAlign.start,
                                       ):Text(
-                                        "  Receipt date  : ${data[index].ReceiptDate}",                                     style: PrimaryText5(),
+                                        "  Receipt date          : ${data[index].ReceiptDate}",                                     style: PrimaryText5(),
                                         textAlign: TextAlign.start,
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              /*SizedBox(
                                 child: Container(
                                   margin: EdgeInsets.only(top: y),
                                   child: Row(
@@ -5021,14 +5055,14 @@ Widget StudentsDCBHistoryGenerator(
                                     ],
                                   ),
                                 ),
-                              ),
+                              ),*/
                               SizedBox(
                                 child: Container(
                                   margin: EdgeInsets.only(top: y),
                                   child: Row(
                                     children: [
                                       Text(
-                                        "  Fees                 : ${indiaFormat.format(data[index].Demand)}",
+                                        "  Fee Payable           : ${indiaFormat.format(data[index].Demand)}",
                                         style: PrimaryText5(),
                                         textAlign: TextAlign.start,
                                       ),
@@ -5042,7 +5076,7 @@ Widget StudentsDCBHistoryGenerator(
                                   child: Row(
                                     children: [
                                       Text(
-                                          "  Concession    : ${indiaFormat.format(data[index].Concession)}",
+                                          "  Fee Concession    : ${indiaFormat.format(data[index].Concession)}",
                                           style: PrimaryText5(),
                                           textAlign: TextAlign.start),
                                     ],
@@ -5054,7 +5088,19 @@ Widget StudentsDCBHistoryGenerator(
                                   margin: EdgeInsets.only(top: y),
                                   child: Row(
                                     children: [
-                                      Text("  Paid                 : ${indiaFormat.format(data[index].Paid)}",
+                                      Text("  Fine                         : ${data[index].Fine}",
+                                          style: PrimaryText5(),
+                                          textAlign: TextAlign.start),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                child: Container(
+                                  margin: EdgeInsets.only(top: y),
+                                  child: Row(
+                                    children: [
+                                      Text("  Fee Paid                 : ${indiaFormat.format(data[index].Paid)}",
                                           style: PrimaryText5(),
                                           textAlign: TextAlign.start),
                                     ],
@@ -5069,7 +5115,7 @@ Widget StudentsDCBHistoryGenerator(
                             height: sHeight(7, context),
                             width: sWidth(100, context),
                             decoration: BoxDecoration(
-                              color: Colors.green,
+                              color: Color.fromRGBO(220,248,221,1),
                               borderRadius:
                               BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
                             ),
@@ -5077,7 +5123,7 @@ Widget StudentsDCBHistoryGenerator(
                             child: Center(
                               child: Text(
                                   "Balance : ${indiaFormat.format(data[index].Balance)}",
-                                  style: TextStyle(fontSize: 22,fontWeight: FontWeight.w800,color: Colors.white),
+                                  style: TextStyle(fontSize: 19,color: Colors.black,fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.start),
                             ),
                           ),
@@ -5140,11 +5186,11 @@ Widget StudentsDCBHistoryGenerator(
                                     child: Row(
                                       children: [
                                         data[index + 1].ReceiptNo.toString() == "".toString()? Text(
-                                          "  Receipt no      : -",
+                                          "  Receipt no              : -",
                                           style: PrimaryText5(),
                                           textAlign: TextAlign.start,
                                         ):Text(
-                                          "  Receipt no      : ${data[index+ 1].ReceiptNo}",                                     style: PrimaryText5(),
+                                          "  Receipt no              : ${data[index+ 1].ReceiptNo}",                                     style: PrimaryText5(),
                                           textAlign: TextAlign.start,
                                         ),
                                       ],
@@ -5156,18 +5202,18 @@ Widget StudentsDCBHistoryGenerator(
                                       child: Row(
                                         children: [
                                           data[index+1].ReceiptDate.toString() == "".toString()? Text(
-                                            "  Receipt date  : -",
+                                            "  Receipt date          : -",
                                             style: PrimaryText5(),
                                             textAlign: TextAlign.start,
                                           ):Text(
-                                            "  Receipt date  : ${data[index+1].ReceiptDate}",                                     style: PrimaryText5(),
+                                            "  Receipt date          : ${data[index+1].ReceiptDate}",                                     style: PrimaryText5(),
                                             textAlign: TextAlign.start,
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  /*SizedBox(
                                     child: Container(
                                       margin: EdgeInsets.only(top: y),
                                       width: MediaQuery.of(context).size.width,
@@ -5183,7 +5229,7 @@ Widget StudentsDCBHistoryGenerator(
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ),*/
                                   SizedBox(
                                     child: Container(
                                       margin: EdgeInsets.only(top: y),
@@ -5192,7 +5238,7 @@ Widget StudentsDCBHistoryGenerator(
                                         child: Row(
                                           children: [
                                             Text(
-                                              "  Fees               : ${indiaFormat.format(data[index + 1].Demand)}",
+                                              "  Fee Payable           : ${indiaFormat.format(data[index + 1].Demand)}",
                                               style: PrimaryText5(),
                                               textAlign: TextAlign.start,
                                             ),
@@ -5209,7 +5255,7 @@ Widget StudentsDCBHistoryGenerator(
                                         child: Row(
                                           children: [
                                             Text(
-                                                "  Concession   : ${indiaFormat.format(data[index + 1].Concession)}",
+                                                "  Fee Concession    : ${indiaFormat.format(data[index + 1].Concession)}",
                                                 style: PrimaryText5(),
                                                 textAlign: TextAlign.start),
                                           ],
@@ -5225,7 +5271,23 @@ Widget StudentsDCBHistoryGenerator(
                                         child: Row(
                                           children: [
                                             Text(
-                                                "  Paid                : ${indiaFormat.format(data[index + 1].Paid)}",
+                                                "  Fine                         : ${data[index + 1].Fine}",
+                                                style: PrimaryText5(),
+                                                textAlign: TextAlign.start),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    child: Container(
+                                      margin: EdgeInsets.only(top: y),
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Center(
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                                "  Fee Paid                 : ${indiaFormat.format(data[index + 1].Paid)}",
                                                 style: PrimaryText5(),
                                                 textAlign: TextAlign.start),
                                           ],
@@ -5244,7 +5306,7 @@ Widget StudentsDCBHistoryGenerator(
                               height: sHeight(7, context),
                               width: sWidth(100, context),
                               decoration: BoxDecoration(
-                                color: Colors.green,
+                                color: Color.fromRGBO(220,248,221,1),
                                 borderRadius:
                                 BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
                               ),
@@ -5252,7 +5314,7 @@ Widget StudentsDCBHistoryGenerator(
                               child: Center(
                                 child: Text(
                                     "Balance : ${indiaFormat.format(data[index + 1].Balance)}",
-                                    style: TextStyle(fontSize: 22,fontWeight: FontWeight.w800,color: Colors.white),
+                                    style: TextStyle(fontSize: 19,color: Colors.black,fontWeight: FontWeight.bold),
                                     textAlign: TextAlign.start),
                               ),
                             ),

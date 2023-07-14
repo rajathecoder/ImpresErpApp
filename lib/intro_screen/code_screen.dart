@@ -98,7 +98,7 @@ class _code_screenState extends State<code_screen> {
     else{
       await Fluttertoast.showToast(
           backgroundColor: Colors.red,
-          msg: "Entered College Code is Wrong! Please Contact Your System Admin",
+          msg: "Entered College Code is Wrong! Please Contact Your ERP Admin",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,

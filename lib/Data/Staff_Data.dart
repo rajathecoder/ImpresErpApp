@@ -297,11 +297,12 @@ class StaffTimetableNetwork{
 
   Future <StaffTimetableData_List> StaffTimetableloadData () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return StaffTimetableData_List.fromJson(json.decode(response.body));
     }
     else{
-      throw Exception("Failed to load data$StaticIP$url");
+      throw Exception("Failed to load data");
     }
   }
 }
@@ -371,19 +372,27 @@ class StaffCircularAPI_data {
   final String CreatedDateTime;
   final String Remark;
   final String File;
+  final String Day;
 
 
   StaffCircularAPI_data({required this.CircularDate, required this.Discription, required this.CreatedBy, required this.CreatedDateTime
-    , required this.Remark, required this.File});
+    , required this.Remark, required this.File, required this.Day});
 
   factory StaffCircularAPI_data.fromJson (Map<String, dynamic> Circularapi_test){
     return StaffCircularAPI_data(
-      CircularDate: Circularapi_test['CircularDate'], Discription: Circularapi_test['Discription'],
-      CreatedBy: Circularapi_test['CreatedBy'], CreatedDateTime: Circularapi_test['CreatedDateTime'],
-      Remark: Circularapi_test['Remark'], File: Circularapi_test['File'],
+      CircularDate: Circularapi_test['CircularDate'],
+        Discription: Circularapi_test['Discription'],
+      CreatedBy: Circularapi_test['CreatedBy'],
+        CreatedDateTime: Circularapi_test['CreatedDateTime'],
+      Remark: Circularapi_test['Remark'],
+        File: Circularapi_test['File'],
+        Day: Circularapi_test['Day']
     );
   }
 }
+
+// Applvl: leave_status['Applvl'].replaceAll('<b><font color=Blue>', '')
+//           .replaceAll('</font></b>', ''),
 
 class StaffCircularNetwork{
   final String url;
@@ -391,8 +400,8 @@ class StaffCircularNetwork{
   StaffCircularNetwork(this.url);
 
   Future <StaffCircularData_List> StaffCircularloadData () async {
-    print("http://$StaticIP/api/$url");
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return StaffCircularData_List.fromJson(json.decode(response.body));
     }
@@ -435,6 +444,7 @@ class StaffOPACNetwork{
 
   Future <StaffOPACData_List> StaffOPACloadData () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return StaffOPACData_List.fromJson(json.decode(response.body));
     }
@@ -500,6 +510,7 @@ class StaffOPACSearchNetwork{
 
   Future <StaffOPACSearchData_List> StaffOPACSearchloadData () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return StaffOPACSearchData_List.fromJson(json.decode(response.body));
     }
@@ -565,6 +576,7 @@ class LibraryNetwork{
 
   Future <LibraryData_List> LibraryloadData () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return LibraryData_List.fromJson(json.decode(response.body));
     }
@@ -638,6 +650,7 @@ class LeaveBalanceAPI_data {
   final String ShortName;
   final double Balance;
   final int Eligible;
+  final int Typeid;
   final String MonthName;
   final String YearName;
   final String LeaveName;
@@ -651,6 +664,7 @@ class LeaveBalanceAPI_data {
     , required this.YearName, required this.LeaveName,
     required this.day,
     required this.month,
+    required this.Typeid,
     required this.year, required this.acadYear,
   });
 
@@ -662,6 +676,7 @@ class LeaveBalanceAPI_data {
       day: LeaveBalanceapi_test['Day'],
       month: LeaveBalanceapi_test["Month"],
       year: LeaveBalanceapi_test["Year"],
+      Typeid: LeaveBalanceapi_test["Typeid"],
       acadYear: LeaveBalanceapi_test['AcadYear'],
     );
   }
@@ -1102,6 +1117,7 @@ class _StaffLoginCheckState extends State<StaffLoginCheck> {
 //Staff's HOD Data Find API
 
 class FindHodData {
+
   final int staffId;
   final String staffName;
 
@@ -1465,6 +1481,50 @@ class Staff_Inbox_Lesson_Network{
   }
 }
 
+//FacultyorHOD
+class FacultyorHod_List{
+  final List<FacultyorHod_Data> Staff_List;
+
+  FacultyorHod_List({required this.Staff_List});
+
+  factory FacultyorHod_List.fromJson(List<dynamic> Faculty_List){
+    List<FacultyorHod_Data> Faculty_list = <FacultyorHod_Data>[];
+    Faculty_list = Faculty_List.map((i) =>FacultyorHod_Data.fromJson(i)).toList();
+    return new FacultyorHod_List(Staff_List: Faculty_list);
+  }
+}
+
+class FacultyorHod_Data{
+  final int abm;
+  final int lawah;
+  final String P;
+  final int t;
+  final int isadm;
+  FacultyorHod_Data({required this.abm,required this.isadm, required this.lawah, required this.P, required this.t});
+  factory FacultyorHod_Data.fromJson (Map<String, dynamic> FacultyHod){
+    return FacultyorHod_Data(
+      isadm: FacultyHod["isadm"],
+      lawah: FacultyHod["lawah"],
+      abm: FacultyHod["abm"],
+      P: FacultyHod["P"],
+      t: FacultyHod["t"],
+    );
+  }
+}
+
+class Faculty_Network{
+  final String url;
+  Faculty_Network(this.url);
+  Future<FacultyorHod_List> Faculty_Data () async{
+    final response = await get(Uri.parse(("http://$StaticIP/api/$url")));
+    if(response.statusCode == 200){
+      return FacultyorHod_List.fromJson(json.decode(response.body));
+    }
+    else{
+      throw Exception("Staffs Inbox List Internal server Error");
+    }
+  }
+}
 
 //Club Function
 class Club_Fun_Data {
@@ -1502,6 +1562,7 @@ class Club_Fun_Network{
   Club_Fun_Network(this.url);
   Future <Club_Fun_Data_List> Fun_club_Data () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return Club_Fun_Data_List.fromJson(json.decode(response.body));
     }
@@ -1510,6 +1571,70 @@ class Club_Fun_Network{
     }
   }
 }
+
+//Leave Status
+class Leave_Status_Data {
+  final String Reason;
+  final String LeaveApplied;
+  final double Days;
+  final String Date;
+  final String Forword;
+  final String Forword2;
+  final String Approved;
+  final String Status;
+  final String Applvl;
+  Leave_Status_Data({
+    required this.Applvl,
+    required this.Approved,
+    required this.Date,
+    required this.Days,
+    required this.Forword,
+    required this.Forword2,
+    required this.LeaveApplied,
+    required this.Reason,
+    required this.Status,
+  });
+  factory Leave_Status_Data.fromJson(Map<String, dynamic> leave_status) {
+    return Leave_Status_Data(
+      Applvl: leave_status['Applvl'].replaceAll('<b><font color=Blue>', '')
+          .replaceAll('</font></b>', ''),
+      Approved: leave_status['Approved'],
+      Date: leave_status['Date'],
+      Days: leave_status['Days'],
+      Forword: leave_status['Forword'],
+      Forword2: leave_status['Forword2'],
+      LeaveApplied: leave_status['LeaveApplied'],
+      Reason: leave_status['Reason'],
+      Status: leave_status['Status'],
+    );
+  }
+}
+
+class Leave_Status_List {
+  final List<Leave_Status_Data> Leave_sts_List;
+
+  Leave_Status_List({required this.Leave_sts_List});
+  factory Leave_Status_List.fromJson(List<dynamic> leavest_list) {
+    List<Leave_Status_Data> leave_sts_list = <Leave_Status_Data>[];
+    leave_sts_list = leavest_list.map((i) => Leave_Status_Data.fromJson(i)).toList();
+    return new Leave_Status_List(Leave_sts_List: leave_sts_list);
+  }
+}
+
+class Leave_Status_Network {
+  final String url;
+  Leave_Status_Network(this.url);
+  Future<Leave_Status_List> Leave_st_data() async {
+    final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
+    if (response.statusCode == 200) {
+      return Leave_Status_List.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Staffs Inbox List Internal server Error");
+    }
+  }
+}
+
 
 //Staff Add Club Function
 
