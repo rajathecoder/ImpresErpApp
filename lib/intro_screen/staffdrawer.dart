@@ -1,28 +1,14 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:add_dev_dolphin/Data/Staff_Data.dart';
-import 'package:add_dev_dolphin/Data/Student_Data.dart';
-import 'package:add_dev_dolphin/Local_Data/notification_database.dart';
 import 'package:add_dev_dolphin/Model/Staff_Screen/staff_main.dart';
-import 'package:add_dev_dolphin/Model/Student_Screen/student_main.dart';
-import 'package:add_dev_dolphin/Model/Student_Screen/student_screen_changes.dart';
 import 'package:add_dev_dolphin/Style_font/designs.dart';
 import 'package:add_dev_dolphin/UI/main_ui.dart';
 import 'package:add_dev_dolphin/intro_screen/DrawerScreen.dart';
 import 'package:add_dev_dolphin/intro_screen/code_screen.dart';
-import 'package:add_dev_dolphin/intro_screen/login_student.dart';
-import 'package:add_dev_dolphin/main.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:intl/intl.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StaffDrawerScreen extends StatefulWidget {
@@ -55,7 +41,7 @@ class _StaffDrawerScreenState extends State<StaffDrawerScreen> {
       shadowLayer1Color: Colors.white38,
       shadowLayer2Color: Colors.white60,
       angle: 0.0,
-      menuBackgroundColor:  Color.fromRGBO(255, 98, 118, 1),
+      menuBackgroundColor:  const Color.fromRGBO(255, 98, 118, 1),
     );
   }
 }
@@ -73,8 +59,6 @@ class StaffMenuScreen extends StatefulWidget {
 class _StaffMenuScreenState extends State<StaffMenuScreen> {
   late Future <StaffData_List> APIData;
   late Future <ModuleData_List> ModuleAPIData;
-
-
   late ConnectivityResult results;
   late StreamSubscription subscription;
   checkInternet()async{
@@ -94,10 +78,10 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -155,7 +139,7 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
                         if(Moduledata.length >0){
                           return
                             Scaffold(
-                            backgroundColor:  Color.fromRGBO(255, 98, 118, 1),
+                            backgroundColor:  const Color.fromRGBO(255, 98, 118, 1),
                             body: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
@@ -179,7 +163,7 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
                                       height: sHeight(7, context),
                                       width: sWidth(50, context),
                                       decoration: BoxDecoration(
-                                          color: Color.fromRGBO(255, 147, 0,1),
+                                          color: const Color.fromRGBO(255, 147, 0,1),
                                           borderRadius: BorderRadius.circular(10)
                                       ),
                                       child: Row(
@@ -187,8 +171,8 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
                                           SizedBox(
                                             width: sWidth(4, context),
                                           ),
-                                          Icon(Icons.home,color: Colors.white,),
-                                          Text(' Home',style: TextStyle(fontSize: 15,color: Colors.white),)
+                                          const Icon(Icons.home,color: Colors.white,),
+                                          const Text(' Home',style: TextStyle(fontSize: 15,color: Colors.white),)
                                         ],
                                       ),
                                     ),
@@ -201,7 +185,7 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
                                         height: sHeight(7, context),
                                         width: sWidth(50, context),
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(255, 98, 118, 1),
+                                            color: const Color.fromRGBO(255, 98, 118, 1),
                                             borderRadius: BorderRadius.circular(10)
                                         ),
                                         child: Row(
@@ -209,37 +193,37 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
                                             SizedBox(
                                               width: sWidth(2, context),
                                             ),
-                                            Icon(Icons.settings_suggest_outlined,color: Colors.white,),
-                                            Text(' Privacy Policy',style: TextStyle(fontSize: 14,color: Colors.white),)
+                                            const Icon(Icons.settings_suggest_outlined,color: Colors.white,),
+                                            const Text(' Privacy Policy',style: TextStyle(fontSize: 14,color: Colors.white),)
                                           ],
                                         ),
                                       ),
                                       onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>PrivacyPolicy()));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const PrivacyPolicy()));
                                         ZoomDrawer.of(context)!.close();
                                       }
                                   ),
                                   InkWell(
                                     child: Container(
-                                      margin: EdgeInsets.only(left: 3),
+                                      margin: const EdgeInsets.only(left: 3),
                                       height: sHeight(7, context),
                                       width: sWidth(50, context),
                                       decoration: BoxDecoration(
-                                          color: Color.fromRGBO(255, 98, 118, 1),
+                                          color: const Color.fromRGBO(255, 98, 118, 1),
                                           borderRadius: BorderRadius.circular(10)
                                       ),
                                       child: Row(
                                         children: [
-                                          Icon(Icons.info,color: Colors.white,),
+                                          const Icon(Icons.info,color: Colors.white,),
                                           SizedBox(
                                             width: sWidth(2, context),
                                           ),
-                                          Text('About Us',style: TextStyle(fontSize: 16,color: Colors.white),)
+                                          const Text('About Us',style: TextStyle(fontSize: 16,color: Colors.white),)
                                         ],
                                       ),
                                     ),
                                     onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> AboutUs()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const AboutUs()));
                                     },
                                   ),
 
@@ -268,8 +252,8 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
                               actions: <Widget>[
                                 InkWell(
                                   child: Container(
-                                    margin: EdgeInsets.only(right: 20.0),
-                                    child: Icon(Icons.settings_power),
+                                    margin: const EdgeInsets.only(right: 20.0),
+                                    child: const Icon(Icons.settings_power),
                                   ),
                                   onTap: () {
                                     UnsavePass();
@@ -283,7 +267,7 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
                         }
                       }
                       else{
-                        return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                        return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                       }
                     }
                 );
@@ -297,8 +281,8 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
                     actions: <Widget>[
                       InkWell(
                         child: Container(
-                          margin: EdgeInsets.only(right: 20.0),
-                          child: Icon(Icons.settings_power),
+                          margin: const EdgeInsets.only(right: 20.0),
+                          child: const Icon(Icons.settings_power),
                         ),
                         onTap: () {
                           UnsavePass();
@@ -312,7 +296,7 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
               }
             }
             else{
-              return Container(child: Center(child: StaffMainLoading(context)), color: Colors.white,);
+              return Container(color: Colors.white,child: Center(child: StaffMainLoading(context)),);
 
             }
 
@@ -339,10 +323,10 @@ class _StaffMenuScreenState extends State<StaffMenuScreen> {
 
   Widget Toggle(bool Savetext){
     if(Savetext == true){
-      return Icon(Icons.toggle_on_outlined, color: Colors.white, size: 45,);
+      return const Icon(Icons.toggle_on_outlined, color: Colors.white, size: 45,);
     }
     else{
-      return Icon(Icons.toggle_off_outlined, color: Colors.white70, size: 45,);
+      return const Icon(Icons.toggle_off_outlined, color: Colors.white70, size: 45,);
     }
   }
 }

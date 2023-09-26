@@ -32,7 +32,7 @@ class _Studentstaff_screenState extends State<Selection_Screen> {
               SizedBox(
                 height: sHeight(2.5, context),
               ),
-              Center(
+              const Center(
                 child: Text(
                   'Select Your',
                   style: TextStyle(
@@ -44,14 +44,14 @@ class _Studentstaff_screenState extends State<Selection_Screen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "METHOD TO",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
                   ),
                   SizedBox(
                     width: sWidth(5, context),
                   ),
-                  Text(
+                  const Text(
                     "LOGIN",
                     style: TextStyle(
                         fontSize: 30,
@@ -68,7 +68,7 @@ class _Studentstaff_screenState extends State<Selection_Screen> {
                 backgroundColor: Colors.white60,
                 child: Stack(
                   children: [
-                    Center(child: CircularProgressIndicator()),
+                    const Center(child: CircularProgressIndicator()),
                     WelcomeImage(context),
                   ],
                 ),

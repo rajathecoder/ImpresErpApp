@@ -8,13 +8,11 @@ import 'package:badges/badges.dart' as badges;
 import 'package:add_dev_dolphin/Data/Staff_Data.dart';
 import 'package:add_dev_dolphin/Local_Data/notification_database.dart';
 import 'package:add_dev_dolphin/Model/Staff_Screen/staff_notification.dart';
-import 'package:add_dev_dolphin/Model/Student_Screen/student_screen_changes.dart';
-import 'package:add_dev_dolphin/Style_font/Staff_Screen_Design.dart';
 import 'package:add_dev_dolphin/Style_font/designs.dart';
 import 'package:add_dev_dolphin/UI/main_ui.dart';
 import 'package:add_dev_dolphin/main.dart';
 import 'package:badges/badges.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -79,14 +77,14 @@ class _StaffHomePageState extends State<StaffHomePage> {
       );
     } on PlatformException catch (e){
       print('Authentication error $e');
-      showDialog(context: context, builder: (context)=> AlertDialog(
+        showDialog(context: context, builder: (context)=> AlertDialog(
         title: Text('Oops!!!', style: PrimaryText2(), textAlign: TextAlign.start,),
         content: Text('No Biometrics found!', style: SecondaryText2(), textAlign: TextAlign.center,),
         actionsAlignment: MainAxisAlignment.center,
-        actionsPadding: EdgeInsets.only(left: 30, right: 30, bottom: 15),
+        actionsPadding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
         actions: [
           InkWell(
-            child: Container(
+            child: SizedBox(
               child: Text('Ok', style: PrimaryText2(), textAlign: TextAlign.center,),
               width: 200,
             ),
@@ -94,7 +92,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
           ),
         ],
         elevation: 20.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
       ));
     }
     if(!mounted) return;
@@ -183,10 +181,10 @@ class _StaffHomePageState extends State<StaffHomePage> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection and Try Again"),
-      actions: [
-        CupertinoButton.filled(child: Text("OK"), onPressed: (){
+          title: const Text("No Internet"),
+          content: const Text("Please check your Internet Connection and Try Again"),
+          actions: [
+        CupertinoButton.filled(child: const Text("OK"), onPressed: (){
           Navigator.pop(context);
           Navigator.pop(context);
         }),
@@ -214,7 +212,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
   ReadBool()async{
     final prefs = await SharedPreferences.getInstance();
     sp2 = await prefs.getInt('changefcmSta');
-    print("-c--c-c--c-c${sp2}");
+    print("-c--c-c--c-c$sp2");
     if(sp2 == null || sp2 == 1.toInt()){
       Add_Token_Database();
       print("saved FCM in Data Base");
@@ -226,7 +224,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
   SendToken()async{
     if (1.toInt() == 1.toInt()){
       final resp = await http.get(
-          Uri.parse("http://$StaticIP/api/StaffFcm?StaffCode=${widget.username}&FcmId=${Newtoken_FCM}&Password=${widget.password}"));
+          Uri.parse("http://$StaticIP/api/StaffFcm?StaffCode=${widget.username}&FcmId=$Newtoken_FCM&Password=${widget.password}"));
       print("fcm Send Successfully");
     }
     else{
@@ -252,24 +250,24 @@ class _StaffHomePageState extends State<StaffHomePage> {
     return
       badges.Badge(
         position: BadgePosition.topEnd(top: -10, end: 3),
-        badgeAnimation: BadgeAnimation.slide(),
-        badgeContent: Text("${KLK}",style: TextStyle(color: Colors.white),),
+        badgeAnimation: const BadgeAnimation.slide(),
+        //badgeContent: Text("$KLK",style: const TextStyle(color: Colors.white),),
         badgeStyle: KLK > 0 ?
         //badgeStyle: count > 0 ?
-        badges.BadgeStyle(badgeColor: Colors.red,):
-        badges.BadgeStyle(badgeColor: Colors.transparent),
+        const badges.BadgeStyle(badgeColor: Colors.red,):
+        const badges.BadgeStyle(badgeColor: Colors.transparent),
         child:  InkWell(
           child: Container(
-            margin: EdgeInsets.only(right: 5),
+            margin: const EdgeInsets.only(right: 5),
             child: CircleAvatar(
-              backgroundImage: NetworkImage("${img}"),
+              backgroundImage: NetworkImage("$img"),
             ),
           ),
-          onTap: ()async{
+          /*onTap: ()async{
             Navigator.push(context, MaterialPageRoute(builder: (context)=>Staff_Notification_screen()));
             // Delete_Count();
             setState((){});
-          },
+          },*/
         ),/*IconButton(icon: Icon(Icons.notifications), onPressed: ()async {
           Navigator.push(context, MaterialPageRoute(builder: (context)=>Staff_Notification_screen()));
           // Delete_Count();
@@ -280,12 +278,12 @@ class _StaffHomePageState extends State<StaffHomePage> {
   late List Get_Attendance_HS_LIST=[];
   GET_At()async{
     final resp = await http.get(
-        Uri.parse("http://${ip}/api/AppSetting?InstId=1"));
+        Uri.parse("http://$ip/api/AppSetting?InstId=1"));
     if (resp.statusCode == 200){
       Get_Attendance_HS_LIST = json.decode(resp.body);
       String Attenparse = Get_Attendance_HS_LIST[0]['AttendanceHour'];
       AttendanceHou = int.parse(Attenparse);
-      print("${AttendanceHou}");
+      print("$AttendanceHou");
     }
     else{
     }
@@ -404,8 +402,8 @@ class _StaffHomePageState extends State<StaffHomePage> {
                 actions: <Widget>[
                   InkWell(
                     child: Container(
-                      margin: EdgeInsets.only(right: 20.0),
-                      child: Icon(Icons.settings_power),
+                      margin: const EdgeInsets.only(right: 20.0),
+                      child: const Icon(Icons.settings_power),
                     ),
                     onTap: () {
                       UnsavePass();
@@ -445,7 +443,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                           return WillPopScope(
                               onWillPop: () => _onBackButtonPressed(context),
                               child:Scaffold(
-                                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                                 body: Builder(
                                     builder: (BuildContext context) => SingleChildScrollView(
                                       scrollDirection: Axis.vertical,
@@ -460,7 +458,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                         child: Image.asset("images/introscreen/staff_bvg.png")),
                                                   ],
                                                 ),
-                                                Container(
+                                                SizedBox(
                                                   width: MediaQuery.of(context).size.width,
                                                   child:
                                                   SingleChildScrollView(
@@ -482,7 +480,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                                 }
                                                               },
                                                               child: Container(
-                                                                padding: EdgeInsets.all(15),
+                                                                padding: const EdgeInsets.all(15),
                                                                 child: Image.asset("images/introscreen/nav_bar.png",width: sWidth(8, context),),
                                                               ),
                                                             ),
@@ -503,58 +501,58 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                             Column(
                                                               children: [
                                                                 Gei?
-                                                                Container(
+                                                                SizedBox(
                                                                   width: sWidth(40, context),
                                                                   child: Text("${Ge.toString()},",textAlign: TextAlign.left, maxLines: 1,
-                                                                      overflow: TextOverflow.ellipsis,style: TextStyle(color:
+                                                                      overflow: TextOverflow.ellipsis,style: const TextStyle(color:
                                                                       Colors.black54,fontWeight: FontWeight.w900,fontSize: 18)),
-                                                                ):new Container(),
+                                                                ):Container(),
                                                                 GAi?
-                                                                Container(
+                                                                SizedBox(
                                                                   width: sWidth(40, context),
                                                                   child: Text("${GA.toString()},",textAlign: TextAlign.left, maxLines: 1,
-                                                                      overflow: TextOverflow.ellipsis,style: TextStyle(color:
+                                                                      overflow: TextOverflow.ellipsis,style: const TextStyle(color:
                                                                       Colors.black54,fontWeight: FontWeight.w900,fontSize: 18)),
-                                                                ):new Container(),
+                                                                ):Container(),
                                                                 Gmi?
-                                                                Container(
+                                                                SizedBox(
                                                                   width: sWidth(40, context),
                                                                   child: Text("${Gm.toString()},",textAlign: TextAlign.left, maxLines: 1,
-                                                                      overflow: TextOverflow.ellipsis,style: TextStyle(color:
+                                                                      overflow: TextOverflow.ellipsis,style: const TextStyle(color:
                                                                       Colors.black54,fontWeight: FontWeight.w900,fontSize: 18)),
-                                                                ):new Container(),
+                                                                ):Container(),
                                                                 Gni?
-                                                                Container(
+                                                                SizedBox(
                                                                   width: sWidth(40, context),
                                                                   child: Text("${Gn.toString()},",textAlign: TextAlign.left, maxLines: 1,
-                                                                      overflow: TextOverflow.ellipsis,style: TextStyle(color:
+                                                                      overflow: TextOverflow.ellipsis,style: const TextStyle(color:
                                                                       Colors.black54,fontWeight: FontWeight.w900,fontSize: 16)),
-                                                                ):new Container(),
-                                                                Container(
+                                                                ):Container(),
+                                                                SizedBox(
                                                                   width: sWidth(40, context),
                                                                   child: Text('${data[0].StaffName},',textAlign: TextAlign.left, maxLines: 1,
-                                                                      overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight:
+                                                                      overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight:
                                                                       FontWeight.w900,fontSize: 16,color: Colors.red)),
                                                                 ),
-                                                                Container(
+                                                                SizedBox(
                                                                   width: sWidth(40, context),
                                                                   child: Text('${data[0].Designation}',textAlign: TextAlign.left, maxLines: 1,
-                                                                      overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight:
+                                                                      overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight:
                                                                       FontWeight.w400,fontSize: 13,color: Colors.black)),
                                                                 ),
                                                               ],
                                                             ),
                                                             SizedBox(width: sWidth(5, context),),
-                                                            Container(
+                                                            SizedBox(
                                                               height: sHeight(20, context),
                                                               // width: sWidth(20, context),
                                                               child: ClipRRect(
-                                                                  borderRadius: BorderRadius.all(Radius.circular(15),),
+                                                                  borderRadius: const BorderRadius.all(Radius.circular(15),),
                                                                   child:
                                                                   Stack(
                                                                       children: [
                                                                         //Center(child: CircularProgressIndicator()),
-                                                                        Image.network("${StaffImageIP}${data[0].StaffImg}",scale: 1,fit: BoxFit.cover)
+                                                                        Image.network("$StaffImageIP${data[0].StaffImg}",scale: 1,fit: BoxFit.cover)
                                                                       ])),
                                                             ),
                                                           ],
@@ -569,13 +567,13 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                           GridView.count(
                                             crossAxisCount: 2,
                                             shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
+                                            physics: const NeverScrollableScrollPhysics(),
                                             childAspectRatio: 2,
                                             children: [
                                               if(status.contains("1Staff Attendance - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -599,7 +597,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Students Attendance - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -622,7 +620,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Lesson Plan - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -646,7 +644,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Circular - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -669,7 +667,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1OPAC - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -692,7 +690,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Leave Balance - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -716,7 +714,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Timetable - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -740,7 +738,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Holiday - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -763,7 +761,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Staff Profoma - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -787,7 +785,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Leave Apply - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -811,7 +809,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Leave Inbox - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -825,7 +823,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                             children: [
                                                               Text("Inbox", style: SecondaryText1()),
                                                               Text(" (", style: SecondaryText1()),
-                                                              Text("${Counts}", style: TextStyle(color: Colors.green,fontWeight: FontWeight.w900,fontSize: 15)),
+                                                              Text("$Counts", style: const TextStyle(color: Colors.green,fontWeight: FontWeight.w900,fontSize: 15)),
                                                               Text(")", style: SecondaryText1()),
                                                             ],
                                                           ),
@@ -842,7 +840,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                               if(status.contains("1Club Attendance - Staff"))
                                                 InkWell(
                                                   child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     width: MediaQuery.of(context).size.width / 2.4,
                                                     height: 80,
                                                     decoration: PrimaryRoundBox1(),
@@ -865,10 +863,37 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                     checkInternet();
                                                     Navigator.push(context, MaterialPageRoute(builder: (context)=> Club_Activity(username: widget.username, password: widget.password,)));
                                                   },
-                                                )
+                                                ),
+                                              if(status.contains("1Transport Attendance - Staff"))
+                                                InkWell(
+                                                  child: Container(
+                                                    margin: const EdgeInsets.all(8),
+                                                    width: MediaQuery.of(context).size.width / 2.4,
+                                                    height: 80,
+                                                    decoration: PrimaryRoundBox1(),
+                                                    child: Row(
+                                                      children: [
+                                                        SizedBox(width: sWidth(3, context),),
+                                                        Image.asset("images/introscreen/staff_proforma.png",scale: 1.5,),
+                                                        SizedBox(width: sWidth(2, context),),
+                                                        Center(
+                                                          child: Row(
+                                                            children: [
+                                                              Text(" Transport\nAttendance", style: SecondaryText1()),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  onTap: (){
+                                                    checkInternet();
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Club_Activity(username: widget.username, password: widget.password,)));
+                                                  },
+                                                ),
                                             ],
                                           ),
-                                          Container(margin: EdgeInsets.only(top: 20),),
+                                          Container(margin: const EdgeInsets.only(top: 20),),
                                         ],
                                       ),
                                     )),
@@ -884,8 +909,8 @@ class _StaffHomePageState extends State<StaffHomePage> {
                               actions: <Widget>[
                                 InkWell(
                                   child: Container(
-                                    margin: EdgeInsets.only(right: 20.0),
-                                    child: Icon(Icons.settings_power),
+                                    margin: const EdgeInsets.only(right: 20.0),
+                                    child: const Icon(Icons.settings_power),
                                   ),
                                   onTap: () {
                                     UnsavePass();
@@ -899,7 +924,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                         }
                       }
                       else{
-                        return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                        return Container(child: const Center(child: CircularProgressIndicator()), color: Colors.white,);
                       }
                     }
                 );
@@ -913,8 +938,8 @@ class _StaffHomePageState extends State<StaffHomePage> {
                     actions: <Widget>[
                       InkWell(
                         child: Container(
-                          margin: EdgeInsets.only(right: 20.0),
-                          child: Icon(Icons.settings_power),
+                          margin: const EdgeInsets.only(right: 20.0),
+                          child: const Icon(Icons.settings_power),
                         ),
                         onTap: () {
                           UnsavePass();
@@ -957,12 +982,12 @@ class _StaffHomePageState extends State<StaffHomePage> {
     SetuseStaffBiometric(false);
   }
 
-  Widget Toggle(bool Savetext){
+  Future<Widget> Toggle(bool Savetext) async {
     if(Savetext == true){
-      return Icon(Icons.toggle_on_outlined, color: Colors.white, size: 45,);
+      return const Icon(Icons.toggle_on_outlined, color: Colors.white, size: 45,);
     }
     else{
-      return Icon(Icons.toggle_off_outlined, color: Colors.white70, size: 45,);
+      return const Icon(Icons.toggle_off_outlined, color: Colors.white70, size: 45,);
     }
   }
   _onBackButtonPressed(BuildContext context) async {

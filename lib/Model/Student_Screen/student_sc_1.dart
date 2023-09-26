@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
-import 'package:add_dev_dolphin/Data/Admin_data.dart';
 import 'package:add_dev_dolphin/Data/Student_Data.dart';
 import 'package:add_dev_dolphin/Style_font/designs.dart';
 import 'package:add_dev_dolphin/UI/main_ui.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -43,10 +41,10 @@ class _Student_C_RequestState extends State<Student_C_Request> {
         barrierDismissible: false,
         context: context, builder: (context) =>
         CupertinoAlertDialog(
-          title: Text("No Internet"),
-          content: Text("Please check your Internet Connection and Try Again"),
+          title: const Text("No Internet"),
+          content: const Text("Please check your Internet Connection and Try Again"),
           actions: [
-            CupertinoButton.filled(child: Text("OK"), onPressed: () {
+            CupertinoButton.filled(child: const Text("OK"), onPressed: () {
               Navigator.pop(context);
               Navigator.pop(context);
             }),
@@ -65,7 +63,7 @@ class _Student_C_RequestState extends State<Student_C_Request> {
   late List Cer_YrN = [];
   DateTime now = DateTime.now();
   String? CH_date = "Choose";
-   String? CH_dateEntry;
+  String? CH_dateEntry;
   @override
   void initState() {
     // TODO: implement initState
@@ -124,6 +122,7 @@ class _Student_C_RequestState extends State<Student_C_Request> {
           msg: "Sorry!Kindly Select Request Date",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.SNACKBAR,
+
           textColor: Colors.white,
           fontSize: 16.0
       );
@@ -149,29 +148,26 @@ class _Student_C_RequestState extends State<Student_C_Request> {
             ];
             if (snapshot.hasData) {
               return Scaffold(
-                body:
-                   SingleChildScrollView(
+                body: SingleChildScrollView(
                      scrollDirection: Axis.vertical,
                      child: Column(
                       children: [
                       //   Text(Cer_MSG.toString()),
-                        SizedBox(height: sHeight(3, context),),
+                        SizedBox(height: sHeight(1.5, context),),
                         Column(
                           children: [
                             Container(
                               margin: EdgeInsets.only(right: sWidth(45, context)),
-                              child: Text("Select Your Need Date",style: TextStyle(color: Colors.black45,fontWeight: FontWeight.w600),),
-
+                              child: const Text("Select Your Need Date",style: TextStyle(color: Colors.black45,fontWeight: FontWeight.w600),),
                             ),
-                            SizedBox(height: sHeight(2.5, context),),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(width: sWidth(5, context),),
                                 Card(
-                                  elevation: 5,
+                                  elevation: 3,
                                   child: Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.white70,
                                       borderRadius: BorderRadius.all(Radius.circular(15))
                                     ),
@@ -190,43 +186,130 @@ class _Student_C_RequestState extends State<Student_C_Request> {
 
                                         });
                                                });
-                                       },icon: Icon(Icons.calendar_month,color: Color.fromRGBO(31, 16, 148, 1.0),size: 30,)),
+                                       },icon: const Icon(Icons.calendar_month,color: Color.fromRGBO(31, 16, 148, 1.0),size: 25,)),
                                   ),
                                 ),
-                                SizedBox(width: sWidth(10, context),),
-                                Text("${CH_date}",style: TextStyle(color: Color.fromRGBO(31, 16, 148, 1.0),fontWeight: FontWeight.w600,fontSize: 20),),
+                                SizedBox(width: sWidth(3, context),),
+                                Text("${CH_date}",style: const TextStyle(color: Colors.black87,fontWeight: FontWeight.w600,fontSize: 15),),
                               ],
                             ),
                           ],
                         ),
-                        SizedBox(height: sHeight(3, context),),
-                        ListBody(
-                          children:
-                          items1.map((item) => CheckboxListTile(
-                            value: _selectedItems.contains(item),
-                            title: Text(item.replaceAll(RegExp(r'\d+'), ''),
-                              style: TextStyle(color: Color.fromRGBO(31, 16, 148, 1.0),fontWeight: FontWeight.w600),),
-                            controlAffinity: ListTileControlAffinity.leading,
-                            onChanged: (isChecked) => _itemChange1(item, isChecked!),
-                          )).toList(),
+                        SizedBox(height: sHeight(1.5, context),),
+                        Container(
+                          height: sHeight(60, context),
+                          width: sWidth(90, context),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.grey)
+                          ),
+                          child:
+                          SingleChildScrollView(
+                            child: ListBody(
+                              children:
+                              items1.map((item) => CheckboxListTile(
+                                value: _selectedItems.contains(item),
+                                title: Text(item.replaceAll(RegExp(r'\d+'), ''),
+                                  style: const TextStyle(color: Colors.black87,fontSize: 15),),
+                                controlAffinity: ListTileControlAffinity.leading,
+                                onChanged: (isChecked) => _itemChange1(item, isChecked!),
+                              )).toList(),
+                            ),
+                          ),
                         ),
-                        SizedBox(height: sHeight(5, context),),
+                        SizedBox(height: sHeight(3, context),),
                         InkWell(
                           child: Container(
                             height: sHeight(6, context),
                             width: sWidth(90, context),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(11),
-                              color: Color.fromRGBO(31, 16, 148, 1.0),
+                              color: const Color.fromRGBO(31, 16, 148, 1.0),
                             ),
-                            child: Center(
+                            child: const Center(
                                 child: Text(
                                   "Request Permission",
                                   style: TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.w600),
                                 )),
                           ),
                           onTap: ()async {
-                           await _check();
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (context) => AlertDialog(
+                                  /* title: Row(
+                                              children: [
+                                                Text("")
+                                              ],
+                                            ),*/
+                                    content: SizedBox(
+                                      height: sHeight(15, context),
+                                      width: sWidth(60, context),
+                                      child: Column(
+                                        children: [
+                                          const Text(
+                                              "Do you want to Submit?"),
+                                          SizedBox(
+                                            height: sHeight(5, context),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            children: [
+                                              InkWell(
+                                                child: Container(
+                                                  height:
+                                                  sHeight(5, context),
+                                                  width:
+                                                  sWidth(17, context),
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(10),
+                                                    color: Colors.red,
+                                                  ),
+                                                  child: Center(
+                                                      child: Text(
+                                                        "NO",
+                                                        style: ErrorText(),
+                                                      )),
+                                                ),
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              InkWell(
+                                                child: Container(
+                                                  height:
+                                                  sHeight(5, context),
+                                                  width:
+                                                  sWidth(17, context),
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(10),
+                                                    color: Colors.green,
+                                                  ),
+                                                  child: Center(
+                                                      child: Text(
+                                                        "Yes",
+                                                        style: ErrorText(),
+                                                      )),
+                                                ),
+                                                onTap: () async {
+                                                  await _check();
+                                                  Navigator.pop(context);
+                                                },
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )));
+
                           },
                         ),
                         SizedBox(height: sHeight(10, context),),
@@ -293,7 +376,7 @@ class _Student_Certificate_StatusState extends State<Student_Certificate_Status>
             data_St = snapshot.data!.Cer_S_List;
             if (data_St.length > 0) {
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 body: Builder(
                     builder: (BuildContext context) => SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -302,158 +385,155 @@ class _Student_Certificate_StatusState extends State<Student_Certificate_Status>
                           SizedBox(
                             height: sHeight(2, context),
                           ),
-                          Container(
-                            child: Column(
-                              children: [
-                                for (int i = data_St.length - 1; i >= 0; i--)
-                                  Column(
-                                    children: [
-                                      Container(
-                                        width: sWidth(90, context),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(15),
-                                            )),
-                                        padding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Container(
-                                                    height: sHeight(7, context),
-                                                    child: Center(
-                                                      child: Text(data_St[i].certificaterequest, style: TextStyle(
-                                                        fontSize: 19.5,
-                                                        fontWeight: FontWeight.w600,
-                                                         color: Color.fromRGBO(31, 16, 148, 1.0),
+                          Column(
+                            children: [
+                              for (int i = data_St.length - 1; i >= 0; i--)
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: sWidth(90, context),
+                                      decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(15),
+                                          )),
+                                      padding: const EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                  height: sHeight(7, context),
+                                                  width: sWidth(55, context),
+                                                  child: Center(
+                                                    child: FittedBox(
+                                                        fit: BoxFit.cover,
+                                                        child: Text(data_St[i].certificaterequest,maxLines: 2,softWrap: true,style: const TextStyle(fontWeight: FontWeight.bold),)
+                                                    ),
+                                                  ),),
+                                              data_St[i].readydate == "".toString() ?
+                                              Container(
+                                                  height: sHeight(
+                                                      4, context),
+                                                  width: sWidth(18, context),
+                                                  decoration:
+                                                  const BoxDecoration(
+                                                      color: Colors.red,
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .all(
+                                                        Radius
+                                                            .circular(
+                                                            15),
+                                                      )),
+                                                  child: const Center(child: Text("Pending",style: TextStyle(color: Colors.white),))):
+                                              Container(
+                                                  height: sHeight(4, context),
+                                                  width: sWidth(18, context),
+                                                  decoration:
+                                                  const BoxDecoration(
+                                                      color: Colors.green,
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .all(
+                                                        Radius
+                                                            .circular(
+                                                            15),
+                                                      )),
+                                                  child: const Center(child: Text("Approved",style: TextStyle(color: Colors.white)))),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: sHeight(2, context),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                  // height: sHeight(7, context),
+                                                  width: sWidth(20, context),
+                                                  decoration:
+                                                  const BoxDecoration(
+                                                      color: Color
+                                                          .fromRGBO(
+                                                          241,
+                                                          133,
+                                                          67,
+                                                          0.9568627450980393),
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .all(
+                                                        Radius
+                                                            .circular(
+                                                            8),
+                                                      )),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      SizedBox(height: sHeight(0.5, context),),
+                                                      const Text(
+                                                        "Need in date",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            color: Colors
+                                                                .white,fontSize: 10),
                                                       ),
+                                                      Text(
+                                                        data_St[i]
+                                                            .needdate,
+                                                        style: const TextStyle(
+                                                            color: Colors
+                                                                .white,fontSize: 10),
                                                       ),
-                                                    )),
-                                                data_St[i].readydate == "".toString() ?
-                                                Container(
-                                                    height: sHeight(
-                                                        4, context),
-                                                    width: sWidth(18, context),
-                                                    decoration:
-                                                    BoxDecoration(
-                                                        color: Colors.red,
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .all(
-                                                          Radius
-                                                              .circular(
-                                                              15),
-                                                        )),
-                                                    child: Center(child: Text("Pending",style: TextStyle(color: Colors.white),))):
-                                                Container(
-                                                    height: sHeight(4, context),
-                                                    width: sWidth(18, context),
-                                                    decoration:
-                                                    BoxDecoration(
-                                                        color: Colors.green,
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .all(
-                                                          Radius
-                                                              .circular(
-                                                              15),
-                                                        )),
-                                                    child: Center(child: Text("Approved",style: TextStyle(color: Colors.white)))),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: sHeight(3, context),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Container(
-                                                    // height: sHeight(7, context),
-                                                    width: sWidth(25, context),
-                                                    decoration:
-                                                    BoxDecoration(
-                                                        color: Color
-                                                            .fromRGBO(
-                                                            241,
-                                                            133,
-                                                            67,
-                                                            0.9568627450980393),
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .all(
-                                                          Radius
-                                                              .circular(
-                                                              8),
-                                                        )),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
-                                                      children: [
-                                                        SizedBox(height: sHeight(0.5, context),),
-                                                        Text(
-                                                          "Need in date",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold,
-                                                              color: Colors
-                                                                  .white),
-                                                        ),
-                                                        Text(
-                                                          data_St[i]
-                                                              .needdate,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white),
-                                                        ),
-                                                        SizedBox(height: sHeight(0.5, context),),
-                                                      ],
-                                                    )),
-                                                Container(
-                                                    width: sWidth(40, context),
-                                                    decoration:
-                                                    BoxDecoration(
-                                                        color: Color
-                                                            .fromRGBO(38, 123, 183, 0.9607843137254902),
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .all(
-                                                          Radius
-                                                              .circular(
-                                                              8),
-                                                        )),
-                                                    child: Column(
-                                                      children: [
-                                                        SizedBox(height: sHeight(0.5, context),),
-                                                        Text(
-                                                          "Requested Date",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold,color: Colors.white),
-                                                        ),
-                                                        Text(data_St[i].requestdate,style: TextStyle(color: Colors.white,fontSize: 13),),
-                                                        SizedBox(height: sHeight(0.5, context),),
-                                                      ],
-                                                    )),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                                      SizedBox(height: sHeight(0.5, context),),
+                                                    ],
+                                                  )),
+                                              Container(
+                                                  width: sWidth(35, context),
+                                                  decoration:
+                                                  const BoxDecoration(
+                                                      color: Color
+                                                          .fromRGBO(38, 123, 183, 0.9607843137254902),
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .all(
+                                                        Radius
+                                                            .circular(
+                                                            8),
+                                                      )),
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(height: sHeight(0.5, context),),
+                                                      const Text(
+                                                        "Requested Date",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,color: Colors.white,fontSize: 10),
+                                                      ),
+                                                      Text(data_St[i].requestdate,style: const TextStyle(color: Colors.white,fontSize: 10),),
+                                                      SizedBox(height: sHeight(0.5, context),),
+                                                    ],
+                                                  )),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        height: sHeight(1, context),
-                                      ),
-                                    ],
-                                  ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 20.0),
-                                )
-                              ],
-                            ),
+                                    ),
+                                    SizedBox(
+                                      height: sHeight(1, context),
+                                    ),
+                                  ],
+                                ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 20.0),
+                              )
+                            ],
                           ),
 
                         ],
@@ -479,34 +559,29 @@ class _Student_Certificate_StatusState extends State<Student_Certificate_Status>
 }
 
 //Certifiacte Tabs
-class Certificate_Request extends StatefulWidget {
+class Certificate_Request extends StatelessWidget {
   const Certificate_Request({Key? key,required this.username, required this.password}) : super(key: key);
   final String username;
   final String password;
-  @override
-  State<Certificate_Request> createState() => _Certificate_RequestState();
-}
-
-class _Certificate_RequestState extends State<Certificate_Request> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Certificate Request'),
+          title: const Text('Certificate Request'),
           backgroundColor: PrimaryColor(),
         ),
         body: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TabBar(
               indicator: BoxDecoration(
-                  color: Color(0xFFF97A52),
+                  color: const Color(0xFFF97A52),
                   borderRadius: BorderRadius.circular(10)),
-              tabs: [
+              tabs: const [
                 Tab(
                   child: Text(
                     'Request',
@@ -523,8 +598,8 @@ class _Certificate_RequestState extends State<Certificate_Request> {
             ),
             Expanded(
                 child: TabBarView(children: [
-                  Student_C_Request(username: widget.username, password: widget.password,),
-                  Student_Certificate_Status(username: widget.username, password: widget.password,),
+                  Student_C_Request(username: username, password: password,),
+                  Student_Certificate_Status(username: username, password: password,),
                 ])),
           ],
         ),

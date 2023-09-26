@@ -11,7 +11,7 @@ import 'package:add_dev_dolphin/Style_font/student_screen_design.dart';
 import 'package:add_dev_dolphin/UI/password_file.dart';
 import 'package:add_dev_dolphin/intro_screen/mobile_signin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

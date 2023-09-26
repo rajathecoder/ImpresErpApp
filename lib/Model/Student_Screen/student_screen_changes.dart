@@ -6,7 +6,7 @@ import 'package:add_dev_dolphin/Style_font/designs.dart';
 import 'package:add_dev_dolphin/Style_font/student_screen_design.dart';
 import 'package:add_dev_dolphin/UI/main_ui.dart';
 import 'package:add_dev_dolphin/main.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +15,6 @@ import 'package:intl/intl.dart';
 import 'package:local_auth/local_auth.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../Data/Admin_data.dart';
-import '../../main.dart';
 
 double sHeight(double per, BuildContext context){
   double h = MediaQuery.of(context).size.height;
@@ -65,8 +62,6 @@ class StudentProfile extends StatefulWidget {
 class _StudentProfileState extends State<StudentProfile> {
   late Future <Data_List> APIData;
   late LocalAuthentication auth = LocalAuthentication();
-  late bool _canCheckBiometric = false;
-  late List<BiometricType> _availableBiometrics = [];
   late String _authorized = "Not Authorized";
   bool _enableBiometric = false;
   Future <void> _getAvailableBiometrics() async{
@@ -77,7 +72,6 @@ class _StudentProfileState extends State<StudentProfile> {
       print('Getting available biometrics $e');
     }
     setState(() {
-      _availableBiometrics = availableBiometrics;
     });
   }
   void DisableBiometric()async{
@@ -102,10 +96,10 @@ class _StudentProfileState extends State<StudentProfile> {
   }
   Widget Toggle(bool Savetext){
     if(Savetext == true){
-      return Icon(Icons.toggle_on_outlined, color: Colors.white, size: 45,);
+      return const Icon(Icons.toggle_on_outlined, color: Colors.white, size: 45,);
     }
     else{
-      return Icon(Icons.toggle_off_outlined, color: Colors.white70, size: 45,);
+      return const Icon(Icons.toggle_off_outlined, color: Colors.white70, size: 45,);
     }
   }
   Future <void> _authenticate() async {
@@ -120,18 +114,18 @@ class _StudentProfileState extends State<StudentProfile> {
         title: Text('Oops!!!', style: PrimaryText2(), textAlign: TextAlign.start,),
         content: Text('No Biometrics found!', style: SecondaryText2(), textAlign: TextAlign.center,),
         actionsAlignment: MainAxisAlignment.center,
-        actionsPadding: EdgeInsets.only(left: 30, right: 30, bottom: 15),
+        actionsPadding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
         actions: [
           InkWell(
             child: Container(
-              child: Text('Ok', style: PrimaryText2(), textAlign: TextAlign.center,),
               width: 200,
+              child: Text('Ok', style: PrimaryText2(), textAlign: TextAlign.center,),
             ),
             onTap: ()=> Navigator.pop(context),
           ),
         ],
         elevation: 20.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
       ));
     }
     if(!mounted) return;
@@ -158,7 +152,6 @@ class _StudentProfileState extends State<StudentProfile> {
     }
     if(!mounted) return;
     setState(() {
-      _canCheckBiometric = canCheckBiometric;
     });
   }
   @override
@@ -181,16 +174,16 @@ class _StudentProfileState extends State<StudentProfile> {
           List <API_data> data;
           if(snapshot.hasData){
             data = snapshot.data!.data_list;
-            if (data.length > 0){
+            if (data.isNotEmpty){
               return  Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   titleSpacing: 30,
                   leadingWidth: 55,
                   title: RichText(
-                    text: new TextSpan(
+                    text: const TextSpan(
                       children: <TextSpan>[
-                        new TextSpan(text: 'My Profile', style: TextStyle(fontWeight:
+                        TextSpan(text: 'My Profile', style: TextStyle(fontWeight:
                         FontWeight.bold,fontSize: 20)),
                       ],
                     ),
@@ -198,7 +191,7 @@ class _StudentProfileState extends State<StudentProfile> {
                   toolbarHeight: 70,
                   backgroundColor: PrimaryColor(),
                   elevation: 20.0,
-                  actions: <Widget>[
+                  actions: const <Widget>[
                     // InkWell(
                     //   child: Container(
                     //     margin: EdgeInsets.only(right: 20.0),
@@ -319,9 +312,9 @@ class _StudentProfileState extends State<StudentProfile> {
                           // ),
                           SizedBox(height: sHeight(3, context),),
                           Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             width: sWidth(90, context),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.all(Radius.circular(10),),
                             ),
@@ -337,9 +330,9 @@ class _StudentProfileState extends State<StudentProfile> {
                                         radius: 55,
                                         child:  Stack(
                                           children: [
-                                            Center(child: CircularProgressIndicator()),
+                                            const Center(child: CircularProgressIndicator()),
                                             CircleAvatar(
-                                              backgroundColor: Color.fromRGBO(218, 239, 245, 0.1),
+                                              backgroundColor: const Color.fromRGBO(218, 239, 245, 0.1),
                                               radius: 55,
                                               backgroundImage: NetworkImage("${StudentImageIP}${data[0].Picture}"),
                                             ),
@@ -350,9 +343,9 @@ class _StudentProfileState extends State<StudentProfile> {
                                       Column(
                                         children: [
                                           RichText(
-                                            text: new TextSpan(
+                                            text: TextSpan(
                                               children: <TextSpan>[
-                                                new TextSpan(text: "${data[0].StudentName}",style: TextStyle(color:
+                                                TextSpan(text: "${data[0].StudentName}",style: const TextStyle(color:
                                                 Colors.red,fontWeight: FontWeight.w900,fontSize: 20)),
                                               ],
                                             ),
@@ -360,15 +353,15 @@ class _StudentProfileState extends State<StudentProfile> {
                                           SizedBox(height: sHeight(1, context),),
                                           Container(
                                             height: sHeight(6, context),width: sWidth(50, context),
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Colors.green,
                                               borderRadius: BorderRadius.all(Radius.circular(20),),
                                             ),
-                                            child: Center(child: Text("Roll No : ${data[0].RollNum}",style: TextStyle(fontSize: 19,fontWeight: FontWeight.w700,color: Colors.white),)),
+                                            child: Center(child: Text("Roll No : ${data[0].RollNum}",style: const TextStyle(fontSize: 19,fontWeight: FontWeight.w700,color: Colors.white),)),
                                           ),
                                           SizedBox(height: sHeight(2, context),),
                                           Text("Impres Code : ${data[0].ImpresCode}",style:
-                                          TextStyle(fontSize: 13,fontWeight: FontWeight.w500,color: Color.fromRGBO(173, 185, 204, 1)),),
+                                          const TextStyle(fontSize: 13,fontWeight: FontWeight.w500,color: Color.fromRGBO(173, 185, 204, 1)),),
                                         ],
                                       ),
 
@@ -382,9 +375,9 @@ class _StudentProfileState extends State<StudentProfile> {
                           ),
                           SizedBox(height: sHeight(2, context),),
                           Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             width: sWidth(90, context),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color.fromRGBO(247, 252, 252, 0.8),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),
@@ -524,7 +517,7 @@ class _StudentProfileState extends State<StudentProfile> {
             }
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -566,10 +559,10 @@ class _StudentAttendanceState extends State<StudentAttendance> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -625,14 +618,14 @@ class _StudentAttendanceState extends State<StudentAttendance> {
                     SemFind.sort();
                     if (Attendancedata.length > 0) {
                       return Scaffold(
-                          backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+                          backgroundColor: const Color.fromRGBO(242, 249, 250, 0.9),
                           appBar: AppBar(
                             titleSpacing: 30,
                             leadingWidth: 55,
                             title: RichText(
-                              text: new TextSpan(
+                              text: const TextSpan(
                                 children: <TextSpan>[
-                                  new TextSpan(
+                                  TextSpan(
                                       text: 'Attendance',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -643,7 +636,7 @@ class _StudentAttendanceState extends State<StudentAttendance> {
                             toolbarHeight: 70,
                             backgroundColor: PrimaryColor(),
                             elevation: 20.0,
-                            actions: <Widget>[
+                            actions: const <Widget>[
                             ],
                           ),
                           body: Builder(
@@ -652,16 +645,16 @@ class _StudentAttendanceState extends State<StudentAttendance> {
                                   children: <Widget>[
                                     SizedBox(height: sHeight(3, context),),
                                     Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           color: Colors.white,
                                         borderRadius: BorderRadius.all(Radius.circular(5),)
                                       ),
-                                      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                                      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                                       child: DropdownSearch<dynamic>(
-                                        popupProps: PopupProps.menu(
+                                        popupProps: const PopupProps.menu(
                                         ),
                                         //dropdownDecoratorProps: DropDownDecoratorProps(),
-                                        dropdownButtonProps: DropdownButtonProps(
+                                        dropdownButtonProps: const DropdownButtonProps(
                                           // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                             icon: Icon(Icons.arrow_drop_down_circle_rounded),
                                             color: Colors.green
@@ -700,7 +693,7 @@ class _StudentAttendanceState extends State<StudentAttendance> {
                                 Container(
                                   height: sHeight(25, context),
                                   width: sWidth(90, context),
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.all(Radius.circular(10),),
                                   ),
@@ -709,7 +702,7 @@ class _StudentAttendanceState extends State<StudentAttendance> {
                                     child: Row(
                                       children: [
                                         SizedBox(width: sWidth(4, context),),
-                                        CircleAvatar(
+                                        const CircleAvatar(
                                           radius: 55,
                                           child: Stack(
                                             children: [
@@ -724,13 +717,13 @@ class _StudentAttendanceState extends State<StudentAttendance> {
                                         ),
                                         SizedBox(width: sWidth(4, context),),
                                         RichText(
-                                          text: new TextSpan(
+                                          text: TextSpan(
                                             children: <TextSpan>[
-                                              new TextSpan(text: "${data[0].StudentName}\n\n",style: TextStyle(color:
+                                              TextSpan(text: "${data[0].StudentName}\n\n",style: const TextStyle(color:
                                               Colors.red,fontWeight: FontWeight.w900,fontSize: 25)),
-                                              new TextSpan(text: '${data[0].CourseFullName}\n\n', style: TextStyle(fontWeight:
+                                              TextSpan(text: '${data[0].CourseFullName}\n\n', style: const TextStyle(fontWeight:
                                               FontWeight.bold,fontSize: 15,color: Colors.black)),
-                                              new TextSpan(text: 'Batch : ${data[0].BatchYear}', style: TextStyle(fontWeight:
+                                              TextSpan(text: 'Batch : ${data[0].BatchYear}', style: const TextStyle(fontWeight:
                                               FontWeight.bold,fontSize: 15,color: Colors.black)),
                                             ],
                                           ),
@@ -748,15 +741,15 @@ class _StudentAttendanceState extends State<StudentAttendance> {
                     }
                   } else {
                     return Container(
-                      child: Center(child: CircularProgressIndicator()),
                       color: Colors.white,
+                      child: const Center(child: CircularProgressIndicator()),
                     );
                   }
                 });
           } else {
             return Container(
-              child: Center(child: StudentsSearching(context)),
               color: Colors.white,
+              child: Center(child: StudentsSearching(context)),
             );
           }
         });
@@ -804,10 +797,10 @@ class _StudentAttendanceAbstansiaState extends State<StudentAttendanceAbstansia>
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -870,14 +863,14 @@ class _StudentAttendanceAbstansiaState extends State<StudentAttendanceAbstansia>
                             absdata = snapshot.data!.AttendanceAbstansiadata_list;
                             if (absdata.length > 0) {
                               return Scaffold(
-                                  backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+                                  backgroundColor: const Color.fromRGBO(242, 249, 250, 0.9),
                                   appBar: AppBar(
                                     titleSpacing: 30,
                                     leadingWidth: 55,
                                     title: RichText(
-                                      text: new TextSpan(
+                                      text: const TextSpan(
                                         children: <TextSpan>[
-                                          new TextSpan(
+                                          TextSpan(
                                               text: 'Absentia ',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -888,7 +881,7 @@ class _StudentAttendanceAbstansiaState extends State<StudentAttendanceAbstansia>
                                     toolbarHeight: 70,
                                     backgroundColor: PrimaryColor(),
                                     elevation: 5.0,
-                                    actions: <Widget>[
+                                    actions: const <Widget>[
 
                                     ],
                                   ),
@@ -1139,9 +1132,9 @@ class _StudentAttendanceAbstansiaState extends State<StudentAttendanceAbstansia>
                                                   ],
                                                 ),*/
                                                 Container(
-                                                  margin: EdgeInsets.only(left: 20,right: 20),
+                                                  margin: const EdgeInsets.only(left: 20,right: 20),
                                                   width: sWidth(90, context),
-                                                  decoration: BoxDecoration(
+                                                  decoration: const BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius: BorderRadius.all(
                                                       Radius.circular(10),
@@ -1210,22 +1203,22 @@ class _StudentAttendanceAbstansiaState extends State<StudentAttendanceAbstansia>
                             }
                           } else {
                             return Container(
-                              child: Center(child: CircularProgressIndicator()),
                               color: Colors.white,
+                              child: const Center(child: CircularProgressIndicator()),
                             );
                           }
                         });
                   } else {
                     return Container(
-                      child: Center(child: CircularProgressIndicator()),
                       color: Colors.white,
+                      child: const Center(child: CircularProgressIndicator()),
                     );
                   }
                 });
           } else {
             return Container(
-              child: Center(child: CircularProgressIndicator()),
               color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
         });
@@ -1275,10 +1268,10 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -1343,14 +1336,14 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
                                 snapshot.data!.AttendanceDetailsdata_list;
                             if (detailsdata.length > 0) {
                               return Scaffold(
-                                  backgroundColor: Color.fromRGBO(239, 242, 253, 0.9),
+                                  backgroundColor: const Color.fromRGBO(239, 242, 253, 0.9),
                                   appBar: AppBar(
                                     titleSpacing: 30,
                                     leadingWidth: 55,
                                     title: RichText(
-                                      text: new TextSpan(
+                                      text: const TextSpan(
                                         children: <TextSpan>[
-                                          new TextSpan(
+                                          TextSpan(
                                               text: 'Attendance Details',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
@@ -1361,7 +1354,7 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
                                     toolbarHeight: 70,
                                     backgroundColor: PrimaryColor(),
                                     elevation: 20.0,
-                                    actions: <Widget>[
+                                    actions: const <Widget>[
                                     ],
                                   ),
                                   body: Builder(
@@ -1375,8 +1368,8 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
                                                       height: sHeight(2, context),
                                                     ),
                                                     Container(
-                                                      margin: EdgeInsets.only(left: 15,right: 15),
-                                                      decoration: BoxDecoration(
+                                                      margin: const EdgeInsets.only(left: 15,right: 15),
+                                                      decoration: const BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius: BorderRadius.all(
                                                           Radius.circular(10),
@@ -1402,7 +1395,7 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
                                                             Row(
                                                               children: [
                                                                 Container(
-                                                                  margin: EdgeInsets.only(
+                                                                  margin: const EdgeInsets.only(
                                                                       left: 30.0, top: 20.0),
                                                                   child: Text(
                                                                       "Semester  : ${detailsdata[0].Semester.toString()}",
@@ -1419,7 +1412,7 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
                                                      ),
                                                             DisplayAttendanceDetails(
                                                                 context, detailsdata),
-                                                            Text(" ********** End Of Statement ********** "),
+                                                            const Text(" ********** End Of Statement ********** "),
                                                             SizedBox(height: sHeight(3, context),)
                                                           ],
                                                         ),
@@ -1447,7 +1440,7 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
                                             Attendancedata[0]),
                                         AttendanceProfileDivider(),
                                         Container(
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                               left: 15.0, bottom: 15.0),
                                           child: Text("Attendance details",
                                               style: PrimaryText2Big()),
@@ -1464,22 +1457,22 @@ class _StudentAttendanceDetailsState extends State<StudentAttendanceDetails> {
                             }
                           } else {
                             return Container(
-                              child: Center(child: CircularProgressIndicator()),
                               color: Colors.white,
+                              child: const Center(child: CircularProgressIndicator()),
                             );
                           }
                         });
                   } else {
                     return Container(
-                      child: Center(child: CircularProgressIndicator()),
                       color: Colors.white,
+                      child: const Center(child: CircularProgressIndicator()),
                     );
                   }
                 });
           } else {
             return Container(
-              child: Center(child: CircularProgressIndicator()),
               color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
         });
@@ -1521,10 +1514,10 @@ class _StudentInternalMarkState extends State<StudentInternalMark> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -1597,15 +1590,15 @@ class _StudentInternalMarkState extends State<StudentInternalMark> {
                             //   InternalMarkdata[Ste].TestNameList[i].TestName];
                             if (InternalMarkdata.length > 0) {
                               return Scaffold(
-                                backgroundColor: Color.fromRGBO(
+                                backgroundColor: const Color.fromRGBO(
                                     242, 249, 250, 0.9),
                                 appBar: AppBar(
                                   titleSpacing: 30,
                                   leadingWidth: 55,
                                   title: RichText(
-                                    text: new TextSpan(
+                                    text: const TextSpan(
                                       children: <TextSpan>[
-                                        new TextSpan(text: 'Internal Marks',
+                                        TextSpan(text: 'Internal Marks',
                                             style: TextStyle(fontWeight:
                                             FontWeight.bold, fontSize: 20)),
                                       ],
@@ -1614,7 +1607,7 @@ class _StudentInternalMarkState extends State<StudentInternalMark> {
                                   toolbarHeight: 70,
                                   backgroundColor: PrimaryColor(),
                                   elevation: 20.0,
-                                  actions: <Widget>[
+                                  actions: const <Widget>[
                                   ],
                                 ),
                                 body: Builder(
@@ -1626,22 +1619,22 @@ class _StudentInternalMarkState extends State<StudentInternalMark> {
                                               SizedBox(
                                                 height: sHeight(1, context),),
                                               Container(
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius: BorderRadius
                                                         .all(
                                                       Radius.circular(5),)
                                                 ),
-                                                margin: EdgeInsets.symmetric(
+                                                margin: const EdgeInsets.symmetric(
                                                     horizontal: 20.0,
                                                     vertical: 10.0),
                                                 child: DropdownSearch<dynamic>(
-                                                  popupProps: PopupProps
+                                                  popupProps: const PopupProps
                                                       .menu(
                                                   ),
-                                                  dropdownDecoratorProps: DropDownDecoratorProps(
+                                                  dropdownDecoratorProps: const DropDownDecoratorProps(
                                                   ),
-                                                  dropdownButtonProps: DropdownButtonProps(
+                                                  dropdownButtonProps: const DropdownButtonProps(
                                                       padding: EdgeInsets
                                                           .symmetric(
                                                           horizontal: 20.0),
@@ -1697,7 +1690,7 @@ class _StudentInternalMarkState extends State<StudentInternalMark> {
                                                     TestNameBuilder(context, InternalMarkdata[Ste], /*StuE*/i)
                                                 ],
                                               ),
-                                              Container(margin: EdgeInsets.only(
+                                              Container(margin: const EdgeInsets.only(
                                                   bottom: 20.0)),
                                             ],
                                           ),
@@ -1725,19 +1718,19 @@ class _StudentInternalMarkState extends State<StudentInternalMark> {
                           }
                           else {
                             return Container(
-                              child: Center(child: CircularProgressIndicator()),
-                              color: Colors.white,);
+                              color: Colors.white,
+                              child: const Center(child: CircularProgressIndicator()),);
                           }
                         }
                     );
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -1804,7 +1797,7 @@ class _StudentUniversityMarkState extends State<StudentUniversityMark> {
                             // ];
                             if (UniversityMarkdata.length > 0){
                               return Scaffold(
-                                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                                 body: Builder(
                                     builder: (BuildContext context) => SingleChildScrollView(
                                       scrollDirection: Axis.vertical,
@@ -1848,7 +1841,7 @@ class _StudentUniversityMarkState extends State<StudentUniversityMark> {
                                           InfoDesign(context, UniversityMarkdata[UniversityMarkdata.length-1], "University Marks"),
                                           SizedBox(height: sHeight(4, context),),
                                           Container(width: sWidth(100, context),
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Colors.white,
                                               borderRadius: BorderRadius.all(Radius.circular(20),),
                                             ),
@@ -1875,7 +1868,7 @@ class _StudentUniversityMarkState extends State<StudentUniversityMark> {
                                         AttendanceProfile2(context, data[0], Attendancedata[0]),
                                         AttendanceProfileDivider(),
                                         Container(
-                                          margin: EdgeInsets.only(left: 15.0, bottom: 15.0),
+                                          margin: const EdgeInsets.only(left: 15.0, bottom: 15.0),
                                           child: Text("University Mark", style: PrimaryText2Big()),
                                         ),
                                         Center(child: Text("No Data Found", style: ErrorText2Big(),textAlign: TextAlign.center,))
@@ -1885,18 +1878,18 @@ class _StudentUniversityMarkState extends State<StudentUniversityMark> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
 
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -1943,10 +1936,10 @@ class _StudentsTimetableState extends State<StudentsTimetable> {
    showDialog(
        barrierDismissible: false,
        context: context, builder: (context)=> CupertinoAlertDialog(
-     title: Text("No Internet"),
-     content: Text("Please check your Internet Connection"),
+     title: const Text("No Internet"),
+     content: const Text("Please check your Internet Connection"),
      actions: [
-       CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+       CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
          Navigator.pop(context);
          checkInternet();
        }),
@@ -2001,14 +1994,14 @@ class _StudentsTimetableState extends State<StudentsTimetable> {
                             Timetabledata = snapshot.data!.Timetabledata_list;
                             if (Timetabledata.length > 0){
                               return Scaffold(
-                                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                                 appBar: AppBar(
                                   titleSpacing: 30,
                                   leadingWidth: 55,
                                   title: RichText(
-                                    text: new TextSpan(
+                                    text: const TextSpan(
                                       children: <TextSpan>[
-                                        new TextSpan(text: "Time Table", style: TextStyle(fontWeight:
+                                        TextSpan(text: "Time Table", style: TextStyle(fontWeight:
                                         FontWeight.bold,fontSize: 20)),
                                       ],
                                     ),
@@ -2016,7 +2009,7 @@ class _StudentsTimetableState extends State<StudentsTimetable> {
                                   toolbarHeight: 70,
                                   backgroundColor: PrimaryColor(),
                                   elevation: 20.0,
-                                  actions: <Widget>[
+                                  actions: const <Widget>[
 
                                   ],
                                 ),
@@ -2027,7 +2020,7 @@ class _StudentsTimetableState extends State<StudentsTimetable> {
                                         children: <Widget>[
                                           SizedBox(height: sHeight(3, context),),
                                           Container(
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Colors.white,
                                               borderRadius: BorderRadius.all(Radius.circular(10),),
                                             ),
@@ -2059,18 +2052,18 @@ class _StudentsTimetableState extends State<StudentsTimetable> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
 
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -2118,10 +2111,10 @@ class _StudentHolidayState extends State<StudentHoliday> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -2199,7 +2192,7 @@ class _StudentHolidayState extends State<StudentHoliday> {
                                         //Text("selected day = " + today.toString().split(" ")[0]),
                                         Text(
                                             "List of Holidays (${Holidaydata[0].Year})",
-                                            style: TextStyle(fontSize: 24,fontWeight: FontWeight.w900)),
+                                            style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w900)),
                                         StudentProfileContainer(
 
 
@@ -2213,7 +2206,7 @@ class _StudentHolidayState extends State<StudentHoliday> {
                                               context, Holidaydata[i]),
                                         Container(
                                           margin:
-                                          EdgeInsets.only(top: 20.0),
+                                          const EdgeInsets.only(top: 20.0),
                                         ),
                                       ],
                                     ),
@@ -2365,23 +2358,23 @@ class _StudentHolidayState extends State<StudentHoliday> {
                             }
                           } else {
                             return Container(
-                              child: Center(child: CircularProgressIndicator()),
                               color: Colors.white,
+                              child: const Center(child: CircularProgressIndicator()),
                             );
                           }
                         });
                   }
                   else {
                     return Container(
-                      child: Center(child: CircularProgressIndicator()),
                       color: Colors.white,
+                      child: const Center(child: CircularProgressIndicator()),
                     );
                   }
                 });
           } else {
             return Container(
-              child: Center(child: StudentsSearching(context)),
               color: Colors.white,
+              child: Center(child: StudentsSearching(context)),
             );
           }
         });
@@ -2422,10 +2415,10 @@ class _StudentCircularState extends State<StudentCircular> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -2481,14 +2474,14 @@ class _StudentCircularState extends State<StudentCircular> {
                             Circulardata = snapshot.data!.Circulardata_list;
                             if (Circulardata.length > 0){
                               return Scaffold(
-                                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                                 appBar: AppBar(
                                   titleSpacing: 30,
                                   leadingWidth: 55,
                                   title: RichText(
-                                    text: new TextSpan(
+                                    text: const TextSpan(
                                       children: <TextSpan>[
-                                        new TextSpan(text: 'Circulars', style: TextStyle(fontWeight:
+                                        TextSpan(text: 'Circulars', style: TextStyle(fontWeight:
                                         FontWeight.bold,fontSize: 20)),
                                       ],
                                     ),
@@ -2496,16 +2489,16 @@ class _StudentCircularState extends State<StudentCircular> {
                                   toolbarHeight: 70,
                                   backgroundColor: PrimaryColor(),
                                   elevation: 20.0,
-                                  actions: <Widget>[
+                                  actions: const <Widget>[
                                   ],
                                 ),
                                 body: Builder(
                                     builder: (BuildContext context) => ListView(
                                       children: <Widget>[
-                                        Container(margin: EdgeInsets.only(top: 10.0),),
+                                        Container(margin: const EdgeInsets.only(top: 10.0),),
                                         for(int i = 0; i<= Circulardata.length-1; i++)
                                           StudentsCircularGenerator(context, Circulardata[i]),
-                                        Container(margin: EdgeInsets.only(top: 20.0),)
+                                        Container(margin: const EdgeInsets.only(top: 20.0),)
                                       ],
                                     )),
                               );
@@ -2529,17 +2522,17 @@ class _StudentCircularState extends State<StudentCircular> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -2594,10 +2587,10 @@ class _StudentOpacState extends State<StudentOpac> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -2669,7 +2662,7 @@ class _StudentOpacState extends State<StudentOpac> {
                               return Scaffold(
                                 body: Builder(
                                     builder: (BuildContext context) => Container(
-                                      margin: EdgeInsets.only(left: 10,right: 10),
+                                      margin: const EdgeInsets.only(left: 10,right: 10),
                                       height: sHeight(100, context),
                                       child: SingleChildScrollView(
                                         scrollDirection: Axis.vertical,
@@ -2679,16 +2672,16 @@ class _StudentOpacState extends State<StudentOpac> {
                                             Column(
                                               children: <Widget>[
                                                 Container(
-                                                    margin: EdgeInsets.only(bottom: 10.0)),
+                                                    margin: const EdgeInsets.only(bottom: 10.0)),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
                                                     Container(
-                                                        child: Text("Library",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,),textAlign: TextAlign.start,)),
+                                                        child: const Text("Library",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,),textAlign: TextAlign.start,)),
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
-                                                Row(
+                                                const Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
                                                     Text("Select Library",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,)),
@@ -2704,31 +2697,31 @@ class _StudentOpacState extends State<StudentOpac> {
                                                         width: sWidth(30, context),
                                                         color: Colors.white,
                                                         child: ClipRRect(
-                                                            borderRadius: BorderRadius.all(Radius.circular(15),),
+                                                            borderRadius: const BorderRadius.all(Radius.circular(15),),
                                                             child: Image.asset("images/introscreen/libary_pic.png",fit: BoxFit.cover,)),
                                                       ),
                                                         Container(
-                                                          margin: EdgeInsets.only(top: 110,left: 20),
-                                                            child: Text(
+                                                          margin: const EdgeInsets.only(top: 110,left: 20),
+                                                            child: const Text(
                                                               'VET',
                                                               style: TextStyle(color: Colors.white,
                                                                   fontWeight: FontWeight.w900,
                                                                   fontSize: 23.0),
                                                             )),
                                                         Container(
-                                                          margin: EdgeInsets.only(left: 60),
+                                                          margin: const EdgeInsets.only(left: 60),
                                                           child: Checkbox(
                                                             focusColor: Colors.white,
                                                             checkColor: Colors.white,
                                                             activeColor: Colors.blue,
                                                             value: isYes,
-                                                            shape: CircleBorder(),
+                                                            shape: const CircleBorder(),
                                                             onChanged: (bool? value) {
                                                               setState(() {
                                                                 isYes = value!;
                                                               });
                                                             },
-                                                            side: BorderSide(color: Colors.white,width: 2,),
+                                                            side: const BorderSide(color: Colors.white,width: 2,),
                                                           ),
                                                         ),
                                                         ],
@@ -2736,7 +2729,7 @@ class _StudentOpacState extends State<StudentOpac> {
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
-                                                Row(
+                                                const Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
                                                     Text("Category",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,),),
@@ -2745,10 +2738,10 @@ class _StudentOpacState extends State<StudentOpac> {
                                                 SizedBox(height: sHeight(2, context),),
                                                 Container(
                                                   child: DropdownSearch<String>(
-                                                    popupProps: PopupProps.menu(),
-                                                    dropdownDecoratorProps: DropDownDecoratorProps(
+                                                    popupProps: const PopupProps.menu(),
+                                                    dropdownDecoratorProps: const DropDownDecoratorProps(
                                                     ),
-                                                    dropdownButtonProps: DropdownButtonProps(
+                                                    dropdownButtonProps: const DropdownButtonProps(
                                                       // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                                         icon: Icon(Icons.arrow_drop_down_circle_rounded),
                                                         color: Colors.green
@@ -2761,7 +2754,7 @@ class _StudentOpacState extends State<StudentOpac> {
                                                   ),
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
-                                                Row(
+                                                const Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
                                                     Text("Book Search",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,),),
@@ -2778,7 +2771,7 @@ class _StudentOpacState extends State<StudentOpac> {
                                                       autovalidateMode: AutovalidateMode.onUserInteraction,
                                                         inputFormatters: [FilteringTextInputFormatter.deny(''),
                                                         ],
-                                                      decoration: InputDecoration(
+                                                      decoration: const InputDecoration(
                                                         border: OutlineInputBorder(
                                                           borderRadius: BorderRadius.all(Radius.circular(10),),
                                                         ),
@@ -2786,7 +2779,7 @@ class _StudentOpacState extends State<StudentOpac> {
                                                         hintText: "Search Keyword...",
                                                         hintStyle: TextStyle(fontSize: 13),
                                                       ),
-                                                      style: TextStyle(),
+                                                      style: const TextStyle(),
                                                       validator: (e){
                                                         if (e!.isEmpty){
                                                           return "Please Enter Keyword";
@@ -2801,7 +2794,7 @@ class _StudentOpacState extends State<StudentOpac> {
                                                   ),
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
-                                                Row(
+                                                const Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
                                                     Text("Records",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,)),
@@ -2813,11 +2806,11 @@ class _StudentOpacState extends State<StudentOpac> {
                                                     builder: (FormFieldState<String> state) {
                                                       return DropdownButtonHideUnderline(
                                                         child:   DropdownSearch<String>(
-                                                          popupProps: PopupProps.menu(),
-                                                          dropdownDecoratorProps: DropDownDecoratorProps(
+                                                          popupProps: const PopupProps.menu(),
+                                                          dropdownDecoratorProps: const DropDownDecoratorProps(
                                                             // dropdownSearchDecoration: PrimaryInputDecor('Records'),
                                                           ),
-                                                          dropdownButtonProps: DropdownButtonProps(
+                                                          dropdownButtonProps: const DropdownButtonProps(
                                                               // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                                               icon: Icon(Icons.arrow_drop_down_circle_rounded),
                                                               color: Colors.green
@@ -2840,11 +2833,11 @@ class _StudentOpacState extends State<StudentOpac> {
                                                   },
                                                   child: Container(
                                                     height: sHeight(8, context),
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                       color: Colors.green,
                                                       borderRadius: BorderRadius.all(Radius.circular(10),),
                                                     ),
-                                                    child: Center(child: Text("SEARCH",style: TextStyle(fontWeight:FontWeight.w900,color: Colors.white),)),
+                                                    child: const Center(child: Text("SEARCH",style: TextStyle(fontWeight:FontWeight.w900,color: Colors.white),)),
                                                   ),
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
@@ -2908,18 +2901,18 @@ class _StudentOpacState extends State<StudentOpac> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
 
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child:StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child:StudentsSearching(context)),);
           }
         });
   }
@@ -3005,7 +2998,7 @@ class _StudentOpacSearchState extends State<StudentOpacSearch> {
                                 }
                               }
                               return Scaffold(
-                                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                                 appBar: AppBar(
                                   title: Text("OPAC Search", style: PrimaryText(context)),
                                   centerTitle: true,
@@ -3028,17 +3021,17 @@ class _StudentOpacSearchState extends State<StudentOpacSearch> {
                                               ),
                                             ),
                                             Container(
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius: BorderRadius.all(
                                                     Radius.circular(0),
                                                   ),
                                                 ),
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     bottom: 15.0)),
                                             Container(
                                               width: sWidth(90, context),
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(10),
@@ -3056,7 +3049,7 @@ class _StudentOpacSearchState extends State<StudentOpacSearch> {
                                                       .start,
                                                   children: <Widget>[
                                                     InkWell(
-                                                      child: Icon(Icons
+                                                      child: const Icon(Icons
                                                           .arrow_back_ios,),
                                                       onTap: () {
                                                         if (back == true) {
@@ -3085,11 +3078,11 @@ class _StudentOpacSearchState extends State<StudentOpacSearch> {
                                                       child: Text(
                                                         page.toString(),
                                                         style:
-                                                        TextStyle(fontWeight: FontWeight.w800,fontSize: 20),
+                                                        const TextStyle(fontWeight: FontWeight.w800,fontSize: 20),
                                                       ),
                                                     ),
                                                     InkWell(
-                                                      child: Icon(Icons
+                                                      child: const Icon(Icons
                                                           .arrow_forward_ios),
                                                       onTap: () {
                                                         if (front == true) {
@@ -3123,27 +3116,27 @@ class _StudentOpacSearchState extends State<StudentOpacSearch> {
                                               ),
                                             ),
                                             Container(
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 color: Colors.green,
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(15),
                                                 ),
                                               ),
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   top: 20.0),
                                               width: 200,
                                               height: 70,
                                               child: Center(
                                                 child: Text(
                                                     "Books Found : ${StaffOPACSearchdata.length.toString()}",
-                                                    style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w900)),
+                                                    style: const TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w900)),
                                               ),
                                             ),
                                             Container(
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     bottom: 15.0)),
                                             Container(
-                                                margin: EdgeInsets.only(bottom: 15.0)),
+                                                margin: const EdgeInsets.only(bottom: 15.0)),
                                           ],
                                         )
                                       ],
@@ -3172,18 +3165,18 @@ class _StudentOpacSearchState extends State<StudentOpacSearch> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
 
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
           }
         });
   }
@@ -3223,10 +3216,10 @@ class _StudentLibraryTransactionState extends State<StudentLibraryTransaction> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -3281,7 +3274,7 @@ class _StudentLibraryTransactionState extends State<StudentLibraryTransaction> {
                             Librarydata = snapshot.data!.Librarydata_list;
                             if (Librarydata.length > 0){
                               return Scaffold(
-                                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                                 body: Builder(
                                     builder: (BuildContext context) => SingleChildScrollView(
                                       scrollDirection: Axis.vertical,
@@ -3289,7 +3282,7 @@ class _StudentLibraryTransactionState extends State<StudentLibraryTransaction> {
                                       child: Column(
                                         children: <Widget>[
                                           SizedBox(height: sHeight(3, context),),
-                                          Container(margin: EdgeInsets.only(top: 10.0),),
+                                          Container(margin: const EdgeInsets.only(top: 10.0),),
                                           for(int i = 0; i<=Librarydata.length-1; i++)
                                             StaffLibraryGenerator(context,Librarydata, i),
                                         ],
@@ -3309,18 +3302,18 @@ class _StudentLibraryTransactionState extends State<StudentLibraryTransaction> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
 
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -3360,10 +3353,10 @@ class _StudentLibraryOverdueState extends State<StudentLibraryOverdue> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -3419,7 +3412,7 @@ class _StudentLibraryOverdueState extends State<StudentLibraryOverdue> {
                             Librarydata = snapshot.data!.Librarydata_list;
                             if (Librarydata.length > 0){
                               return Scaffold(
-                                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                                 body: Builder(
                                     builder: (BuildContext context) => SingleChildScrollView(
                                       scrollDirection: Axis.vertical,
@@ -3428,7 +3421,7 @@ class _StudentLibraryOverdueState extends State<StudentLibraryOverdue> {
                                           SizedBox(height: sHeight(3, context),),
                                           for(int i = 0; i<=Librarydata.length-1; i++)
                                             StaffLibraryGenerator(context,Librarydata, i),
-                                          Container(margin: EdgeInsets.only(top: 20.0),)
+                                          Container(margin: const EdgeInsets.only(top: 20.0),)
                                         ],
                                       ),
                                     )),
@@ -3446,18 +3439,18 @@ class _StudentLibraryOverdueState extends State<StudentLibraryOverdue> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
 
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -3500,10 +3493,10 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -3558,7 +3551,7 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                             ExamCertificatedata = snapshot.data!.ExamCertificatedata_list;
                             if (ExamCertificatedata.length > 0){
                               return Scaffold(
-                                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
 
                                 body: Builder(
                                     builder: (BuildContext context) => SingleChildScrollView(
@@ -3574,7 +3567,7 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                                              children: [
                                                Container(
                                                  width: sWidth(90, context),
-                                                 decoration: BoxDecoration(
+                                                 decoration: const BoxDecoration(
                                                      color: Colors.white,
                                                      borderRadius: BorderRadius.all(Radius.circular(15),)),
                                                  child: Column(
@@ -3582,15 +3575,15 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                                                      SizedBox(height: sHeight(2, context),),
                                                      Row(
                                                        children: [
-                                                         Container( margin:EdgeInsets.only(left: 15) ,child: Text("Course : ",style: TextStyle(color: Colors.black38,fontSize: 17,fontWeight: FontWeight.w600),)),
-                                                         Text('${data[0].CourseFullName}',style: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w600),)
+                                                         Container( margin:const EdgeInsets.only(left: 15) ,child: const Text("Course : ",style: TextStyle(color: Colors.black38,fontSize: 17,fontWeight: FontWeight.w600),)),
+                                                         Text('${data[0].CourseFullName}',style: const TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w600),)
                                                        ],
                                                      ),
                                                      SizedBox(height: sHeight(3, context),),
                                                      Row(
                                                        children: [
-                                                         Container( margin:EdgeInsets.only(left: 15) ,child: Text("Batch   : ",style: TextStyle(color: Colors.black38,fontSize: 17,fontWeight: FontWeight.w600),)),
-                                                         Text('${data[0].BatchYear}',style: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w600),)
+                                                         Container( margin:const EdgeInsets.only(left: 15) ,child: const Text("Batch   : ",style: TextStyle(color: Colors.black38,fontSize: 17,fontWeight: FontWeight.w600),)),
+                                                         Text('${data[0].BatchYear}',style: const TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w600),)
                                                        ],
                                                      ),
                                                      /*Divider(
@@ -3607,7 +3600,7 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                                                SizedBox(height: sHeight(1, context),),
                                              ],
                                            ),
-                                         Container(margin: EdgeInsets.only(top: 20.0),)
+                                         Container(margin: const EdgeInsets.only(top: 20.0),)
                                        ],
                                      ),
                                    ),
@@ -3629,7 +3622,7 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                                         Container(
                                           height: sHeight(25, context),
                                           width: sWidth(90, context),
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.all(Radius.circular(10),),
                                           ),
@@ -3638,7 +3631,7 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                                             child: Row(
                                               children: [
                                                 SizedBox(width: sWidth(4, context),),
-                                                CircleAvatar(
+                                                const CircleAvatar(
                                                   radius: 55,
                                                   child: Stack(
                                                     children: [
@@ -3652,13 +3645,13 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                                                 ),
                                                 SizedBox(width: sWidth(4, context),),
                                                 RichText(
-                                                  text: new TextSpan(
+                                                  text: TextSpan(
                                                     children: <TextSpan>[
-                                                      new TextSpan(text: "${data[0].StudentName}\n\n",style: TextStyle(color:
+                                                      TextSpan(text: "${data[0].StudentName}\n\n",style: const TextStyle(color:
                                                       Colors.red,fontWeight: FontWeight.w900,fontSize: 25)),
-                                                      new TextSpan(text: '${data[0].CourseFullName}\n\n', style: TextStyle(fontWeight:
+                                                      TextSpan(text: '${data[0].CourseFullName}\n\n', style: const TextStyle(fontWeight:
                                                       FontWeight.bold,fontSize: 15,color: Colors.black)),
-                                                      new TextSpan(text: 'Batch : ${data[0].BatchYear}', style: TextStyle(fontWeight:
+                                                      TextSpan(text: 'Batch : ${data[0].BatchYear}', style: const TextStyle(fontWeight:
                                                       FontWeight.bold,fontSize: 15,color: Colors.black)),
                                                     ],
                                                   ),
@@ -3675,18 +3668,18 @@ class _StudentExamCertificateState extends State<StudentExamCertificate> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
 
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -3725,10 +3718,10 @@ class _StudentsDCBState extends State<StudentsDCB> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -3790,14 +3783,14 @@ class _StudentsDCBState extends State<StudentsDCB> {
                             StudentDCBdata = snapshot.data!.StudentDCBdata_list;
                             if (StudentDCBdata.length > 0) {
                               return Scaffold(
-                                  backgroundColor: Color.fromRGBO(239, 242, 249, 0.9),
+                                  backgroundColor: const Color.fromRGBO(239, 242, 249, 0.9),
                                   body: Builder(
                                     builder: (BuildContext context) => SingleChildScrollView(
                                         child: Column(
                                           children: <Widget>[
-                                            Padding(
+                                            const Padding(
                                               padding:
-                                              const EdgeInsets.all(5.0),
+                                              EdgeInsets.all(5.0),
                                               child: Row(
                                                 mainAxisAlignment:
                                                 MainAxisAlignment
@@ -3813,7 +3806,7 @@ class _StudentsDCBState extends State<StudentsDCB> {
                                                   context, StudentDCBdata[i]),
                                             Container(
                                               margin:
-                                              EdgeInsets.only(top: 20.0),
+                                              const EdgeInsets.only(top: 20.0),
                                             )
                                           ],
                                         )),)
@@ -3835,7 +3828,7 @@ class _StudentsDCBState extends State<StudentsDCB> {
                                             Attendancedata[0]),
                                         AttendanceProfileDivider(),
                                         Container(
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                               left: 15.0, bottom: 15.0),
                                           child: Text("DCB",
                                               style: PrimaryText2Big()),
@@ -3852,22 +3845,22 @@ class _StudentsDCBState extends State<StudentsDCB> {
                             }
                           } else {
                             return Container(
-                              child: Center(child: CircularProgressIndicator()),
                               color: Colors.white,
+                              child: const Center(child: CircularProgressIndicator()),
                             );
                           }
                         });
                   } else {
                     return Container(
-                      child: Center(child: CircularProgressIndicator()),
                       color: Colors.white,
+                      child: const Center(child: CircularProgressIndicator()),
                     );
                   }
                 });
           } else {
             return Container(
-              child: Center(child: StudentsSearching(context)),
               color: Colors.white,
+              child: Center(child: StudentsSearching(context)),
             );
           }
         });
@@ -3909,10 +3902,10 @@ class _StudentsDCBHistoryState extends State<StudentsDCBHistory> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -3977,7 +3970,7 @@ class _StudentsDCBHistoryState extends State<StudentsDCBHistory> {
                                 snapshot.data!.StudentDCBHistorydata_list;
                             if (StudentDCBHistorydata.length > 0) {
                               return Scaffold(
-                                  backgroundColor: Color.fromRGBO(239, 242, 249, 0.9),
+                                  backgroundColor: const Color.fromRGBO(239, 242, 249, 0.9),
                                   body: Builder(
                                     builder: (BuildContext context) => SingleChildScrollView(
                                         child: Column(
@@ -3995,7 +3988,7 @@ class _StudentsDCBHistoryState extends State<StudentsDCBHistory> {
                                                   i),
                                             Container(
                                               margin:
-                                              EdgeInsets.only(top: 20.0),
+                                              const EdgeInsets.only(top: 20.0),
                                             )
                                           ],
                                         )),)
@@ -4017,7 +4010,7 @@ class _StudentsDCBHistoryState extends State<StudentsDCBHistory> {
                                             Attendancedata[0]),
                                         AttendanceProfileDivider(),
                                         Container(
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                               left: 15.0, bottom: 15.0),
                                           child: Text("DCB History",
                                               style: PrimaryText2Big()),
@@ -4034,22 +4027,22 @@ class _StudentsDCBHistoryState extends State<StudentsDCBHistory> {
                             }
                           } else {
                             return Container(
-                              child: Center(child: CircularProgressIndicator()),
                               color: Colors.white,
+                              child: const Center(child: CircularProgressIndicator()),
                             );
                           }
                         });
                   } else {
                     return Container(
-                      child: Center(child: CircularProgressIndicator()),
                       color: Colors.white,
+                      child: const Center(child: CircularProgressIndicator()),
                     );
                   }
                 });
           } else {
             return Container(
-              child: Center(child: ImpLogo_Load(context)),
               color: Colors.white,
+              child: Center(child: ImpLogo_Load(context)),
             );
           }
         });
@@ -4116,20 +4109,20 @@ class _HomePage1State extends State<HomePage1> {
                                 length: 3,
                                 child: Scaffold(
                                   appBar: AppBar(
-                                    title:   Text('OPAC - Library Search'),
+                                    title:   const Text('OPAC - Library Search'),
                                     backgroundColor: PrimaryColor(),
                                   ),
                                   body: Column(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       TabBar(
                                         indicator: BoxDecoration(
-                                            color: Color(0xFFF97A52),
+                                            color: const Color(0xFFF97A52),
                                             borderRadius: BorderRadius.circular(10)
                                         ),
-                                        tabs: [
+                                        tabs: const [
 
                                           Tab(
                                             child: Text('Book Search',style: TextStyle(color: Colors.black),),
@@ -4159,20 +4152,20 @@ class _HomePage1State extends State<HomePage1> {
                                 length: 3,
                                 child: Scaffold(
                                   appBar: AppBar(
-                                    title:   Text('Opac - Library search'),
+                                    title:   const Text('Opac - Library search'),
                                     backgroundColor: PrimaryColor(),
                                   ),
                                   body: Column(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       TabBar(
                                         indicator: BoxDecoration(
-                                            color: Color(0xFFF97A52),
+                                            color: const Color(0xFFF97A52),
                                             borderRadius: BorderRadius.circular(10)
                                         ),
-                                        tabs: [
+                                        tabs: const [
 
                                           Tab(
                                             child: Text('Book Search',style: TextStyle(color: Colors.black),),
@@ -4199,18 +4192,18 @@ class _HomePage1State extends State<HomePage1> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
 
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }
@@ -4286,20 +4279,20 @@ class _HomePage2State extends State<HomePage2> {
                                 length: 2,
                                 child: Scaffold(
                                   appBar: AppBar(
-                                    title:   Text('Fee Details'),
+                                    title:   const Text('Fee Details'),
                                     backgroundColor: PrimaryColor(),
                                   ),
                                   body: Column(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       TabBar(
                                         indicator: BoxDecoration(
-                                            color: Color(0xFFF97A52 ),
+                                            color: const Color(0xFFF97A52 ),
                                             borderRadius: BorderRadius.circular(10)
                                         ),
-                                        tabs: [
+                                        tabs: const [
                                           Tab(
                                             child: Text('Fee Details',style: TextStyle(color: Colors.black),),
                                           ),
@@ -4339,22 +4332,22 @@ class _HomePage2State extends State<HomePage2> {
                             }
                           } else {
                             return Container(
-                              child: Center(child: CircularProgressIndicator()),
                               color: Colors.white,
+                              child: const Center(child: CircularProgressIndicator()),
                             );
                           }
                         });
                   } else {
                     return Container(
-                      child: Center(child: CircularProgressIndicator()),
                       color: Colors.white,
+                      child: const Center(child: CircularProgressIndicator()),
                     );
                   }
                 });
           } else {
             return Container(
-              child: Center(child: CircularProgressIndicator()),
               color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
         });
@@ -4394,10 +4387,10 @@ class _Homepage3State extends State<Homepage3> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection and Try Again"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection and Try Again"),
       actions: [
-        CupertinoButton.filled(child: Text("OK"), onPressed: (){
+        CupertinoButton.filled(child: const Text("OK"), onPressed: (){
           Navigator.pop(context);
           Navigator.pop(context);
         }),
@@ -4455,20 +4448,20 @@ class _Homepage3State extends State<Homepage3> {
                                 length: 2,
                                 child: Scaffold(
                                   appBar: AppBar(
-                                    title:   Text('University Marks'),
+                                    title:   const Text('University Marks'),
                                     backgroundColor: PrimaryColor(),
                                   ),
                                   body: Column(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       TabBar(
                                         indicator: BoxDecoration(
-                                            color: Color(0xFFF97A52),
+                                            color: const Color(0xFFF97A52),
                                             borderRadius: BorderRadius.circular(10)
                                         ),
-                                        tabs: [
+                                        tabs: const [
 
                                           Tab(
                                             child: Text('Marks',style: TextStyle(color: Colors.black),),
@@ -4508,17 +4501,17 @@ class _Homepage3State extends State<Homepage3> {
                             }
                           }
                           else{
-                            return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                            return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                           }
                         });
                   }
                   else{
-                    return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                    return Container(color: Colors.white,child: const Center(child: CircularProgressIndicator()),);
                   }
                 });
           }
           else{
-            return Container(child: Center(child: StudentsSearching(context)), color: Colors.white,);
+            return Container(color: Colors.white,child: Center(child: StudentsSearching(context)),);
           }
         });
   }

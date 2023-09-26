@@ -1,14 +1,14 @@
 import 'dart:convert';
-import 'package:add_dev_dolphin/Model/Staff_Screen/staff_screen_changes.dart';
+import 'package:add_dev_dolphin/Model/Staff_Screen/Staff_screen_c_2.dart';
 import 'package:add_dev_dolphin/Style_font/Staff_Screen_Design.dart';
-import 'package:add_dev_dolphin/main.dart';
-import 'package:http/http.dart' as http;
 import 'package:add_dev_dolphin/Style_font/designs.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+
 import '../../Data/Staff_Data.dart';
 import '../../intro_screen/staffdrawer.dart';
 
@@ -23,6 +23,7 @@ double sWidth(double per, BuildContext context) {
 }
 
 //Staff leave apply
+
 class Staff_Leave_Apply extends StatefulWidget {
   const Staff_Leave_Apply(
       {Key? key, required this.username, required this.password})
@@ -44,17 +45,19 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
   late List<String> Active_Acadamic_Year = [];
   late List<String> Acadamic_Year = [];
   late List<String> Type_Id = [];
-  late List<String> Session_Type_FRom = ['FN', 'AN', 'BOTH'];
+  late List<String> Session_Type_FRom = ['FN', 'AN'];
   int? One_Fn = 1;
   int? One_An = 1;
-  int? One_Both = 1;
-  int? Multi_From_Both = 1;
+
+  //int? One_Both = 1;
+  //int? Multi_From_Both = 1;
   int? Multi_From_FN = 1;
   int? Multi_From_AN = 1;
-  int? Multi_TO_Both = 1;
+
+  //int? Multi_TO_Both = 1;
   int? Multi_TO_FN = 1;
   int? Multi_TO_AN = 1;
-  late List<String> Session_Type_TO = ['FN', 'AN', 'BOTH'];
+  late List<String> Session_Type_TO = ['FN', 'AN'];
   late List<String> Leave_Category = [];
   bool isChecked = false;
   int? LeaveGetIndex = 0;
@@ -76,32 +79,16 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
   DateTime? From_To_Pass;
   final _ReasonValid = GlobalKey<FormState>();
 
-  Date_Validation() async {
-    if (checkboxValue1 == true && LeaveFromDate == null ||
-        One_An == 1.toInt() ||
-        One_Fn == 1.toInt() ||
-        One_Both == 1.toInt()) {
-      await Fluttertoast.showToast(
-          backgroundColor: Colors.red,
-          msg: "Kindly! Select From Date and Session",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    } else {
-      Reason_Leave_valid();
-    }
-  }
 
   MultipleDay_Date_validation() async {
     if (Multiday_select == true) {
       if (Multi_From_Date == null ||
           Multi_TO_Date == null ||
           Multi_From_FN == 1.toInt() ||
-          Multi_From_Both == 1.toInt() ||
+          //Multi_From_Both == 1.toInt() ||
           Multi_From_AN == 1.toInt() ||
           Multi_TO_FN == 1.toInt() ||
-          Multi_TO_Both == 1.toInt() ||
+          //Multi_TO_Both == 1.toInt() ||
           Multi_TO_AN == 1.toInt()) {
         await Fluttertoast.showToast(
             backgroundColor: Colors.red,
@@ -121,7 +108,7 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
     if (form!.validate()) {
       form.save();
       if (OneDay_Select == true) {
-        if (One_Both != -1) {
+        /* if (One_Both != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -134,7 +121,8 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         TOSessin: One_Both!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
                       )));
-        } else if (One_An != -1) {
+        }*/
+        if (One_An != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -146,6 +134,9 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         FromSesion: One_An!.toInt(),
                         TOSessin: One_An!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
+                        Reason: Addreason.text,
+                        Hodid: HOD_ID.toString(),
+                    Typeid: Type_id.toString(),
                       )));
         } else if (One_Fn != -1) {
           await Navigator.push(
@@ -159,11 +150,14 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         FromSesion: One_Fn!.toInt(),
                         TOSessin: One_Fn!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
+                    Reason: Addreason.text,
+                    Hodid: HOD_ID.toString(),
+                    Typeid: Type_id.toString(),
                       )));
         }
       }
       if (Multiday_select == true) {
-        if (Multi_From_Both != -1 && Multi_TO_Both != -1) {
+        /* if (Multi_From_Both != -1 && Multi_TO_Both != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -176,7 +170,8 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         TOSessin: Multi_TO_Both!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
                       )));
-        } else if (Multi_From_AN != -1 && Multi_TO_AN != -1) {
+        } */
+        if (Multi_From_AN != -1 && Multi_TO_AN != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -188,8 +183,12 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         FromSesion: Multi_From_AN!.toInt(),
                         TOSessin: Multi_TO_AN!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
+                        Reason: Addreason.text,
+                        Hodid: HOD_ID.toString(),
+                        Typeid: Type_id.toString(),
                       )));
-        } else if (Multi_From_FN != -1 && Multi_TO_FN != -1) {
+        }
+        else if (Multi_From_FN != -1 && Multi_TO_FN != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -201,8 +200,12 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         FromSesion: Multi_From_FN!.toInt(),
                         TOSessin: Multi_From_FN!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
+                    Reason: Addreason.text,
+                    Hodid: HOD_ID.toString(),
+                    Typeid: Type_id.toString(),
                       )));
-        } else if (Multi_From_FN != -1 && Multi_TO_AN != -1) {
+        }
+        else if (Multi_From_FN != -1 && Multi_TO_AN != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -214,8 +217,12 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         FromSesion: Multi_From_FN!.toInt(),
                         TOSessin: Multi_TO_AN!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
+                    Reason: Addreason.text,
+                    Hodid: HOD_ID.toString(),
+                    Typeid: Type_id.toString(),
                       )));
-        } else if (Multi_From_FN != -1 && Multi_TO_Both != -1) {
+        }
+        /*else if (Multi_From_FN != -1 && Multi_TO_Both != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -228,7 +235,8 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         TOSessin: Multi_TO_Both!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
                       )));
-        } else if (Multi_From_AN != -1 && Multi_TO_FN != -1) {
+        } */
+        else if (Multi_From_AN != -1 && Multi_TO_FN != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -240,8 +248,12 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         FromSesion: Multi_From_AN!.toInt(),
                         TOSessin: Multi_TO_FN!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
+                    Reason: Addreason.text,
+                    Hodid: HOD_ID.toString(),
+                    Typeid: Type_id.toString(),
                       )));
-        } else if (Multi_From_AN != -1 && Multi_TO_Both != -1) {
+        }
+        /*  else if (Multi_From_AN != -1 && Multi_TO_Both != -1) {
           await Navigator.push(
               context,
               MaterialPageRoute(
@@ -252,45 +264,47 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                         TOdateuh: Multi_TO_Date.toString(),
                         FromSesion: Multi_From_AN!.toInt(),
                         TOSessin: Multi_TO_Both!.toInt(),
-                        F_T_M: From_To_Pass as DateTime,
-                      )));
-        } else if (Multi_From_Both != -1 && Multi_TO_FN != -1) {
-          await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Staff_Leave_Apply_Alter_List(
-                        username: widget.username,
-                        password: widget.password,
-                        fromdateuh: Multi_From_Date.toString(),
-                        TOdateuh: Multi_TO_Date.toString(),
-                        FromSesion: Multi_From_Both!.toInt(),
-                        TOSessin: Multi_TO_FN!.toInt(),
-                        F_T_M: From_To_Pass as DateTime,
-                      )));
-        } else if (Multi_From_Both != -1 && Multi_TO_AN != -1) {
-          await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Staff_Leave_Apply_Alter_List(
-                        username: widget.username,
-                        password: widget.password,
-                        fromdateuh: Multi_From_Date.toString(),
-                        TOdateuh: Multi_TO_Date.toString(),
-                        FromSesion: Multi_From_Both!.toInt(),
-                        TOSessin: Multi_TO_AN!.toInt(),
                         F_T_M: From_To_Pass as DateTime,
                       )));
         }
+        else if (Multi_From_Both != -1 && Multi_TO_FN != -1) {
+          await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Staff_Leave_Apply_Alter_List(
+                        username: widget.username,
+                        password: widget.password,
+                        fromdateuh: Multi_From_Date.toString(),
+                        TOdateuh: Multi_TO_Date.toString(),
+                        FromSesion: Multi_From_Both!.toInt(),
+                        TOSessin: Multi_TO_FN!.toInt(),
+                        F_T_M: From_To_Pass as DateTime,
+                      )));
+        }
+        else if (Multi_From_Both != -1 && Multi_TO_AN != -1) {
+          await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Staff_Leave_Apply_Alter_List(
+                        username: widget.username,
+                        password: widget.password,
+                        fromdateuh: Multi_From_Date.toString(),
+                        TOdateuh: Multi_TO_Date.toString(),
+                        FromSesion: Multi_From_Both!.toInt(),
+                        TOSessin: Multi_TO_AN!.toInt(),
+                        F_T_M: From_To_Pass as DateTime,
+                      )));
+        }*/
       }
     }
   }
 
   Date_Validation1() async {
-    if (checkboxValue1 == true
-        && LeaveFromDate == null ||
-        One_An == 1.toInt() ||
-        One_Fn == 1.toInt() ||
-        One_Both == 1.toInt()) {
+    if (checkboxValue1 == true && LeaveFromDate == null ||
+            One_An == 1.toInt() ||
+            One_Fn == 1.toInt()
+        /*One_Both == 1.toInt()*/
+        ) {
       await Fluttertoast.showToast(
           backgroundColor: Colors.red,
           msg: "Kindly! Select From Date and Session",
@@ -308,10 +322,10 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
       if (Multi_From_Date == null ||
           Multi_TO_Date == null ||
           Multi_From_FN == 1.toInt() ||
-          Multi_From_Both == 1.toInt() ||
+          //Multi_From_Both == 1.toInt() ||
           Multi_From_AN == 1.toInt() ||
           Multi_TO_FN == 1.toInt() ||
-          Multi_TO_Both == 1.toInt() ||
+          //Multi_TO_Both == 1.toInt() ||
           Multi_TO_AN == 1.toInt()) {
         await Fluttertoast.showToast(
             backgroundColor: Colors.red,
@@ -326,120 +340,15 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
     } else {}
   }
 
-
-
   Leave_NONTeaching() async {
     final form = _ReasonValid.currentState;
     if (form!.validate()) {
       form.save();
       if (OneDay_Select == true) {
-        if (One_Both != -1) {
-            print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Both}&toSessionId=${One_Both}&Password=${widget.password}");
-            final resp = await http.get(Uri.parse(""
-                "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Both}&toSessionId=${One_Both}&Password=${widget.password}"));
-            if (resp.statusCode == 200) {
-              Responce_For_Facultyorhod = json.decode(resp.body);
-              print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
-              Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
-              Fluttertoast.showToast(
-                  backgroundColor: Colors.deepPurple,
-                  msg: "${Responce_For_Facultyorhod[0]['Msg']}",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.SNACKBAR,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-            } else {
-              print("");
-              await Fluttertoast.showToast(
-                  backgroundColor: Colors.grey,
-                  msg: "Leave Request is Not Sent",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.SNACKBAR,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-            }
-        }
-        else if (One_An != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_An}&toSessionId=${One_An}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_An}&toSessionId=${One_An}&Password=${widget.password}"));
-          if (resp.statusCode == 200) {
-            Responce_For_Facultyorhod = json.decode(resp.body);
-            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
-            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
-            Fluttertoast.showToast(
-                backgroundColor: Colors.deepPurple,
-                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-            else {
-            print("");
-            await Fluttertoast.showToast(
-                backgroundColor: Colors.grey,
-                msg: "Leave Request is Not Sent",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-        }
-        else if (One_Fn != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Fn}&toSessionId=${One_Fn}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Fn}&toSessionId=${One_Fn}&Password=${widget.password}"));
-          if (resp.statusCode == 200) {
-            Responce_For_Facultyorhod = json.decode(resp.body);
-            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
-            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
-            Fluttertoast.showToast(
-                backgroundColor: Colors.deepPurple,
-                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          } else {
-            print("");
-            await Fluttertoast.showToast(
-                backgroundColor: Colors.grey,
-                msg: "Leave Request is Not Sent",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-        }
-      }
-      if (Multiday_select == true) {
-        if (Multi_From_Both != -1 && Multi_TO_Both != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}"));
-          if (resp.statusCode == 200) {
-            Responce_For_Facultyorhod = json.decode(resp.body);
-            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
-            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
-            Fluttertoast.showToast(
-                backgroundColor: Colors.deepPurple,
-                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          } else {
-            print("");
-            await Fluttertoast.showToast(
-                backgroundColor: Colors.grey,
-                msg: "Leave Request is Not Sent",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-        }
-        else if (Multi_From_AN != -1 && Multi_TO_AN != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}"));
+        /*if (One_Both != -1) {
+              print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=20&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=20&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
@@ -462,10 +371,172 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                 textColor: Colors.white,
                 fontSize: 16.0);
           }
+        } */
+        if (One_An != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_An}&toSessionId=${One_An}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_An}&toSessionId=${One_An}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print(Responce_For_Facultyorhod[0]['Msg'].toString());
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        } else if (One_Fn != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Fn}&toSessionId=${One_Fn}&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Fn}&toSessionId=${One_Fn}&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print(Responce_For_Facultyorhod[0]['Msg'].toString());
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
         }
-        else if (Multi_From_FN != -1 && Multi_TO_FN != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}"));
+      }
+      if (Multiday_select == true) {
+        if (Multi_From_AN != -1 && Multi_TO_AN != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=20&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=20&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print(Responce_For_Facultyorhod[0]['Msg'].toString());
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        } else if (Multi_From_FN != -1 && Multi_TO_FN != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=19&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=19&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print(Responce_For_Facultyorhod[0]['Msg'].toString());
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        } else if (Multi_From_FN != -1 && Multi_TO_AN != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=20&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=20&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print(Responce_For_Facultyorhod[0]['Msg'].toString());
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        } else if (Multi_From_AN != -1 && Multi_TO_FN != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=19&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=19&Password=${widget.password}"));
+          if (resp.statusCode == 200) {
+            Responce_For_Facultyorhod = json.decode(resp.body);
+            print(Responce_For_Facultyorhod[0]['Msg'].toString());
+            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
+            Fluttertoast.showToast(
+                backgroundColor: Colors.deepPurple,
+                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          } else {
+            print("");
+            await Fluttertoast.showToast(
+                backgroundColor: Colors.grey,
+                msg: "Leave Request is Not Sent",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.SNACKBAR,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+        /*else if (Multi_From_FN != -1 && Multi_TO_Both != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=20&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=20&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
@@ -487,10 +558,12 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                 textColor: Colors.white,
                 fontSize: 16.0);
           }
-        }
-        else if (Multi_From_FN != -1 && Multi_TO_AN != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}"));
+        }*/
+        /* if (Multi_From_Both != -1 && Multi_TO_Both != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=20&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=20&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
@@ -512,60 +585,12 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                 textColor: Colors.white,
                 fontSize: 16.0);
           }
-        }
-        else if (Multi_From_FN != -1 && Multi_TO_Both != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}"));
-          if (resp.statusCode == 200) {
-            Responce_For_Facultyorhod = json.decode(resp.body);
-            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
-            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
-            Fluttertoast.showToast(
-                backgroundColor: Colors.deepPurple,
-                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          } else {
-            print("");
-            await Fluttertoast.showToast(
-                backgroundColor: Colors.grey,
-                msg: "Leave Request is Not Sent",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-        }
-        else if (Multi_From_AN != -1 && Multi_TO_FN != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}"));
-          if (resp.statusCode == 200) {
-            Responce_For_Facultyorhod = json.decode(resp.body);
-            print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
-            Leave_Apply_MSG = (Responce_For_Facultyorhod[0]['Msg'].toString());
-            Fluttertoast.showToast(
-                backgroundColor: Colors.deepPurple,
-                msg: "${Responce_For_Facultyorhod[0]['Msg']}",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          } else {
-            print("");
-            await Fluttertoast.showToast(
-                backgroundColor: Colors.grey,
-                msg: "Leave Request is Not Sent",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.SNACKBAR,
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-        }
-        else if (Multi_From_AN != -1 && Multi_TO_Both != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_AN!.toInt()}&toSessionId=${Multi_From_Both!.toInt()}&Password=${widget.password}"));
+        }*/
+        /*else if (Multi_From_AN != -1 && Multi_TO_Both != -1) {
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=19&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=19&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
@@ -589,8 +614,10 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
           }
         }
         else if (Multi_From_Both != -1 && Multi_TO_FN != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_FN!.toInt()}&Password=${widget.password}"));
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=19&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=19&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
@@ -614,8 +641,10 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
           }
         }
         else if (Multi_From_Both != -1 && Multi_TO_AN != -1) {
-          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}");
-          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_Both!.toInt()}&toSessionId=${Multi_From_AN!.toInt()}&Password=${widget.password}"));
+          print(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=20&Password=${widget.password}");
+          final resp = await http.get(Uri.parse(
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=20&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print("${Responce_For_Facultyorhod[0]['Msg'].toString()}");
@@ -637,7 +666,7 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                 textColor: Colors.white,
                 fontSize: 16.0);
           }
-        }
+        }*/
       }
     }
   }
@@ -652,12 +681,12 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
     LeaveBalanceNetwork LeaveBalancenetwork = LeaveBalanceNetwork(
         "StaffLeaves?StaffCode=${widget.username}&Password=${widget.password}");
     LeaveBalanceAPIData = LeaveBalancenetwork.LeaveBalanceloadData();
-    Hod_Find_Network hod_find_network = Hod_Find_Network(
+    Hod_Find_Network hodFindNetwork = Hod_Find_Network(
         "FindHodForLeave?StaffCode=${widget.username}&Password=${widget.password}");
-    HOD_Find_API_Data = hod_find_network.HODloadData();
-    Faculty_Network faculty_network = Faculty_Network(
+    HOD_Find_API_Data = hodFindNetwork.HODloadData();
+    Faculty_Network facultyNetwork = Faculty_Network(
         "Faclutyorhod?StaffCode=${widget.username}&Password=${widget.password}");
-    FacultyorHOD_Api_Data = faculty_network.Faculty_Data();
+    FacultyorHOD_Api_Data = facultyNetwork.Faculty_Data();
   }
 
   @override
@@ -669,25 +698,26 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
           style: PrimaryText(context),
         ),
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+        backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
       ),
-      backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+      backgroundColor: const Color.fromRGBO(242, 249, 250, 0.9),
       body: FutureBuilder(
           future: HOD_Find_API_Data,
           builder: (context, AsyncSnapshot<FindHodDataList> HodFindsnapshot) {
             if (HodFindsnapshot.hasError) {
               ErrorShowingWidget(context);
             }
-            List<FindHodData> HOD_Find_API_Data;
+            List<FindHodData> hodFindApiData;
             if (HodFindsnapshot.hasData) {
-              HOD_Find_API_Data = HodFindsnapshot.data!.HOD_list;
+              hodFindApiData = HodFindsnapshot.data!.HOD_list;
               HOD_Staff_List = [
-                for (int i = HOD_Find_API_Data.length - 1; i >= 0; i--)
-                  "${HOD_Find_API_Data[i].staffName}"
+                for (int i = hodFindApiData.length - 1; i >= 0; i--)
+                  hodFindApiData[i].staffName
               ];
-              HOD_Staff_Id = [for(int i = HOD_Find_API_Data.length - 1; i >= 0; i--)
-                "${HOD_Find_API_Data[i].staffId}"
-                ];
+              HOD_Staff_Id = [
+                for (int i = hodFindApiData.length - 1; i >= 0; i--)
+                  "${hodFindApiData[i].staffId}"
+              ];
               return FutureBuilder(
                   future: LeaveBalanceAPIData,
                   builder: (context,
@@ -702,16 +732,18 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                           LeaveBalancesnapshot.data!.LeaveBalancedata_list;
                       Leave_Category = [
                         for (int i = LeaveBalancedata.length - 1; i >= 0; i--)
-                          "${LeaveBalancedata[i].LeaveName}"
+                          LeaveBalancedata[i].LeaveName
                       ].reversed.toList();
                       Acadamic_Year = [
-                        for (int i = Active_Acadamic_Year.length - 1; i >= 0; i--)
-                          "${LeaveBalancedata[i].acadYear}"
+                        for (int i = Active_Acadamic_Year.length - 1;
+                            i >= 0;
+                            i--)
+                          LeaveBalancedata[i].acadYear
                       ];
                       Type_Id = [
                         for (int i = LeaveBalancedata.length - 1; i >= 0; i--)
                           "${LeaveBalancedata[i].Typeid}"
-                      ];
+                      ].reversed.toList();
 
                       Active_Acadamic_Year = [LeaveBalancedata[0].acadYear];
                       if (LeaveBalancedata.length > 0) {
@@ -729,309 +761,556 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                                     HodorFacultysnapshot.data!.Staff_List;
                                 if (Facultyorhod.length > 0) {
                                   return Scaffold(
-                                    body: Container(
-                                      margin:
-                                          EdgeInsets.only(left: 10, right: 10),
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: Column(
-                                          children: [
-                                           /* Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  height: sHeight(1.5, context),
-                                                ),
-                                                Text(
-                                                  "ACADEMIC YEAR :",
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                SizedBox(
-                                                  height: sHeight(1, context),
-                                                ),
-                                                Container(
-                                                  height: sHeight(5, context),
-                                                  width: sWidth(95, context),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              7),
-                                                      color: Colors.white),
-                                                  child: FormField<String>(
-                                                    builder:
-                                                        (FormFieldState<String>
-                                                            state) {
-                                                      return DropdownButtonHideUnderline(
-                                                        child: DropdownSearch<
-                                                            String>(
-                                                          popupProps:
-                                                              PopupProps.menu(),
-                                                          dropdownDecoratorProps:
-                                                              DropDownDecoratorProps(),
-                                                          dropdownButtonProps:
-                                                              DropdownButtonProps(
-                                                                  // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                  icon: Icon(Icons
-                                                                      .arrow_drop_down_circle_rounded),
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          255,
-                                                                          98,
-                                                                          118,
-                                                                          1)),
-                                                          items:
-                                                              Active_Acadamic_Year,
-                                                          selectedItem:
-                                                              "select",
-                                                          onChanged: (value) {},
-                                                        ),
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),*/
-                                            /*SizedBox(
-                                              height: sHeight(0.3, context),
-                                            ),*/
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  height: sHeight(1.5, context),
-                                                ),
-                                                Text(
-                                                  "APPLYING FOR :",
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                SizedBox(
-                                                  height: sHeight(1, context),
-                                                ),
-                                                Container(
-                                                  height: sHeight(5, context),
-                                                  width: sWidth(95, context),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              7),
-                                                      color: Colors.white),
-                                                  child: FormField<String>(
-                                                    builder:
-                                                        (FormFieldState<String>
-                                                            state) {
-                                                      return DropdownButtonHideUnderline(
-                                                        child: DropdownSearch<
-                                                            String>(
-                                                          popupProps:
-                                                              PopupProps.menu(),
-                                                          dropdownDecoratorProps:
-                                                              DropDownDecoratorProps(),
-                                                          dropdownButtonProps:
-                                                              DropdownButtonProps(
-                                                                  // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                  icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                                                                  color: Color.fromRGBO(255, 98, 118, 1)),
-                                                          items: Leave_Category,
-                                                          selectedItem: "Select Catergory",
-                                                          onChanged: (value) {
-                                                            int Passing_leave = Leave_Category.indexOf(value.toString()).toInt();
-                                                            Type_id = Type_Id[Passing_leave].toString();
-                                                            print(Type_id);
-                                                          },
-                                                        ),
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: sHeight(2.5, context),
-                                            ),
-                                            Container(
-                                              width: sWidth(100, context),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(8))),
-                                              child: Column(
+                                      body: Container(
+                                        margin: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.vertical,
+                                          child: Column(
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   SizedBox(
-                                                    height: sHeight(1, context),
+                                                    height:
+                                                        sHeight(1.5, context),
                                                   ),
-                                                  Text(
-                                                    "LEAVE AVAILABILITY",
+                                                  const Text(
+                                                    "APPLYING FOR :",
                                                     style: TextStyle(
                                                         fontSize: 15,
-                                                        color: Colors.green,
+                                                        color: Colors.black,
                                                         fontWeight:
-                                                            FontWeight.w900),
-                                                  ),
-                                                  SizedBox(
-                                                    height:
-                                                        sHeight(0.3, context),
-                                                  ),
-                                                  Divider(
-                                                    thickness: 0.4,
-                                                    color: Colors.black45,
+                                                            FontWeight.w600),
                                                   ),
                                                   SizedBox(
                                                     height: sHeight(1, context),
                                                   ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Column(
-                                                        children: [
-                                                          Text(
-                                                            "ALLOCATED",
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900),
+                                                  Container(
+                                                    height: sHeight(5, context),
+                                                    width: sWidth(95, context),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(7),
+                                                        color: Colors.white),
+                                                    child: FormField<String>(
+                                                      builder: (FormFieldState<
+                                                              String>
+                                                          state) {
+                                                        return DropdownButtonHideUnderline(
+                                                          child: DropdownSearch<
+                                                              String>(
+                                                            popupProps:
+                                                                const PopupProps
+                                                                    .menu(),
+                                                            dropdownDecoratorProps:
+                                                                const DropDownDecoratorProps(),
+                                                            dropdownButtonProps:
+                                                                const DropdownButtonProps(
+                                                                    // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                    icon: Icon(Icons
+                                                                        .arrow_drop_down_circle_rounded),
+                                                                    color: Color
+                                                                        .fromRGBO(
+                                                                            255,
+                                                                            98,
+                                                                            118,
+                                                                            1)),
+                                                            items:
+                                                                Leave_Category,
+                                                            selectedItem:
+                                                                "Select Catergory",
+                                                            onChanged: (value) {
+                                                              int passingLeave =
+                                                                  Leave_Category
+                                                                          .indexOf(
+                                                                              value.toString())
+                                                                      .toInt();
+                                                              Type_id = Type_Id[
+                                                                      passingLeave]
+                                                                  .toString();
+                                                              print(Type_id);
+                                                            },
                                                           ),
-                                                          SizedBox(
-                                                            height: sHeight(
-                                                                1, context),
-                                                          ),
-                                                          Text(
-                                                            "${LeaveBalancedata[LeaveGetIndex!].day}",
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: [
-                                                          Text(
-                                                            "MONTH",
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900),
-                                                          ),
-                                                          SizedBox(
-                                                            height: sHeight(
-                                                                1, context),
-                                                          ),
-                                                          Text(
-                                                            "${LeaveBalancedata[LeaveGetIndex!].month}",
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: [
-                                                          Text(
-                                                            "YEAR",
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900),
-                                                          ),
-                                                          SizedBox(
-                                                            height: sHeight(
-                                                                1, context),
-                                                          ),
-                                                          Text(
-                                                            "${LeaveBalancedata[LeaveGetIndex!].year}",
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: [
-                                                          Text(
-                                                            "BALANCE",
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900),
-                                                          ),
-                                                          SizedBox(
-                                                            height: sHeight(
-                                                                1, context),
-                                                          ),
-                                                          Text(
-                                                            "${LeaveBalancedata[LeaveGetIndex!].Balance}",
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: sHeight(2, context),
+                                                        );
+                                                      },
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: sHeight(2.5, context),
-                                            ),
-                                           /* LeaveBalancedata[LeaveGetIndex!]
-                                                            .Balance ==
-                                                        0.0 &&
-                                                    LeaveName !=
-                                                        "LLOP".toString() &&
-                                                    LeaveName !=
-                                                        "On Duty".toString()
-                                                ? Container(
-                                                    child: Center(
-                                                      child: Image.asset(
-                                                          "images/Dataimg/leave_not_eligible.png"),
+                                              SizedBox(
+                                                height: sHeight(2.5, context),
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    width: sWidth(95, context),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(7),
+                                                        color: Colors.white),
+                                                    child: Container(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: sHeight(
+                                                                1, context),
+                                                          ),
+                                                          const Text(
+                                                            "LEAVE DURATION : ",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Column(
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        Checkbox(
+                                                                          value:
+                                                                              checkboxValue1,
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            setState(() {
+                                                                              checkboxValue1 = value!;
+                                                                              OneDay_Select = true;
+                                                                              checkboxValue2 = false;
+                                                                              Multiday_select = false;
+                                                                            });
+                                                                          },
+                                                                          activeColor: const Color.fromRGBO(
+                                                                              255,
+                                                                              98,
+                                                                              118,
+                                                                              1),
+                                                                        ),
+                                                                        const Text(
+                                                                          "ONE SESSION",
+                                                                          style: TextStyle(
+                                                                              fontSize: 11,
+                                                                              color: Color.fromRGBO(31, 16, 148, 1.0),
+                                                                              fontWeight: FontWeight.w600),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Checkbox(
+                                                                          value:
+                                                                              checkboxValue2,
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            setState(() {
+                                                                              checkboxValue2 = value!;
+                                                                              checkboxValue1 = false;
+                                                                              Multiday_select = true;
+                                                                              OneDay_Select = false;
+                                                                            });
+                                                                          },
+                                                                          activeColor: const Color.fromRGBO(
+                                                                              255,
+                                                                              98,
+                                                                              118,
+                                                                              1),
+                                                                        ),
+                                                                        const Text(
+                                                                          "MULTIPLE SESSION/DAY",
+                                                                          style: TextStyle(
+                                                                              fontSize: 10,
+                                                                              color: Color.fromRGBO(31, 16, 148, 1.0),
+                                                                              fontWeight: FontWeight.w600),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                OneDay_Select ==
+                                                                        true
+                                                                    ? Column(
+                                                                        children: [
+                                                                          Container(
+                                                                            width:
+                                                                                sWidth(95, context),
+                                                                            decoration:
+                                                                                BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: Row(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                children: [
+                                                                                  Column(
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      const Text(
+                                                                                        "FROM DATE : ",
+                                                                                        style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: sHeight(0.7, context),
+                                                                                      ),
+                                                                                      Container(
+                                                                                        height: 40,
+                                                                                        width: 150,
+                                                                                        decoration: BoxDecoration(
+                                                                                          border: Border.all(color: Colors.black),
+                                                                                          borderRadius: const BorderRadius.all(
+                                                                                            Radius.circular(7),
+                                                                                          ),
+                                                                                        ),
+                                                                                        child: Row(
+                                                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                          children: [
+                                                                                            LeaveFromDate == null ? const Text("Select") : Text("${LeaveFromDate}"),
+                                                                                            IconButton(
+                                                                                              onPressed: () async {
+                                                                                                showDatePicker(
+                                                                                                  context: context,
+                                                                                                  initialDate: DateTime.now(),
+                                                                                                  firstDate: DateTime.now(),
+                                                                                                  lastDate: DateTime(2100),
+                                                                                                ).then((value) async {
+                                                                                                  LeaveFromDate = DateFormat('dd/MM/yyyy').format(value!);
+                                                                                                  if (checkboxValue1 == true) {
+                                                                                                    LeaveFromDate = DateFormat('dd/MM/yyyy').format(value);
+                                                                                                    LeaveTODate = DateFormat('dd/MM/yyyy').format(value);
+                                                                                                    From_To_Pass = value;
+                                                                                                  }
+                                                                                                  setState(() {});
+                                                                                                });
+                                                                                              },
+                                                                                              icon: const Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: sHeight(2, context),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                  Column(
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      const Text(
+                                                                                        "SESSION : ",
+                                                                                        style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: sHeight(0.7, context),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: 40,
+                                                                                        width: 150,
+                                                                                        child: FormField<String>(
+                                                                                          builder: (FormFieldState<String> state) {
+                                                                                            return DropdownButtonHideUnderline(
+                                                                                              child: DropdownSearch<String>(
+                                                                                                popupProps: const PopupProps.menu(),
+                                                                                                dropdownDecoratorProps: const DropDownDecoratorProps(),
+                                                                                                dropdownButtonProps: const DropdownButtonProps(
+                                                                                                    // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                                                    icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                                                                                                    color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                items: Session_Type_FRom,
+                                                                                                selectedItem: 'SESSION',
+                                                                                                onChanged: (value) {
+                                                                                                  if (value.toString() == 'FN'.toString()) {
+                                                                                                    One_Fn = 19.toInt();
+                                                                                                    One_An = -1;
+                                                                                                    //One_Both = -1;
+                                                                                                    print(One_Fn);
+                                                                                                  }
+                                                                                                  if (value.toString() == 'AN'.toString()) {
+                                                                                                    One_An = 20.toInt();
+                                                                                                    One_Fn = -1;
+                                                                                                    //One_Both = -1;
+                                                                                                    print(One_An);
+                                                                                                  }
+                                                                                                  /*if (value.toString() == 'BOTH'.toString()) {
+                                                                                                    One_Both = 0.toInt();
+                                                                                                    One_Fn = -1;
+                                                                                                    One_An = -1;
+                                                                                                  }*/
+                                                                                                },
+                                                                                              ),
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: sHeight(2, context),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      )
+                                                                    : new Container(),
+                                                                Multiday_select ==
+                                                                        true
+                                                                    ? Column(
+                                                                        children: [
+                                                                          Container(
+                                                                            width:
+                                                                                sWidth(95, context),
+                                                                            decoration:
+                                                                                BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: Row(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                children: [
+                                                                                  Column(
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      const Text(
+                                                                                        "FROM DATE : ",
+                                                                                        style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: sHeight(0.7, context),
+                                                                                      ),
+                                                                                      Container(
+                                                                                        height: 40,
+                                                                                        width: 150,
+                                                                                        decoration: BoxDecoration(
+                                                                                          border: Border.all(color: Colors.black),
+                                                                                          borderRadius: const BorderRadius.all(
+                                                                                            Radius.circular(7),
+                                                                                          ),
+                                                                                        ),
+                                                                                        child: Row(
+                                                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                          children: [
+                                                                                            Multi_From_Date == null ? const Text("Select") : Text("${Multi_From_Date}"),
+                                                                                            IconButton(
+                                                                                              onPressed: () async {
+                                                                                                showDatePicker(
+                                                                                                  context: context,
+                                                                                                  initialDate: DateTime.now(),
+                                                                                                  firstDate: DateTime.now(),
+                                                                                                  lastDate: DateTime(2100),
+                                                                                                ).then((value) async {
+                                                                                                  Multi_From_Date = DateFormat('dd/MM/yyyy').format(value!);
+                                                                                                  Add_Date = value;
+
+                                                                                                  setState(() {});
+                                                                                                });
+                                                                                              },
+                                                                                              icon: const Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: sHeight(2, context),
+                                                                                      ),
+                                                                                      Column(
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          const Text(
+                                                                                            "TO DATE:",
+                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(0.7, context),
+                                                                                          ),
+                                                                                          Container(
+                                                                                            height: 40,
+                                                                                            width: 150,
+                                                                                            decoration: BoxDecoration(
+                                                                                              border: Border.all(color: Colors.black),
+                                                                                              borderRadius: const BorderRadius.all(
+                                                                                                Radius.circular(7),
+                                                                                              ),
+                                                                                            ),
+                                                                                            child: Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              children: [
+                                                                                                Multi_TO_Date == null ? const Text("Select") : Text("${Multi_TO_Date}"),
+                                                                                                IconButton(
+                                                                                                  onPressed: () async {
+                                                                                                    showDatePicker(
+                                                                                                      context: context,
+                                                                                                      initialDate: DateTime.parse(Add_Date.toString()).add(const Duration(days: 0)),
+                                                                                                      firstDate: DateTime.parse(Add_Date.toString()).add(const Duration(days: 0)),
+                                                                                                      lastDate: DateTime(2100),
+                                                                                                    ).then((value) async {
+                                                                                                      Multi_TO_Date = DateFormat('dd/MM/yyyy').format(value!);
+                                                                                                      From_To_Pass = value;
+                                                                                                      setState(() {});
+                                                                                                    });
+                                                                                                  },
+                                                                                                  icon: const Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                  Column(
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      const Text(
+                                                                                        "SESSION : ",
+                                                                                        style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: sHeight(0.7, context),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: 40,
+                                                                                        width: 150,
+                                                                                        child: FormField<String>(
+                                                                                          builder: (FormFieldState<String> state) {
+                                                                                            return DropdownButtonHideUnderline(
+                                                                                              child: DropdownSearch<String>(
+                                                                                                popupProps: const PopupProps.menu(),
+                                                                                                dropdownDecoratorProps: const DropDownDecoratorProps(),
+                                                                                                dropdownButtonProps: const DropdownButtonProps(
+                                                                                                    // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                                                    icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                                                                                                    color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                items: Session_Type_FRom,
+                                                                                                selectedItem: 'SESSION',
+                                                                                                onChanged: (value) {
+                                                                                                  if (value.toString() == 'FN'.toString()) {
+                                                                                                    Multi_From_FN = 19.toInt();
+                                                                                                    Multi_From_AN = -1;
+                                                                                                    //Multi_From_Both = -1;
+                                                                                                  }
+                                                                                                  if (value.toString() == 'AN'.toString()) {
+                                                                                                    Multi_From_AN = 20.toInt();
+                                                                                                    Multi_From_FN = -1;
+                                                                                                    // Multi_From_Both = -1;
+                                                                                                  }
+                                                                                                  /*if (value.toString() == 'BOTH'.toString()) {
+                                                                                                    Multi_From_Both = 0.toInt();
+                                                                                                    Multi_From_AN = -1;
+                                                                                                    Multi_From_FN = -1;
+                                                                                                  }*/
+                                                                                                },
+                                                                                              ),
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        height: sHeight(2, context),
+                                                                                      ),
+                                                                                      Column(
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          const Text(
+                                                                                            "SESSION : ",
+                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: sHeight(0.7, context),
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            height: 40,
+                                                                                            width: 150,
+                                                                                            child: FormField<String>(
+                                                                                              builder: (FormFieldState<String> state) {
+                                                                                                return DropdownButtonHideUnderline(
+                                                                                                  child: DropdownSearch<String>(
+                                                                                                    popupProps: const PopupProps.menu(),
+                                                                                                    dropdownDecoratorProps: const DropDownDecoratorProps(),
+                                                                                                    dropdownButtonProps: const DropdownButtonProps(
+                                                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                                                        icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                                                                                                        color: Color.fromRGBO(255, 98, 118, 1)),
+                                                                                                    items: Session_Type_TO,
+                                                                                                    selectedItem: 'SESSION',
+                                                                                                    onChanged: (value) {
+                                                                                                      if (value.toString() == 'FN'.toString()) {
+                                                                                                        Multi_TO_FN = 19.toInt();
+                                                                                                        Multi_TO_AN = -1;
+                                                                                                        // Multi_TO_Both = -1;
+                                                                                                      }
+                                                                                                      if (value.toString() == 'AN'.toString()) {
+                                                                                                        Multi_TO_AN = 20.toInt();
+                                                                                                        Multi_TO_FN = -1;
+                                                                                                        // Multi_TO_Both = -1;
+                                                                                                      }
+                                                                                                      /*if (value.toString() == 'BOTH'.toString()) {
+                                                                                                        Multi_TO_Both = 0.toInt();
+                                                                                                        Multi_TO_AN = -1;
+                                                                                                        Multi_TO_FN = -1;
+                                                                                                      }*/
+                                                                                                    },
+                                                                                                  ),
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      )
+                                                                    : new Container(),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  )
-                                                :*/ Column(
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
+                                                      SizedBox(
+                                                        height: sHeight(
+                                                            1.5, context),
+                                                      ),
+                                                      const Text(
+                                                        "REASON TYPE :",
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            sHeight(1, context),
+                                                      ),
                                                       Container(
                                                         width:
                                                             sWidth(95, context),
@@ -1042,680 +1321,649 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                                                                         7),
                                                             color:
                                                                 Colors.white),
-                                                        child: Container(
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              SizedBox(
+                                                        child: Form(
+                                                          key: _ReasonValid,
+                                                          child: TextFormField(
+                                                            controller:
+                                                                Addreason,
+                                                            cursorColor:
+                                                                Colors.black,
+                                                            inputFormatters: [
+                                                              FilteringTextInputFormatter
+                                                                  .deny(RegExp(
+                                                                      r'^\s')),
+                                                            ],
+                                                            validator: (e) {
+                                                              if (e!.isEmpty) {
+                                                                return "Kindly Enter the Reason Type";
+                                                              }
+                                                              return null;
+                                                            },
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.9)),
+                                                            decoration:
+                                                                InputDecoration(
+                                                              contentPadding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                horizontal: 5.0,
+                                                              ),
+                                                              labelStyle: TextStyle(
+                                                                  color: Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          0.9),
+                                                                  fontSize: 10),
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              7.0),
+                                                                  borderSide:
+                                                                      const BorderSide(
+                                                                          width:
+                                                                              5,
+                                                                          style:
+                                                                              BorderStyle.none)),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: sHeight(
+                                                            1.5, context),
+                                                      ),
+                                                      const Text(
+                                                        "FORWARD LEAVE REQUEST TO:",
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            sHeight(1, context),
+                                                      ),
+                                                      Container(
+                                                        width:
+                                                            sWidth(95, context),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        7),
+                                                            color:
+                                                                Colors.white),
+                                                        child:
+                                                            FormField<String>(
+                                                          builder:
+                                                              (FormFieldState<
+                                                                      String>
+                                                                  state) {
+                                                            return DropdownButtonHideUnderline(
+                                                              child:
+                                                                  DropdownSearch<
+                                                                      String>(
+                                                                popupProps:
+                                                                    const PopupProps
+                                                                        .menu(),
+                                                                dropdownDecoratorProps:
+                                                                    const DropDownDecoratorProps(),
+                                                                dropdownButtonProps:
+                                                                    const DropdownButtonProps(
+                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                        icon: Icon(Icons
+                                                                            .arrow_drop_down_circle_rounded),
+                                                                        color: Color.fromRGBO(
+                                                                            255,
+                                                                            98,
+                                                                            118,
+                                                                            1)),
+                                                                items: hodFindApiData
+                                                                            .length ==
+                                                                        0
+                                                                    ? RecordType
+                                                                    : HOD_Staff_List,
+                                                                selectedItem:
+                                                                    "Select HOD or Principal ",
+                                                                //? "Not Specified" : HOD_Staff_List[0],
+                                                                onChanged:
+                                                                    (value) {
+                                                                  int passingClub =
+                                                                      HOD_Staff_List.indexOf(
+                                                                              value.toString())
+                                                                          .toInt();
+                                                                  HOD_ID = HOD_Staff_Id[
+                                                                      passingClub
+                                                                          .toInt()];
+                                                                  print(HOD_ID);
+                                                                },
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                        sHeight(2.5, context),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      bottomNavigationBar: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 50,
+                                        margin: const EdgeInsets.fromLTRB(
+                                            40, 10, 40, 20),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        child: ElevatedButton(
+                                          onPressed: () async {
+                                            for (int i = 0; i < Facultyorhod.length; i++) {
+                                              if (Facultyorhod[i].lawah == 0) {
+                                                if (checkboxValue1 == true) {
+                                                  if (Type_id == null ||
+                                                      HOD_ID == null ||
+                                                      LeaveFromDate == null ||
+                                                      One_An == 1 ||
+                                                      One_Fn == 1) {
+                                                    await Fluttertoast
+                                                        .showToast(
+                                                        backgroundColor:
+                                                        Colors.red,
+                                                        msg:
+                                                        "Kindly! Enter Required Details",
+                                                        toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                        gravity: ToastGravity
+                                                            .SNACKBAR,
+                                                        textColor: Colors.white,
+                                                        fontSize: 16.0);
+                                                  } else {
+                                                    await showDialog(
+                                                        context: context,
+                                                        barrierDismissible:
+                                                            true,
+                                                        builder: (context) =>
+                                                            AlertDialog(
+                                                                content:
+                                                                    SizedBox(
+                                                              height: sHeight(
+                                                                  15, context),
+                                                              width: sWidth(
+                                                                  60, context),
+                                                              child: Column(
+                                                                children: [
+                                                                  const Text(
+                                                                      "Do you want to Apply Leave?"),
+                                                                  SizedBox(
+                                                                    height: sHeight(
+                                                                        5,
+                                                                        context),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      InkWell(
+                                                                        child:
+                                                                            Container(
+                                                                          height: sHeight(
+                                                                              5,
+                                                                              context),
+                                                                          width: sWidth(
+                                                                              17,
+                                                                              context),
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(10),
+                                                                            color:
+                                                                                Colors.red,
+                                                                          ),
+                                                                          child: Center(
+                                                                              child: Text(
+                                                                            "NO",
+                                                                            style:
+                                                                                ErrorText(),
+                                                                          )),
+                                                                        ),
+                                                                        onTap:
+                                                                            () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                      ),
+                                                                      InkWell(
+                                                                        child:
+                                                                            Container(
+                                                                          height: sHeight(
+                                                                              5,
+                                                                              context),
+                                                                          width: sWidth(
+                                                                              17,
+                                                                              context),
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(10),
+                                                                            color:
+                                                                                Colors.green,
+                                                                          ),
+                                                                          child: Center(
+                                                                              child: Text(
+                                                                            "Yes",
+                                                                            style:
+                                                                                ErrorText(),
+                                                                          )),
+                                                                        ),
+                                                                        onTap:
+                                                                            () async {
+                                                                          if (checkboxValue1 ==
+                                                                              true) {
+                                                                            print(Addreason);
+                                                                            Date_Validation1();
+                                                                          }
+                                                                          if (Multiday_select ==
+                                                                              true) {
+                                                                            MultipleDay_Date_validation1();
+                                                                          }
+                                                                          Navigator.pop(context);
+                                                                          Navigator.pop(context);
+                                                                          Navigator.pop(context);
+                                                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
+                                                                            (username: widget.username, password: widget.password,)));
+                                                                        },
+                                                                      )
+                                                                    ],
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            )));
+                                                  }
+                                                }
+                                                if (Multiday_select == true) {
+                                                  if (Type_id == null ||
+                                                      HOD_ID == null ||
+                                                      Multi_From_Date == null ||
+                                                      Multi_TO_Date == null ||
+                                                      Multi_From_AN == 1 ||
+                                                      Multi_From_FN == 1 ||
+                                                      Multi_TO_AN == 1 ||
+                                                      Multi_TO_FN == 1) {
+                                                    await Fluttertoast.showToast(
+                                                        backgroundColor:
+                                                            Colors.red,
+                                                        timeInSecForIosWeb: 3,
+                                                        msg:
+                                                            "Kindly! Enter Required Details",
+                                                        toastLength:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity: ToastGravity
+                                                            .SNACKBAR,
+                                                        textColor: Colors.white,
+                                                        fontSize: 16.0);
+                                                  } else {
+                                                    showDialog(
+                                                        context: context,
+                                                        barrierDismissible:
+                                                            true,
+                                                        builder: (context) =>
+                                                            AlertDialog(
+                                                                content:
+                                                                    SizedBox(
+                                                              height: sHeight(
+                                                                  15, context),
+                                                              width: sWidth(
+                                                                  60, context),
+                                                              child: Column(
+                                                                children: [
+                                                                  const Text(
+                                                                      "Do you want to Apply Leave?"),
+                                                                  SizedBox(
+                                                                    height: sHeight(
+                                                                        5,
+                                                                        context),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      InkWell(
+                                                                        child:
+                                                                            Container(
+                                                                          height: sHeight(
+                                                                              5,
+                                                                              context),
+                                                                          width: sWidth(
+                                                                              17,
+                                                                              context),
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(10),
+                                                                            color:
+                                                                                Colors.red,
+                                                                          ),
+                                                                          child: Center(
+                                                                              child: Text(
+                                                                            "NO",
+                                                                            style:
+                                                                                ErrorText(),
+                                                                          )),
+                                                                        ),
+                                                                        onTap:
+                                                                            () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                      ),
+                                                                      InkWell(
+                                                                        child:
+                                                                            Container(
+                                                                          height: sHeight(
+                                                                              5,
+                                                                              context),
+                                                                          width: sWidth(
+                                                                              17,
+                                                                              context),
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(10),
+                                                                            color:
+                                                                                Colors.green,
+                                                                          ),
+                                                                          child: Center(
+                                                                              child: Text(
+                                                                            "Yes",
+                                                                            style:
+                                                                                ErrorText(),
+                                                                          )),
+                                                                        ),
+                                                                        onTap:
+                                                                            () async {
+                                                                          await MultipleDay_Date_validation1();
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                      )
+                                                                    ],
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            )));
+                                                  }
+                                                }
+                                              }
+                                              else {
+                                                  if (checkboxValue1 == true) {
+                                                    if (Type_id == null ||
+                                                        HOD_ID == null ||
+                                                        LeaveFromDate == null ||
+                                                        One_An == 1 ||
+                                                        One_Fn == 1) {
+                                                      await Fluttertoast.showToast(
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                          msg:
+                                                              "Kindly! Enter Required Details",
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .SNACKBAR,
+                                                          textColor:
+                                                              Colors.white,
+                                                          fontSize: 16.0);
+                                                    } else {
+                                                      await showDialog(
+                                                          context: context,
+                                                          barrierDismissible:
+                                                              true,
+                                                          builder: (context) =>
+                                                              AlertDialog(
+                                                                  content:
+                                                                      SizedBox(
                                                                 height: sHeight(
-                                                                    1, context),
-                                                              ),
-                                                              Text(
-                                                                "LEAVE DURATION : ",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        13,
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        8.0),
+                                                                    15,
+                                                                    context),
+                                                                width: sWidth(
+                                                                    60,
+                                                                    context),
                                                                 child: Column(
                                                                   children: [
+                                                                    const Text(
+                                                                        " Send Alternative.  "),
+                                                                    SizedBox(
+                                                                      height: sHeight(
+                                                                          5,
+                                                                          context),
+                                                                    ),
                                                                     Row(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
                                                                               .spaceBetween,
                                                                       children: [
-                                                                        Row(
-                                                                          children: [
-                                                                            Checkbox(
-                                                                              value: checkboxValue1,
-                                                                              onChanged: (value) {
-                                                                                setState(() {
-                                                                                  checkboxValue1 = value!;
-                                                                                  OneDay_Select = true;
-                                                                                  checkboxValue2 = false;
-                                                                                  Multiday_select = false;
-                                                                                });
-                                                                              },
-                                                                              activeColor: Color.fromRGBO(255, 98, 118, 1),
+                                                                        InkWell(
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                sHeight(5, context),
+                                                                            width:
+                                                                                sWidth(17, context),
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(10),
+                                                                              color: Colors.red,
                                                                             ),
-                                                                            Text(
-                                                                              "ONE DAY",
-                                                                              style: TextStyle(color: Color.fromRGBO(31, 16, 148, 1.0), fontWeight: FontWeight.w600),
-                                                                            )
-                                                                          ],
+                                                                            child: Center(
+                                                                                child: Text(
+                                                                              "NO",
+                                                                              style: ErrorText(),
+                                                                            )),
+                                                                          ),
+                                                                          onTap:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
                                                                         ),
-                                                                        Row(
-                                                                          children: [
-                                                                            Checkbox(
-                                                                              value: checkboxValue2,
-                                                                              onChanged: (value) {
-                                                                                setState(() {
-                                                                                  checkboxValue2 = value!;
-                                                                                  checkboxValue1 = false;
-                                                                                  Multiday_select = true;
-                                                                                  OneDay_Select = false;
-                                                                                });
-                                                                              },
-                                                                              activeColor: Color.fromRGBO(255, 98, 118, 1),
+                                                                        InkWell(
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                sHeight(5, context),
+                                                                            width:
+                                                                                sWidth(17, context),
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(10),
+                                                                              color: Colors.green,
                                                                             ),
-                                                                            Text(
-                                                                              "MULTIPLE DAY",
-                                                                              style: TextStyle(color: Color.fromRGBO(31, 16, 148, 1.0), fontWeight: FontWeight.w600),
-                                                                            ),
-                                                                          ],
-                                                                        ),
+                                                                            child: Center(
+                                                                                child: Text(
+                                                                              "Yes",
+                                                                              style: ErrorText(),
+                                                                            )),
+                                                                          ),
+                                                                          onTap:
+                                                                              () async {
+                                                                            await Reason_Leave_valid();
+                                                                          },
+                                                                        )
                                                                       ],
-                                                                    ),
-                                                                    OneDay_Select ==
-                                                                            true
-                                                                        ? Column(
-                                                                            children: [
-                                                                              Container(
-                                                                                width: sWidth(95, context),
-                                                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white),
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.all(8.0),
-                                                                                  child: Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                    children: [
-                                                                                      Column(
-                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            "FROM DATE : ",
-                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
-                                                                                          ),
-                                                                                          SizedBox(
-                                                                                            height: sHeight(0.7, context),
-                                                                                          ),
-                                                                                          Container(
-                                                                                            height: 40,
-                                                                                            width: 150,
-                                                                                            decoration: BoxDecoration(
-                                                                                              border: Border.all(color: Colors.black),
-                                                                                              borderRadius: BorderRadius.all(
-                                                                                                Radius.circular(7),
-                                                                                              ),
-                                                                                            ),
-                                                                                            child: Row(
-                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                              children: [
-                                                                                                LeaveFromDate == null ? Text("Select") : Text("${LeaveFromDate}"),
-                                                                                                IconButton(
-                                                                                                  onPressed: () async {
-                                                                                                    showDatePicker(
-                                                                                                      context: context,
-                                                                                                      initialDate: DateTime.now(),
-                                                                                                      firstDate: DateTime.now(),
-                                                                                                      lastDate: DateTime(2100),
-                                                                                                    ).then((value) async {
-                                                                                                      LeaveFromDate = DateFormat('dd/MM/yyyy').format(value!);
-                                                                                                      if (checkboxValue1 == true) {
-                                                                                                        LeaveFromDate = DateFormat('dd/MM/yyyy').format(value);
-                                                                                                        LeaveTODate = DateFormat('dd/MM/yyyy').format(value);
-                                                                                                        From_To_Pass = value;
-                                                                                                      }
-
-                                                                                                      setState(() {});
-                                                                                                    });
-                                                                                                  },
-                                                                                                  icon: Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          ),
-                                                                                          SizedBox(
-                                                                                            height: sHeight(2, context),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                      Column(
-                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            "SESSION : ",
-                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
-                                                                                          ),
-                                                                                          SizedBox(
-                                                                                            height: sHeight(0.7, context),
-                                                                                          ),
-                                                                                          Container(
-                                                                                            height: 40,
-                                                                                            width: 150,
-                                                                                            child: FormField<String>(
-                                                                                              builder: (FormFieldState<String> state) {
-                                                                                                return DropdownButtonHideUnderline(
-                                                                                                  child: DropdownSearch<String>(
-                                                                                                    popupProps: PopupProps.menu(),
-                                                                                                    dropdownDecoratorProps: DropDownDecoratorProps(),
-                                                                                                    dropdownButtonProps: DropdownButtonProps(
-                                                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                                                        icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                                                                                                        color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                                    items: Session_Type_FRom,
-                                                                                                    selectedItem: 'SESSION',
-                                                                                                    onChanged: (value) {
-                                                                                                      if (value.toString() == 'FN'.toString()) {
-                                                                                                        One_Fn = 19.toInt();
-                                                                                                        One_An = -1;
-                                                                                                        One_Both = -1;
-                                                                                                        print(One_Fn);
-                                                                                                      }
-                                                                                                      if (value.toString() == 'AN'.toString()) {
-                                                                                                        One_An = 20.toInt();
-                                                                                                        One_Fn = -1;
-                                                                                                        One_Both = -1;
-                                                                                                        print(One_An);
-                                                                                                      }
-                                                                                                      if (value.toString() == 'BOTH'.toString()) {
-                                                                                                        One_Both = 0.toInt();
-                                                                                                        One_Fn = -1;
-                                                                                                        One_An = -1;
-                                                                                                      }
-                                                                                                    },
-                                                                                                  ),
-                                                                                                );
-                                                                                              },
-                                                                                            ),
-                                                                                          ),
-                                                                                          SizedBox(
-                                                                                            height: sHeight(2, context),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          )
-                                                                        : new Container(),
-                                                                    Multiday_select ==
-                                                                            true
-                                                                        ? Column(
-                                                                            children: [
-                                                                              Container(
-                                                                                width: sWidth(95, context),
-                                                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white),
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.all(8.0),
-                                                                                  child: Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                    children: [
-                                                                                      Column(
-                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            "FROM DATE : ",
-                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
-                                                                                          ),
-                                                                                          SizedBox(
-                                                                                            height: sHeight(0.7, context),
-                                                                                          ),
-                                                                                          Container(
-                                                                                            height: 40,
-                                                                                            width: 150,
-                                                                                            decoration: BoxDecoration(
-                                                                                              border: Border.all(color: Colors.black),
-                                                                                              borderRadius: BorderRadius.all(
-                                                                                                Radius.circular(7),
-                                                                                              ),
-                                                                                            ),
-                                                                                            child: Row(
-                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                              children: [
-                                                                                                Multi_From_Date == null ? Text("Select") : Text("${Multi_From_Date}"),
-                                                                                                IconButton(
-                                                                                                  onPressed: () async {
-                                                                                                    showDatePicker(
-                                                                                                      context: context,
-                                                                                                      initialDate: DateTime.now(),
-                                                                                                      firstDate: DateTime.now(),
-                                                                                                      lastDate: DateTime(2100),
-                                                                                                    ).then((value) async {
-                                                                                                      Multi_From_Date = DateFormat('dd/MM/yyyy').format(value!);
-                                                                                                      Add_Date = value;
-
-                                                                                                      setState(() {});
-                                                                                                    });
-                                                                                                  },
-                                                                                                  icon: Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          ),
-                                                                                          SizedBox(
-                                                                                            height: sHeight(2, context),
-                                                                                          ),
-                                                                                          Column(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                            children: [
-                                                                                              Text(
-                                                                                                "TO DATE:",
-                                                                                                style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
-                                                                                              ),
-                                                                                              SizedBox(
-                                                                                                height: sHeight(0.7, context),
-                                                                                              ),
-                                                                                              Container(
-                                                                                                height: 40,
-                                                                                                width: 150,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  border: Border.all(color: Colors.black),
-                                                                                                  borderRadius: BorderRadius.all(
-                                                                                                    Radius.circular(7),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                child: Row(
-                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                  children: [
-                                                                                                    Multi_TO_Date == null ? Text("Select") : Text("${Multi_TO_Date}"),
-                                                                                                    IconButton(
-                                                                                                      onPressed: () async {
-                                                                                                        showDatePicker(
-                                                                                                          context: context,
-                                                                                                          initialDate: DateTime.parse(Add_Date.toString()).add(Duration(days: 1)),
-                                                                                                          firstDate: DateTime.parse(Add_Date.toString()).add(Duration(days: 1)),
-                                                                                                          lastDate: DateTime(2100),
-                                                                                                        ).then((value) async {
-                                                                                                          Multi_TO_Date = DateFormat('dd/MM/yyyy').format(value!);
-                                                                                                          From_To_Pass = value;
-                                                                                                          setState(() {});
-                                                                                                        });
-                                                                                                      },
-                                                                                                      icon: Icon(Icons.calendar_month, color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                      Column(
-                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            "SESSION : ",
-                                                                                            style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
-                                                                                          ),
-                                                                                          SizedBox(
-                                                                                            height: sHeight(0.7, context),
-                                                                                          ),
-                                                                                          Container(
-                                                                                            height: 40,
-                                                                                            width: 150,
-                                                                                            child: FormField<String>(
-                                                                                              builder: (FormFieldState<String> state) {
-                                                                                                return DropdownButtonHideUnderline(
-                                                                                                  child: DropdownSearch<String>(
-                                                                                                    popupProps: PopupProps.menu(),
-                                                                                                    dropdownDecoratorProps: DropDownDecoratorProps(),
-                                                                                                    dropdownButtonProps: DropdownButtonProps(
-                                                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                                                        icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                                                                                                        color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                                    items: Session_Type_FRom,
-                                                                                                    selectedItem: 'SESSION',
-                                                                                                    onChanged: (value) {
-                                                                                                      if (value.toString() == 'FN'.toString()) {
-                                                                                                        Multi_From_FN = 19.toInt();
-                                                                                                        Multi_From_AN = -1;
-                                                                                                        Multi_From_Both = -1;
-                                                                                                      }
-                                                                                                      if (value.toString() == 'AN'.toString()) {
-                                                                                                        Multi_From_AN = 20.toInt();
-                                                                                                        Multi_From_FN = -1;
-                                                                                                        Multi_From_Both = -1;
-                                                                                                      }
-                                                                                                      if (value.toString() == 'BOTH'.toString()) {
-                                                                                                        Multi_From_Both = 0.toInt();
-                                                                                                        Multi_From_AN = -1;
-                                                                                                        Multi_From_FN = -1;
-                                                                                                      }
-                                                                                                    },
-                                                                                                  ),
-                                                                                                );
-                                                                                              },
-                                                                                            ),
-                                                                                          ),
-                                                                                          SizedBox(
-                                                                                            height: sHeight(2, context),
-                                                                                          ),
-                                                                                          Column(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                            children: [
-                                                                                              Text(
-                                                                                                "SESSION : ",
-                                                                                                style: TextStyle(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
-                                                                                              ),
-                                                                                              SizedBox(
-                                                                                                height: sHeight(0.7, context),
-                                                                                              ),
-                                                                                              Container(
-                                                                                                height: 40,
-                                                                                                width: 150,
-                                                                                                child: FormField<String>(
-                                                                                                  builder: (FormFieldState<String> state) {
-                                                                                                    return DropdownButtonHideUnderline(
-                                                                                                      child: DropdownSearch<String>(
-                                                                                                        popupProps: PopupProps.menu(),
-                                                                                                        dropdownDecoratorProps: DropDownDecoratorProps(),
-                                                                                                        dropdownButtonProps: DropdownButtonProps(
-                                                                                                            // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                                                            icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                                                                                                            color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                                                        items: Session_Type_TO,
-                                                                                                        selectedItem: 'SESSION',
-                                                                                                        onChanged: (value) {
-                                                                                                          if (value.toString() == 'FN'.toString()) {
-                                                                                                            Multi_TO_FN = 19.toInt();
-                                                                                                            Multi_TO_AN = -1;
-                                                                                                            Multi_TO_Both = -1;
-                                                                                                          }
-                                                                                                          if (value.toString() == 'AN'.toString()) {
-                                                                                                            Multi_TO_AN = 20.toInt();
-                                                                                                            Multi_TO_FN = -1;
-                                                                                                            Multi_TO_Both = -1;
-                                                                                                          }
-                                                                                                          if (value.toString() == 'BOTH'.toString()) {
-                                                                                                            Multi_TO_Both = 0.toInt();
-                                                                                                            Multi_TO_AN = -1;
-                                                                                                            Multi_TO_FN = -1;
-                                                                                                          }
-                                                                                                        },
-                                                                                                      ),
-                                                                                                    );
-                                                                                                  },
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          )
-                                                                        : new Container(),
+                                                                    )
                                                                   ],
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          SizedBox(
-                                                            height: sHeight(
-                                                                1.5, context),
-                                                          ),
-                                                          Text(
-                                                            "REASON TYPE :",
-                                                            style: TextStyle(
-                                                                fontSize: 15,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                          SizedBox(
-                                                            height: sHeight(
-                                                                1, context),
-                                                          ),
-                                                          Container(
-                                                            width: sWidth(
-                                                                95, context),
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            7),
-                                                                color: Colors
-                                                                    .white),
-                                                            child: Form(
-                                                              key: _ReasonValid,
-                                                              child:
-                                                                  TextFormField(
-                                                                    controller: Addreason,
-                                                                cursorColor: Colors.black,
-                                                                inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'^\s')),],
-                                                                validator: (e) {
-                                                                  if (e!.isEmpty) {
-                                                                    return "Kindly Enter the Reason Type";
-                                                                  }
-                                                                  return null;
-                                                                },
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black
-                                                                        .withOpacity(
-                                                                            0.9)),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  contentPadding:
-                                                                      EdgeInsets
-                                                                          .symmetric(
-                                                                    horizontal:
-                                                                        5.0,
+                                                              )));
+                                                    }
+                                                  }
+                                                  else {
+                                                    if (Multiday_select == true) {
+                                                      if (Type_id == null ||
+                                                          HOD_ID == null ||
+                                                          Multi_From_Date == null ||
+                                                          Multi_TO_Date == null ||
+                                                          Multi_From_AN == 1 ||
+                                                          Multi_From_FN == 1 ||
+                                                          Multi_TO_AN == 1 ||
+                                                          Multi_TO_FN == 1) {
+                                                        await Fluttertoast.showToast(
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                            timeInSecForIosWeb:
+                                                                3,
+                                                            msg:
+                                                                "Kindly! Enter Required Details",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .SNACKBAR,
+                                                            textColor:
+                                                                Colors.white,
+                                                            fontSize: 16.0);
+                                                      } else {
+                                                        showDialog(
+                                                            context: context,
+                                                            barrierDismissible:
+                                                                true,
+                                                            builder: (context) =>
+                                                                AlertDialog(
+                                                                    content:
+                                                                        SizedBox(
+                                                                  height: sHeight(
+                                                                      15,
+                                                                      context),
+                                                                  width: sWidth(
+                                                                      60,
+                                                                      context),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      const Text(
+                                                                          "Send Alternative. "),
+                                                                      SizedBox(
+                                                                        height: sHeight(
+                                                                            5,
+                                                                            context),
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          InkWell(
+                                                                            child:
+                                                                                Container(
+                                                                              height: sHeight(5, context),
+                                                                              width: sWidth(17, context),
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(10),
+                                                                                color: Colors.red,
+                                                                              ),
+                                                                              child: Center(
+                                                                                  child: Text(
+                                                                                "NO",
+                                                                                style: ErrorText(),
+                                                                              )),
+                                                                            ),
+                                                                            onTap:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                          ),
+                                                                          InkWell(
+                                                                            child:
+                                                                                Container(
+                                                                              height: sHeight(5, context),
+                                                                              width: sWidth(17, context),
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(10),
+                                                                                color: Colors.green,
+                                                                              ),
+                                                                              child: Center(
+                                                                                  child: Text(
+                                                                                "Yes",
+                                                                                style: ErrorText(),
+                                                                              )),
+                                                                            ),
+                                                                            onTap:
+                                                                                () async {
+                                                                                 await Reason_Leave_valid();
+                                                                            },
+                                                                          )
+                                                                        ],
+                                                                      )
+                                                                    ],
                                                                   ),
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.9),
-                                                                      fontSize:
-                                                                          10),
-                                                                  border: OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              7.0),
-                                                                      borderSide: BorderSide(
-                                                                          width:
-                                                                              5,
-                                                                          style:
-                                                                              BorderStyle.none)),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          SizedBox(
-                                                            height: sHeight(
-                                                                1.5, context),
-                                                          ),
-                                                          Text(
-                                                            "FORWARD LEAVE REQUEST TO:",
-                                                            style: TextStyle(
-                                                                fontSize: 15,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                          SizedBox(
-                                                            height: sHeight(
-                                                                1, context),
-                                                          ),
-                                                          Container(
-                                                            width: sWidth(
-                                                                95, context),
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            7),
-                                                                color: Colors
-                                                                    .white),
-                                                            child: FormField<
-                                                                String>(
-                                                              builder:
-                                                                  (FormFieldState<
-                                                                          String>
-                                                                      state) {
-                                                                return DropdownButtonHideUnderline(
-                                                                  child:
-                                                                      DropdownSearch<
-                                                                          String>(
-                                                                    popupProps:
-                                                                        PopupProps
-                                                                            .menu(),
-                                                                    dropdownDecoratorProps:
-                                                                        DropDownDecoratorProps(),
-                                                                    dropdownButtonProps: DropdownButtonProps(
-                                                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                                                        icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                                                                        color: Color.fromRGBO(255, 98, 118, 1)),
-                                                                    items: HOD_Find_API_Data.length == 0 ? RecordType : HOD_Staff_List,
-                                                                    selectedItem: "Select HOD or principal ",
-                                                                        //? "Not Specified" : HOD_Staff_List[0],
-                                                                    onChanged: (value) {
-                                                                      int Passing_club =
-                                                                      HOD_Staff_List.indexOf(value.toString())
-                                                                          .toInt();
-                                                                      HOD_ID = HOD_Staff_Id[Passing_club.toInt()];
-                                                                      print(HOD_ID);
-                                                                    },
-                                                                  ),
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: sHeight(
-                                                            2.5, context),
-                                                      ),
-                                                      for (int i = 0;i < Facultyorhod.length;i++)
-                                                        Container(
-                                                          width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width,
-                                                          height: 50,
-                                                          margin:
-                                                              const EdgeInsets
-                                                                      .fromLTRB(
-                                                                  40,
-                                                                  10,
-                                                                  40,
-                                                                  20),
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          30)),
-                                                          child: ElevatedButton(
-                                                            onPressed:
-                                                                () async {
-                                                              print(
-                                                                  "LAWAH : ${Facultyorhod[i].lawah}");
-                                                              if (Facultyorhod[i].lawah == 0) {
-                                                                if (checkboxValue1 == true) {
-                                                                  print(Addreason);
-                                                                  Date_Validation1();
-                                                                }
-                                                                if (Multiday_select ==
-                                                                    true) {
-                                                                  MultipleDay_Date_validation1();
-                                                                }
-
-                                                              } else {
-                                                                if (checkboxValue1 ==
-                                                                    true) {
-                                                                  await Date_Validation();
-                                                                }
-                                                                if (Multiday_select ==
-                                                                    true) {
-                                                                  await MultipleDay_Date_validation();
-                                                                }
-                                                              }
-                                                              //Navigator.pop(context);
-                                                            },
-                                                            style: ButtonStyle(
-                                                                backgroundColor:
-                                                                    MaterialStateProperty
-                                                                        .resolveWith(
-                                                                            (states) {
-                                                                  if (states.contains(
-                                                                      MaterialState
-                                                                          .pressed)) {
-                                                                    return Color
-                                                                        .fromRGBO(
-                                                                            255,
-                                                                            52,
-                                                                            62,
-                                                                            1);
-                                                                  }
-                                                                  return Color
-                                                                      .fromRGBO(
-                                                                          255,
-                                                                          52,
-                                                                          62,
-                                                                          1);
-                                                                }),
-                                                                shape: MaterialStateProperty.all<
-                                                                        RoundedRectangleBorder>(
-                                                                    RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10)))),
-                                                            child: Text(
-                                                              'APPLY FOR LEAVE',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 16),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                          ],
+                                                                )));
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                            }
+                                            //Navigator.pop(context);
+                                          },
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty
+                                                      .resolveWith((states) {
+                                                if (states.contains(
+                                                    MaterialState.pressed)) {
+                                                  return const Color.fromRGBO(
+                                                      255, 52, 62, 1);
+                                                }
+                                                return const Color.fromRGBO(
+                                                    255, 52, 62, 1);
+                                              }),
+                                              shape: MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)))),
+                                          child: const Text(
+                                            'APPLY FOR LEAVE',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  );
+                                      ));
                                 } else {
                                   return Container(
+                                    color: Colors.white,
                                     child: Center(
                                         child: SearchingDataLottie(context)),
-                                    color: Colors.white,
                                   );
                                 }
                               } else {
                                 return Container(
+                                  color: Colors.white,
                                   child: Center(
                                       child: SearchingDataLottie(context)),
-                                  color: Colors.white,
                                 );
                               }
                             });
@@ -1734,15 +1982,15 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                       }
                     } else {
                       return Container(
-                        child: Center(child: SearchingDataLottie(context)),
                         color: Colors.white,
+                        child: Center(child: SearchingDataLottie(context)),
                       );
                     }
                   });
             } else {
               return Container(
-                child: Center(child: SearchingDataLottie(context)),
                 color: Colors.white,
+                child: Center(child: SearchingDataLottie(context)),
               );
             }
           }),
@@ -1758,6 +2006,9 @@ class Staff_Leave_Apply_Alter_List extends StatefulWidget {
       required this.username,
       required this.password,
       required this.fromdateuh,
+      required this.Reason,
+      required this.Hodid,
+      required this.Typeid,
       required this.TOdateuh,
       required this.FromSesion,
       required this.TOSessin,
@@ -1766,6 +2017,9 @@ class Staff_Leave_Apply_Alter_List extends StatefulWidget {
   final String username;
   final String password;
   final String fromdateuh;
+  final String Reason;
+  final String Hodid;
+  final String Typeid;
   final String TOdateuh;
   final int FromSesion;
   final int TOSessin;
@@ -1787,12 +2041,12 @@ class _Staff_Leave_Apply_Alter_ListState
   void initState() {
     // TODO: implement initState
     super.initState();
-    Staff_Alter_Hours_Network staff_alter_hours_network = Staff_Alter_Hours_Network(
-        "StaffAlternateHour?StaffCode=${widget.username}&Password=${widget.password}"
-        "&FromDate=${widget.fromdateuh}&FrSess=${widget.FromSesion.toInt()}&ToDate=${widget.TOdateuh}&ToSess=${widget.TOSessin.toInt()}");
+    Staff_Alter_Hours_Network staffAlterHoursNetwork = Staff_Alter_Hours_Network(
+        "StaffAlternateHour?StaffCode=${widget.username}&FromDate=${widget.fromdateuh}&FrSess=${widget.FromSesion.toInt()}&ToDate=${widget.TOdateuh}&ToSess=${widget.TOSessin.toInt()}&Password=${widget.password}"
+        );
     //19 fn session 20 AN session
     Staff_Alter_Hours_API_Data =
-        staff_alter_hours_network.Staff_Alter_Hours_loadData();
+        staffAlterHoursNetwork.Staff_Alter_Hours_loadData();
   }
 
   @override
@@ -1804,24 +2058,24 @@ class _Staff_Leave_Apply_Alter_ListState
           if (AlterHoursnapshot.hasError) {
             ErrorShowingWidget(context);
           }
-          List<Staff_Alter_Hours_Data> Alter_Hours;
+          List<Staff_Alter_Hours_Data> alterHours;
           if (AlterHoursnapshot.hasData) {
-            Alter_Hours = AlterHoursnapshot.data!.S_A_H_list;
+            alterHours = AlterHoursnapshot.data!.S_A_H_list;
             // print(selectedIndexID);
-            if (Alter_Hours.length > 0) {
+            if (alterHours.length > 0) {
               return Scaffold(
-                backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor: const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Alternate Hours List",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
+                  margin: const EdgeInsets.only(left: 10, right: 10),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
@@ -1829,16 +2083,16 @@ class _Staff_Leave_Apply_Alter_ListState
                         SizedBox(
                           height: sHeight(1, context),
                         ),
-                        for (int i = 0; i < Alter_Hours.length; i++)
+                        for (int i = 0; i < alterHours.length; i++)
                           Column(
                             children: [
                               SizedBox(
                                 height: sHeight(2, context),
                               ),
                               Container(
-                                padding: EdgeInsets.only(left: 10, right: 10),
+                                padding: const EdgeInsets.only(left: 10, right: 10),
                                 width: sWidth(95, context),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(8))),
@@ -1848,7 +2102,7 @@ class _Staff_Leave_Apply_Alter_ListState
                                     SizedBox(
                                       height: sHeight(1, context),
                                     ),
-                                    Text(
+                                    const Text(
                                       "Subject Name",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w700,
@@ -1858,8 +2112,8 @@ class _Staff_Leave_Apply_Alter_ListState
                                       height: sHeight(1, context),
                                     ),
                                     Text(
-                                      "${Alter_Hours[i].subjectplan}",
-                                      style: TextStyle(
+                                      alterHours[i].subjectplan,
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w900,
                                       ),
                                       maxLines: 3,
@@ -1868,40 +2122,42 @@ class _Staff_Leave_Apply_Alter_ListState
                                       height: sHeight(1, context),
                                     ),
                                     Text(
-                                      "${Alter_Hours[i].classfullname}",
-                                      style: TextStyle(
+                                      alterHours[i].classfullname,
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w900,
                                       ),
                                     ),
                                     SizedBox(
                                       height: sHeight(1, context),
                                     ),
-                                    Divider(
+                                    const Divider(
                                       thickness: 0.5,
                                     ),
                                     Row(
                                       children: [
                                         Text(
-                                          "Date : ${Alter_Hours[i].date}",
-                                          style: TextStyle(
+                                          "Date : ${alterHours[i].date}",
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black54),
                                         ),
                                         SizedBox(
                                           width: sWidth(40, context),
                                         ),
+                                        alterHours[i].rqst == 1 ?
+                                        Container():
                                         Checkbox(
                                           value: selectedIndexID ==
-                                              Alter_Hours[i].id,
+                                              alterHours[i].id,
                                           onChanged: (value) {
                                             setState(() {
                                               if (selectedIndexID ==
-                                                  Alter_Hours[i].id) {
+                                                  alterHours[i].id) {
                                                 selectedIndexID = null;
                                                 print("1${selectedIndexID}");
                                               } else {
                                                 selectedIndexID =
-                                                    Alter_Hours[i].id;
+                                                    alterHours[i].id;
                                                 print("2---${selectedIndexID}");
                                                 Navigator.pushReplacement(
                                                     context,
@@ -1923,15 +2179,17 @@ class _Staff_Leave_Apply_Alter_ListState
                                                                   .TOdateuh,
                                                               FromSesion: widget
                                                                   .FromSesion,
-                                                              TOSessin: widget
-                                                                  .TOSessin,
+                                                              TOSessin: widget.TOSessin,
+                                                              Reason: widget.Reason,
+                                                              Typeid: widget.Typeid,
+                                                              Hodid: widget.Hodid,
                                                             )));
                                               }
                                             });
                                           },
                                           activeColor:
-                                              Color.fromRGBO(255, 98, 118, 1),
-                                        ),
+                                              const Color.fromRGBO(255, 98, 118, 1),
+                                        )
                                       ],
                                     ),
                                     Row(
@@ -1939,19 +2197,19 @@ class _Staff_Leave_Apply_Alter_ListState
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Hour : ${Alter_Hours[i].hour}",
-                                          style: TextStyle(
+                                          "Hour : ${alterHours[i].hour}",
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               color: Colors.black54),
                                         ),
-                                        Alter_Hours[i].rqst == 1
-                                            ? Text(
+                                        alterHours[i].rqst == 1
+                                            ? const Text(
                                                 "Request Sent Successfully",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     color: Colors.green),
                                               )
-                                            : Text(
+                                            : const Text(
                                                 "Request not Sent",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600,
@@ -1974,6 +2232,84 @@ class _Staff_Leave_Apply_Alter_ListState
                     ),
                   ),
                 ),
+                bottomNavigationBar: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    margin: const EdgeInsets.fromLTRB(40, 10, 40, 20),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                    child: ElevatedButton(onPressed: ()
+                    async{
+                      for (int i = 0; i < alterHours.length; i--)
+                        {
+                          if(alterHours[i].rqst == 0){
+                           await Fluttertoast
+                                .showToast(
+                                backgroundColor:
+                                Colors.red,
+                                msg:
+                                "kindly! Send a Alternative the class ",
+                                toastLength:
+                                Toast.LENGTH_SHORT,
+                                gravity: ToastGravity
+                                    .SNACKBAR,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          }
+                          else
+                            {
+                              final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${widget.fromdateuh}&leaveTill=${widget.TOdateuh }&reason=${widget.Reason}&leaveTypeId=${widget.Typeid}&forwardedPers1=${widget.Hodid}&frSessionId=${widget.FromSesion}&toSessionId=${widget.TOSessin}&Password=${widget.password}"),);
+                              print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${widget.fromdateuh}&leaveTill=${widget.TOdateuh }&reason=${widget.Reason}&leaveTypeId=${widget.Typeid}&forwardedPers1=${widget.Hodid}&frSessionId=${widget.FromSesion}&toSessionId=${widget.TOSessin}&Password=${widget.password}");
+                              if (resp.statusCode == 200) {
+                                await Fluttertoast.showToast(
+                                    backgroundColor: Colors.green,
+                                    msg: "Your Request been Send Successfully!",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.SNACKBAR,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
+                                  (username: widget.username, password: widget.password,)));
+                              } else {
+                                // print('Request failed with status: ${resp.statusCode}.');
+                                await Fluttertoast.showToast(
+                                    backgroundColor: Colors.red,
+                                    msg: "Send alternative for all classes ",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.SNACKBAR,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
+                              }
+                              // Navigator.pop(context, _selectedItems);
+                          }
+                        }
+
+                    },
+            style: ButtonStyle(
+                backgroundColor:
+                MaterialStateProperty
+                    .resolveWith((states) {
+                  if (states.contains(
+                      MaterialState.pressed)) {
+                    return const Color.fromRGBO(
+                        255, 52, 62, 1);
+                  }
+                  return const Color.fromRGBO(
+                      255, 52, 62, 1);
+                }),
+                shape: MaterialStateProperty.all<
+                    RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(
+                            10)))),
+          child: Text("Apply Leave"),
+          )),
               );
             } else {
               return Scaffold(
@@ -1983,7 +2319,7 @@ class _Staff_Leave_Apply_Alter_ListState
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -1995,7 +2331,63 @@ class _Staff_Leave_Apply_Alter_ListState
                             )
                           ],
                         )),
-              );
+                  bottomNavigationBar: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      margin: const EdgeInsets.fromLTRB(40, 10, 40, 20),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${widget.fromdateuh}&leaveTill=${widget.TOdateuh}&reason=${widget.Reason.toString()}&leaveTypeId=${widget.Typeid.toString()}&forwardedPers1=${widget.Hodid.toString()}&frSessionId=${widget.FromSesion.toString()}&toSessionId=${widget.TOSessin.toString()}&Password=${widget.password}"),);
+                                                          print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${widget.fromdateuh}&leaveTill=${widget.TOdateuh}&reason=${widget.Reason}&leaveTypeId=${widget.Typeid.toString()}&forwardedPers1=${widget.Hodid.toString()}&frSessionId=${widget.FromSesion.toString()}&toSessionId=${widget.TOSessin.toString()}&Password=${widget.password}");
+                          if (resp.statusCode == 200) {
+                            await Fluttertoast.showToast(
+                                backgroundColor: Colors.green,
+                                msg: "Your Request been Send Successfully!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.SNACKBAR,
+                                textColor: Colors.white,
+                                fontSize: 16.0
+                            );
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
+                              (username: widget.username, password: widget.password,)));
+                          } else {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
+                              (username: widget.username, password: widget.password,)));
+                            // print('Request failed with status: ${resp.statusCode}.');
+                            await Fluttertoast.showToast(
+                                backgroundColor: Colors.red,
+                                msg: "Your Request been Send Successfully!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.SNACKBAR,
+                                textColor: Colors.white,
+                                fontSize: 16.0
+                            );
+                          }
+                          //print("Nothing");
+                          // Navigator.pop(context, _selectedItems);
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith((states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return const Color.fromRGBO(255, 52, 62, 1);
+                              }
+                              return const Color.fromRGBO(255, 52, 62, 1);
+                            }),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)))),
+                        child: Text("Apply Leave"),
+                      )));
             }
           } else {
             return Scaffold(
@@ -2005,12 +2397,12 @@ class _Staff_Leave_Apply_Alter_ListState
                   style: PrimaryText(context),
                 ),
                 centerTitle: true,
-                backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                 elevation: 20.0,
               ),
               body: Container(
-                child: Center(child: SearchingDataLottie(context)),
                 color: Colors.white,
+                child: Center(child: SearchingDataLottie(context)),
               ),
             );
           }
@@ -2019,6 +2411,7 @@ class _Staff_Leave_Apply_Alter_ListState
 }
 
 //leave Alters send Request AlertDialog
+
 class Staff_Alternate_Dialogbox extends StatefulWidget {
   const Staff_Alternate_Dialogbox(
       {Key? key,
@@ -2029,7 +2422,10 @@ class Staff_Alternate_Dialogbox extends StatefulWidget {
       required this.fromdateuh,
       required this.TOdateuh,
       required this.FromSesion,
-      required this.TOSessin})
+      required this.TOSessin,
+        required this.Reason,
+        required this.Hodid,
+        required this.Typeid,})
       : super(key: key);
   final String fromID;
   final String username;
@@ -2039,6 +2435,9 @@ class Staff_Alternate_Dialogbox extends StatefulWidget {
   final String TOdateuh;
   final int FromSesion;
   final int TOSessin;
+  final String Reason;
+  final String Hodid;
+  final String Typeid;
 
   @override
   State<Staff_Alternate_Dialogbox> createState() =>
@@ -2047,8 +2446,7 @@ class Staff_Alternate_Dialogbox extends StatefulWidget {
 
 class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   late Future<StaffAlternateHourRequest_List> Staff_Alter_Req_API_Data;
-  late Future<StaffAlternateHourRequest_List>
-      Staff_Alter_Req_API_Data_For_Future;
+  late Future<StaffAlternateHourRequest_List>Staff_Alter_Req_API_Data_For_Future;
   late Future<Department_List_Data_List> Department_API_Data;
   late Future<Staff_List_Data_List> Staff_API_Data;
   int? selectedIndexID2;
@@ -2070,8 +2468,8 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
 
   Future_Date_Functions() async {
     StaffAlternateHourRequestNetwork staffAlternateHourRequestNetwork =
-        StaffAlternateHourRequestNetwork("StaffAlternateHourRequest?"
-            "StaffCode=${widget.username}&Password=${widget.password}&FromTimeTableId=${widget.fromID}&AlterDate=${Future_Date}");
+        StaffAlternateHourRequestNetwork(
+            "StaffAlternateHourRequest?StaffCode=${widget.username}&Password=${widget.password}&FromTimeTableId=${widget.fromID}&AlterDate=${Future_Date}");
     Staff_Alter_Req_API_Data_For_Future =
         staffAlternateHourRequestNetwork.StaffAlternateHourRequestloadData();
   }
@@ -2088,9 +2486,9 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   Responce_Function_SelectedDate() async {
     final resp = await http.get(
       Uri.parse(
-          "http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&"
-          "Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndexID2}&ReqStaffId=&ChangeType=11"), // server login url
+          "http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndexID2}&ReqStaffId=${Staff_ID}&ChangeType=11"), // server login url
     );
+    print("http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndexID2}&ReqStaffId=${Staff_ID}&ChangeType=11");
     if (resp.statusCode == 200) {
       Responce_Details_SelectedDate = json.decode(resp.body);
       Selected_MSG = (Responce_Details_SelectedDate[0]['msg'].toString());
@@ -2103,6 +2501,9 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
             gravity: ToastGravity.SNACKBAR,
             textColor: Colors.white,
             fontSize: 16.0);
+        Navigator.pop(context);
+
+
       } else {
         await Fluttertoast.showToast(
             backgroundColor: Colors.green,
@@ -2111,6 +2512,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
             gravity: ToastGravity.SNACKBAR,
             textColor: Colors.white,
             fontSize: 16.0);
+        Navigator.pop(context);
       }
     } else {
       await Fluttertoast.showToast(
@@ -2120,15 +2522,18 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,
           fontSize: 16.0);
+      Navigator.pop(context);
+
+
     }
   }
 
   Responce_Function_Future_Date() async {
     final resp = await http.get(
       Uri.parse(
-          "http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&"
-          "Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndex_Future}&ReqStaffId=&ChangeType=13"), // server login url
+          "http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndex_Future}&ReqStaffId=${Staff_ID}&ChangeType=13"), // server login url
     );
+    print("http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndex_Future}&ReqStaffId=${Staff_ID}&ChangeType=13");
     if (resp.statusCode == 200) {
       Responce_Details_Future_Date = json.decode(resp.body);
       Selected_MSG_Future = (Responce_Details_Future_Date[0]['msg'].toString());
@@ -2141,6 +2546,9 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
             gravity: ToastGravity.SNACKBAR,
             textColor: Colors.white,
             fontSize: 16.0);
+        Navigator.pop(context);
+
+
       } else if (Selected_MSG_Future == "Request Sent successfully.") {
         await Fluttertoast.showToast(
             backgroundColor: Colors.green,
@@ -2149,6 +2557,8 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
             gravity: ToastGravity.SNACKBAR,
             textColor: Colors.white,
             fontSize: 16.0);
+        Navigator.pop(context);
+
       }
     } else {
       await Fluttertoast.showToast(
@@ -2158,22 +2568,21 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,
           fontSize: 16.0);
+      Navigator.pop(context);
+
     }
   }
-
   Staff_Lists_Get_Function() async {
-    All_Staff_Network all_staff_network =
-        All_Staff_Network("StaffList?StaffCode=${widget.username}"
-            "&Password=${widget.password}&DeptId=${Dept_Id}");
-    Staff_API_Data = all_staff_network.Staffss_loadData();
+    All_Staff_Network allStaffNetwork =
+        All_Staff_Network("StaffList?StaffCode=${widget.username}&Password=${widget.password}&DeptId=${Dept_Id}");
+    Staff_API_Data = allStaffNetwork.Staffss_loadData();
   }
 
   Responce_Function_OtherType_Engaged() async {
     final resp = await http.get(
-      Uri.parse("http://$StaticIP/api/StaffAlterOtherType?"
-          "StaffCode=${widget.username}&Password=${widget.password}"
-          "&FromTimetableId=${widget.fromID}&ReqStaffId=${Staff_ID}&ChangeType=14"), // server login url
+      Uri.parse("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ReqStaffId=${Staff_ID}&ChangeType=14"), // server login url
     );
+    print("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ReqStaffId=${Staff_ID}&ChangeType=14");
     if (resp.statusCode == 200) {
       Responce_OtherT_Engaged = json.decode(resp.body);
       Other_Type_MSG = (Responce_OtherT_Engaged[0]['msg'].toString());
@@ -2186,6 +2595,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
             gravity: ToastGravity.SNACKBAR,
             textColor: Colors.white,
             fontSize: 16.0);
+        Navigator.pop(context);
       } else {
         await Fluttertoast.showToast(
             backgroundColor: Colors.green,
@@ -2194,6 +2604,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
             gravity: ToastGravity.SNACKBAR,
             textColor: Colors.white,
             fontSize: 16.0);
+        Navigator.pop(context);
       }
     } else {
       await Fluttertoast.showToast(
@@ -2203,6 +2614,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,
           fontSize: 16.0);
+      Navigator.pop(context);
     }
   }
 
@@ -2210,16 +2622,13 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StaffAlternateHourRequestNetwork staffAlternateHourRequestNetwork =
-        StaffAlternateHourRequestNetwork("StaffAlternateHourRequest?"
-            "StaffCode=${widget.username}&Password=${widget.password}&FromTimeTableId=${widget.fromID}&AlterDate=");
-    Staff_Alter_Req_API_Data =
-        staffAlternateHourRequestNetwork.StaffAlternateHourRequestloadData();
+    StaffAlternateHourRequestNetwork staffAlternateHourRequestNetwork = StaffAlternateHourRequestNetwork("StaffAlternateHourRequest?StaffCode=${widget.username}&Password=${widget.password}&FromTimeTableId=${widget.fromID}&AlterDate=");
+    Staff_Alter_Req_API_Data = staffAlternateHourRequestNetwork.StaffAlternateHourRequestloadData();
     Future_Date_Functions();
     Staff_Lists_Get_Function();
-    Department_Network department_network = Department_Network(
+    Department_Network departmentNetwork = Department_Network(
         "DepartmentList?StaffCode=${widget.username}&Password=${widget.password}");
-    Department_API_Data = department_network.Department_loadData();
+    Department_API_Data = departmentNetwork.Department_loadData();
   }
 
   @override
@@ -2228,51 +2637,51 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
         future: Staff_Alter_Req_API_Data,
         builder: (context,
             AsyncSnapshot<StaffAlternateHourRequest_List>
-                AlterHour_Requestsnapshot) {
-          if (AlterHour_Requestsnapshot.hasError) {
+                alterhourRequestsnapshot) {
+          if (alterhourRequestsnapshot.hasError) {
             ErrorShowingWidget(context);
           }
-          List<StaffAlternateHourRequestAPI_data> Alter_Hours_Req;
-          if (AlterHour_Requestsnapshot.hasData) {
-            Alter_Hours_Req =
-                AlterHour_Requestsnapshot.data!.StaffAlternateHourrequest_List;
+          List<StaffAlternateHourRequestAPI_data> alterHoursReq;
+          if (alterhourRequestsnapshot.hasData) {
+            alterHoursReq =
+                alterhourRequestsnapshot.data!.StaffAlternateHourrequest_List;
             return FutureBuilder(
                 future: Department_API_Data,
                 builder: (context,
                     AsyncSnapshot<Department_List_Data_List>
-                        Department_snapshot) {
-                  if (Department_snapshot.hasError) {
+                        departmentSnapshot) {
+                  if (departmentSnapshot.hasError) {
                     ErrorShowingWidget(context);
                   }
-                  List<Department_List_Data> Department_data;
-                  if (Department_snapshot.hasData) {
-                    Department_data = Department_snapshot.data!.Leave_dept_list;
+                  List<Department_List_Data> departmentData;
+                  if (departmentSnapshot.hasData) {
+                    departmentData = departmentSnapshot.data!.Leave_dept_list;
                     Departments_List = [
-                      for (int i = Department_data.length - 1; i >= 0; i--)
-                        "${Department_data[i].dept}"
+                      for (int i = departmentData.length - 1; i >= 0; i--)
+                        departmentData[i].dept
                     ].reversed.toList();
                     Departments_List_Check = [
-                      for (int i = Department_data.length - 1; i >= 0; i--)
-                        "${Department_data[i].deptId}"
+                      for (int i = departmentData.length - 1; i >= 0; i--)
+                        "${departmentData[i].deptId}"
                     ].reversed.toList();
                     return FutureBuilder(
                         future: Staff_API_Data,
                         builder: (context,
                             AsyncSnapshot<Staff_List_Data_List>
-                                Staffs_snapshot) {
-                          if (Staffs_snapshot.hasError) {
+                                staffsSnapshot) {
+                          if (staffsSnapshot.hasError) {
                             ErrorShowingWidget(context);
                           }
-                          List<Staff_List_Data> staf_data;
-                          if (Staffs_snapshot.hasData) {
-                            staf_data = Staffs_snapshot.data!.Leave_Sta_list;
+                          List<Staff_List_Data> stafData;
+                          if (staffsSnapshot.hasData) {
+                            stafData = staffsSnapshot.data!.Leave_Sta_list;
                             Staffs_List = [
-                              for (int i = staf_data.length - 1; i >= 0; i--)
-                                "${staf_data[i].staffname} - ${staf_data[i].staffcode}"
+                              for (int i = stafData.length - 1; i >= 0; i--)
+                                "${stafData[i].staffname} - ${stafData[i].staffcode}"
                             ].reversed.toList();
                             Staffs_List_Check = [
-                              for (int i = staf_data.length - 1; i >= 0; i--)
-                                "${staf_data[i].id}"
+                              for (int i = stafData.length - 1; i >= 0; i--)
+                                "${stafData[i].uid}"
                             ].reversed.toList();
                             return FutureBuilder(
                                 future: Staff_Alter_Req_API_Data_For_Future,
@@ -2283,15 +2692,14 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                   if (datesnapshot.hasError) {
                                     ErrorShowingWidget(context);
                                   }
-                                  List<StaffAlternateHourRequestAPI_data>
-                                      Alterdata;
+                                  List<StaffAlternateHourRequestAPI_data>Alterdata;
                                   if (datesnapshot.hasData) {
-                                    Alterdata = datesnapshot
-                                        .data!.StaffAlternateHourrequest_List;
-                                    if (Alter_Hours_Req.length > 0) {
+                                    Alterdata = datesnapshot.data!.StaffAlternateHourrequest_List;
+                                    print("sucess");
+                                     if (departmentData .length > 0) {
+                                      print("sucess");
                                       return WillPopScope(
-                                        onWillPop: () async =>
-                                            _onBackButtonPressed(),
+                                        onWillPop: () async => _onBackButtonPressed(),
                                         child: Scaffold(
                                           /*backgroundColor: Color.fromRGBO(
                                               242, 249, 250, 0.9),*/
@@ -2301,7 +2709,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                               style: PrimaryText(context),
                                             ),
                                             backgroundColor:
-                                                Color.fromRGBO(255, 98, 118, 1),
+                                                const Color.fromRGBO(255, 98, 118, 1),
                                             centerTitle: true,
                                           ),
                                           body: SingleChildScrollView(
@@ -2315,12 +2723,12 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                   padding:
                                                       const EdgeInsets.all(8.0),
                                                   child: Container(
-                                                    margin: EdgeInsets.only(
+                                                    margin: const EdgeInsets.only(
                                                         left: 10, right: 10),
-                                                    padding: EdgeInsets.only(
+                                                    padding: const EdgeInsets.only(
                                                         left: 10, right: 10),
                                                     width: sWidth(95, context),
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                       color: Color(0xFFECFFF4),
                                                       borderRadius:
                                                           BorderRadius.all(
@@ -2338,7 +2746,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                             ),
                                                           ],
                                                         ),
-                                                        Divider(
+                                                        const Divider(
                                                           thickness: 0.5,
                                                         ),
                                                         Row(
@@ -2359,14 +2767,14 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                 Future_List =
                                                                     false;
                                                               },
-                                                              activeColor: Color
+                                                              activeColor: const Color
                                                                   .fromRGBO(
                                                                       255,
                                                                       98,
                                                                       118,
                                                                       1),
                                                             ),
-                                                            Text(
+                                                            const Text(
                                                               "Selected Date",
                                                               style: TextStyle(
                                                                 fontWeight:
@@ -2394,14 +2802,14 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                 Future_List =
                                                                     false;
                                                               },
-                                                              activeColor: Color
+                                                              activeColor: const Color
                                                                   .fromRGBO(
                                                                       255,
                                                                       98,
                                                                       118,
                                                                       1),
                                                             ),
-                                                            Text(
+                                                            const Text(
                                                               "Future Date",
                                                               style: TextStyle(
                                                                 fontWeight:
@@ -2429,29 +2837,20 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                         OtherType_checkBox =
                                                                             value!;
                                                                       });
-                                                                      Selected_checkBox =
-                                                                          false;
-                                                                      Future_checkBox =
-                                                                          false;
-                                                                      Future_List =
-                                                                          false;
+                                                                      Selected_checkBox = false;
+                                                                      Future_checkBox = false;
+                                                                      Future_List = false;
                                                                     },
                                                                     activeColor:
-                                                                        Color.fromRGBO(
-                                                                            255,
-                                                                            98,
-                                                                            118,
-                                                                            1),
+                                                                        const Color.fromRGBO(255, 98,118, 1),
                                                                   ),
                                                                 ],
                                                               ),
                                                             ),
-                                                            Text(
+                                                            const Text(
                                                               "Other Type Engaged",
                                                               style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
+                                                                fontWeight: FontWeight.w700,
                                                               ),
                                                             ),
                                                           ],
@@ -2460,7 +2859,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                     ),
                                                   ),
                                                 ),
-                                                /*Row(
+                                              /*  Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   children: [
@@ -2539,8 +2938,8 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                       ),
                                                     ),
                                                   ],
-                                                ),
-                                                Row(
+                                                ),*/
+                                                /*Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   children: [
@@ -2591,7 +2990,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                               color:
                                                                   Colors.black),
                                                           borderRadius:
-                                                              BorderRadius.all(
+                                                              const BorderRadius.all(
                                                             Radius.circular(7),
                                                           ),
                                                         ),
@@ -2601,7 +3000,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                   .spaceEvenly,
                                                           children: [
                                                             Future_Date == ""
-                                                                ? Text("Select")
+                                                                ? const Text("Select")
                                                                 : Text(
                                                                     "${Future_Date}"),
                                                             IconButton(
@@ -2613,13 +3012,13 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                   initialDate: DateTime.parse(
                                                                           widget.Future_Date_one
                                                                               .toString())
-                                                                      .add(Duration(
+                                                                      .add(const Duration(
                                                                           days:
                                                                               1)),
                                                                   firstDate: DateTime.parse(
                                                                           widget.Future_Date_one
                                                                               .toString())
-                                                                      .add(Duration(
+                                                                      .add(const Duration(
                                                                           days:
                                                                               1)),
                                                                   lastDate:
@@ -2638,7 +3037,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                       () {});
                                                                 });
                                                               },
-                                                              icon: Icon(
+                                                              icon: const Icon(
                                                                   Icons
                                                                       .calendar_month,
                                                                   color: Color
@@ -2655,8 +3054,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                 SizedBox(
                                                   height: sHeight(3, context),
                                                 ),
-                                                Future_List == true &&
-                                                        Future_checkBox == true
+                                                Future_List == true && Future_checkBox == true
                                                     ? Column(
                                                         children: [
                                                           SizedBox(
@@ -2666,25 +3064,21 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                           Alterdata.length > 0
                                                               ? Column(
                                                                   children: [
-                                                                    for (int i =
-                                                                            0;
-                                                                        i < Alterdata.length;
-                                                                        i++)
+                                                                    for (int i = 0; i < Alterdata.length; i++)
                                                                       Column(
                                                                         children: [
                                                                           SizedBox(
-                                                                            height:
-                                                                                sHeight(1, context),
+                                                                            height: sHeight(1, context),
                                                                           ),
                                                                           Container(
                                                                             margin:
-                                                                                EdgeInsets.only(left: 10, right: 10),
+                                                                                const EdgeInsets.only(left: 10, right: 10),
                                                                             padding:
-                                                                                EdgeInsets.only(left: 10, right: 10),
+                                                                                const EdgeInsets.only(left: 10, right: 10),
                                                                             width:
                                                                                 sWidth(95, context),
                                                                             decoration:
-                                                                                BoxDecoration(
+                                                                                const BoxDecoration(
                                                                               color: Color(0xFFECFFF4),
                                                                               borderRadius: BorderRadius.all(
                                                                                 Radius.circular(10),
@@ -2697,7 +3091,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                                 SizedBox(
                                                                                   height: sHeight(1, context),
                                                                                 ),
-                                                                                Text(
+                                                                                const Text(
                                                                                   "Staff Name",
                                                                                   style: TextStyle(fontWeight: FontWeight.w700, color: Colors.black45),
                                                                                 ),
@@ -2705,34 +3099,34 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                                   height: sHeight(1, context),
                                                                                 ),
                                                                                 Text(
-                                                                                  "${Alterdata[i].sn1}",
-                                                                                  style: TextStyle(
+                                                                                  Alterdata[i].sn1,
+                                                                                  style: const TextStyle(
                                                                                     fontWeight: FontWeight.w900,
                                                                                   ),
                                                                                 ),
                                                                                 SizedBox(
                                                                                   height: sHeight(0.5, context),
                                                                                 ),
-                                                                                Divider(
+                                                                                const Divider(
                                                                                   thickness: 0.5,
                                                                                 ),
                                                                                 Text(
                                                                                   "Subject Name : ${Alterdata[i].sbn}",
-                                                                                  style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black54),
+                                                                                  style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black54),
                                                                                 ),
                                                                                 SizedBox(
                                                                                   height: sHeight(1, context),
                                                                                 ),
                                                                                 Text(
                                                                                   "Subject Code : ${Alterdata[i].sbc}",
-                                                                                  style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black54),
+                                                                                  style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black54),
                                                                                 ),
                                                                                 SizedBox(
                                                                                   height: sHeight(1, context),
                                                                                 ),
                                                                                 Text(
                                                                                   "Hour  : ${Alterdata[i].hour}",
-                                                                                  style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black54),
+                                                                                  style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black54),
                                                                                 ),
                                                                                 SizedBox(
                                                                                   height: sHeight(1, context),
@@ -2743,11 +3137,11 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                                     Container(
                                                                                       height: sHeight(3, context),
                                                                                       width: sWidth(35, context),
-                                                                                      decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xFFFF6276)),
+                                                                                      decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xFFFF6276)),
                                                                                       child: Center(
                                                                                         child: Text(
-                                                                                          "${Alterdata[i].s}",
-                                                                                          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+                                                                                          Alterdata[i].s,
+                                                                                          style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
                                                                                         ),
                                                                                       ),
                                                                                     ),
@@ -2763,7 +3157,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                                         }
                                                                                         setState(() {});
                                                                                       },
-                                                                                      activeColor: Color.fromRGBO(255, 98, 118, 1),
+                                                                                      activeColor: const Color.fromRGBO(255, 98, 118, 1),
                                                                                     ),
                                                                                   ],
                                                                                 ),
@@ -2783,18 +3177,91 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                     ElevatedButton(
                                                                       onPressed:
                                                                           () async {
-                                                                        Responce_Function_Future_Date();
+                                                                            showDialog(
+                                                                                context: context,
+                                                                                barrierDismissible:
+                                                                                true,
+                                                                                builder: (context) =>
+                                                                                    AlertDialog(
+                                                                                        content:
+                                                                                        SizedBox(
+                                                                                          height: sHeight(15, context),
+                                                                                          width: sWidth(60, context),
+                                                                                          child: Column(
+                                                                                            children: [
+                                                                                              const Text("Do you want to Send Alternative to this Staff?"),
+                                                                                              SizedBox(height: sHeight(5,context),
+                                                                                              ),
+                                                                                              Row(
+                                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                children: [
+                                                                                                  InkWell(
+                                                                                                    child:
+                                                                                                    Container(
+                                                                                                      height: sHeight(5, context),
+                                                                                                      width: sWidth(17, context),
+                                                                                                      decoration:
+                                                                                                      BoxDecoration(
+                                                                                                        borderRadius:
+                                                                                                        BorderRadius.circular(10),
+                                                                                                        color:
+                                                                                                        Colors.red,
+                                                                                                      ),
+                                                                                                      child: Center(
+                                                                                                          child: Text(
+                                                                                                            "NO",
+                                                                                                            style:
+                                                                                                            ErrorText(),
+                                                                                                          )),
+                                                                                                    ),
+                                                                                                    onTap:
+                                                                                                        () {
+                                                                                                      Navigator.pop(context);
+                                                                                                    },
+                                                                                                  ),
+                                                                                                  InkWell(
+                                                                                                    child:
+                                                                                                    Container(
+                                                                                                      height: sHeight(
+                                                                                                          5,
+                                                                                                          context),
+                                                                                                      width: sWidth(
+                                                                                                          17,
+                                                                                                          context),
+                                                                                                      decoration:
+                                                                                                      BoxDecoration(
+                                                                                                        borderRadius:
+                                                                                                        BorderRadius.circular(10),
+                                                                                                        color:
+                                                                                                        Colors.green,
+                                                                                                      ),
+                                                                                                      child: Center(
+                                                                                                          child: Text(
+                                                                                                            "Yes",
+                                                                                                            style:
+                                                                                                            ErrorText(),
+                                                                                                          )),
+                                                                                                    ),
+                                                                                                    onTap:
+                                                                                                        () async {
+                                                                                                          Responce_Function_Future_Date();
+                                                                                                        })
+                                                                                                ],
+                                                                                              )
+                                                                                            ],
+                                                                                          ),
+                                                                                        )));
                                                                       },
                                                                       style: ButtonStyle(
                                                                           backgroundColor: MaterialStateProperty.resolveWith((states) {
                                                                             if (states.contains(MaterialState.pressed)) {
-                                                                              return Color(0xff01BE84);
+                                                                              return const Color(0xff01BE84);
                                                                             }
-                                                                            return Color(0xff01BE84);
+                                                                            return const Color(0xff01BE84);
                                                                           }),
                                                                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
                                                                       child:
-                                                                          Text(
+                                                                          const Text(
                                                                         'SEND ALTERNATE HOUR REQUEST',
                                                                         style: TextStyle(
                                                                             color:
@@ -2821,21 +3288,17 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                             height: sHeight(
                                                                 3, context),
                                                           ),
-                                                          for (int i = 0;
-                                                              i <
-                                                                  Alter_Hours_Req
-                                                                      .length;
-                                                              i++)
+                                                          for (int i = 0; i < alterHoursReq.length; i++)
                                                             Column(
                                                               children: [
                                                                 Container(
-                                                                  margin: EdgeInsets
+                                                                  margin: const EdgeInsets
                                                                       .only(
                                                                           left:
                                                                               10,
                                                                           right:
                                                                               10),
-                                                                  padding: EdgeInsets
+                                                                  padding: const EdgeInsets
                                                                       .only(
                                                                           left:
                                                                               10,
@@ -2845,7 +3308,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                       95,
                                                                       context),
                                                                   decoration:
-                                                                      BoxDecoration(
+                                                                      const BoxDecoration(
                                                                     color: Color(
                                                                         0xFFECFFF4),
                                                                     borderRadius:
@@ -2865,7 +3328,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                             1,
                                                                             context),
                                                                       ),
-                                                                      Text(
+                                                                      const Text(
                                                                         "Staff Name",
                                                                         style: TextStyle(
                                                                             fontWeight:
@@ -2878,9 +3341,9 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                             context),
                                                                       ),
                                                                       Text(
-                                                                        "${Alter_Hours_Req[i].sn1}",
+                                                                        alterHoursReq[i].sn1,
                                                                         style:
-                                                                            TextStyle(
+                                                                            const TextStyle(
                                                                           fontWeight:
                                                                               FontWeight.w900,
                                                                         ),
@@ -2890,13 +3353,13 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                             0.5,
                                                                             context),
                                                                       ),
-                                                                      Divider(
+                                                                      const Divider(
                                                                         thickness:
                                                                             0.5,
                                                                       ),
                                                                       Text(
-                                                                        "Subject Name : ${Alter_Hours_Req[i].sbn}",
-                                                                        style: TextStyle(
+                                                                        "Subject Name : ${alterHoursReq[i].sbn}",
+                                                                        style: const TextStyle(
                                                                             fontWeight:
                                                                                 FontWeight.w600,
                                                                             color: Colors.black54),
@@ -2907,8 +3370,8 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                             context),
                                                                       ),
                                                                       Text(
-                                                                        "Subject Code : ${Alter_Hours_Req[i].sbc}",
-                                                                        style: TextStyle(
+                                                                        "Subject Code : ${alterHoursReq[i].sbc}",
+                                                                        style: const TextStyle(
                                                                             fontWeight:
                                                                                 FontWeight.w600,
                                                                             color: Colors.black54),
@@ -2919,8 +3382,8 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                             context),
                                                                       ),
                                                                       Text(
-                                                                        "Hour  : ${Alter_Hours_Req[i].hour}",
-                                                                        style: TextStyle(
+                                                                        "Hour  : ${alterHoursReq[i].hour}",
+                                                                        style: const TextStyle(
                                                                             fontWeight:
                                                                                 FontWeight.w600,
                                                                             color: Colors.black54),
@@ -2940,31 +3403,31 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                             width:
                                                                                 sWidth(35, context),
                                                                             decoration:
-                                                                                BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xFFFF6276)),
+                                                                                const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xFFFF6276)),
                                                                             child:
                                                                                 Center(
                                                                               child: Text(
-                                                                                "${Alter_Hours_Req[i].s}",
-                                                                                style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+                                                                                alterHoursReq[i].s,
+                                                                                style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
                                                                               ),
                                                                             ),
                                                                           ),
                                                                           Checkbox(
                                                                             value:
-                                                                                selectedIndexID2 == Alter_Hours_Req[i].fId,
+                                                                                selectedIndexID2 == alterHoursReq[i].fId,
                                                                             onChanged:
                                                                                 (value) {
                                                                               setState(() {
-                                                                                if (selectedIndexID2 == Alter_Hours_Req[i].fId) {
+                                                                                if (selectedIndexID2 == alterHoursReq[i].fId) {
                                                                                   selectedIndexID2 = null;
                                                                                   print("1${selectedIndexID2}");
                                                                                 } else {
-                                                                                  selectedIndexID2 = Alter_Hours_Req[i].fId;
+                                                                                  selectedIndexID2 = alterHoursReq[i].fId;
                                                                                   print("2---${selectedIndexID2}");
                                                                                 }
                                                                               });
                                                                             },
-                                                                            activeColor: Color.fromRGBO(
+                                                                            activeColor: const Color.fromRGBO(
                                                                                 255,
                                                                                 98,
                                                                                 118,
@@ -2990,7 +3453,82 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                           ElevatedButton(
                                                             onPressed:
                                                                 () async {
-                                                              await Responce_Function_SelectedDate();
+                                                                  showDialog(
+                                                                      context: context,
+                                                                      barrierDismissible:
+                                                                      true,
+                                                                      builder: (context) =>
+                                                                          AlertDialog(
+                                                                              content:
+                                                                              SizedBox(
+                                                                                height: sHeight(15, context),
+                                                                                width: sWidth(60, context),
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    const Text("Do you want Send Alternative to this Staff?"),
+                                                                                    SizedBox(height: sHeight(5,context),
+                                                                                    ),
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                      children: [
+                                                                                        InkWell(
+                                                                                          child:
+                                                                                          Container(
+                                                                                            height: sHeight(5, context),
+                                                                                            width: sWidth(17, context),
+                                                                                            decoration:
+                                                                                            BoxDecoration(
+                                                                                              borderRadius:
+                                                                                              BorderRadius.circular(10),
+                                                                                              color:
+                                                                                              Colors.red,
+                                                                                            ),
+                                                                                            child: Center(
+                                                                                                child: Text(
+                                                                                                  "NO",
+                                                                                                  style:
+                                                                                                  ErrorText(),
+                                                                                                )),
+                                                                                          ),
+                                                                                          onTap:
+                                                                                              () {
+                                                                                            Navigator.pop(context);
+                                                                                          },
+                                                                                        ),
+                                                                                        InkWell(
+                                                                                          child:
+                                                                                          Container(
+                                                                                            height: sHeight(
+                                                                                                5,
+                                                                                                context),
+                                                                                            width: sWidth(
+                                                                                                17,
+                                                                                                context),
+                                                                                            decoration:
+                                                                                            BoxDecoration(
+                                                                                              borderRadius:
+                                                                                              BorderRadius.circular(10),
+                                                                                              color:
+                                                                                              Colors.green,
+                                                                                            ),
+                                                                                            child: Center(
+                                                                                                child: Text(
+                                                                                                  "Yes",
+                                                                                                  style:
+                                                                                                  ErrorText(),
+                                                                                                )),
+                                                                                          ),
+                                                                                          onTap:
+                                                                                              () async {
+                                                                                            await Responce_Function_SelectedDate();
+                                                                                          },
+                                                                                        )
+                                                                                      ],
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                              )));
+
                                                             },
                                                             style: ButtonStyle(
                                                                 backgroundColor:
@@ -3000,10 +3538,10 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                   if (states.contains(
                                                                       MaterialState
                                                                           .pressed)) {
-                                                                    return Color(
+                                                                    return const Color(
                                                                         0xff01BE84);
                                                                   }
-                                                                  return Color(
+                                                                  return const Color(
                                                                       0xff01BE84);
                                                                 }),
                                                                 shape: MaterialStateProperty.all<
@@ -3011,7 +3549,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                     RoundedRectangleBorder(
                                                                         borderRadius:
                                                                             BorderRadius.circular(10)))),
-                                                            child: Text(
+                                                            child: const Text(
                                                               'SEND ALTERNATE HOUR REQUEST',
                                                               style: TextStyle(
                                                                   color: Colors
@@ -3129,16 +3667,10 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                     .toString();
                                                                 print(
                                                                     Staffs_List_Check);
-                                                                Passing_Staff =
-                                                                    Staffs_List.indexOf(
-                                                                            value.toString())
-                                                                        .toInt();
-                                                                Staff_ID = Staffs_List_Check[
-                                                                    Passing_Staff!
-                                                                        .toInt()];
+                                                                Passing_Staff = Staffs_List.indexOf(value.toString()).toInt();
+                                                                Staff_ID = Staffs_List_Check[Passing_Staff!.toInt()];
                                                                 print(Staff_ID);
-                                                                Show_DS_Name =
-                                                                    true;
+                                                                Show_DS_Name = true;
                                                                 setState(() {});
                                                               },
                                                             ),
@@ -3151,12 +3683,12 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                               ? Column(
                                                                   children: [
                                                                     Container(
-                                                                      margin: EdgeInsets.only(
+                                                                      margin: const EdgeInsets.only(
                                                                           left:
                                                                               10,
                                                                           right:
                                                                               10),
-                                                                      padding: EdgeInsets.only(
+                                                                      padding: const EdgeInsets.only(
                                                                           left:
                                                                               10,
                                                                           right:
@@ -3165,7 +3697,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                           95,
                                                                           context),
                                                                       decoration:
-                                                                          BoxDecoration(
+                                                                          const BoxDecoration(
                                                                         color: Color(
                                                                             0xFFECFFF4),
                                                                         borderRadius:
@@ -3183,7 +3715,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                             height:
                                                                                 sHeight(1, context),
                                                                           ),
-                                                                          Text(
+                                                                          const Text(
                                                                             "Department Name",
                                                                             style:
                                                                                 TextStyle(fontWeight: FontWeight.w700, color: Colors.black45),
@@ -3195,7 +3727,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                           Text(
                                                                             "${Department_Name}",
                                                                             style:
-                                                                                TextStyle(
+                                                                                const TextStyle(
                                                                               fontWeight: FontWeight.w900,
                                                                             ),
                                                                           ),
@@ -3203,11 +3735,11 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                             height:
                                                                                 sHeight(0.5, context),
                                                                           ),
-                                                                          Divider(
+                                                                          const Divider(
                                                                             thickness:
                                                                                 0.5,
                                                                           ),
-                                                                          Text(
+                                                                          const Text(
                                                                             "Staff Name",
                                                                             style:
                                                                                 TextStyle(fontWeight: FontWeight.w700, color: Colors.black45),
@@ -3219,7 +3751,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                           Text(
                                                                             "${Staff_Name}",
                                                                             style:
-                                                                                TextStyle(
+                                                                                const TextStyle(
                                                                               fontWeight: FontWeight.w900,
                                                                             ),
                                                                           ),
@@ -3242,18 +3774,93 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                     ElevatedButton(
                                                                       onPressed:
                                                                           () async {
-                                                                        await Responce_Function_OtherType_Engaged();
+                                                                            showDialog(
+                                                                                context: context,
+                                                                                barrierDismissible:
+                                                                                true,
+                                                                                builder: (context) =>
+                                                                                    AlertDialog(
+                                                                                        content:
+                                                                                        SizedBox(
+                                                                                          height: sHeight(15, context),
+                                                                                          width: sWidth(60, context),
+                                                                                          child: Column(
+                                                                                            children: [
+                                                                                              const Text("Do you want Send Alternative to this Staff?"),
+                                                                                              SizedBox(height: sHeight(5,context),
+                                                                                              ),
+                                                                                              Row(
+                                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                children: [
+                                                                                                  InkWell(
+                                                                                                    child:
+                                                                                                    Container(
+                                                                                                      height: sHeight(5, context),
+                                                                                                      width: sWidth(17, context),
+                                                                                                      decoration:
+                                                                                                      BoxDecoration(
+                                                                                                        borderRadius:
+                                                                                                        BorderRadius.circular(10),
+                                                                                                        color:
+                                                                                                        Colors.red,
+                                                                                                      ),
+                                                                                                      child: Center(
+                                                                                                          child: Text(
+                                                                                                            "NO",
+                                                                                                            style:
+                                                                                                            ErrorText(),
+                                                                                                          )),
+                                                                                                    ),
+                                                                                                    onTap:
+                                                                                                        () {
+                                                                                                      Navigator.pop(context);
+                                                                                                    },
+                                                                                                  ),
+                                                                                                  InkWell(
+                                                                                                    child:
+                                                                                                    Container(
+                                                                                                      height: sHeight(
+                                                                                                          5,
+                                                                                                          context),
+                                                                                                      width: sWidth(
+                                                                                                          17,
+                                                                                                          context),
+                                                                                                      decoration:
+                                                                                                      BoxDecoration(
+                                                                                                        borderRadius:
+                                                                                                        BorderRadius.circular(10),
+                                                                                                        color:
+                                                                                                        Colors.green,
+                                                                                                      ),
+                                                                                                      child: Center(
+                                                                                                          child: Text(
+                                                                                                            "Yes",
+                                                                                                            style:
+                                                                                                            ErrorText(),
+                                                                                                          )),
+                                                                                                    ),
+                                                                                                    onTap:
+                                                                                                        () async {
+                                                                                                          await Responce_Function_OtherType_Engaged();
+                                                                                                        },
+                                                                                                  )
+                                                                                                ],
+                                                                                              )
+                                                                                            ],
+                                                                                          ),
+                                                                                        )));
+
                                                                       },
                                                                       style: ButtonStyle(
                                                                           backgroundColor: MaterialStateProperty.resolveWith((states) {
                                                                             if (states.contains(MaterialState.pressed)) {
-                                                                              return Color(0xff01BE84);
+                                                                              return const Color(0xff01BE84);
                                                                             }
-                                                                            return Color(0xff01BE84);
+                                                                            return const Color(0xff01BE84);
                                                                           }),
                                                                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
                                                                       child:
-                                                                          Text(
+                                                                          const Text(
                                                                         'SEND ALTERNATE HOUR REQUEST',
                                                                         style: TextStyle(
                                                                             color:
@@ -3273,7 +3880,8 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                           ),
                                         ),
                                       );
-                                    } else {
+                                    }
+                                  else {
                                       return WillPopScope(
                                         onWillPop: () async =>
                                             _onBackButtonPressed(),
@@ -3289,40 +3897,37 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                             elevation: 20.0,
                                           ),
                                           body: Center(
-                                            child: Image.asset(
-                                              'images/Dataimg/data_not_found.png',
-                                            ),
-                                          ),
+                                              child: SearchingDataLottie(context)),
                                         ),
                                       );
                                     }
                                   } else {
                                     return Container(
+                                      color: Colors.white,
                                       child: Center(
                                           child: SearchingDataLottie(context)),
-                                      color: Colors.white,
                                     );
                                   }
                                 });
                           } else {
                             return Container(
+                              color: Colors.white,
                               child:
                                   Center(child: SearchingDataLottie(context)),
-                              color: Colors.white,
                             );
                           }
                         });
                   } else {
                     return Container(
-                      child: Center(child: SearchingDataLottie(context)),
                       color: Colors.white,
+                      child: Center(child: SearchingDataLottie(context)),
                     );
                   }
                 });
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -3340,6 +3945,9 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                   FromSesion: widget.FromSesion,
                   TOSessin: widget.TOSessin,
                   F_T_M: widget.Future_Date_one,
+              Reason: widget.Reason,
+              Hodid: widget.Hodid,
+              Typeid: widget.Typeid,
                 )));
   }
 }
@@ -3368,9 +3976,9 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Staffs_Inbox_Network staffs_inbox_network = Staffs_Inbox_Network(
-        "StaffAlternateInbox?StaffCode=${widget.username}&Password=${widget.password}&InstId=1&LoadType=0");
-    Inbox_API_Data = staffs_inbox_network.Inbox_loadData();
+    Staffs_Inbox_Network staffsInboxNetwork = Staffs_Inbox_Network(
+        "StaffAlternateInbox?StaffCode=${widget.username}&InstId=1&LoadType=0&Password=${widget.password}");
+    Inbox_API_Data = staffsInboxNetwork.Inbox_loadData();
   }
 
   @override
@@ -3381,17 +3989,17 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
           if (snapshot.hasError) {
             ErrorShowingWidget(context);
           }
-          List<Staff_Inbox_Data> INB_Data;
+          List<Staff_Inbox_Data> inbData;
           if (snapshot.hasData) {
-            INB_Data = snapshot.data!.Inbox_Sta_list;
-            if (INB_Data.length > 0) {
+            inbData = snapshot.data!.Inbox_Sta_list;
+            if (inbData.length > 0) {
               return WillPopScope(
                 onWillPop: () async => _onBackButtonPressed(),
                 child: Scaffold(
                   backgroundColor: const Color.fromRGBO(242, 249, 255, 0.9),
                   appBar: AppBar(
                     title: Text("Inbox", style: PrimaryText(context)),
-                    backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                    backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   ),
                   body: Builder(
                     builder: (BuildContext context) => SingleChildScrollView(
@@ -3399,7 +4007,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                       child: Center(
                         child: Column(
                           children: [
-                            for (int i = 0; i < INB_Data.length; i++)
+                            for (int i = 0; i < inbData.length; i++)
                               Column(
                                 children: [
                                   SizedBox(
@@ -3407,9 +4015,9 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                   ),
                                   Container(
                                     padding:
-                                        EdgeInsets.only(left: 10, right: 10),
+                                        const EdgeInsets.only(left: 10, right: 10),
                                     width: sWidth(95, context),
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(8))),
@@ -3420,7 +4028,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                         SizedBox(
                                           height: sHeight(1, context),
                                         ),
-                                        Text(
+                                        const Text(
                                           "Request From",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
@@ -3430,8 +4038,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                           height: sHeight(1, context),
                                         ),
                                         Text(
-                                          "${INB_Data[i].reqFrom}",
-                                          style: TextStyle(
+                                          inbData[i].reqFrom,
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w900,
                                             color: Color(0xFF6762FF),
                                           ),
@@ -3440,7 +4048,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                         SizedBox(
                                           height: sHeight(1, context),
                                         ),
-                                        Text(
+                                        const Text(
                                           "Class Name",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w700,
@@ -3450,8 +4058,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                           height: sHeight(1, context),
                                         ),
                                         Text(
-                                          "${INB_Data[i].clname}",
-                                          style: TextStyle(
+                                          inbData[i].clname,
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w900,
                                             color: Color(0xFF6762FF),
                                           ),
@@ -3460,7 +4068,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                         SizedBox(
                                           height: sHeight(1, context),
                                         ),
-                                        Divider(
+                                        const Divider(
                                           thickness: 0.5,
                                         ),
                                         Row(
@@ -3469,7 +4077,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
+                                                const Text(
                                                   "Subject Name",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3479,7 +4087,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Subject Code",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3489,7 +4097,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Date",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3499,7 +4107,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Send Date",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3509,7 +4117,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Actual Hour",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3519,7 +4127,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Request Hour",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3535,7 +4143,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
+                                                const Text(
                                                   " : ",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3545,7 +4153,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   " : ",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3555,7 +4163,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   " : ",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3565,7 +4173,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   " : ",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3575,7 +4183,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   " : ",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3585,7 +4193,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                Text(
+                                                const Text(
                                                   " : ",
                                                   style: TextStyle(
                                                       fontWeight:
@@ -3602,8 +4210,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "${INB_Data[i].subjectName}",
-                                                  style: TextStyle(
+                                                  inbData[i].subjectName,
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       color: Colors.black),
@@ -3612,8 +4220,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                   height: sHeight(1, context),
                                                 ),
                                                 Text(
-                                                  "${INB_Data[i].subjectCode}",
-                                                  style: TextStyle(
+                                                  inbData[i].subjectCode,
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       color: Colors.black),
@@ -3622,8 +4230,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                   height: sHeight(1, context),
                                                 ),
                                                 Text(
-                                                  "${INB_Data[i].date.replaceAll(RegExp(r"\([^()]*\)"), "")}",
-                                                  style: TextStyle(
+                                                  inbData[i].date.replaceAll(RegExp(r"\([^()]*\)"), ""),
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       color: Colors.black),
@@ -3632,8 +4240,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                   height: sHeight(1, context),
                                                 ),
                                                 Text(
-                                                  "${INB_Data[i].sendDate}",
-                                                  style: TextStyle(
+                                                  inbData[i].sendDate,
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       color: Colors.black),
@@ -3641,8 +4249,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                 SizedBox(
                                                   height: sHeight(1, context),
                                                 ),
-                                                INB_Data[i].actualHr == ""
-                                                    ? Text(
+                                                inbData[i].actualHr == ""
+                                                    ? const Text(
                                                         " -",
                                                         style: TextStyle(
                                                             fontWeight:
@@ -3651,8 +4259,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                 Colors.black),
                                                       )
                                                     : Text(
-                                                        "${INB_Data[i].actualHr}",
-                                                        style: TextStyle(
+                                                        inbData[i].actualHr,
+                                                        style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w700,
                                                             color:
@@ -3662,8 +4270,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                   height: sHeight(1, context),
                                                 ),
                                                 Text(
-                                                  "${INB_Data[i].requestHr}",
-                                                  style: TextStyle(
+                                                  inbData[i].requestHr,
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       color: Colors.black),
@@ -3681,13 +4289,13 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                           children: [
                                             Column(
                                               children: [
-                                                INB_Data[i].stCode == 1
+                                                inbData[i].stCode == 1
                                                     ? Container(
                                                         height:
                                                             sHeight(3, context),
                                                         width:
                                                             sWidth(35, context),
-                                                        decoration: BoxDecoration(
+                                                        decoration: const BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .all(Radius
@@ -3697,8 +4305,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                 Colors.green),
                                                         child: Center(
                                                           child: Text(
-                                                            "${INB_Data[i].status}",
-                                                            style: TextStyle(
+                                                            inbData[i].status,
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -3708,13 +4316,13 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                         ),
                                                       )
                                                     : Container(),
-                                                INB_Data[i].stCode == 2
+                                                inbData[i].stCode == 2
                                                     ? Container(
                                                         height:
                                                             sHeight(3, context),
                                                         width:
                                                             sWidth(35, context),
-                                                        decoration: BoxDecoration(
+                                                        decoration: const BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .all(Radius
@@ -3723,8 +4331,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                             color: Colors.red),
                                                         child: Center(
                                                           child: Text(
-                                                            "${INB_Data[i].status}",
-                                                            style: TextStyle(
+                                                            inbData[i].status,
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -3734,13 +4342,13 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                         ),
                                                       )
                                                     : Container(),
-                                                INB_Data[i].stCode == 3
+                                                inbData[i].stCode == 3
                                                     ? Container(
                                                         height:
                                                             sHeight(3, context),
                                                         width:
                                                             sWidth(35, context),
-                                                        decoration: BoxDecoration(
+                                                        decoration: const BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .all(Radius
@@ -3750,8 +4358,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                 Colors.brown),
                                                         child: Center(
                                                           child: Text(
-                                                            "${INB_Data[i].status}",
-                                                            style: TextStyle(
+                                                            inbData[i].status,
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -3761,7 +4369,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                         ),
                                                       )
                                                     : Container(),
-                                                INB_Data[i].stCode == 0
+                                                inbData[i].stCode == 0
                                                     ? Container(
                                                         height:
                                                             sHeight(3, context),
@@ -3770,7 +4378,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius.all(
+                                                              const BorderRadius.all(
                                                                   Radius
                                                                       .circular(
                                                                           5)),
@@ -3778,8 +4386,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                         ),
                                                         child: Center(
                                                           child: Text(
-                                                            "${INB_Data[i].status}",
-                                                            style: TextStyle(
+                                                            inbData[i].status,
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -3794,7 +4402,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                             // SizedBox(width: sWidth(40, context),),
                                             ElevatedButton(
                                               onPressed: () async {
-                                                if (INB_Data[i].subjectCode ==
+                                                if (inbData[i].subjectCode ==
                                                     'Other Staff') {
                                                   showDialog(
                                                     context: context,
@@ -3805,13 +4413,13 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                             widget.username,
                                                         password:
                                                             widget.password,
-                                                        classID: INB_Data[i]
+                                                        classID: inbData[i]
                                                             .clsid
                                                             .toInt(),
-                                                        TimetableID: INB_Data[i]
+                                                        TimetableID: inbData[i]
                                                             .timeid
                                                             .toInt(),
-                                                        From_Alt_id: INB_Data[i]
+                                                        From_Alt_id: inbData[i]
                                                             .id
                                                             .toInt(),
                                                       );
@@ -3828,14 +4436,14 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                             Colors.white,
                                                         content:
                                                             SingleChildScrollView(
-                                                          child: Container(
+                                                          child: SizedBox(
                                                             height: sHeight(
                                                                 8, context),
                                                             width: sWidth(
                                                                 90, context),
                                                             child: Column(
                                                                 children: [
-                                                                  Text(
+                                                                  const Text(
                                                                     "Do you confirm accept this Request?",
                                                                     style: TextStyle(
                                                                         color: Colors
@@ -3860,7 +4468,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                       .get(
                                                                 Uri.parse(
                                                                     "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}"
-                                                                    "&AlternateId=${INB_Data[i].id}&Type=1&StaffSubject=0"), // server login url
+                                                                    "&AlternateId=${inbData[i].id}&Type=1&StaffSubject=0"), // server login url
                                                               );
                                                               if (resp.statusCode ==
                                                                   200) {
@@ -3898,11 +4506,11 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                             )));
                                                               } else {}
                                                             },
-                                                            child: Text("yes"),
                                                             style: ElevatedButton
                                                                 .styleFrom(
                                                                     primary: Colors
                                                                         .green),
+                                                            child: const Text("yes"),
                                                           ),
                                                           ElevatedButton(
                                                             onPressed:
@@ -3910,12 +4518,12 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                               Navigator.pop(
                                                                   context);
                                                             },
-                                                            child: Text("No"),
                                                             style: ElevatedButton
                                                                 .styleFrom(
                                                                     primary:
                                                                         Colors
                                                                             .red),
+                                                            child: const Text("No"),
                                                           ),
                                                         ],
                                                       );
@@ -3923,10 +4531,10 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                   );
                                                 }
                                               },
-                                              child: Icon(Icons.check),
                                               style: ElevatedButton.styleFrom(
-                                                  shape: StadiumBorder(),
+                                                  shape: const StadiumBorder(),
                                                   primary: Colors.green),
+                                              child: const Icon(Icons.check),
                                             ),
                                             ElevatedButton(
                                                 onPressed: () async {
@@ -3939,14 +4547,14 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                             Colors.white,
                                                         content:
                                                             SingleChildScrollView(
-                                                          child: Container(
+                                                          child: SizedBox(
                                                             height: sHeight(
                                                                 8, context),
                                                             width: sWidth(
                                                                 90, context),
                                                             child: Column(
                                                                 children: [
-                                                                  Text(
+                                                                  const Text(
                                                                     "Do you confirm Reject this Request?",
                                                                     style: TextStyle(
                                                                         color: Colors
@@ -3971,7 +4579,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                       .get(
                                                                 Uri.parse(
                                                                     "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}"
-                                                                    "&AlternateId=${INB_Data[i].id}&Type=0&StaffSubject=0"), // server login url
+                                                                    "&AlternateId=${inbData[i].id}&Type=0&StaffSubject=0"), // server login url
                                                               );
                                                               if (resp.statusCode ==
                                                                   200) {
@@ -4009,11 +4617,11 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                             )));
                                                               } else {}
                                                             },
-                                                            child: Text("yes"),
                                                             style: ElevatedButton
                                                                 .styleFrom(
                                                                     primary: Colors
                                                                         .green),
+                                                            child: const Text("yes"),
                                                           ),
                                                           ElevatedButton(
                                                             onPressed:
@@ -4021,19 +4629,17 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                               Navigator.pop(
                                                                   context);
                                                             },
-                                                            child: Text("No"),
                                                             style: ElevatedButton
                                                                 .styleFrom(
-                                                                    primary:
-                                                                        Colors
+                                                                    backgroundColor: Colors
                                                                             .red),
+                                                            child: const Text("No"),
                                                           ),
                                                         ],
                                                       );
                                                     },
                                                   );
                                                 },
-                                                child: Icon(Icons.close),
                                                 style: ElevatedButton.styleFrom(
                                                     shape:
                                                         RoundedRectangleBorder(
@@ -4041,7 +4647,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         20)),
-                                                    primary: Colors.red)),
+                                                    primary: Colors.red),
+                                                child: const Icon(Icons.close)),
                                           ],
                                         ),
                                         SizedBox(
@@ -4114,7 +4721,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                 backgroundColor: const Color.fromRGBO(242, 249, 255, 0.9),
                 appBar: AppBar(
                   title: Text("Inbox", style: PrimaryText(context)),
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                 ),
                 body: Center(
                   child: Image.asset("images/Dataimg/data_not_found.png"),
@@ -4123,8 +4730,8 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
             }
           } else {
             return Container(
-              child: Center(child: StudentsSearching(context)),
               color: Colors.white,
+              child: Center(child: StudentsSearching(context)),
             );
           }
         });
@@ -4140,6 +4747,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
 }
 
 //Find Staff Subject AlertDialog
+
 class Find_Staffs_Subject extends StatefulWidget {
   const Find_Staffs_Subject(
       {Key? key,
@@ -4229,10 +4837,10 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Staff_Inbox_Lesson_Network staff_inbox_lesson_network =
+    Staff_Inbox_Lesson_Network staffInboxLessonNetwork =
         Staff_Inbox_Lesson_Network(
             "AlterHoursSubjectFind?StaffCode=${widget.username}&Password=${widget.password}&classId=${widget.classID}&TimetableId=${widget.TimetableID}");
-    Inbox_Lesson_API_Data = staff_inbox_lesson_network.Inbox_Lesson_loadData();
+    Inbox_Lesson_API_Data = staffInboxLessonNetwork.Inbox_Lesson_loadData();
   }
 
   @override
@@ -4244,26 +4852,26 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
           if (snapshot.hasError) {
             ErrorShowingWidget(context);
           }
-          List<Staff_Inbox_Lesson_Data> Lesson_Data;
+          List<Staff_Inbox_Lesson_Data> lessonData;
           if (snapshot.hasData) {
-            Lesson_Data = snapshot.data!.Inbox_Leson_list;
+            lessonData = snapshot.data!.Inbox_Leson_list;
             Lesson_List = [
-              for (int i = Lesson_Data.length - 1; i >= 0; i--)
-                "${Lesson_Data[i].lesson}"
+              for (int i = lessonData.length - 1; i >= 0; i--)
+                lessonData[i].lesson
             ].reversed.toList();
             Lesson_List_Check = [
-              for (int i = Lesson_Data.length - 1; i >= 0; i--)
-                "${Lesson_Data[i].id}"
+              for (int i = lessonData.length - 1; i >= 0; i--)
+                "${lessonData[i].id}"
             ].reversed.toList();
-            if (Lesson_Data.length > 0) {
+            if (lessonData.length > 0) {
               return AlertDialog(
                 backgroundColor: Colors.white,
                 content: SingleChildScrollView(
-                  child: Container(
+                  child: SizedBox(
                     height: sHeight(20, context),
                     width: sWidth(90, context),
                     child: Column(children: [
-                      Text(
+                      const Text(
                         "*If any Subject(s) is allocated for you this class, click this checkbox & Select the Subject from the below List",
                         style: TextStyle(
                             color: Colors.indigo, fontWeight: FontWeight.w700),
@@ -4276,10 +4884,10 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
                           builder: (FormFieldState<String> state) {
                             return DropdownButtonHideUnderline(
                               child: DropdownSearch<String>(
-                                popupProps: PopupProps.menu(),
+                                popupProps: const PopupProps.menu(),
                                 dropdownDecoratorProps:
-                                    DropDownDecoratorProps(),
-                                dropdownButtonProps: DropdownButtonProps(
+                                    const DropDownDecoratorProps(),
+                                dropdownButtonProps: const DropdownButtonProps(
                                     // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                     icon: Icon(
                                         Icons.arrow_drop_down_circle_rounded),
@@ -4287,11 +4895,11 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
                                 items: Lesson_List,
                                 selectedItem: "Select a Subject",
                                 onChanged: (value) {
-                                  int Passing_Dep =
+                                  int passingDep =
                                       Lesson_List.indexOf(value.toString())
                                           .toInt();
                                   Lesson_Id =
-                                      Lesson_List_Check[Passing_Dep.toInt()];
+                                      Lesson_List_Check[passingDep.toInt()];
                                   print(Lesson_Id);
                                 },
                               ),
@@ -4317,15 +4925,15 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
                         Responce_Function_Accept_With_SUb();
                       }
                     },
-                    child: Text("Accept with Subject"),
-                    style: ElevatedButton.styleFrom(primary: Colors.indigo),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo),
+                    child: const Text("Accept with Subject"),
                   ),
                   ElevatedButton(
                     onPressed: () async {
                       await Responce_Function_Accept_WithOUT_SUb();
                     },
-                    child: Text("Accept without Subject"),
                     style: ElevatedButton.styleFrom(primary: Colors.teal),
+                    child: const Text("Accept without Subject"),
                   ),
                 ],
               );
@@ -4333,11 +4941,11 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
               return AlertDialog(
                 backgroundColor: Colors.white,
                 content: SingleChildScrollView(
-                  child: Container(
+                  child: SizedBox(
                     height: sHeight(8, context),
                     width: sWidth(90, context),
                     child: Column(children: [
-                      Text(
+                      const Text(
                         "Do you confirm accept this Request?",
                         style: TextStyle(
                             color: Colors.indigo, fontWeight: FontWeight.w700),
@@ -4378,23 +4986,23 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
                                     )));
                       } else {}
                     },
-                    child: Text("yes"),
                     style: ElevatedButton.styleFrom(primary: Colors.green),
+                    child: const Text("yes"),
                   ),
                   ElevatedButton(
                     onPressed: () async {
                       Navigator.pop(context);
                     },
-                    child: Text("No"),
                     style: ElevatedButton.styleFrom(primary: Colors.red),
+                    child: const Text("No"),
                   ),
                 ],
               );
             }
           } else {
             return Container(
-              child: Center(child: StudentsSearching(context)),
               color: Colors.white,
+              child: Center(child: StudentsSearching(context)),
             );
           }
         });
@@ -4429,26 +5037,26 @@ class _Club_ActivityState extends State<Club_Activity> {
             style: PrimaryText(context),
           ),
           centerTitle: true,
-          backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+          backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
           elevation: 05.0,
         ),
         body: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TabBar(
               indicator: BoxDecoration(
-                  color: Color(0xFFF84259),
+                  color: const Color(0xFFF84259),
                   borderRadius: BorderRadius.circular(10)),
               tabs: [
-                Tab(
+                const Tab(
                   child: Text(
                     'Function',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
-                Tab(
+                const Tab(
                   child: Text(
                     'Attendance',
                     style: TextStyle(color: Colors.black),
@@ -4487,7 +5095,6 @@ class Club_Function extends StatefulWidget {
 }
 
 class _Club_FunctionState extends State<Club_Function> {
-
   late Future<Club_Fun_Data_List> Club_Fun_API_Data;
   late Future<AddClubFun_List> ADD_Club_Data;
   late Future<Staff_List_Data_List> Staff_API_Data;
@@ -4603,9 +5210,9 @@ class _Club_FunctionState extends State<Club_Function> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Club_Fun_Network club_fun_Network = Club_Fun_Network(
+    Club_Fun_Network clubFunNetwork = Club_Fun_Network(
         "ClubFunction?StaffCode=${widget.username}&Password=${widget.password}");
-    Club_Fun_API_Data = club_fun_Network.Fun_club_Data();
+    Club_Fun_API_Data = clubFunNetwork.Fun_club_Data();
   }
 
   @override
@@ -4613,23 +5220,23 @@ class _Club_FunctionState extends State<Club_Function> {
     return FutureBuilder(
         future: Club_Fun_API_Data,
         builder: (context,
-            AsyncSnapshot<Club_Fun_Data_List> ClubFun_Requestsnapshot) {
-          if (ClubFun_Requestsnapshot.hasError) {
+            AsyncSnapshot<Club_Fun_Data_List> clubfunRequestsnapshot) {
+          if (clubfunRequestsnapshot.hasError) {
             ErrorShowingWidget(context);
           }
-          List<Club_Fun_Data> Club_fun;
-          if (ClubFun_Requestsnapshot.hasData) {
-            Club_fun = ClubFun_Requestsnapshot.data!.Club_fu_list;
+          List<Club_Fun_Data> clubFun;
+          if (clubfunRequestsnapshot.hasData) {
+            clubFun = clubfunRequestsnapshot.data!.Club_fu_list;
             Clubs = [
-              for (int i = Club_fun.length - 1; i >= 0; i--) Club_fun[i].txt
+              for (int i = clubFun.length - 1; i >= 0; i--) clubFun[i].txt
             ];
             Club_id = [
-              for (int i = Club_fun.length - 1; i >= 0; i--) "${Club_fun[i].id}"
+              for (int i = clubFun.length - 1; i >= 0; i--) "${clubFun[i].id}"
             ].reversed.toList();
             return Scaffold(
-              backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+              backgroundColor: const Color.fromRGBO(242, 249, 250, 0.9),
               body: Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
+                margin: const EdgeInsets.only(left: 10, right: 10),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
@@ -4640,7 +5247,7 @@ class _Club_FunctionState extends State<Club_Function> {
                           SizedBox(
                             height: sHeight(1.5, context),
                           ),
-                          Text(
+                          const Text(
                             "Club",
                             style: TextStyle(
                                 fontSize: 15,
@@ -4650,17 +5257,17 @@ class _Club_FunctionState extends State<Club_Function> {
                           SizedBox(
                             height: sHeight(1, context),
                           ),
-                          Container(
+                          SizedBox(
                             width: sWidth(100, context),
                             height: sHeight(5, context),
                             child: FormField<String>(
                               builder: (FormFieldState<String> state) {
                                 return DropdownButtonHideUnderline(
                                   child: DropdownSearch<String>(
-                                    popupProps: PopupProps.menu(),
+                                    popupProps: const PopupProps.menu(),
                                     dropdownDecoratorProps:
-                                        DropDownDecoratorProps(),
-                                    dropdownButtonProps: DropdownButtonProps(
+                                        const DropDownDecoratorProps(),
+                                    dropdownButtonProps: const DropdownButtonProps(
                                         // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                         icon: Icon(Icons
                                             .arrow_drop_down_circle_rounded),
@@ -4668,10 +5275,10 @@ class _Club_FunctionState extends State<Club_Function> {
                                     items: Clubs,
                                     selectedItem: "Select clubs",
                                     onChanged: (value) {
-                                      int Passing_club =
+                                      int passingClub =
                                           Clubs.indexOf(value.toString())
                                               .toInt();
-                                      Clubid = Club_id[Passing_club.toInt()];
+                                      Clubid = Club_id[passingClub.toInt()];
                                       print(Clubid);
                                       // txt = value.toString();
                                       // print(txt);
@@ -4693,7 +5300,7 @@ class _Club_FunctionState extends State<Club_Function> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("From Date:",
+                                  const Text("From Date:",
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.black,
@@ -4703,7 +5310,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                     width: 150,
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.black),
-                                      borderRadius: BorderRadius.all(
+                                      borderRadius: const BorderRadius.all(
                                         Radius.circular(7),
                                       ),
                                     ),
@@ -4711,8 +5318,9 @@ class _Club_FunctionState extends State<Club_Function> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
+                                        // Text("From Date"),
                                         ClubFromDate == null
-                                            ? Text("Select")
+                                            ? const Text("Select")
                                             : Text("${ClubFromDate}"),
                                         IconButton(
                                           onPressed: () async {
@@ -4729,7 +5337,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                               setState(() {});
                                             });
                                           },
-                                          icon: Icon(Icons.calendar_month,
+                                          icon: const Icon(Icons.calendar_month,
                                               color: Color.fromRGBO(
                                                   255, 98, 118, 1)),
                                         ),
@@ -4741,7 +5349,7 @@ class _Club_FunctionState extends State<Club_Function> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("To Date:",
+                                  const Text("To Date:",
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.black,
@@ -4751,7 +5359,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                     width: 150,
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.black),
-                                      borderRadius: BorderRadius.all(
+                                      borderRadius: const BorderRadius.all(
                                         Radius.circular(7),
                                       ),
                                     ),
@@ -4760,7 +5368,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                           MainAxisAlignment.center,
                                       children: [
                                         ClubToDate == null
-                                            ? Text("Select")
+                                            ? const Text("Select")
                                             : Text("${ClubToDate}"),
                                         IconButton(
                                           onPressed: () async {
@@ -4783,7 +5391,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                               return null;
                                             };
                                           },
-                                          icon: Icon(Icons.calendar_month,
+                                          icon: const Icon(Icons.calendar_month,
                                               color: Color.fromRGBO(
                                                   255, 98, 118, 1)),
                                         ),
@@ -4797,7 +5405,7 @@ class _Club_FunctionState extends State<Club_Function> {
                           SizedBox(
                             height: sHeight(2, context),
                           ),
-                          Text(
+                          const Text(
                             "Function Name:",
                             style: TextStyle(
                                 fontSize: 15,
@@ -4825,7 +5433,7 @@ class _Club_FunctionState extends State<Club_Function> {
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.9)),
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 5.0,
                                 ),
                                 labelStyle: TextStyle(
@@ -4833,7 +5441,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                     fontSize: 10),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         width: 5, style: BorderStyle.none)),
                               ),
                             ),
@@ -4841,7 +5449,7 @@ class _Club_FunctionState extends State<Club_Function> {
                           SizedBox(
                             height: sHeight(2, context),
                           ),
-                          Text(
+                          const Text(
                             "Programme For: ",
                             style: TextStyle(
                                 fontSize: 15,
@@ -4864,11 +5472,12 @@ class _Club_FunctionState extends State<Club_Function> {
                                 if (e!.isEmpty) {
                                   return "Enter the Program For";
                                 }
+                                return null;
                               },
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.9)),
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 5.0,
                                 ),
                                 labelStyle: TextStyle(
@@ -4876,7 +5485,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                     fontSize: 10),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         width: 5, style: BorderStyle.none)),
                               ),
                             ),
@@ -4884,7 +5493,7 @@ class _Club_FunctionState extends State<Club_Function> {
                           SizedBox(
                             height: sHeight(2, context),
                           ),
-                          Text(
+                          const Text(
                             "Level: ",
                             style: TextStyle(
                                 fontSize: 15,
@@ -4907,11 +5516,12 @@ class _Club_FunctionState extends State<Club_Function> {
                                 if (e!.isEmpty) {
                                   return "Enter the Level";
                                 }
+                                return null;
                               },
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.9)),
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 5.0,
                                 ),
                                 labelStyle: TextStyle(
@@ -4919,7 +5529,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                     fontSize: 10),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         width: 5, style: BorderStyle.none)),
                               ),
                             ),
@@ -4927,7 +5537,7 @@ class _Club_FunctionState extends State<Club_Function> {
                           SizedBox(
                             height: sHeight(2, context),
                           ),
-                          Text(
+                          const Text(
                             "Guest Details: ",
                             style: TextStyle(
                                 fontSize: 15,
@@ -4950,11 +5560,12 @@ class _Club_FunctionState extends State<Club_Function> {
                                 if (e!.isEmpty) {
                                   return "Enter the Guest Details";
                                 }
+                                return null;
                               },
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.9)),
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 5.0,
                                 ),
                                 labelStyle: TextStyle(
@@ -4962,7 +5573,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                     fontSize: 10),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         width: 5, style: BorderStyle.none)),
                               ),
                             ),
@@ -4970,7 +5581,7 @@ class _Club_FunctionState extends State<Club_Function> {
                           SizedBox(
                             height: sHeight(2, context),
                           ),
-                          Text(
+                          const Text(
                             "Highlights:",
                             style: TextStyle(
                                 fontSize: 15,
@@ -4993,11 +5604,12 @@ class _Club_FunctionState extends State<Club_Function> {
                                 if (e!.isEmpty) {
                                   return "Enter the Highlights";
                                 }
+                                return null;
                               },
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.9)),
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 5.0,
                                 ),
                                 labelStyle: TextStyle(
@@ -5005,7 +5617,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                     fontSize: 10),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         width: 5, style: BorderStyle.none)),
                               ),
                             ),
@@ -5034,11 +5646,11 @@ class _Club_FunctionState extends State<Club_Function> {
                                     await _addgue();
                                     await _high();
                                     await _fromdate();
-                                    if (_addFun == null &&
-                                        _addPro == null &&
-                                        _addLev == null &&
-                                        _addgue == null &&
-                                        _high == null) {
+                                    if (_addFun == false &&
+                                        _addPro == false &&
+                                        _addLev == false &&
+                                        _addgue == false &&
+                                        _high == false) {
                                       /*  return  showDialog(
                                           context: context,
                                           barrierDismissible: true,
@@ -5047,7 +5659,8 @@ class _Club_FunctionState extends State<Club_Function> {
                                               children: [
                                                 Text("")
                                               ],
-                                            ),*/ /*
+                                            ),*/
+                                      /*
                                               content: Container(
                                                 height: sHeight(15, context),
                                                 width: sWidth(60, context),
@@ -5096,12 +5709,12 @@ class _Club_FunctionState extends State<Club_Function> {
                                                 Text("")
                                               ],
                                             ),*/
-                                                  content: Container(
+                                                  content: SizedBox(
                                                 height: sHeight(15, context),
                                                 width: sWidth(60, context),
                                                 child: Column(
                                                   children: [
-                                                    Text(
+                                                    const Text(
                                                         "Do you want to Create the club function?"),
                                                     SizedBox(
                                                       height:
@@ -5173,7 +5786,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                       //Navigator.pop(context);
                                     }
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "Save",
                                     style: TextStyle(
                                         color: Colors.white,
@@ -5193,7 +5806,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                         Colors.white, // foreground (text) color
                                   ),
                                   onPressed: ClearText,
-                                  child: Text(
+                                  child: const Text(
                                     "Reset",
                                     style: TextStyle(
                                         color: Colors.white,
@@ -5204,6 +5817,9 @@ class _Club_FunctionState extends State<Club_Function> {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            height: sHeight(3, context),
+                          )
                         ],
                       ),
                     ],
@@ -5213,8 +5829,8 @@ class _Club_FunctionState extends State<Club_Function> {
             );
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -5241,9 +5857,9 @@ class _Club_AttendanceState extends State<Club_Attendance> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Clun_Attend_Network clun_attend_network = Clun_Attend_Network(
+    Clun_Attend_Network clunAttendNetwork = Clun_Attend_Network(
         "SelectClub?StaffCode=${widget.username}&FromDate=${CirATdate}&ToDate=${CirATdate}&Password=${widget.password}");
-    ClubAttend_API = clun_attend_network.ClubA_loadData();
+    ClubAttend_API = clunAttendNetwork.ClubA_loadData();
   }
 
   @override
@@ -5260,7 +5876,7 @@ class _Club_AttendanceState extends State<Club_Attendance> {
           Selectclub = ClubClassnapshot.data!.Club_A_List;
           if (Selectclub.length > 0) {
             return Scaffold(
-              backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+              backgroundColor: const Color.fromRGBO(242, 249, 250, 0.9),
               body: Builder(
                 builder: (BuildContext context) => SingleChildScrollView(
                     scrollDirection: Axis.vertical,
@@ -5273,7 +5889,7 @@ class _Club_AttendanceState extends State<Club_Attendance> {
                             child: InkWell(
                               child: Container(
                                 //width: sWidth(90, context),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(15),
@@ -5290,14 +5906,14 @@ class _Club_AttendanceState extends State<Club_Attendance> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "${Selectclub[i].ClubName}",
-                                              style: TextStyle(
+                                              Selectclub[i].ClubName,
+                                              style: const TextStyle(
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.w800),
                                             ),
                                             Text(
                                               "From Date : ${Selectclub[i].FromDate}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w200),
                                             ),
@@ -5309,7 +5925,7 @@ class _Club_AttendanceState extends State<Club_Attendance> {
                                             const EdgeInsets.only(left: 7.0),
                                         child: Row(
                                           children: [
-                                            Text(
+                                            const Text(
                                               "Function Name : ",
                                               style: TextStyle(
                                                   fontSize: 15,
@@ -5317,8 +5933,8 @@ class _Club_AttendanceState extends State<Club_Attendance> {
                                                       FontWeight.normal),
                                             ),
                                             Text(
-                                              "${Selectclub[i].FunctionName}",
-                                              style: TextStyle(
+                                              Selectclub[i].FunctionName,
+                                              style: const TextStyle(
                                                   fontSize: 15,
                                                   fontWeight:
                                                       FontWeight.normal),
@@ -5334,14 +5950,14 @@ class _Club_AttendanceState extends State<Club_Attendance> {
                                           children: [
                                             Text(
                                               "Guest : ${Selectclub[i].Guestname}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 15,
                                                   fontWeight:
                                                       FontWeight.normal),
                                             ),
                                             Text(
                                               "To Date : ${Selectclub[i].ToDate}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w200),
                                             ),
@@ -5373,14 +5989,14 @@ class _Club_AttendanceState extends State<Club_Attendance> {
             );
           } else {
             return Container(
-              child: Center(child: Text("No clubs found")),
               color: Colors.white,
+              child: const Center(child: Text("No clubs found")),
             );
           }
         } else {
           return Container(
-            child: Center(child: StudentsSearching(context)),
             color: Colors.white,
+            child: Center(child: StudentsSearching(context)),
           );
         }
       },
@@ -5430,18 +6046,17 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ClubStud_Network clubstud_network = ClubStud_Network(
+    ClubStud_Network clubstudNetwork = ClubStud_Network(
         "ClubAttend?StaffCode=${widget.username}&ClubId=${widget.id}&InstId=1&FunctionId=${widget.Funtionid}&SemSettingId=9&Date=${CirATdate}&Password=${widget.password}");
-    Stud_Club_API = clubstud_network.ClubStud_loadData();
-    AttendTerms_Network attendterms_network = AttendTerms_Network(
+    Stud_Club_API = clubstudNetwork.ClubStud_loadData();
+    AttendTerms_Network attendtermsNetwork = AttendTerms_Network(
         "AttendanceTerms?StaffCode=${widget.username}&Password=${widget.password}");
-    Attendterms_API = attendterms_network.FinalTerms_LoadData();
+    Attendterms_API = attendtermsNetwork.FinalTerms_LoadData();
   }
 
   @override
   Widget build(BuildContext context) {
     String list = "";
-    late List Reason_Club_valid = [];
     for (int i = 0; i <= StudentNoList.length - 1; i++) {
       list = list + StudentNoList[i].toString();
       if (i != StudentNoList.length - 1) list = list + ",";
@@ -5484,7 +6099,7 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                             style: PrimaryText(context),
                           ),
                           centerTitle: true,
-                          backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                          backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                           elevation: 05.0,
                         ),
                         body: Builder(
@@ -5500,7 +6115,7 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Container(
+                                          SizedBox(
                                             height: sHeight(6, context),
                                             width: sWidth(40, context),
                                             child: FormField<String>(
@@ -5509,11 +6124,11 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                                                 return DropdownButtonHideUnderline(
                                                   child: DropdownSearch<String>(
                                                     popupProps:
-                                                        PopupProps.menu(),
+                                                        const PopupProps.menu(),
                                                     dropdownDecoratorProps:
-                                                        DropDownDecoratorProps(),
+                                                        const DropDownDecoratorProps(),
                                                     dropdownButtonProps:
-                                                        DropdownButtonProps(
+                                                        const DropdownButtonProps(
                                                             // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                                             icon: Icon(Icons
                                                                 .arrow_drop_down_circle_rounded),
@@ -5553,7 +6168,7 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                                               },
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: sHeight(6, context),
                                             width: sWidth(40, context),
                                             child: FormField<String>(
@@ -5562,11 +6177,11 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                                                 return DropdownButtonHideUnderline(
                                                   child: DropdownSearch<String>(
                                                     popupProps:
-                                                        PopupProps.menu(),
+                                                        const PopupProps.menu(),
                                                     dropdownDecoratorProps:
-                                                        DropDownDecoratorProps(),
+                                                        const DropDownDecoratorProps(),
                                                     dropdownButtonProps:
-                                                        DropdownButtonProps(
+                                                        const DropdownButtonProps(
                                                             // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                                             icon: Icon(Icons
                                                                 .arrow_drop_down_circle_rounded),
@@ -5580,12 +6195,12 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                                                     selectedItem: Terms[1],
                                                     //selectedItem: "Type",
                                                     onChanged: (value) {
-                                                      int Passing_Term =
+                                                      int passingTerm =
                                                           Terms.indexOf(value
                                                                   .toString())
                                                               .toInt();
                                                       AttendId = AttendanceIds[
-                                                          Passing_Term.toInt()];
+                                                          passingTerm.toInt()];
                                                       print(AttendId);
                                                       // txt = value.toString();
                                                       // print(txt);
@@ -5629,9 +6244,9 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                               child: Container(
                                 width: 55,
                                 height: 55,
-                                margin: EdgeInsets.only(left: 10.0),
+                                margin: const EdgeInsets.only(left: 10.0),
                                 decoration: PrimaryRoundBox(),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.check_sharp,
                                   color: Colors.white,
                                 ),
@@ -5652,12 +6267,12 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                                                 Text("")
                                               ],
                                             ),*/
-                                              content: Container(
+                                              content: SizedBox(
                                             height: sHeight(15, context),
                                             width: sWidth(60, context),
                                             child: Column(
                                               children: [
-                                                Text(
+                                                const Text(
                                                     "Pleace Select Session or Attendance type"),
                                                 SizedBox(
                                                   height: sHeight(5, context),
@@ -5711,12 +6326,12 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                                                 Text("")
                                               ],
                                             ),*/
-                                              content: Container(
+                                              content: SizedBox(
                                             height: sHeight(15, context),
                                             width: sWidth(60, context),
                                             child: Column(
                                               children: [
-                                                Text(
+                                                const Text(
                                                     "Do you want to Submit the Attendance?"),
                                                 SizedBox(
                                                   height: sHeight(5, context),
@@ -5887,16 +6502,16 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
                         ),
                       );
                     } else {
-                      return Scaffold();
+                      return const Scaffold();
                     }
                   } else {
-                    return Scaffold();
+                    return const Scaffold();
                   }
                 });
           } else {
             return Container(
-              child: Center(child: StudentsSearching(context)),
               color: Colors.white,
+              child: Center(child: StudentsSearching(context)),
             );
           }
         });
@@ -5931,6 +6546,7 @@ class _ClubAttfinalState extends State<ClubAttfinal> {
   late Future<ClubAttend_List> ClubAttend_API;
   String CirATdate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -5949,10 +6565,10 @@ class _ClubAttfinalState extends State<ClubAttfinal> {
             ErrorShowingWidget(context);
           }
           print(Finalsnapshot.hasError);
-          List<ClubFinalAttend_Data> data_club;
+          List<ClubFinalAttend_Data> dataClub;
           if (Finalsnapshot.hasData) {
-            data_club = Finalsnapshot.data!.ClubAtted_List;
-            if (data_club.length > 0) {
+            dataClub = Finalsnapshot.data!.ClubAtted_List;
+            if (dataClub.length > 0) {
               return Scaffold(
                 appBar: AppBar(
                   title: Text(
@@ -5960,10 +6576,10 @@ class _ClubAttfinalState extends State<ClubAttfinal> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 05.0,
                 ),
-                backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor: const Color.fromRGBO(242, 249, 250, 0.9),
                 body: Builder(
                     builder: (BuildContext context) => SingleChildScrollView(
                           scrollDirection: Axis.vertical,
@@ -5973,14 +6589,14 @@ class _ClubAttfinalState extends State<ClubAttfinal> {
                                 SizedBox(
                                   height: sHeight(20, context),
                                 ),
-                                for (int i = data_club.length - 1; i >= 0; i--)
+                                for (int i = dataClub.length - 1; i >= 0; i--)
                                   Text(
-                                    "${data_club[i].msg}",
+                                    dataClub[i].msg,
                                     style: PrimaryText2Big(),
                                   ),
                                 InkWell(
                                   child: Container(
-                                      margin: EdgeInsets.only(top: 50.0),
+                                      margin: const EdgeInsets.only(top: 50.0),
                                       width: sWidth(50, context),
                                       height: sHeight(7, context),
                                       decoration: BoxDecoration(
@@ -5988,7 +6604,7 @@ class _ClubAttfinalState extends State<ClubAttfinal> {
                                         borderRadius:
                                             BorderRadius.circular(20.0),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                         child: Text("OK",
                                             style: TextStyle(
                                                 color: Colors.white,
@@ -6012,22 +6628,35 @@ class _ClubAttfinalState extends State<ClubAttfinal> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 05.0,
                 ),
                 body: Container(
+                  color: Colors.white,
                   child: Center(
                       child: Image.asset("images/Dataimg/data_not_found.png")),
-                  color: Colors.white,
                 ),
               );
             }
           } else {
-            return Container(
-              child: Center(child: StudentsSearching(context)),
-              color: Colors.white,
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'Club Attendance',
+                  style: PrimaryText(context),
+                ),
+                centerTitle: true,
+                backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
+                elevation: 05.0,
+              ),
+              body: Container(
+                color: Colors.white,
+                child: Center(child: StudentsSearching(context)),
+              ),
             );
           }
         });
   }
 }
+
+

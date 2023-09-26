@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:add_dev_dolphin/Data/Staff_Data.dart';
 import 'package:add_dev_dolphin/Data/Student_Data.dart';
 import 'package:add_dev_dolphin/Model/Staff_Screen/staff_main.dart';
 import 'package:add_dev_dolphin/Style_font/Staff_Screen_Design.dart';
 import 'package:add_dev_dolphin/Style_font/designs.dart';
 import 'package:add_dev_dolphin/UI/main_ui.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/date_symbol_data_file.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import '../../main.dart';
 double sHeight(double per, BuildContext context){
@@ -65,13 +65,13 @@ class _StaffAttendanceTimetableState extends State<StaffAttendanceTimetable> {
                 Attendancesnapshot.data!.StaffAttendanceTabledata_list;
             if (Attendancedata.length > 0) {
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "My Class",
                     style: PrimaryText(context),
                   ),
-                  backgroundColor: Color(0xFFF84259),
+                  backgroundColor: const Color(0xFFF84259),
                   elevation: 20.0,
                   centerTitle: true,
                 ),
@@ -86,8 +86,8 @@ class _StaffAttendanceTimetableState extends State<StaffAttendanceTimetable> {
                                   SizedBox(height: sHeight(2, context),),
                                   Container(
                                     width: sWidth(90, context),
-                                    padding: EdgeInsets.only(left: 20),
-                                    decoration: BoxDecoration(
+                                    padding: const EdgeInsets.only(left: 20),
+                                    decoration: const BoxDecoration(
                                       color: Colors.green,
                                       borderRadius: BorderRadius.all(Radius.circular(13),),),
                                     child: Column(
@@ -96,20 +96,20 @@ class _StaffAttendanceTimetableState extends State<StaffAttendanceTimetable> {
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                         Icon(Icons.date_range,color: Color.fromRGBO(150, 250, 195, 1),),
+                                         const Icon(Icons.date_range,color: Color.fromRGBO(150, 250, 195, 1),),
                                             SizedBox(width: sWidth(2, context),),
-                                            Text("Date                :",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
-                                            Text("   ${Attendancedata[0].Date}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),)
+                                            const Text("Date                :",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
+                                            Text("   ${Attendancedata[0].Date}",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),)
                                           ],
                                         ),
                                         SizedBox(height: sHeight(1.5, context),),
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.school_sharp,color: Color.fromRGBO(150, 250, 195, 1),),
+                                            const Icon(Icons.school_sharp,color: Color.fromRGBO(150, 250, 195, 1),),
                                             SizedBox(width: sWidth(2, context),),
-                                            Text("Sem Period   :",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
-                                            Text("   ${Attendancedata[0].SemPeriodName}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),)
+                                            const Text("Sem Period   :",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
+                                            Text("   ${Attendancedata[0].SemPeriodName}",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),)
                                           ],
                                         ),
                                         SizedBox(height: sHeight(2, context),),
@@ -145,7 +145,7 @@ class _StaffAttendanceTimetableState extends State<StaffAttendanceTimetable> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -203,8 +203,9 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
     for(int i = 0; i<=StudentNoList.length-1; i++)
     {
       list = list+StudentNoList[i].toString();
-      if(i !=StudentNoList.length-1)
+      if(i !=StudentNoList.length-1) {
         list = list+",";
+      }
     }
     return FutureBuilder(
         future: StudentListData,
@@ -218,13 +219,13 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
             data = Attendancesnapshot.data!.StudentListdata_list;
             if (data.length > 0) {
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Attendance",
                     style: PrimaryText(context),
                   ),
-                  backgroundColor: Color(0xFFF84259),
+                  backgroundColor: const Color(0xFFF84259),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -237,9 +238,9 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
                                 children: <Widget>[
                                   SizedBox(height: sHeight(3, context),),
                                   Container(
-                                    padding: EdgeInsets.only(left: 10,top: 30,right: 10),
+                                    padding: const EdgeInsets.only(left: 10,top: 30,right: 10),
                                     width: sWidth(90, context),
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(Radius.circular(15),),
                                     ),
@@ -248,23 +249,23 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Date :  ${AttendanceClassAPI.Date}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
-                                            Text("Total :  ${AttendanceClassAPI.Total.toString()} Students",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
+                                            Text("Date :  ${AttendanceClassAPI.Date}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
+                                            Text("Total :  ${AttendanceClassAPI.Total.toString()} Students",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
                                           ],
                                         ),
                                         SizedBox(height: sHeight(1.5, context),),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Class     :  ${AttendanceClassAPI.ClassName}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
+                                            Text("Class     :  ${AttendanceClassAPI.ClassName}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
                                           ],
                                         ),
                                         SizedBox(height: sHeight(1.5, context),),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Present :  ${present.toString()}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
-                                            Text("Absent :  ${absent.toString()}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
+                                            Text("Present :  ${present.toString()}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
+                                            Text("Absent :  ${absent.toString()}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w800),),
                                           ],
                                         ),
                                         SizedBox(height: sHeight(1.5, context),),
@@ -293,12 +294,12 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
                                       FinalList.add(data[i]);
                                     }
                                   },),
+                              SizedBox(height: sHeight(15, context),)
                             ],
                           ),
                         ),
                       ),
                     ),
-
                                   SizedBox(height: sHeight(8, context),),
                                 ],
                               )
@@ -314,7 +315,7 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
                         width: 55,
                         height: 55,
                         decoration: PrimaryRoundBox(),
-                        child: Icon(Icons.fact_check_outlined, color: Colors.white,),
+                        child: const Icon(Icons.fact_check_outlined, color: Colors.white,),
                       ),
                       onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>AttendanceCheck(
                         StaffAPI: StaffAPI, AttendanceClassAPI: AttendanceClassAPI, StudentList: FinalList, StudentNoList: StudentNoList,staffID: widget.staffID,))),
@@ -323,9 +324,9 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
                       child: Container(
                         width: 55,
                         height: 55,
-                        margin: EdgeInsets.only(left: 10.0),
+                        margin: const EdgeInsets.only(left: 10.0),
                         decoration: PrimaryRoundBox(),
-                        child: Icon(Icons.check_sharp, color: Colors.white,),
+                        child: const Icon(Icons.check_sharp, color: Colors.white,),
                       ),
                       onTap: () {
                         Navigator.pop(context);
@@ -345,7 +346,7 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
                     "Attendance",
                     style: PrimaryText(context),
                   ),
-                  backgroundColor: Color(0xFFF84259),
+                  backgroundColor: const Color(0xFFF84259),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -359,7 +360,7 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
             }
           } else {
             return Container(
-              child: Center(child: CircularProgressIndicator()),
+              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
             );
           }
@@ -429,20 +430,20 @@ class _StaffAttendanceViewState extends State<StaffAttendanceView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                                margin: EdgeInsets.only(bottom: 20.0)),
+                                margin: const EdgeInsets.only(bottom: 20.0)),
                             StaffProfile1(context, StaffAPI.StaffImg, StaffAPI.StaffName),
                             StaffInfoDesign(context, "", "Staff Code", StaffAPI.StaffCode, "Designation", StaffAPI.Designation, "", ""),
-                            Container(margin: EdgeInsets.only(bottom: 10.0)),
+                            Container(margin: const EdgeInsets.only(bottom: 10.0)),
                             DividerDesign(3.0),
-                            Container(margin: EdgeInsets.only(bottom: 10.0)),
+                            Container(margin: const EdgeInsets.only(bottom: 10.0)),
                             StaffInfoDesign(context, "Attendance", "Hour", AttendanceClassAPI.Hour.toString(), "Date", AttendanceClassAPI.Date, "Class", AttendanceClassAPI.ClassName),
-                            Container(margin: EdgeInsets.only(bottom: 10.0)),
+                            Container(margin: const EdgeInsets.only(bottom: 10.0)),
                             for (int i = 0; i <= data.length - 1; i++)
                               StudentListViewer(context, data[i]),
                             StaffInfoDesign(context, "Summary", "Total", AttendanceClassAPI.Total.toString(),
                                 "Present", present.toString(), "Absent", AttendanceClassAPI.Absent.toString()),
                             Container(
-                                margin: EdgeInsets.only(bottom: 10.0)),
+                                margin: const EdgeInsets.only(bottom: 10.0)),
                           ],
                         )
                       ],
@@ -455,7 +456,7 @@ class _StaffAttendanceViewState extends State<StaffAttendanceView> {
                     "Attendance",
                     style: PrimaryText(context),
                   ),
-                  backgroundColor: Color(0xFFF84259),
+                  backgroundColor: const Color(0xFFF84259),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -473,7 +474,7 @@ class _StaffAttendanceViewState extends State<StaffAttendanceView> {
             }
           } else {
             return Container(
-              child: Center(child: CircularProgressIndicator()),
+              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
             );
           }
@@ -505,18 +506,19 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
     for(int i = 0; i<=StudentNoList.length-1; i++)
     {
       list = list+StudentNoList[i].toString();
-      if(i !=StudentNoList.length-1)
+      if(i !=StudentNoList.length-1) {
         list = list+",";
+      }
     }
-    if (StudentList.length>0)
+    if (StudentList.length>0) {
       return Scaffold(
-        backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+        backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "Attendance Check",
             style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900,color: Colors.white),
           ),
-          backgroundColor: Color(0xFFF84259),
+          backgroundColor: const Color(0xFFF84259),
           elevation: 20.0,
         ),
       body: Builder(
@@ -530,22 +532,22 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
                     SizedBox(height: sHeight(2, context),),
                     Container(
                       width: sWidth(90, context),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xFF7C6AFF),
                         borderRadius: BorderRadius.all(Radius.circular(10),),
                       ),
                       child: Container(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: sHeight(1, context),),
-                            Text("Hour   :  ${AttendanceClassAPI.Hour}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.white),) ,
+                            Text("Hour   :  ${AttendanceClassAPI.Hour}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.white),) ,
                             SizedBox(height: sHeight(0.5, context),),
-                            Text("Date    :  ${AttendanceClassAPI.Date}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.white),),
+                            Text("Date    :  ${AttendanceClassAPI.Date}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.white),),
                             SizedBox(height: sHeight(0.5, context),),
-                            Text("Class  :   ${AttendanceClassAPI.ClassName}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.white),),
+                            Text("Class  :   ${AttendanceClassAPI.ClassName}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.white),),
                             SizedBox(height: sHeight(1, context),),
                           ],
                         ),
@@ -559,27 +561,27 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
                         children: [
                           Container(
                             height: sHeight(5, context),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xFF1977F3),
                               borderRadius: BorderRadius.all(Radius.circular(5),)
                             ),
-                            child: Center(child: Text("  Total : ${AttendanceClassAPI.Total}  ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),),),
+                            child: Center(child: Text("  Total : ${AttendanceClassAPI.Total}  ",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),),),
                           ),
                           Container(
                             height: sHeight(5, context),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xFF2FB869),
                               borderRadius: BorderRadius.all(Radius.circular(5),)
                             ),
-                            child: Center(child: Text("  Present : ${present.toString()}  ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),),),
+                            child: Center(child: Text("  Present : ${present.toString()}  ",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),),),
                           ),
                           Container(
                             height: sHeight(5, context),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xFFF31954),
                               borderRadius: BorderRadius.all(Radius.circular(5),)
                             ),
-                            child: Center(child: Text("  Absent : ${StudentList.length.toString()}  ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),),),
+                            child: Center(child: Text("  Absent : ${StudentList.length.toString()}  ",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.white),),),
                           ),
 
                         ],
@@ -599,7 +601,7 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
           ),
 
                     Container(
-                        margin: EdgeInsets.only(bottom: 10.0)),
+                        margin: const EdgeInsets.only(bottom: 10.0)),
                   ],
                 )
               ],
@@ -610,7 +612,7 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
           width: 55,
           height: 55,
           decoration: PrimaryRoundBox(),
-          child: Icon(Icons.check_sharp, color: Colors.white,),
+          child: const Icon(Icons.check_sharp, color: Colors.white,),
         ),
         onTap: () {
           Navigator.pop(context);
@@ -621,15 +623,15 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
         },
       ),
     );
-    else
+    } else {
       return Scaffold(
-        backgroundColor: Color.fromRGBO(242, 249, 250, 0.9),
+        backgroundColor: const Color.fromRGBO(242, 249, 250, 0.9),
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             "Attendance Check",
             style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900,color: Colors.white),
           ),
-          backgroundColor: Color(0xFFF84259),
+          backgroundColor: const Color(0xFFF84259),
           elevation: 20.0,
         ),
         body: Builder(
@@ -642,31 +644,31 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
                     SizedBox(height: sHeight(2, context),),
                     Container(
                       width: sWidth(90, context),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10),),
                       ),
                       child: Container(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: sHeight(1, context),),
-                            Text("Hour   :  ${AttendanceClassAPI.Hour}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,),) ,
+                            Text("Hour   :  ${AttendanceClassAPI.Hour}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w800,),) ,
                             SizedBox(height: sHeight(0.5, context),),
-                            Text("Date    :  ${AttendanceClassAPI.Date}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,),),
+                            Text("Date    :  ${AttendanceClassAPI.Date}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w800,),),
                             SizedBox(height: sHeight(0.5, context),),
-                            Text("Class  :   ${AttendanceClassAPI.ClassName}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,),),
+                            Text("Class  :   ${AttendanceClassAPI.ClassName}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w800,),),
                             SizedBox(height: sHeight(1, context),),
                             Container(
                               height: sHeight(5, context),
                               width: sWidth(80, context),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.all(Radius.circular(10),),
                               ),
-                              child: Center(child: Text("   All Present   ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700,color: Colors.white),)),
+                              child: const Center(child: Text("   All Present   ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700,color: Colors.white),)),
                             ),
                             SizedBox(height: sHeight(1, context),),
                           ],
@@ -675,7 +677,7 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
                     ),
 
                     Container(
-                        margin: EdgeInsets.only(bottom: 10.0)),
+                        margin: const EdgeInsets.only(bottom: 10.0)),
                   ],
                 )
               ],
@@ -685,7 +687,7 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
             width: 55,
             height: 55,
             decoration: PrimaryRoundBox(),
-            child: Icon(Icons.check_sharp, color: Colors.white,),
+            child: const Icon(Icons.check_sharp, color: Colors.white,),
           ),
           onTap: () {
             Navigator.pop(context);
@@ -696,6 +698,7 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
           },
         ),
       );
+    }
   }
 }
 
@@ -740,7 +743,7 @@ class _AttendanceMarkState extends State<AttendanceMark> {
                   style: PrimaryText(context),
                 ),
                 centerTitle: true,
-                backgroundColor: Color(0xFFF84259),
+                backgroundColor: const Color(0xFFF84259),
                 elevation: 20.0,
               ),
               body: Builder(
@@ -760,14 +763,14 @@ class _AttendanceMarkState extends State<AttendanceMark> {
                       ),
                       InkWell(
                         child: Container(
-                            margin: EdgeInsets.only(top: 50.0),
+                            margin: const EdgeInsets.only(top: 50.0),
                             width: 200,
                             height: 70,
                             decoration: BoxDecoration(
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(20.0),
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                             )),
                         onTap: () {
@@ -790,7 +793,7 @@ class _AttendanceMarkState extends State<AttendanceMark> {
                       style: PrimaryText(context),
                     ),
                     centerTitle: true,
-                    backgroundColor: Color(0xFFF84259),
+                    backgroundColor: const Color(0xFFF84259),
                     elevation: 20.0,
                   ),
                   body: Builder(
@@ -808,14 +811,14 @@ class _AttendanceMarkState extends State<AttendanceMark> {
                               Center(child: Text(data[0].msg, style: PrimaryText2Big(),),),
                               InkWell(
                                 child: Container(
-                                    margin: EdgeInsets.only(top: 50.0),
+                                    margin: const EdgeInsets.only(top: 50.0),
                                     width: 200,
                                     height: 70,
                                     decoration: BoxDecoration(
                                       color: Colors.red,
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
-                                    child: Center(
+                                    child: const Center(
                                       child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                                     )),
                                 onTap: () {
@@ -837,7 +840,7 @@ class _AttendanceMarkState extends State<AttendanceMark> {
                       style: PrimaryText(context),
                     ),
                     centerTitle: true,
-                    backgroundColor: Color(0xFFF84259),
+                    backgroundColor: const Color(0xFFF84259),
                     elevation: 20.0,
                   ),
                   body: Builder(
@@ -854,14 +857,14 @@ class _AttendanceMarkState extends State<AttendanceMark> {
                               )),
                           InkWell(
                             child: Container(
-                                margin: EdgeInsets.only(top: 50.0),
+                                margin: const EdgeInsets.only(top: 50.0),
                                 width: 200,
                                 height: 70,
                                 decoration: BoxDecoration(
                                   color: Colors.red,
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                                 )),
                             onTap: () {
@@ -876,7 +879,7 @@ class _AttendanceMarkState extends State<AttendanceMark> {
             }
             else {
               return Container(
-                child: Center(child: CircularProgressIndicator()),
+                child: const Center(child: CircularProgressIndicator()),
                 color: Colors.white,
               );
             }
@@ -924,14 +927,14 @@ class _StaffTimetableState extends State<StaffTimetable> {
                 Attendancesnapshot.data!.StaffTimetabledata_list;
             if (Attendancedata.length > 0) {
               return Scaffold(
-                backgroundColor: Color.fromRGBO(239, 242, 252, 0.9),
+                backgroundColor: const Color.fromRGBO(239, 242, 252, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Time Table",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -942,7 +945,7 @@ class _StaffTimetableState extends State<StaffTimetable> {
                           children: <Widget>[
                             SizedBox(height: sHeight(3, context),),
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),),),
@@ -968,7 +971,7 @@ class _StaffTimetableState extends State<StaffTimetable> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -1033,14 +1036,14 @@ class _StaffHolidayState extends State<StaffHoliday> {
                 StaffHolidaysnapshot.data!.StaffHolidaydata_list;
             if (StaffHolidaydata.length > 0) {
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Holidays",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -1052,8 +1055,8 @@ class _StaffHolidayState extends State<StaffHoliday> {
                             children: <Widget>[
                               Container(
                                 width: sWidth(90, context),
-                                margin: EdgeInsets.only(left: 15,right: 15),
-                                decoration: BoxDecoration(
+                                margin: const EdgeInsets.only(left: 15,right: 15),
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
@@ -1065,7 +1068,7 @@ class _StaffHolidayState extends State<StaffHoliday> {
                               for(int i = 0; i<= StaffHolidaydata.length-1; i++)
                                 StaffHolidayGenerator(context, StaffHolidaydata[i]),
                               Container(
-                                  margin: EdgeInsets.only(bottom: 15.0)),
+                                  margin: const EdgeInsets.only(bottom: 15.0)),
                               // Container(
                               //   margin: EdgeInsets.only(left: 15.0),
                               //   child: Text("Summary", style: PrimaryText2Big()),
@@ -1111,7 +1114,7 @@ class _StaffHolidayState extends State<StaffHoliday> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -1170,14 +1173,14 @@ class _StaffCircularState extends State<StaffCircular> {
                 StaffCircularsnapshot.data!.StaffCirculardata_list;
             if (StaffCirculardata.length > 0) {
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Circulars",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -1190,7 +1193,7 @@ class _StaffCircularState extends State<StaffCircular> {
                               for(int i = 0; i<= StaffCirculardata.length-1; i++)
                                 StaffCircularGenerator(context, StaffCirculardata[i]),
                               Container(
-                                  margin: EdgeInsets.only(bottom: 15.0)),
+                                  margin: const EdgeInsets.only(bottom: 15.0)),
                             ],
                           )
                         ],
@@ -1205,7 +1208,7 @@ class _StaffCircularState extends State<StaffCircular> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -1224,7 +1227,7 @@ class _StaffCircularState extends State<StaffCircular> {
                 "Circulars",
                 style: PrimaryText(context),
           ),
-                  backgroundColor: Color(0xFFF84259),),
+                  backgroundColor: const Color(0xFFF84259),),
               body: Container(
                 child: Center(child: SearchingDataLottie(context)),
                 color: Colors.white,
@@ -1282,10 +1285,10 @@ class _StaffOpacState extends State<StaffOpac> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection and Try Again"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection and Try Again"),
       actions: [
-        CupertinoButton.filled(child: Text("OK"), onPressed: (){
+        CupertinoButton.filled(child: const Text("OK"), onPressed: (){
           Navigator.pop(context);
           Navigator.pop(context);
         }),
@@ -1345,9 +1348,9 @@ class _StaffOpacState extends State<StaffOpac> {
                           Column(
                             children: <Widget>[
                               Container(
-                                  margin: EdgeInsets.only(bottom: 10.0)),
+                                  margin: const EdgeInsets.only(bottom: 10.0)),
                             Container(
-                              padding: EdgeInsets.only(left: 10,right: 10),
+                              padding: const EdgeInsets.only(left: 10,right: 10),
                               child: Column(
                                 children: [
                                   SizedBox(height: sHeight(3, context),),
@@ -1355,11 +1358,11 @@ class _StaffOpacState extends State<StaffOpac> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Container(
-                                          child: Text("Library",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,),textAlign: TextAlign.start,)),
+                                          child: const Text("Library",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,),textAlign: TextAlign.start,)),
                                     ],
                                   ),
                                   SizedBox(height: sHeight(2, context),),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text("Select Library",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w900,)),
@@ -1374,31 +1377,31 @@ class _StaffOpacState extends State<StaffOpac> {
                                             height: sHeight(20, context),
                                             width: sWidth(30, context),
                                             child: ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(15),),
+                                                borderRadius: const BorderRadius.all(Radius.circular(15),),
                                                 child: Image.asset("images/introscreen/libary_pic.png",fit: BoxFit.cover,)),
                                           ),
                                           Container(
-                                              margin: EdgeInsets.only(top: 110,left: 10),
-                                              child: Text(
+                                              margin: const EdgeInsets.only(top: 110,left: 10),
+                                              child: const Text(
                                                 'Library',
                                                 style: TextStyle(color: Colors.white,
                                                     fontWeight: FontWeight.w900,
                                                     fontSize: 23.0),
                                               )),
                                           Container(
-                                            margin: EdgeInsets.only(left: 45),
+                                            margin: const EdgeInsets.only(left: 45),
                                             child: Checkbox(
                                               focusColor: Colors.white,
                                               checkColor: Colors.white,
                                               activeColor: Colors.blue,
                                               value: isYes,
-                                              shape: CircleBorder(),
+                                              shape: const CircleBorder(),
                                               onChanged: (bool? value) {
                                                 setState(() {
                                                   isYes = value!;
                                                 });
                                               },
-                                              side: BorderSide(color: Colors.white,width: 2,),
+                                              side: const BorderSide(color: Colors.white,width: 2,),
                                             ),
                                           ),
                                         ],
@@ -1406,7 +1409,7 @@ class _StaffOpacState extends State<StaffOpac> {
                                     ],
                                   ),
                                   SizedBox(height: sHeight(2, context),),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text("Category",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,),),
@@ -1415,8 +1418,8 @@ class _StaffOpacState extends State<StaffOpac> {
                                   SizedBox(height: sHeight(2, context),),
                                  Container(
                                    child: DropdownSearch<String>(
-                                     popupProps: PopupProps.menu(),
-                                     dropdownButtonProps: DropdownButtonProps(
+                                     popupProps: const PopupProps.menu(),
+                                     dropdownButtonProps: const DropdownButtonProps(
                                        // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                          icon: Icon(Icons.arrow_drop_down_circle_rounded),
                                          color: Colors.green
@@ -1429,7 +1432,7 @@ class _StaffOpacState extends State<StaffOpac> {
                                     ),
                                      ),
                                   SizedBox(height: sHeight(2, context),),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text("Book Search",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,),),
@@ -1442,7 +1445,7 @@ class _StaffOpacState extends State<StaffOpac> {
                                       key: _StaBookFind,
                                       child: TextFormField(
                                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           border: OutlineInputBorder(
                                             borderRadius: BorderRadius.all(Radius.circular(10),),
                                           ),
@@ -1450,7 +1453,7 @@ class _StaffOpacState extends State<StaffOpac> {
                                           hintText: "Search Keyword...",
                                           hintStyle: TextStyle(fontSize: 13),
                                         ),
-                                        style: TextStyle(),
+                                        style: const TextStyle(),
                                         validator: (e){
                                           if (e!.isEmpty){
                                            return "Please Enter Keyword";
@@ -1465,7 +1468,7 @@ class _StaffOpacState extends State<StaffOpac> {
                                     ),
                                   ),
                                   SizedBox(height: sHeight(2, context),),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text("Records",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900,)),
@@ -1477,11 +1480,11 @@ class _StaffOpacState extends State<StaffOpac> {
                                       builder: (FormFieldState<String> state) {
                                         return DropdownButtonHideUnderline(
                                           child:   DropdownSearch<String>(
-                                            popupProps: PopupProps.menu(),
-                                            dropdownDecoratorProps: DropDownDecoratorProps(
+                                            popupProps: const PopupProps.menu(),
+                                            dropdownDecoratorProps: const DropDownDecoratorProps(
                                               // dropdownSearchDecoration: PrimaryInputDecor('Records'),
                                             ),
-                                            dropdownButtonProps: DropdownButtonProps(
+                                            dropdownButtonProps: const DropdownButtonProps(
                                               // padding: EdgeInsets.symmetric(horizontal: 20.0),
                                                 icon: Icon(Icons.arrow_drop_down_circle_rounded),
                                                 color: Colors.green
@@ -1503,11 +1506,11 @@ class _StaffOpacState extends State<StaffOpac> {
                                     },
                                     child: Container(
                                       height: sHeight(8, context),
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.green,
                                         borderRadius: BorderRadius.all(Radius.circular(10),),
                                       ),
-                                      child: Center(child: Text("SEARCH",style: TextStyle(fontWeight:FontWeight.w900,color: Colors.white),)),
+                                      child: const Center(child: Text("SEARCH",style: TextStyle(fontWeight:FontWeight.w900,color: Colors.white),)),
                                     ),
                                   ),
                                   SizedBox(height: sHeight(2, context),),
@@ -1596,14 +1599,14 @@ class _StaffOpacSearchState extends State<StaffOpacSearch> {
                 }
               }
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "OPAC Search",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -1615,11 +1618,11 @@ class _StaffOpacSearchState extends State<StaffOpacSearch> {
                             for(int i = start; i<=end; i++)
                               StaffOPACGenerator(context,StaffOPACSearchdata, i),
                             Container(
-                                margin: EdgeInsets.only(bottom: 15.0)),
+                                margin: const EdgeInsets.only(bottom: 15.0)),
                             Container(
                               width: sWidth(90, context),
                               height: sHeight(13, context),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),
@@ -1637,7 +1640,7 @@ class _StaffOpacSearchState extends State<StaffOpacSearch> {
                                       .start,
                                   children: <Widget>[
                                     InkWell(
-                                      child: Icon(Icons
+                                      child: const Icon(Icons
                                           .arrow_back_ios,),
                                       onTap: () {
                                         if (back == true) {
@@ -1666,11 +1669,11 @@ class _StaffOpacSearchState extends State<StaffOpacSearch> {
                                       child: Text(
                                         page.toString(),
                                         style:
-                                        TextStyle(fontWeight: FontWeight.w800,fontSize: 20),
+                                        const TextStyle(fontWeight: FontWeight.w800,fontSize: 20),
                                       ),
                                     ),
                                     InkWell(
-                                      child: Icon(Icons
+                                      child: const Icon(Icons
                                           .arrow_forward_ios),
                                       onTap: () {
                                         if (front == true) {
@@ -1704,24 +1707,24 @@ class _StaffOpacSearchState extends State<StaffOpacSearch> {
                               ),
                             ),
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(15),
                                 ),
                               ),
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   top: 20.0),
                               width: 200,
                               height: 70,
                               child: Center(
                                 child: Text(
                                     "Books Found : ${StaffOPACSearchdata.length.toString()}",
-                                    style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w900)),
+                                    style: const TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w900)),
                               ),
                             ),
                             Container(
-                                margin: EdgeInsets.only(bottom: 15.0)),
+                                margin: const EdgeInsets.only(bottom: 15.0)),
                           ],
                         )
                       ],
@@ -1735,7 +1738,7 @@ class _StaffOpacSearchState extends State<StaffOpacSearch> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -1749,7 +1752,7 @@ class _StaffOpacSearchState extends State<StaffOpacSearch> {
             }
           } else {
             return Container(
-              child: Center(child: CircularProgressIndicator()),
+              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
             );
           }
@@ -1788,10 +1791,10 @@ class _StaffLibraryHistoryState extends State<StaffLibraryHistory> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -1829,7 +1832,7 @@ class _StaffLibraryHistoryState extends State<StaffLibraryHistory> {
             if (Librarydata.length > 0) {
               print(Librarysnapshot.error);
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 body: Builder(
                     builder: (BuildContext context) => SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -1838,11 +1841,11 @@ class _StaffLibraryHistoryState extends State<StaffLibraryHistory> {
                           Column(
                             children: <Widget>[
                               Container(
-                                  margin: EdgeInsets.only(bottom: 15.0)),
+                                  margin: const EdgeInsets.only(bottom: 15.0)),
                               for(int i = 0; i<=Librarydata.length-1; i++)
                                 StaffLibraryGenerator(context,Librarydata, i),
                               Container(
-                                  margin: EdgeInsets.only(bottom: 15.0)),
+                                  margin: const EdgeInsets.only(bottom: 15.0)),
                             ],
                           )
                         ],
@@ -1901,10 +1904,10 @@ class _StaffLibraryOverdueState extends State<StaffLibraryOverdue> {
     showDialog(
         barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -1941,7 +1944,7 @@ class _StaffLibraryOverdueState extends State<StaffLibraryOverdue> {
                 Librarysnapshot.data!.Librarydata_list;
             if (Librarydata.length > 0) {
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 body: Builder(
                     builder: (BuildContext context) => SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -1950,11 +1953,11 @@ class _StaffLibraryOverdueState extends State<StaffLibraryOverdue> {
                           Column(
                             children: <Widget>[
                               Container(
-                                  margin: EdgeInsets.only(bottom: 15.0)),
+                                  margin: const EdgeInsets.only(bottom: 15.0)),
                               for(int i = 0; i<=Librarydata.length-1; i++)
                                 StaffLibraryGenerator(context,Librarydata, i),
                               Container(
-                                  margin: EdgeInsets.only(bottom: 15.0)),
+                                  margin: const EdgeInsets.only(bottom: 15.0)),
                             ],
                           )
                         ],
@@ -2019,26 +2022,98 @@ class _StaffAttendaceRecordState extends State<StaffAttendaceRecord> {
                 StaffAttendanceRecordsnapshot.data!.StaffAttendanceRecorddata_list;
             if (StaffAttendanceRecorddata.length > 0) {
               return Scaffold(
-                backgroundColor: Color.fromRGBO(239, 242, 252, 0.9),
+                backgroundColor: const Color.fromRGBO(239, 242, 252, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "My Attendance",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                   actions: [
                     IconButton(
-                      icon: Icon(Icons.calendar_month_sharp),
+                      icon: const Icon(Icons.calendar_month_sharp),
                       onPressed: () {
-                        showDatePicker(context: context,
-                          initialDate: DateTime.now(), firstDate: DateTime(2000), lastDate: DateTime(2100),
+                        showMonthPicker(
+                          context: context,
+                          firstDate: DateTime(DateTime.now().year - 10, 5),
+                          lastDate: DateTime(DateTime.now().year + 0, 9),
+                          initialDate: SelectedDate ,
+                          //show only even months
+                          selectableMonthPredicate: (DateTime val) => val.month.isFinite,
+                          monthStylePredicate: (DateTime val) {
+                            if (val.month == DateTime.now()) {
+                              return TextButton.styleFrom(
+                                backgroundColor: Colors.yellow[700],
+                                textStyle: const TextStyle(
+                                  color: Colors.pink,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            }
+                            return null;
+                          },
+                          yearStylePredicate: (int val) {
+                            if (val == 0) {
+                              return TextButton.styleFrom(
+                                textStyle: const TextStyle(
+                                  color: Colors.pink,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            }
+                            return null;
+                          },
+                          headerColor: const Color.fromRGBO(255, 98, 118, 1),
+                          headerTextColor: Colors.white,
+                          selectedMonthBackgroundColor: Colors.amber[900],
+                          selectedMonthTextColor: Colors.white,
+                          unselectedMonthTextColor: Colors.green,
+                          confirmWidget: const Text(
+                            'OK!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              //color: Colors.amber[900],
+                            ),
+                          ),
+                          cancelWidget: const Text(
+                            'Cancel',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          roundedCornersRadius: 10,
+                          yearFirst: true,
+                          backgroundColor: Colors.white,
+                          //forceSelectedDate: true,
+                          dismissible: true,
+                          // capitalizeFirstLetter: true,
+                           customHeight: 220,
+                          // customWidth: 500,
+                          // dismissible: true,
+                          forceSelectedDate: true,
+                           animationMilliseconds: 300,
+                           //hideHeaderRow: true
+                        ).then((DateTime? date) {
+                          if (date != null) {
+                            setState(() {
+                              SelectedDate = date;
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> StaffAttendaceRecord(
+                                staffID: widget.staffID, StaffAPI: widget.StaffAPI, Date: SelectedDate,)));
+                            });
+                          }
+                        });
+                       /* showDatePicker(context: context,
+                          initialEntryMode: DatePickerEntryMode.calendarOnly,
+
+                          initialDate: DateTime.now(), firstDate: DateTime(2000, 1), lastDate: DateTime(2100, 12),
                         ).then((value) {
                           SelectedDate = value!;
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> StaffAttendaceRecord(
                             staffID: widget.staffID, StaffAPI: widget.StaffAPI, Date: SelectedDate,)));
-                        });
+                        });*/
                       },
                     ),
                   ],
@@ -2057,13 +2132,13 @@ class _StaffAttendaceRecordState extends State<StaffAttendaceRecord> {
                                 children: <Widget> [
                                   Container(
                                     width: sWidth(90, context),
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(10),
                                       ),
                                     ),
-                                    margin: EdgeInsets.only(bottom: 5.0, top: 15.0),
+                                    margin: const EdgeInsets.only(bottom: 5.0, top: 15.0),
                                     child: Column(
                                       children: [
                                         SizedBox(
@@ -2093,7 +2168,7 @@ class _StaffAttendaceRecordState extends State<StaffAttendaceRecord> {
                                         Column(
                                           children: [
                                             Container(
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                             color: Colors.green,
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(15),
@@ -2129,7 +2204,7 @@ class _StaffAttendaceRecordState extends State<StaffAttendaceRecord> {
                               ),
                             ),
                             Container(
-                                margin: EdgeInsets.only(bottom: 15.0)),
+                                margin: const EdgeInsets.only(bottom: 15.0)),
                           ],
                         )
                       ],
@@ -2192,14 +2267,14 @@ class _StaffLeaveBalanceState extends State<StaffLeaveBalance> {
                 LeaveBalancesnapshot.data!.LeaveBalancedata_list;
             if (LeaveBalancedata.length > 0) {
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Leave Balance",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -2210,11 +2285,11 @@ class _StaffLeaveBalanceState extends State<StaffLeaveBalance> {
                           children: <Widget>[
                             SizedBox(height: sHeight(1, context),),
                             Container(
-                                margin: EdgeInsets.only(top: 2, left: 0),
+                                margin: const EdgeInsets.only(top: 2, left: 0),
                                 child: SizedBox(
                                     child: Text("${LeaveBalancedata[0].MonthName} ${LeaveBalancedata[0].YearName}",
                                       style: PrimaryText2(), textAlign: TextAlign.center,))),
-                            for(int i = LeaveBalancedata.length-1; i>=0; i--)
+                            for(int i = 0; i <= LeaveBalancedata.length-1;  i++)
                               SizedBox(
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -2222,7 +2297,7 @@ class _StaffLeaveBalanceState extends State<StaffLeaveBalance> {
                                 ),
                               ),
                             Container(
-                                margin: EdgeInsets.only(bottom: 15.0)),
+                                margin: const EdgeInsets.only(bottom: 15.0)),
                           ],
                         )
                       ],
@@ -2292,15 +2367,15 @@ class _StaffProformaState extends State<StaffProforma> {
               ];
             if (StaffProformadata.length > 0) {
               return Scaffold(
-                backgroundColor:  Color.fromRGBO(242, 249, 250, 0.9),
+                backgroundColor:  const Color.fromRGBO(242, 249, 250, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Proforma",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
-                  elevation: 20.0,
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
+                  elevation: 10.0,
                 ),
                 body: Builder(
                     builder: (BuildContext context) => ListView(
@@ -2347,7 +2422,7 @@ class _StaffProformaState extends State<StaffProforma> {
                                 ),
                               ),
                             Container(
-                                margin: EdgeInsets.only(bottom: 15.0)),
+                                margin: const EdgeInsets.only(bottom: 15.0)),
                           ],
                         )
                       ],
@@ -2355,6 +2430,15 @@ class _StaffProformaState extends State<StaffProforma> {
               );
             } else {
               return Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    "Proforma",
+                    style: PrimaryText(context),
+                  ),
+                  centerTitle: true,
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
+                  elevation: 10.0,
+                ),
                 body: Builder(
                     builder:(BuildContext context) => ListView(
                       scrollDirection: Axis.vertical,
@@ -2365,9 +2449,19 @@ class _StaffProformaState extends State<StaffProforma> {
               );
             }
           } else {
-            return Container(
-              child: Center(child: SearchingDataLottie(context)),
-              color: Colors.white,
+            return Scaffold(
+              appBar: AppBar( title: Text(
+                "Proforma",
+                style: PrimaryText(context),
+              ),
+                centerTitle: true,
+                backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
+                elevation: 10.0,
+              ),
+              body: Container(
+                child: Center(child: SearchingDataLottie(context)),
+                color: Colors.white,
+              ),
             );
           }
         });
@@ -2409,14 +2503,14 @@ class _StaffLessonPlanState extends State<StaffLessonPlan> {
             Attendancedata = Attendancesnapshot.data!.StaffAttendanceTabledata_list;
             if (Attendancedata.length > 0) {
               return Scaffold(
-                backgroundColor: Color.fromRGBO(239, 242, 252, 0.9),
+                backgroundColor: const Color.fromRGBO(239, 242, 252, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Notes of Lesson",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -2429,8 +2523,8 @@ class _StaffLessonPlanState extends State<StaffLessonPlan> {
                           ),
                           Container(
                             width: sWidth(90, context),
-                            padding: EdgeInsets.only(left: 20),
-                            decoration: BoxDecoration(
+                            padding: const EdgeInsets.only(left: 20),
+                            decoration: const BoxDecoration(
                               color: Colors.green,
                               borderRadius: BorderRadius.all(Radius.circular(13),),),
                             child: Column(
@@ -2439,20 +2533,20 @@ class _StaffLessonPlanState extends State<StaffLessonPlan> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(Icons.date_range,color: Color.fromRGBO(150, 250, 195, 1),),
+                                    const Icon(Icons.date_range,color: Color.fromRGBO(150, 250, 195, 1),),
                                     SizedBox(width: sWidth(2, context),),
-                                    Text("Date                :",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
-                                    Text("   ${Attendancedata[0].Date}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),)
+                                    const Text("Date                :",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
+                                    Text("   ${Attendancedata[0].Date}",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),)
                                   ],
                                 ),
                                 SizedBox(height: sHeight(1.5, context),),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(Icons.school_sharp,color: Color.fromRGBO(150, 250, 195, 1),),
+                                    const Icon(Icons.school_sharp,color: Color.fromRGBO(150, 250, 195, 1),),
                                     SizedBox(width: sWidth(2, context),),
-                                    Text("Sem Period   :",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
-                                    Text("   ${Attendancedata[0].SemPeriodName}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),)
+                                    const Text("Sem Period   :",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
+                                    Text("   ${Attendancedata[0].SemPeriodName}",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),)
                                   ],
                                 ),
                                 SizedBox(height: sHeight(2, context),),
@@ -2494,7 +2588,7 @@ class _StaffLessonPlanState extends State<StaffLessonPlan> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -2562,14 +2656,14 @@ class _StaffLessonPlanListState extends State<StaffLessonPlanList> {
                 LessonPlanTheorysnapshot.data!.LessonPlanTheorydata_list;
             if (LessonPlanTheorydata.length > 0) {
               return Scaffold(
-                backgroundColor: Color.fromRGBO(239, 242, 252, 0.9),
+                backgroundColor: const Color.fromRGBO(239, 242, 252, 0.9),
                 appBar: AppBar(
                   title: Text(
                     "Lesson Planner",
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -2585,13 +2679,13 @@ class _StaffLessonPlanListState extends State<StaffLessonPlanList> {
                            ),
                             Container(
                                 width: sWidth(90, context),
-                                padding: EdgeInsets.only(left: 20),
-                                decoration: BoxDecoration(
+                                padding: const EdgeInsets.only(left: 20),
+                                decoration: const BoxDecoration(
                                   color: Colors.green,
                                   borderRadius: BorderRadius.all(Radius.circular(13),),),
 
                             ),
-                            Container(margin: EdgeInsets.only(bottom: 15.0)),
+                            Container(margin: const EdgeInsets.only(bottom: 15.0)),
                             for (int i = 0; i <= LessonPlanTheorydata.length -1; i++)
                               StaffLessonPlanListGenerator(context, LessonPlanTheorydata[i], StaffAPI, widget.staffID, widget.AttendanceClassAPI)
                           ],
@@ -2608,7 +2702,7 @@ class _StaffLessonPlanListState extends State<StaffLessonPlanList> {
                     style: PrimaryText(context),
                   ),
                   centerTitle: true,
-                  backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                  backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   elevation: 20.0,
                 ),
                 body: Builder(
@@ -2622,7 +2716,7 @@ class _StaffLessonPlanListState extends State<StaffLessonPlanList> {
             }
           } else {
             return Container(
-              child: Center(child: CircularProgressIndicator()),
+              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
             );
           }
@@ -2663,8 +2757,9 @@ class _StaffLessonPlanPracticalsState extends State<StaffLessonPlanPracticals> {
     for(int i = 0; i<=StudentNoList.length-1; i++)
     {
       list = list+StudentNoList[i].toString();
-      if(i !=StudentNoList.length-1)
+      if(i !=StudentNoList.length-1) {
         list = list+",";
+      }
     }
     print(list);
     return FutureBuilder(
@@ -2684,11 +2779,11 @@ class _StaffLessonPlanPracticalsState extends State<StaffLessonPlanPracticals> {
                     "Lesson Planner Practicals",
                     style: PrimaryText(context),
                   ),
-                  backgroundColor: Color(0xFFF84259),
+                  backgroundColor: const Color(0xFFF84259),
                   elevation: 20.0,
                   centerTitle: true,
                 ),
-                backgroundColor: Color.fromRGBO(239, 242, 252, 0.9),
+                backgroundColor: const Color.fromRGBO(239, 242, 252, 0.9),
                 body: Builder(
                     builder: (BuildContext context) => SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -2696,7 +2791,7 @@ class _StaffLessonPlanPracticalsState extends State<StaffLessonPlanPracticals> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                              margin: EdgeInsets.only(bottom: 20.0)),
+                              margin: const EdgeInsets.only(bottom: 20.0)),
                           //StaffProfile1(context, StaffAPI.StaffImg, StaffAPI.StaffName),
                           //StaffInfoDesign(context, "", "Staff Code", StaffAPI.StaffCode, "Designation", StaffAPI.Designation, "", ""),
                           //Container(margin: EdgeInsets.only(bottom: 10.0)),
@@ -2721,7 +2816,7 @@ class _StaffLessonPlanPracticalsState extends State<StaffLessonPlanPracticals> {
                               },
                             ),
                           Container(
-                              margin: EdgeInsets.only(bottom: 10.0)),
+                              margin: const EdgeInsets.only(bottom: 10.0)),
                         ],
                       ),
                     )),
@@ -2732,9 +2827,9 @@ class _StaffLessonPlanPracticalsState extends State<StaffLessonPlanPracticals> {
                       child: Container(
                         width: 55,
                         height: 55,
-                        margin: EdgeInsets.only(left: 10.0),
+                        margin: const EdgeInsets.only(left: 10.0),
                         decoration: PrimaryRoundBox(),
-                        child: Icon(Icons.check_sharp, color: Colors.white,),
+                        child: const Icon(Icons.check_sharp, color: Colors.white,),
                       ),
                       onTap: () {
                         Navigator.pop(context);
@@ -2769,7 +2864,7 @@ class _StaffLessonPlanPracticalsState extends State<StaffLessonPlanPracticals> {
             }
           } else {
             return Container(
-              child: Center(child: CircularProgressIndicator()),
+              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
             );
           }
@@ -2819,7 +2914,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
                   style: PrimaryText(context),
                 ),
                 centerTitle: true,
-                backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                 elevation: 20.0,
               ),
               body: Builder(
@@ -2835,7 +2930,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
                             style: ErrorText2Big(),
                             textAlign: TextAlign.center,
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 70,
                       ),
                       InkWell(
@@ -2846,7 +2941,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
                               color: Colors.red,
                                 borderRadius: BorderRadius.circular(20.0),
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                             )),
                         onTap: () {
@@ -2868,7 +2963,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
                       style: PrimaryText(context),
                     ),
                     centerTitle: true,
-                    backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                    backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                     elevation: 20.0,
                   ),
                   body: Builder(
@@ -2894,7 +2989,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
-                                    child: Center(
+                                    child: const Center(
                                       child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                                     )),
                                 onTap: () {
@@ -2917,7 +3012,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
                       style: PrimaryText(context),
                     ),
                     centerTitle: true,
-                    backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                    backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                     elevation: 20.0,
                   ),
                   body: Builder(
@@ -2941,7 +3036,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
                                   color: Colors.red,
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                                 )),
                             onTap: () {
@@ -2955,7 +3050,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
             }
             else {
               return Container(
-                child: Center(child: CircularProgressIndicator()),
+                child: const Center(child: CircularProgressIndicator()),
                 color: Colors.white,
               );
             }
@@ -3006,7 +3101,7 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
                 leading: Container(),
                 title: Text("Notes Of Lesson", style: PrimaryText(context)),
                 centerTitle: true,
-                backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
               ),
               body: Builder(
                   builder: (BuildContext context) => ListView(
@@ -3025,7 +3120,7 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(20.0),
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                             )),
                         onTap: () {
@@ -3048,7 +3143,7 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
                       style: PrimaryText(context),
                     ),
                     centerTitle: true,
-                    backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                    backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                     elevation: 20.0,
                   ),
                   body: Builder(
@@ -3068,7 +3163,7 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
-                                    child: Center(
+                                    child: const Center(
                                       child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                                     )),
                                 onTap: () {
@@ -3086,7 +3181,7 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
                     leading: Container(),
                     title: Text("Notes Of Lesson", style: PrimaryText(context)),
                     centerTitle: true,
-                    backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+                    backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
                   ),
                   body: Builder(
                       builder: (BuildContext context) => ListView(
@@ -3105,7 +3200,7 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
                                   color: Colors.red,
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text("OK", style: TextStyle(color: Colors.white,fontSize: 20)),
                                 )),
                             onTap: () {
@@ -3119,7 +3214,7 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
             }
             else {
               return Container(
-                child: Center(child: CircularProgressIndicator()),
+                child: const Center(child: CircularProgressIndicator()),
                 color: Colors.white,
               );
             }
@@ -3172,28 +3267,28 @@ class _HomePageState extends State<Staff_Lib_Home> {
           style: PrimaryText(context),
         ),
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(255, 98, 118, 1),
+        backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
         elevation: 20.0,
         ),
         body: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TabBar(
               indicator: BoxDecoration(
-                  color: Color(0xFFF84259),
+                  color: const Color(0xFFF84259),
                   borderRadius: BorderRadius.circular(10)
               ),
               tabs: [
 
-                Tab(
+                const Tab(
                   child: Text('Book Search',style: TextStyle(color: Colors.black),),
                 ),
-                Tab(
+                const Tab(
                   child: Text('Transactions',style: TextStyle(color: Colors.black),),
                 ),
-                Tab(
+                const Tab(
                   child: Text('Overdue',style: TextStyle(color: Colors.black),),
                 ),
               ],

@@ -8,11 +8,10 @@ import 'package:add_dev_dolphin/Style_font/designs.dart';
 import 'package:add_dev_dolphin/UI/main_ui.dart';
 import 'package:add_dev_dolphin/intro_screen/code_screen.dart';
 import 'package:add_dev_dolphin/intro_screen/login_student.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,10 +48,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
     showDialog(
       // barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -83,7 +82,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       shadowLayer1Color: Colors.white38,
       shadowLayer2Color: Colors.white60,
       angle: 0.0,
-      menuBackgroundColor: Color.fromRGBO(8, 197, 110, 1),
+      menuBackgroundColor: const Color.fromRGBO(8, 197, 110, 1),
     );
   }
 }
@@ -127,10 +126,10 @@ class _MenuScreenState extends State<MenuScreen> {
     showDialog(
       // barrierDismissible: false,
         context: context, builder: (context)=> CupertinoAlertDialog(
-      title: Text("No Internet"),
-      content: Text("Please check your Internet Connection"),
+      title: const Text("No Internet"),
+      content: const Text("Please check your Internet Connection"),
       actions: [
-        CupertinoButton.filled(child: Text("Retry"), onPressed: (){
+        CupertinoButton.filled(child: const Text("Retry"), onPressed: (){
           Navigator.pop(context);
           checkInternet();
         }),
@@ -181,7 +180,7 @@ class _MenuScreenState extends State<MenuScreen> {
         title: Text('Oops!!!', style: PrimaryText2(), textAlign: TextAlign.start,),
         content: Text('No Biometrics found!', style: SecondaryText2(), textAlign: TextAlign.center,),
         actionsAlignment: MainAxisAlignment.center,
-        actionsPadding: EdgeInsets.only(left: 30, right: 30, bottom: 15),
+        actionsPadding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
         actions: [
           InkWell(
             child: Container(
@@ -192,7 +191,7 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
         ],
         elevation: 20.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
       ));
     }
     if(!mounted) return;
@@ -247,7 +246,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         Moduledata = Modulesnapshot.data!.Moduledata_list;
                         if(Moduledata.length >0){
                           return Scaffold(
-                            backgroundColor:  Color.fromRGBO(8, 197, 110, 1),
+                            backgroundColor:  const Color.fromRGBO(8, 197, 110, 1),
                             body: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
@@ -271,16 +270,16 @@ class _MenuScreenState extends State<MenuScreen> {
                                       height: sHeight(7, context),
                                       width: sWidth(50, context),
                                       decoration: BoxDecoration(
-                                          color: Color.fromRGBO(255, 147, 0,1),
+                                          color: const Color.fromRGBO(255, 147, 0,1),
                                         borderRadius: BorderRadius.circular(10)
                                       ),
                                       child: Row(
                                         children: [
-                                          Icon(Icons.home,color: Colors.white,),
+                                          const Icon(Icons.home,color: Colors.white,),
                                           SizedBox(
                                             height: sWidth(8, context),
                                           ),
-                                          Text('  Home',style: TextStyle(fontSize: 16,color: Colors.white),)
+                                          const Text('  Home',style: TextStyle(fontSize: 16,color: Colors.white),)
                                         ],
                                       ),
                                     ),
@@ -293,10 +292,10 @@ class _MenuScreenState extends State<MenuScreen> {
                                       height: sHeight(7, context),
                                       width: sWidth(50, context),
                                       decoration: BoxDecoration(
-                                          color: Color.fromRGBO(8, 197, 110, 1),
+                                          color: const Color.fromRGBO(8, 197, 110, 1),
                                           borderRadius: BorderRadius.circular(10)
                                       ),
-                                      child: Row(
+                                      child: const Row(
                                         children: [
                                           Icon(Icons.person,color: Colors.white,),
                                           Text('  Profile  ',style: TextStyle(fontSize: 16,color: Colors.white),)
@@ -314,10 +313,10 @@ class _MenuScreenState extends State<MenuScreen> {
                                         height: sHeight(7, context),
                                         width: sWidth(50, context),
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(8, 197, 110, 1),
+                                            color: const Color.fromRGBO(8, 197, 110, 1),
                                             borderRadius: BorderRadius.circular(10)
                                         ),
-                                        child: Row(
+                                        child: const Row(
                                           children: [
                                             Icon(Icons.settings_suggest_outlined,color: Colors.white,),
                                             Text('  Privacy Policy',style: TextStyle(fontSize: 15,color: Colors.white),)
@@ -326,7 +325,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       ),
                                       onTap: (){
                                         checkInternet();
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>PrivacyPolicy()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const PrivacyPolicy()));
                                       ZoomDrawer.of(context)!.close();
                                       }
                                   ),
@@ -335,21 +334,21 @@ class _MenuScreenState extends State<MenuScreen> {
                                       height: sHeight(7, context),
                                       width: sWidth(50, context),
                                       decoration: BoxDecoration(
-                                          color: Color.fromRGBO(8, 197, 110, 1),
+                                          color: const Color.fromRGBO(8, 197, 110, 1),
                                           borderRadius: BorderRadius.circular(10)
                                       ),
                                       child: Row(
                                         children: [
-                                          Icon(Icons.info,color: Colors.white,),
+                                          const Icon(Icons.info,color: Colors.white,),
                                           SizedBox(
                                             height: sWidth(2, context),
                                           ),
-                                          Text('  About Us',style: TextStyle(fontSize: 16,color: Colors.white),)
+                                          const Text('  About Us',style: TextStyle(fontSize: 16,color: Colors.white),)
                                         ],
                                       ),
                                     ),
                                     onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> AboutUs()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const AboutUs()));
                                     },
                                   ),
 
@@ -402,12 +401,12 @@ class _MenuScreenState extends State<MenuScreen> {
                         }
                       }
                       else{
-                        return Container(child: Center(child: CircularProgressIndicator()), color: Colors.white,);
+                        return Container(child: const Center(child: CircularProgressIndicator()), color: Colors.white,);
                       }
                     });
               }
               else{
-                return  Scaffold();
+                return  const Scaffold();
               }
             }
             else{
@@ -443,10 +442,10 @@ class _MenuScreenState extends State<MenuScreen> {
   }
   Widget Toggle(bool Savetext){
     if(Savetext == true){
-      return Icon(Icons.toggle_on_outlined, color: Colors.green, size: 45,);
+      return const Icon(Icons.toggle_on_outlined, color: Colors.green, size: 45,);
     }
     else{
-      return Icon(Icons.toggle_off_outlined, color: Colors.red, size: 45,);
+      return const Icon(Icons.toggle_off_outlined, color: Colors.red, size: 45,);
     }
   }
 }
@@ -478,7 +477,7 @@ class _AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("About Us"),
+        title: const Text("About Us"),
         backgroundColor: PrimaryColor(),
       ),
       body: SingleChildScrollView(
@@ -487,7 +486,7 @@ class _AboutUsState extends State<AboutUs> {
           children: [
             Container(
               width: sWidth(90, context),
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   Container(
@@ -500,15 +499,15 @@ class _AboutUsState extends State<AboutUs> {
                       width: sWidth(90, context),
                       child: Column(
                     children: [
-                      Text("IMPRES ERP "),
-                      Text("is a College Automation Software"
+                      const Text("IMPRES ERP "),
+                      const Text("is a College Automation Software"
                           " product by M/s Subiksham Software Solutions Private"
                           " Limited, Coimbatore.",style: TextStyle(fontSize: 18,)),
 
                       SizedBox(
                         height: sHeight(3, context),
                       ),
-                      Text("This app is developed in Partnership with Nithra "
+                      const Text("This app is developed in Partnership with Nithra "
                           "Apps India Private Limited,"
                           " India's leading mobile app development company. "
                           "Famously known for its apps like Nithra Calendar,"

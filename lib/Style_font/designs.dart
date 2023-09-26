@@ -1,5 +1,3 @@
-import 'package:add_dev_dolphin/Data/Staff_Data.dart';
-import 'package:add_dev_dolphin/UI/main_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,7 +9,9 @@ Color PrimaryColor() => Colors.blue.shade900;
 
 Color SecondaryColor() => Colors.blue;
 
-Color ErrorColor() => Colors.red;
+Color SecondaryColor1() => Colors.green;
+
+Color ErrorColor() => Colors.grey;
 
 Color WarningColor() => Colors.yellow.shade900;
 
@@ -58,12 +58,12 @@ Widget AttendanceProfile10(String content, double topMar, double leftMar) =>
         margin: EdgeInsets.only(top: topMar, left: leftMar),
         height: 25.0,
         child: SizedBox(child: Text(content, style: PrimaryText6())));
-TextStyle  PrimaryText5() =>TextStyle(
+TextStyle  PrimaryText5() =>const TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.w700,
   color: Colors.black,
 );
-TextStyle PrimaryText6() => TextStyle(
+TextStyle PrimaryText6() => const TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.w700,
   color: Colors.green,
@@ -75,12 +75,12 @@ TextStyle PrimaryText01() {
     color: Colors.white,
   );
 }
-TextStyle SecondaryText() => TextStyle(
+TextStyle SecondaryText() => const TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w500,
       color: Colors.black54,
     );
-TextStyle SecondaryText4() => TextStyle(
+TextStyle SecondaryText4() => const TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w900,
       color: Colors.black54,
@@ -103,22 +103,22 @@ TextStyle ErrorText() => const TextStyle(
       color: Colors.white,
     );
 
-TextStyle PrimaryText2() => TextStyle(
+TextStyle PrimaryText2() => const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w700,
       color: Colors.black,
     );
-TextStyle PrimaryText4() => TextStyle(
+TextStyle PrimaryText4() => const TextStyle(
   fontSize: 13,
   fontWeight: FontWeight.w700,
   color: Colors.black,
 );
-TextStyle PrimaryText8() => TextStyle(
+TextStyle PrimaryText8() => const TextStyle(
   fontSize: 10,
   fontWeight: FontWeight.w700,
   color: Colors.deepPurple,
 );
-TextStyle PrimaryText7() => TextStyle(
+TextStyle PrimaryText7() => const TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w700,
   color: Color.fromRGBO(0, 51, 153,1),
@@ -131,7 +131,7 @@ TextStyle PrimaryText3() => const TextStyle(
 
     );
 
-TextStyle PrimaryText2Big() => TextStyle(
+TextStyle PrimaryText2Big() => const TextStyle(
       fontSize: 25,
       fontWeight: FontWeight.w700,
       color: Colors.black,
@@ -159,7 +159,7 @@ TextStyle SecondaryText2() => const TextStyle(
       fontWeight: FontWeight.w700,
       color: Colors.black54,
     );
- TextStyle SecondaryText3() => TextStyle(
+ TextStyle SecondaryText3() => const TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w600,
     );
@@ -200,13 +200,13 @@ TextStyle ColorText(String text) {
 }
 TextStyle ColorText1(String text) {
   if (text.toLowerCase() == "pass" || text.toLowerCase() == 'p' || text.toLowerCase() == 'od')
-  {return  TextStyle(
+  {return  const TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w700,
     color: Colors.green,
   );}
   else if (text.toLowerCase() == "fail" || text.toLowerCase() == 'a' || text.toLowerCase() == 'l' || text.toLowerCase() == 'c')
-  {return  TextStyle(
+  {return  const TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w700,
     color: Colors.red,
@@ -231,7 +231,7 @@ BoxDecoration PrimaryRoundBox() => BoxDecoration(
 BoxDecoration PrimaryRoundBox1() => BoxDecoration(
       borderRadius: BorderRadius.circular(10.0),
 
-  color:Color.fromRGBO(247, 252, 252, 0.8),
+  color:const Color.fromRGBO(247, 252, 252, 0.8),
     );
 
 BoxDecoration SecondaryRoundBox() => BoxDecoration(
@@ -240,7 +240,7 @@ BoxDecoration SecondaryRoundBox() => BoxDecoration(
     );
 BoxDecoration CircularContainer() => BoxDecoration(
       borderRadius: BorderRadius.circular(20.0),
-  gradient: LinearGradient(
+  gradient: const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [Colors.purple,Colors.orangeAccent],
@@ -251,22 +251,22 @@ BoxDecoration LeaveBalanceRoundBox(double balance) {
   if(balance == 0)
     {
       return BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(5.0),
         color: ErrorColor(),
       );
     }
   else{
-    if(balance <=5)
+    if(balance <=4)
       {
         return BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(5.0),
           color: WarningColor()
         );
       }
     else{
       return BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: SecondaryColor(),
+        borderRadius: BorderRadius.circular(5.0),
+        color: SecondaryColor1(),
       );
     }
   }
@@ -276,14 +276,14 @@ BoxDecoration LeadingCircleBox(String status) {
   if (status == '0' || status.toLowerCase() == 't')
   {
     return BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(60.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(60.0)),
       color: LineColor2(),
     );
   }
   else
   {
     return BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(60.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(60.0)),
       color: PrimaryColor(),
     );
   }
@@ -293,14 +293,14 @@ BoxDecoration LeadingCircleBox(String status) {
 BoxDecoration LeadingCircleBox1(String status) {
   if (status == '0' || status.toLowerCase() == 't')
     {
-      return BoxDecoration(
+      return const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(60.0)),
         color:  Color.fromRGBO(255, 98, 118, 1),
       );
     }
   else
     {
-      return BoxDecoration(
+      return const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(60.0)),
         color:  Color.fromRGBO(255, 98, 118, 1),
       );
@@ -332,7 +332,7 @@ BoxDecoration ColorRoundBox3(double per) {
       return BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         color: Colors.red,
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.topRight,
           colors: [Colors.orangeAccent,Colors.purpleAccent],
@@ -343,7 +343,7 @@ BoxDecoration ColorRoundBox3(double per) {
     {
       return BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.topRight,
             colors: [Colors.orangeAccent,Colors.purpleAccent],
@@ -366,13 +366,13 @@ InputDecoration PrimaryInputDecorCV(String content) => InputDecoration(
 InputDecoration PassWordInputDecor(String content) => InputDecoration(
     labelText: content,
     labelStyle: PrimaryText2(),
-    suffixIcon: Icon(Icons.lock_outline,color: Colors.purple,)
+    suffixIcon: const Icon(Icons.lock_outline,color: Colors.purple,)
 );
 
 InputDecoration UserInputDecor(String content) => InputDecoration(
     labelText: content,
     labelStyle: PrimaryText2(),
-    suffixIcon: Icon(Icons.person,color: Colors.purple,)
+    suffixIcon: const Icon(Icons.person,color: Colors.purple,)
 );
 
 Widget BackArrow()=> Container(
@@ -422,8 +422,8 @@ String ImageIPAddress = StudentImageIP.toString();
 Widget Imagedisplay(String image, double Width, double Height) => Stack(
       children: <Widget>[
         Container(
-            margin: EdgeInsets.only(top: 175),
-            child: Center(
+            margin: const EdgeInsets.only(top: 175),
+            child: const Center(
               child: CircularProgressIndicator(strokeWidth: 10),
             )),
         Container(
@@ -431,7 +431,7 @@ Widget Imagedisplay(String image, double Width, double Height) => Stack(
           height: Height,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage("${ImageIPAddress}${image}"), fit: BoxFit.contain)),
+                  image: NetworkImage("$ImageIPAddress$image"), fit: BoxFit.contain)),
         )
       ],
     );
@@ -451,58 +451,55 @@ Widget ShortImagedisplay(String image, double Width, double Height) => Stack(
 
 Widget LeedingProfile(String image) => Stack(
       children: <Widget>[
-        Container(child: Center(child: CircularProgressIndicator(strokeWidth: 4,)), padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),),
+        Container(padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),child: const Center(child: CircularProgressIndicator(strokeWidth: 4,)),),
         Container(
-          margin: EdgeInsets.all(2.0),
+          margin: const EdgeInsets.all(2.0),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(60.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(60.0)),
               image: DecorationImage(
-                  image: NetworkImage("${ImageIPAddress}${image}"), fit: BoxFit.cover)),
+                  image: NetworkImage("$ImageIPAddress$image"), fit: BoxFit.cover)),
         ),
       ],
     );
 
 Widget LeadingCircleBoxContent(String content, String status) => CircleAvatar(
   radius: 25,
-  child: Center(child: SizedBox(child: Text(content, style: TextStyle(color: Colors.white,fontSize: 15),))),
+  child: Center(child: SizedBox(child: Text(content, style: const TextStyle(color: Colors.white,fontSize: 15),))),
 );
 
 Widget LeadingCircleImageContent(String image) => Stack(
   children: <Widget>[
-    Container(child: Center(child: CircularProgressIndicator(strokeWidth: 1,)),
-      padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),),
+    Container(padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),child: const Center(child: CircularProgressIndicator(strokeWidth: 1,)),),
     Container(
-      margin: EdgeInsets.all(2.0),
+      margin: const EdgeInsets.all(2.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(60.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(60.0)),
           image: DecorationImage(
-              image: NetworkImage("${ImageIPAddress}${image}"), fit: BoxFit.cover)),
+              image: NetworkImage("$ImageIPAddress$image"), fit: BoxFit.cover)),
     )
   ],
 );
 Widget LeadingCircleImageContent1(String image) => Stack(
   children: <Widget>[
-    Container(child: Center(child: CircularProgressIndicator(strokeWidth: 1,)),
-      padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),),
+    Container(padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),child: const Center(child: CircularProgressIndicator(strokeWidth: 1,)),),
     Container(
-      margin: EdgeInsets.all(2.0),
+      margin: const EdgeInsets.all(2.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(60.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(60.0)),
           image: DecorationImage(
-              image: NetworkImage("${StudentImageIP}Resx/StudImages/${image}"), fit: BoxFit.cover)),
+              image: NetworkImage("${StudentImageIP}Resx/StudImages/$image"), fit: BoxFit.cover)),
     )
   ],
 );
 Widget LeadingCircleImageContent2(String image) => Stack(
   children: <Widget>[
-    Container(child: Center(child: CircularProgressIndicator(strokeWidth: 1,)),
-      padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),),
+    Container(padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),child: const Center(child: CircularProgressIndicator(strokeWidth: 1,)),),
     Container(
-      margin: EdgeInsets.all(2.0),
+      margin: const EdgeInsets.all(2.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(60.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(60.0)),
           image: DecorationImage(
-              image: NetworkImage("${StudentImageIP}Resx/StudImages/${image}"), fit: BoxFit.cover)),
+              image: NetworkImage("${StudentImageIP}Resx/StudImages/$image"), fit: BoxFit.cover)),
     )
   ],
 );
@@ -535,8 +532,8 @@ void LaunchUniversityMarkFile(String file){
 
 Widget Credits (BuildContext context)=> Container(
   width: MediaQuery.of(context).size.width,
-  margin: EdgeInsets.only(right: 10, bottom: 5),
-  child: Text("Designed and developed by\nAnnamalai Selvarajan (NTU ID: N0881865)\nNTU, Nottingham, UK", style: TextStyle(color: Colors.black, fontSize: 5), textAlign: TextAlign.right,),
+  margin: const EdgeInsets.only(right: 10, bottom: 5),
+  child: const Text("Designed and developed by\nAnnamalai Selvarajan (NTU ID: N0881865)\nNTU, Nottingham, UK", style: TextStyle(color: Colors.black, fontSize: 5), textAlign: TextAlign.right,),
 );
 
 Widget WrongDataLottie(BuildContext context)=>Lottie.asset("images/lotties/error.json",

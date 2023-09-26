@@ -34,12 +34,11 @@ class _Student_Notification_screenState extends State<Student_Notification_scree
     });
    await refreshNotes();
   }
-  bool _select = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Notifications'),
+        title:  const Text('Notifications'),
         backgroundColor: PrimaryColor(),
       ),
       body:
@@ -67,8 +66,8 @@ class _Student_Notification_screenState extends State<Student_Notification_scree
                       background: Container(
                         color: Colors.red,
                         alignment: Alignment.centerRight,
-                        padding:  EdgeInsets.symmetric(horizontal: 10.0),
-                        child:  Icon(Icons.delete_forever,color: Colors.black,),
+                        padding:  const EdgeInsets.symmetric(horizontal: 10.0),
+                        child:  const Icon(Icons.delete_forever,color: Colors.black,),
                       ),
                       key: ValueKey<int>(items[index].id),
                       onDismissed: (DismissDirection direction) async {

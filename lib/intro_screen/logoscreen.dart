@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:add_dev_dolphin/UI/main_ui.dart';
+import 'package:add_dev_dolphin/LocalDb/DatabaseHelper.dart';
 import 'package:add_dev_dolphin/intro_screen/code_screen.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:add_dev_dolphin/intro_screen/staffdrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class logo_screen extends StatefulWidget {
   const logo_screen({Key? key, required this.userName, required this.password }) : super(key: key);
   final String userName;
@@ -27,10 +27,16 @@ class logo_screenState extends State<logo_screen> {
   static const String UserIdentity = "useridentity";
 
   static const String CollCode = "CollCode";
+
+
   @override
   void initState(){
     super.initState();
+    dbInitlize();
     whereToGo();
+  }
+  dbInitlize() async {
+    await DatabaseHelper.initDb();
   }
 
   @override
@@ -42,10 +48,10 @@ class logo_screenState extends State<logo_screen> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              Container(
-                child: Image.asset('images/introscreen/front_logo.png'),
+              SizedBox(
                 height: 300,
                 width: 300,
+                child: Image.asset('images/introscreen/front_logo.png'),
               ),
               Image.asset("images/introscreen/loading.gif",height: sHeight(15, context),),
             ],
@@ -56,21 +62,16 @@ class logo_screenState extends State<logo_screen> {
   }
 
   void whereToGo() async {
-
     var sharedPref = await SharedPreferences.getInstance();
-
     var isLoggedIn = sharedPref.getBool("KEYLOGIN");
-
-    Timer(Duration(seconds: 4),(){
-
+    Timer(const Duration(seconds: 3),(){
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context)=> code_screen()));
+              MaterialPageRoute(builder: (context)=> const code_screen()));
 
     });
   }
+
 }
-
-
 
 double sHeight(double per, BuildContext context){
   double h = MediaQuery.of(context).size.height;

@@ -27,9 +27,9 @@ class StaffData_List{
   StaffData_List({required this.Staffdata_list});
 
   factory StaffData_List.fromJson(List<dynamic>StaffAPI_Data_List){
-    List <StaffAPI_data> Staffapi_data = <StaffAPI_data>[];
-    Staffapi_data = StaffAPI_Data_List.map((i)=> StaffAPI_data.fromJson(i)).toList();
-    return new StaffData_List(Staffdata_list: Staffapi_data);
+    List <StaffAPI_data> staffapiData = <StaffAPI_data>[];
+    staffapiData = StaffAPI_Data_List.map((i)=> StaffAPI_data.fromJson(i)).toList();
+    return StaffData_List(Staffdata_list: staffapiData);
   }
 }
 
@@ -83,9 +83,9 @@ class StaffAttendanceTableData_List{
   StaffAttendanceTableData_List({required this.StaffAttendanceTabledata_list});
 
   factory StaffAttendanceTableData_List.fromJson(List<dynamic>StaffAttendanceTableAPI_Data_List){
-    List <StaffAttendanceTableAPI_data> StaffAttendanceTableapi_data = <StaffAttendanceTableAPI_data>[];
-    StaffAttendanceTableapi_data = StaffAttendanceTableAPI_Data_List.map((i)=> StaffAttendanceTableAPI_data.fromJson(i)).toList();
-    return new StaffAttendanceTableData_List(StaffAttendanceTabledata_list: StaffAttendanceTableapi_data );
+    List <StaffAttendanceTableAPI_data> staffattendancetableapiData = <StaffAttendanceTableAPI_data>[];
+    staffattendancetableapiData = StaffAttendanceTableAPI_Data_List.map((i)=> StaffAttendanceTableAPI_data.fromJson(i)).toList();
+    return StaffAttendanceTableData_List(StaffAttendanceTabledata_list: staffattendancetableapiData );
   }
 }
 
@@ -145,9 +145,9 @@ class StudentListData_List{
   StudentListData_List({required this.StudentListdata_list});
 
   factory StudentListData_List.fromJson(List<dynamic>StudentListAPI_Data_List){
-    List <StudentListAPI_data> StudentListapi_data = <StudentListAPI_data>[];
-    StudentListapi_data = StudentListAPI_Data_List.map((i)=> StudentListAPI_data.fromJson(i)).toList();
-    return new StudentListData_List(StudentListdata_list: StudentListapi_data );
+    List <StudentListAPI_data> studentlistapiData = <StudentListAPI_data>[];
+    studentlistapiData = StudentListAPI_Data_List.map((i)=> StudentListAPI_data.fromJson(i)).toList();
+    return StudentListData_List(StudentListdata_list: studentlistapiData );
   }
 }
 
@@ -193,9 +193,9 @@ class MarkingData_List{
   MarkingData_List({required this.Markingdata_list});
 
   factory MarkingData_List.fromJson(List<dynamic>MarkingAPI_Data_List){
-    List <MarkingAPI_data> Markingapi_data = <MarkingAPI_data>[];
-    Markingapi_data = MarkingAPI_Data_List.map((i)=> MarkingAPI_data.fromJson(i)).toList();
-    return new MarkingData_List(Markingdata_list: Markingapi_data );
+    List <MarkingAPI_data> markingapiData = <MarkingAPI_data>[];
+    markingapiData = MarkingAPI_Data_List.map((i)=> MarkingAPI_data.fromJson(i)).toList();
+    return MarkingData_List(Markingdata_list: markingapiData );
   }
 }
 
@@ -235,9 +235,9 @@ class StaffTimetableData_List{
   StaffTimetableData_List({required this.StaffTimetabledata_list});
 
   factory StaffTimetableData_List.fromJson(List<dynamic>StaffTimetableAPI_Data_List){
-    List <StaffTimetableAPI_data> StaffTimetableapi_data = <StaffTimetableAPI_data>[];
-    StaffTimetableapi_data = StaffTimetableAPI_Data_List.map((i)=> StaffTimetableAPI_data.fromJson(i)).toList();
-    return new StaffTimetableData_List(StaffTimetabledata_list: StaffTimetableapi_data );
+    List <StaffTimetableAPI_data> stafftimetableapiData = <StaffTimetableAPI_data>[];
+    stafftimetableapiData = StaffTimetableAPI_Data_List.map((i)=> StaffTimetableAPI_data.fromJson(i)).toList();
+    return StaffTimetableData_List(StaffTimetabledata_list: stafftimetableapiData );
   }
 }
 
@@ -314,9 +314,9 @@ class StaffHolidayData_List{
   StaffHolidayData_List({required this.StaffHolidaydata_list});
 
   factory StaffHolidayData_List.fromJson(List<dynamic>StaffHolidayAPI_Data_List){
-    List <StaffHolidayAPI_data> StaffHolidayapi_data = <StaffHolidayAPI_data>[];
-    StaffHolidayapi_data = StaffHolidayAPI_Data_List.map((i)=> StaffHolidayAPI_data.fromJson(i)).toList();
-    return new StaffHolidayData_List(StaffHolidaydata_list: StaffHolidayapi_data );
+    List <StaffHolidayAPI_data> staffholidayapiData = <StaffHolidayAPI_data>[];
+    staffholidayapiData = StaffHolidayAPI_Data_List.map((i)=> StaffHolidayAPI_data.fromJson(i)).toList();
+    return StaffHolidayData_List(StaffHolidaydata_list: staffholidayapiData );
   }
 }
 
@@ -359,9 +359,9 @@ class StaffCircularData_List{
   StaffCircularData_List({required this.StaffCirculardata_list});
 
   factory StaffCircularData_List.fromJson(List<dynamic>StaffCircularAPI_Data_List){
-    List <StaffCircularAPI_data> StaffCircularapi_data = <StaffCircularAPI_data>[];
-    StaffCircularapi_data = StaffCircularAPI_Data_List.map((i)=> StaffCircularAPI_data.fromJson(i)).toList();
-    return new StaffCircularData_List(StaffCirculardata_list: StaffCircularapi_data );
+    List <StaffCircularAPI_data> staffcircularapiData = <StaffCircularAPI_data>[];
+    staffcircularapiData = StaffCircularAPI_Data_List.map((i)=> StaffCircularAPI_data.fromJson(i)).toList();
+    return StaffCircularData_List(StaffCirculardata_list: staffcircularapiData );
   }
 }
 
@@ -418,9 +418,9 @@ class StaffOPACData_List{
   StaffOPACData_List({required this.StaffOPACdata_list});
 
   factory StaffOPACData_List.fromJson(List<dynamic>StaffOPACAPI_Data_List){
-    List <StaffOPACAPI_data> StaffOPACapi_data = <StaffOPACAPI_data>[];
-    StaffOPACapi_data = StaffOPACAPI_Data_List.map((i)=> StaffOPACAPI_data.fromJson(i)).toList();
-    return new StaffOPACData_List(StaffOPACdata_list: StaffOPACapi_data );
+    List <StaffOPACAPI_data> staffopacapiData = <StaffOPACAPI_data>[];
+    staffopacapiData = StaffOPACAPI_Data_List.map((i)=> StaffOPACAPI_data.fromJson(i)).toList();
+    return StaffOPACData_List(StaffOPACdata_list: staffopacapiData );
   }
 }
 
@@ -461,9 +461,9 @@ class StaffOPACSearchData_List{
   StaffOPACSearchData_List({required this.StaffOPACSearchdata_list});
 
   factory StaffOPACSearchData_List.fromJson(List<dynamic>StaffOPACSearchAPI_Data_List){
-    List <StaffOPACSearchAPI_data> StaffOPACSearchapi_data = <StaffOPACSearchAPI_data>[];
-    StaffOPACSearchapi_data = StaffOPACSearchAPI_Data_List.map((i)=> StaffOPACSearchAPI_data.fromJson(i)).toList();
-    return new StaffOPACSearchData_List(StaffOPACSearchdata_list: StaffOPACSearchapi_data );
+    List <StaffOPACSearchAPI_data> staffopacsearchapiData = <StaffOPACSearchAPI_data>[];
+    staffopacsearchapiData = StaffOPACSearchAPI_Data_List.map((i)=> StaffOPACSearchAPI_data.fromJson(i)).toList();
+    return StaffOPACSearchData_List(StaffOPACSearchdata_list: staffopacsearchapiData );
   }
 }
 
@@ -527,9 +527,9 @@ class LibraryData_List{
   LibraryData_List({required this.Librarydata_list});
 
   factory LibraryData_List.fromJson(List<dynamic>LibraryAPI_Data_List){
-    List <LibraryAPI_data> Libraryapi_data = <LibraryAPI_data>[];
-    Libraryapi_data = LibraryAPI_Data_List.map((i)=> LibraryAPI_data.fromJson(i)).toList();
-    return new LibraryData_List(Librarydata_list: Libraryapi_data );
+    List <LibraryAPI_data> libraryapiData = <LibraryAPI_data>[];
+    libraryapiData = LibraryAPI_Data_List.map((i)=> LibraryAPI_data.fromJson(i)).toList();
+    return LibraryData_List(Librarydata_list: libraryapiData );
   }
 }
 
@@ -593,9 +593,9 @@ class StaffAttendanceRecordData_List{
   StaffAttendanceRecordData_List({required this.StaffAttendanceRecorddata_list});
 
   factory StaffAttendanceRecordData_List.fromJson(List<dynamic>StaffAttendanceRecordAPI_Data_List){
-    List <StaffAttendanceRecordAPI_data> StaffAttendanceRecordapi_data = <StaffAttendanceRecordAPI_data>[];
-    StaffAttendanceRecordapi_data = StaffAttendanceRecordAPI_Data_List.map((i)=> StaffAttendanceRecordAPI_data.fromJson(i)).toList();
-    return new StaffAttendanceRecordData_List(StaffAttendanceRecorddata_list: StaffAttendanceRecordapi_data );
+    List <StaffAttendanceRecordAPI_data> staffattendancerecordapiData = <StaffAttendanceRecordAPI_data>[];
+    staffattendancerecordapiData = StaffAttendanceRecordAPI_Data_List.map((i)=> StaffAttendanceRecordAPI_data.fromJson(i)).toList();
+    return StaffAttendanceRecordData_List(StaffAttendanceRecorddata_list: staffattendancerecordapiData );
   }
 }
 
@@ -640,9 +640,9 @@ class LeaveBalanceData_List{
   LeaveBalanceData_List({required this.LeaveBalancedata_list});
 
   factory LeaveBalanceData_List.fromJson(List<dynamic>LeaveBalanceAPI_Data_List){
-    List <LeaveBalanceAPI_data> LeaveBalanceapi_data = <LeaveBalanceAPI_data>[];
-    LeaveBalanceapi_data = LeaveBalanceAPI_Data_List.map((i)=> LeaveBalanceAPI_data.fromJson(i)).toList();
-    return new LeaveBalanceData_List(LeaveBalancedata_list: LeaveBalanceapi_data );
+    List <LeaveBalanceAPI_data> leavebalanceapiData = <LeaveBalanceAPI_data>[];
+    leavebalanceapiData = LeaveBalanceAPI_Data_List.map((i)=> LeaveBalanceAPI_data.fromJson(i)).toList();
+    return LeaveBalanceData_List(LeaveBalancedata_list: leavebalanceapiData );
   }
 }
 
@@ -707,9 +707,9 @@ class StaffAlternateHourRequest_List{
   StaffAlternateHourRequest_List({required this.StaffAlternateHourrequest_List});
 
   factory StaffAlternateHourRequest_List.fromJson(List<dynamic>StaffAlternateHourRequest_data_List){
-    List <StaffAlternateHourRequestAPI_data> StaffAlternateHourRequestapi_data = <StaffAlternateHourRequestAPI_data>[];
-    StaffAlternateHourRequestapi_data = StaffAlternateHourRequest_data_List.map((i)=> StaffAlternateHourRequestAPI_data.fromJson(i)).toList();
-    return new StaffAlternateHourRequest_List(StaffAlternateHourrequest_List: StaffAlternateHourRequestapi_data );
+    List <StaffAlternateHourRequestAPI_data> staffalternatehourrequestapiData = <StaffAlternateHourRequestAPI_data>[];
+    staffalternatehourrequestapiData = StaffAlternateHourRequest_data_List.map((i)=> StaffAlternateHourRequestAPI_data.fromJson(i)).toList();
+    return StaffAlternateHourRequest_List(StaffAlternateHourrequest_List: staffalternatehourrequestapiData );
   }
 }
 
@@ -767,6 +767,7 @@ class StaffAlternateHourRequestNetwork{
 
   Future <StaffAlternateHourRequest_List> StaffAlternateHourRequestloadData () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return StaffAlternateHourRequest_List.fromJson(json.decode(response.body));
     }
@@ -785,9 +786,9 @@ class StaffProformaData_List{
   StaffProformaData_List({required this.StaffProformadata_list});
 
   factory StaffProformaData_List.fromJson(List<dynamic>StaffProformaAPI_Data_List){
-    List <StaffProformaAPI_data> StaffProformaapi_data = <StaffProformaAPI_data>[];
-    StaffProformaapi_data = StaffProformaAPI_Data_List.map((i)=> StaffProformaAPI_data.fromJson(i)).toList();
-    return new StaffProformaData_List(StaffProformadata_list: StaffProformaapi_data );
+    List <StaffProformaAPI_data> staffproformaapiData = <StaffProformaAPI_data>[];
+    staffproformaapiData = StaffProformaAPI_Data_List.map((i)=> StaffProformaAPI_data.fromJson(i)).toList();
+    return StaffProformaData_List(StaffProformadata_list: staffproformaapiData );
   }
 }
 
@@ -811,6 +812,7 @@ class StaffProformaNetwork{
 
   Future <StaffProformaData_List> StaffProformaloadData () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return StaffProformaData_List.fromJson(json.decode(response.body));
     }
@@ -828,9 +830,9 @@ class LessonPlanTheoryData_List{
   LessonPlanTheoryData_List({required this.LessonPlanTheorydata_list});
 
   factory LessonPlanTheoryData_List.fromJson(List<dynamic>LessonPlanTheoryAPI_Data_List){
-    List <LessonPlanTheoryAPI_data> LessonPlanTheoryapi_data = <LessonPlanTheoryAPI_data>[];
-    LessonPlanTheoryapi_data = LessonPlanTheoryAPI_Data_List.map((i)=> LessonPlanTheoryAPI_data.fromJson(i)).toList();
-    return new LessonPlanTheoryData_List(LessonPlanTheorydata_list: LessonPlanTheoryapi_data);
+    List <LessonPlanTheoryAPI_data> lessonplantheoryapiData = <LessonPlanTheoryAPI_data>[];
+    lessonplantheoryapiData = LessonPlanTheoryAPI_Data_List.map((i)=> LessonPlanTheoryAPI_data.fromJson(i)).toList();
+    return LessonPlanTheoryData_List(LessonPlanTheorydata_list: lessonplantheoryapiData);
   }
 }
 
@@ -839,11 +841,15 @@ class LessonPlanTheoryAPI_data {
   final int IsCompleted;
   final int id;
   final String ExpNo;
+  final String dt;
+  final String wk;
 
-  LessonPlanTheoryAPI_data({required this.Notes, required this.IsCompleted, required this.id, required this.ExpNo});
+  LessonPlanTheoryAPI_data({required this.wk, required this.dt, required this.Notes, required this.IsCompleted, required this.id, required this.ExpNo});
 
   factory LessonPlanTheoryAPI_data.fromJson (Map<String, dynamic> LessonPlanTheoryapi_test){
     return LessonPlanTheoryAPI_data(
+      dt: LessonPlanTheoryapi_test['dt'],
+      wk: LessonPlanTheoryapi_test['wk'],
       Notes: LessonPlanTheoryapi_test['Notes'], IsCompleted: LessonPlanTheoryapi_test['IsCompleted'],
       id: LessonPlanTheoryapi_test['id'], ExpNo: LessonPlanTheoryapi_test['ExpNo'],
     );
@@ -874,9 +880,9 @@ class LessonPlanPracticalData_List{
   LessonPlanPracticalData_List({required this.LessonPlanPracticaldata_list});
 
   factory LessonPlanPracticalData_List.fromJson(List<dynamic>LessonPlanPracticalAPI_Data_List){
-    List <LessonPlanPracticalAPI_data> LessonPlanPracticalapi_data = <LessonPlanPracticalAPI_data>[];
-    LessonPlanPracticalapi_data = LessonPlanPracticalAPI_Data_List.map((i)=> LessonPlanPracticalAPI_data.fromJson(i)).toList();
-    return new LessonPlanPracticalData_List(LessonPlanPracticaldata_list: LessonPlanPracticalapi_data );
+    List <LessonPlanPracticalAPI_data> lessonplanpracticalapiData = <LessonPlanPracticalAPI_data>[];
+    lessonplanpracticalapiData = LessonPlanPracticalAPI_Data_List.map((i)=> LessonPlanPracticalAPI_data.fromJson(i)).toList();
+    return LessonPlanPracticalData_List(LessonPlanPracticaldata_list: lessonplanpracticalapiData );
   }
 }
 
@@ -922,9 +928,9 @@ class ModuleData_List{
   ModuleData_List({required this.Moduledata_list});
 
   factory ModuleData_List.fromJson(List<dynamic>ModuleAPI_Data_List){
-    List <ModuleAPI_data> Moduleapi_data = <ModuleAPI_data>[];
-    Moduleapi_data = ModuleAPI_Data_List.map((i)=> ModuleAPI_data.fromJson(i)).toList();
-    return new ModuleData_List(Moduledata_list: Moduleapi_data );
+    List <ModuleAPI_data> moduleapiData = <ModuleAPI_data>[];
+    moduleapiData = ModuleAPI_Data_List.map((i)=> ModuleAPI_data.fromJson(i)).toList();
+    return ModuleData_List(Moduledata_list: moduleapiData );
   }
 }
 
@@ -1140,9 +1146,9 @@ class FindHodDataList {
   FindHodDataList({required this.HOD_list});
 
   factory FindHodDataList.fromJson(List<dynamic> HOData_List) {
-    List<FindHodData> HOD_Reportdata = <FindHodData>[];
-    HOD_Reportdata = HOData_List.map((i) => FindHodData.fromJson(i)).toList();
-    return new FindHodDataList(HOD_list: HOD_Reportdata);
+    List<FindHodData> hodReportdata = <FindHodData>[];
+    hodReportdata = HOData_List.map((i) => FindHodData.fromJson(i)).toList();
+    return FindHodDataList(HOD_list: hodReportdata);
   }
 }
 
@@ -1227,9 +1233,9 @@ class Staff_Alter_Hours_Data_List {
   Staff_Alter_Hours_Data_List({required this.S_A_H_list});
 
   factory Staff_Alter_Hours_Data_List.fromJson(List<dynamic> Find_Hours_List) {
-    List<Staff_Alter_Hours_Data> Staff_HA_list = <Staff_Alter_Hours_Data>[];
-    Staff_HA_list = Find_Hours_List.map((i) => Staff_Alter_Hours_Data.fromJson(i)).toList();
-    return new Staff_Alter_Hours_Data_List(S_A_H_list: Staff_HA_list);
+    List<Staff_Alter_Hours_Data> staffHaList = <Staff_Alter_Hours_Data>[];
+    staffHaList = Find_Hours_List.map((i) => Staff_Alter_Hours_Data.fromJson(i)).toList();
+    return Staff_Alter_Hours_Data_List(S_A_H_list: staffHaList);
   }
 }
 
@@ -1239,8 +1245,8 @@ class Staff_Alter_Hours_Network{
   Staff_Alter_Hours_Network(this.url);
 
   Future <Staff_Alter_Hours_Data_List> Staff_Alter_Hours_loadData () async {
-    print("http://$StaticIP/api/$url");
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return Staff_Alter_Hours_Data_List.fromJson(json.decode(response.body));
     }
@@ -1276,9 +1282,9 @@ class Department_List_Data_List {
   Department_List_Data_List({required this.Leave_dept_list});
 
   factory Department_List_Data_List.fromJson(List<dynamic> Find_Dept_List) {
-    List<Department_List_Data> Leave_Dep_list = <Department_List_Data>[];
-    Leave_Dep_list = Find_Dept_List.map((i) =>Department_List_Data.fromJson(i)).toList();
-    return new Department_List_Data_List(Leave_dept_list: Leave_Dep_list);
+    List<Department_List_Data> leaveDepList = <Department_List_Data>[];
+    leaveDepList = Find_Dept_List.map((i) =>Department_List_Data.fromJson(i)).toList();
+    return Department_List_Data_List(Leave_dept_list: leaveDepList);
   }
 }
 
@@ -1331,9 +1337,9 @@ class Staff_List_Data_List {
   Staff_List_Data_List({required this.Leave_Sta_list});
 
   factory Staff_List_Data_List.fromJson(List<dynamic> Find_Staff_List) {
-    List<Staff_List_Data> Leave_Staff_list = <Staff_List_Data>[];
-    Leave_Staff_list = Find_Staff_List.map((i) =>Staff_List_Data.fromJson(i)).toList();
-    return new Staff_List_Data_List(Leave_Sta_list: Leave_Staff_list);
+    List<Staff_List_Data> leaveStaffList = <Staff_List_Data>[];
+    leaveStaffList = Find_Staff_List.map((i) =>Staff_List_Data.fromJson(i)).toList();
+    return Staff_List_Data_List(Leave_Sta_list: leaveStaffList);
   }
 }
 
@@ -1344,6 +1350,7 @@ class All_Staff_Network{
 
   Future <Staff_List_Data_List> Staffss_loadData () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return Staff_List_Data_List.fromJson(json.decode(response.body));
     }
@@ -1413,9 +1420,9 @@ class Staff_Inbox_Data_List {
   Staff_Inbox_Data_List({required this.Inbox_Sta_list});
 
   factory Staff_Inbox_Data_List.fromJson(List<dynamic> INBXS_List) {
-    List<Staff_Inbox_Data> INB_Staff_list = <Staff_Inbox_Data>[];
-    INB_Staff_list = INBXS_List.map((i) =>Staff_Inbox_Data.fromJson(i)).toList();
-    return new Staff_Inbox_Data_List(Inbox_Sta_list: INB_Staff_list);
+    List<Staff_Inbox_Data> inbStaffList = <Staff_Inbox_Data>[];
+    inbStaffList = INBXS_List.map((i) =>Staff_Inbox_Data.fromJson(i)).toList();
+    return Staff_Inbox_Data_List(Inbox_Sta_list: inbStaffList);
   }
 }
 
@@ -1459,9 +1466,9 @@ class Staff_Inbox_Lesson_Data_List {
   Staff_Inbox_Lesson_Data_List({required this.Inbox_Leson_list});
 
   factory Staff_Inbox_Lesson_Data_List.fromJson(List<dynamic> INB_LES_List) {
-    List<Staff_Inbox_Lesson_Data> INB_LES_list = <Staff_Inbox_Lesson_Data>[];
-    INB_LES_list = INB_LES_List.map((i) =>Staff_Inbox_Lesson_Data.fromJson(i)).toList();
-    return new Staff_Inbox_Lesson_Data_List(Inbox_Leson_list: INB_LES_list);
+    List<Staff_Inbox_Lesson_Data> inbLesList = <Staff_Inbox_Lesson_Data>[];
+    inbLesList = INB_LES_List.map((i) =>Staff_Inbox_Lesson_Data.fromJson(i)).toList();
+    return Staff_Inbox_Lesson_Data_List(Inbox_Leson_list: inbLesList);
   }
 }
 
@@ -1472,6 +1479,7 @@ class Staff_Inbox_Lesson_Network{
 
   Future <Staff_Inbox_Lesson_Data_List> Inbox_Lesson_loadData () async {
     final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
     if (response.statusCode == 200){
       return Staff_Inbox_Lesson_Data_List.fromJson(json.decode(response.body));
     }
@@ -1488,9 +1496,9 @@ class FacultyorHod_List{
   FacultyorHod_List({required this.Staff_List});
 
   factory FacultyorHod_List.fromJson(List<dynamic> Faculty_List){
-    List<FacultyorHod_Data> Faculty_list = <FacultyorHod_Data>[];
-    Faculty_list = Faculty_List.map((i) =>FacultyorHod_Data.fromJson(i)).toList();
-    return new FacultyorHod_List(Staff_List: Faculty_list);
+    List<FacultyorHod_Data> facultyList = <FacultyorHod_Data>[];
+    facultyList = Faculty_List.map((i) =>FacultyorHod_Data.fromJson(i)).toList();
+    return FacultyorHod_List(Staff_List: facultyList);
   }
 }
 
@@ -1551,9 +1559,9 @@ class Club_Fun_Data_List {
   final List<Club_Fun_Data> Club_fu_list;
   Club_Fun_Data_List({required this.Club_fu_list});
   factory Club_Fun_Data_List.fromJson(List<dynamic> Fun_List) {
-    List<Club_Fun_Data> Club_Fun_list = <Club_Fun_Data>[];
-    Club_Fun_list = Fun_List.map((i) =>Club_Fun_Data.fromJson(i)).toList();
-    return new Club_Fun_Data_List(Club_fu_list: Club_Fun_list);
+    List<Club_Fun_Data> clubFunList = <Club_Fun_Data>[];
+    clubFunList = Fun_List.map((i) =>Club_Fun_Data.fromJson(i)).toList();
+    return Club_Fun_Data_List(Club_fu_list: clubFunList);
   }
 }
 
@@ -1579,6 +1587,7 @@ class Leave_Status_Data {
   final double Days;
   final String Date;
   final String Forword;
+  final int LeaveId;
   final String Forword2;
   final String Approved;
   final String Status;
@@ -1588,6 +1597,7 @@ class Leave_Status_Data {
     required this.Approved,
     required this.Date,
     required this.Days,
+    required this.LeaveId,
     required this.Forword,
     required this.Forword2,
     required this.LeaveApplied,
@@ -1601,6 +1611,7 @@ class Leave_Status_Data {
       Approved: leave_status['Approved'],
       Date: leave_status['Date'],
       Days: leave_status['Days'],
+      LeaveId: leave_status['LeaveId'],
       Forword: leave_status['Forword'],
       Forword2: leave_status['Forword2'],
       LeaveApplied: leave_status['LeaveApplied'],
@@ -1612,12 +1623,11 @@ class Leave_Status_Data {
 
 class Leave_Status_List {
   final List<Leave_Status_Data> Leave_sts_List;
-
   Leave_Status_List({required this.Leave_sts_List});
   factory Leave_Status_List.fromJson(List<dynamic> leavest_list) {
-    List<Leave_Status_Data> leave_sts_list = <Leave_Status_Data>[];
-    leave_sts_list = leavest_list.map((i) => Leave_Status_Data.fromJson(i)).toList();
-    return new Leave_Status_List(Leave_sts_List: leave_sts_list);
+    List<Leave_Status_Data> leaveStsList = <Leave_Status_Data>[];
+    leaveStsList = leavest_list.map((i) => Leave_Status_Data.fromJson(i)).toList();
+    return Leave_Status_List(Leave_sts_List: leaveStsList);
   }
 }
 
@@ -1635,6 +1645,43 @@ class Leave_Status_Network {
   }
 }
 
+//LeaveApplyCancel
+
+class Leave_Cancel_data{
+  final String msg;
+  Leave_Cancel_data({required this.msg});
+  factory Leave_Cancel_data.fromJson(Map<String, dynamic> leave_cancel){
+    return Leave_Cancel_data(
+      msg: leave_cancel['msg'],
+    );
+  }
+}
+
+class Leave_Cancel_List{
+  final List<Leave_Cancel_data> Leave_cnl_List;
+  Leave_Cancel_List({required this.Leave_cnl_List});
+  factory Leave_Cancel_List.fromJson(List<dynamic>leaveclc_list){
+    List<Leave_Cancel_data> leaveCnlList = <Leave_Cancel_data>[];
+    leaveCnlList = leaveclc_list.map((i) => Leave_Cancel_data.fromJson(i)).toList();
+    return Leave_Cancel_List(Leave_cnl_List: leaveCnlList);
+  }
+}
+
+class Leave_Cancel_Network{
+  final String url;
+  Leave_Cancel_Network(this.url);
+  Future<Leave_Cancel_List> Leave_cl_data() async{
+    final response = await get(Uri.parse("http://$StaticIP/api/$url"));
+    print("http://$StaticIP/api/$url");
+    if(response.statusCode == 200){
+      return Leave_Cancel_List.fromJson(json.decode(response.body));
+    }
+    else{
+      throw Exception("Staff cancel Internal server error");
+    }
+  }
+}
+
 
 //Staff Add Club Function
 
@@ -1642,9 +1689,9 @@ class AddClubFun_List{
   final List<AddClubAPI_data> AddClubFundata_List;
   AddClubFun_List({required this.AddClubFundata_List});
   factory AddClubFun_List.fromJson(List<dynamic>AddClubAPI_data_List){
-    List <AddClubAPI_data> AddClubapi_data = <AddClubAPI_data>[];
-    AddClubapi_data = AddClubAPI_data_List.map((i)=> AddClubAPI_data.fromJson(i)).toList();
-    return new AddClubFun_List(AddClubFundata_List: AddClubapi_data );
+    List <AddClubAPI_data> addclubapiData = <AddClubAPI_data>[];
+    addclubapiData = AddClubAPI_data_List.map((i)=> AddClubAPI_data.fromJson(i)).toList();
+    return AddClubFun_List(AddClubFundata_List: addclubapiData );
   }
 }
 
@@ -1681,9 +1728,9 @@ class ClubAttend_List{
   ClubAttend_List({required this.Club_A_List});
 
   factory ClubAttend_List.fromJson(List<dynamic> ClubAttend_Data_List){
-    List<ClubAttend_Data> Club_At_data = <ClubAttend_Data>[];
-    Club_At_data = ClubAttend_Data_List.map((i) => ClubAttend_Data.fromJson(i)).toList();
-    return new ClubAttend_List(Club_A_List: Club_At_data);
+    List<ClubAttend_Data> clubAtData = <ClubAttend_Data>[];
+    clubAtData = ClubAttend_Data_List.map((i) => ClubAttend_Data.fromJson(i)).toList();
+    return ClubAttend_List(Club_A_List: clubAtData);
     }
 }
 
@@ -1742,9 +1789,9 @@ class ClubStud_List{
   ClubStud_List({required this.Club_Stud_List});
 
   factory ClubStud_List.fromJson(List<dynamic>ClubStud_Data_List){
-    List<ClubStud_Data> Club_St_Data = <ClubStud_Data>[];
-    Club_St_Data = ClubStud_Data_List.map((i) => ClubStud_Data.fromJson(i)).toList();
-    return new ClubStud_List(Club_Stud_List: Club_St_Data);
+    List<ClubStud_Data> clubStData = <ClubStud_Data>[];
+    clubStData = ClubStud_Data_List.map((i) => ClubStud_Data.fromJson(i)).toList();
+    return ClubStud_List(Club_Stud_List: clubStData);
   }
 }
 
@@ -1804,9 +1851,9 @@ class ClubFinalAttend_List{
   ClubFinalAttend_List({required this.ClubAtted_List});
 
   factory ClubFinalAttend_List.fromJson(List<dynamic> FinalClub_List){
-    List<ClubFinalAttend_Data> ClubAttendFinal_data = <ClubFinalAttend_Data>[];
-    ClubAttendFinal_data = FinalClub_List.map((i) => ClubFinalAttend_Data.fromJson(i)).toList();
-    return new ClubFinalAttend_List(ClubAtted_List: ClubAttendFinal_data);
+    List<ClubFinalAttend_Data> clubattendfinalData = <ClubFinalAttend_Data>[];
+    clubattendfinalData = FinalClub_List.map((i) => ClubFinalAttend_Data.fromJson(i)).toList();
+    return ClubFinalAttend_List(ClubAtted_List: clubattendfinalData);
   }
 }
 
@@ -1843,9 +1890,9 @@ class AttendTerms_List{
   AttendTerms_List({required this.AttendTerm_List});
 
   factory AttendTerms_List.fromJson(List<dynamic> Attend_List){
-    List<Attend_data> AttendTermsFinal_data = <Attend_data>[];
-    AttendTermsFinal_data = Attend_List.map((i) => Attend_data.fromJson(i)).toList();
-    return new AttendTerms_List(AttendTerm_List: AttendTermsFinal_data);
+    List<Attend_data> attendtermsfinalData = <Attend_data>[];
+    attendtermsfinalData = Attend_List.map((i) => Attend_data.fromJson(i)).toList();
+    return AttendTerms_List(AttendTerm_List: attendtermsfinalData);
   }
 
 }

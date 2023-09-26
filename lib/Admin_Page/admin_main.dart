@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:math';
 import 'package:add_dev_dolphin/Admin_Page/admin_notification.dart';
 import 'package:add_dev_dolphin/Admin_Page/admin_screens.dart';
-import 'package:add_dev_dolphin/Admin_Page/front_page.dart';
 import 'package:add_dev_dolphin/Data/Admin_data.dart';
 import 'package:add_dev_dolphin/Data/Staff_Data.dart';
 import 'package:add_dev_dolphin/Local_Data/notification_database.dart';
@@ -125,9 +124,9 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
     return
       badges.Badge(
         position: BadgePosition.topEnd(top: 6, end: 6),
-        badgeAnimation: BadgeAnimation.slide(),
-        badgeStyle: KLK > 0 ? badges.BadgeStyle(badgeColor: Colors.green,borderGradient: BadgeGradient.radial(colors: [Colors.blue,Colors.yellow])):badges.BadgeStyle(badgeColor: Colors.red,borderGradient: BadgeGradient.radial(colors: [Colors.blue,Colors.yellow])),
-        child: IconButton(icon: Icon(Icons.notifications), onPressed: ()async {
+        badgeAnimation: const BadgeAnimation.slide(),
+        badgeStyle: KLK > 0 ? const badges.BadgeStyle(badgeColor: Colors.green,borderGradient: BadgeGradient.radial(colors: [Colors.blue,Colors.yellow])):const badges.BadgeStyle(badgeColor: Colors.red,borderGradient: BadgeGradient.radial(colors: [Colors.blue,Colors.yellow])),
+        child: IconButton(icon: const Icon(Icons.notifications), onPressed: ()async {
           Navigator.push(context, MaterialPageRoute(builder: (context)=>Admin_Notification_screen()));
           setState((){});
         }),
@@ -248,6 +247,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
     // });
     refreshNotes();
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -285,7 +285,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                             onWillPop: () => _onBackButtonPressed(context),
                             child: SafeArea(
                               child: Scaffold(
-                                  backgroundColor: Color.fromRGBO(
+                                  backgroundColor: const Color.fromRGBO(
                                       242, 249, 255, 0.9),
                                   body: Builder(
                                     builder: (BuildContext context) =>
@@ -298,12 +298,10 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .end,
                                                     children: [
-                                                      Container(
-                                                          child: Image.asset(
-                                                              "images/introscreen/bg_overlay.png")),
+                                                      Image.asset("images/introscreen/bg_overlay.png"),
                                                     ],
                                                   ),
-                                                  Container(
+                                                  SizedBox(
                                                     width: MediaQuery
                                                         .of(context)
                                                         .size
@@ -339,9 +337,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                   }
                                                                 },
                                                                 child: Container(
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                      left: 15),
+                                                                  margin: const EdgeInsets.only(left: 15),
                                                                   child: Image
                                                                       .asset(
                                                                     "images/introscreen/nav_bar.png",
@@ -374,7 +370,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                               Column(
                                                                 children: [
                                                                   Gei
-                                                                      ? Container(
+                                                                      ? SizedBox(
                                                                     width: sWidth(
                                                                         40,
                                                                         context),
@@ -386,7 +382,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                         maxLines: 1,
                                                                         overflow: TextOverflow
                                                                             .ellipsis,
-                                                                        style: TextStyle(
+                                                                        style: const TextStyle(
                                                                             color: Colors
                                                                                 .black54,
                                                                             fontWeight: FontWeight
@@ -395,7 +391,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                   )
                                                                       : Container(),
                                                                   GAi
-                                                                      ? Container(
+                                                                      ? SizedBox(
                                                                     width: sWidth(
                                                                         40,
                                                                         context),
@@ -407,7 +403,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                         maxLines: 1,
                                                                         overflow: TextOverflow
                                                                             .ellipsis,
-                                                                        style: TextStyle(
+                                                                        style: const TextStyle(
                                                                             color: Colors
                                                                                 .black54,
                                                                             fontWeight: FontWeight
@@ -416,7 +412,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                   )
                                                                       : new Container(),
                                                                   Gmi
-                                                                      ? Container(
+                                                                      ? SizedBox(
                                                                     width: sWidth(
                                                                         40,
                                                                         context),
@@ -428,7 +424,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                         maxLines: 1,
                                                                         overflow: TextOverflow
                                                                             .ellipsis,
-                                                                        style: TextStyle(
+                                                                        style: const TextStyle(
                                                                             color: Colors
                                                                                 .black54,
                                                                             fontWeight: FontWeight
@@ -437,7 +433,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                   )
                                                                       : new Container(),
                                                                   Gni
-                                                                      ? Container(
+                                                                      ? SizedBox(
                                                                     width: sWidth(
                                                                         40,
                                                                         context),
@@ -449,7 +445,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                         maxLines: 1,
                                                                         overflow: TextOverflow
                                                                             .ellipsis,
-                                                                        style: TextStyle(
+                                                                        style: const TextStyle(
                                                                             color: Colors
                                                                                 .black54,
                                                                             fontWeight: FontWeight
@@ -457,7 +453,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                             fontSize: 18)),
                                                                   )
                                                                       : new Container(),
-                                                                  Container(
+                                                                  SizedBox(
                                                                     width: sWidth(
                                                                         40,
                                                                         context),
@@ -469,7 +465,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                         maxLines: 1,
                                                                         overflow: TextOverflow
                                                                             .ellipsis,
-                                                                        style: TextStyle(
+                                                                        style: const TextStyle(
                                                                             fontWeight: FontWeight
                                                                                 .w700,
                                                                             fontSize: 30,
@@ -484,11 +480,11 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                               ),
                                                               Container(
                                                                 // height: sHeight(10, context),
-                                                                decoration: BoxDecoration(),
+                                                                decoration: const BoxDecoration(),
                                                                 child: Stack(
                                                                   children: [
                                                                     ClipRRect(
-                                                                        borderRadius: BorderRadius
+                                                                        borderRadius: const BorderRadius
                                                                             .all(
                                                                           Radius
                                                                               .circular(
@@ -536,7 +532,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                         child: TextFormField(
                                                           // autovalidateMode: AutovalidateMode.onUserInteraction,
                                                           decoration: InputDecoration(
-                                                            hintStyle: TextStyle(
+                                                            hintStyle: const TextStyle(
                                                                 color: Colors
                                                                     .grey),
                                                             labelText: "Search With Student RegNo",
@@ -544,16 +540,16 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                                 onTap: () async {
                                                                   await valid();
                                                                 },
-                                                                child: Icon(
+                                                                child: const Icon(
                                                                   Icons.search,
                                                                   color: Color(
                                                                       0xff6762FF),
                                                                 )),
-                                                            labelStyle: TextStyle(
+                                                            labelStyle: const TextStyle(
                                                                 color: Colors
                                                                     .grey),
 
-                                                            border: OutlineInputBorder(),
+                                                            border: const OutlineInputBorder(),
                                                             hintText: "Search With Student RegNo",
                                                           ),
                                                           inputFormatters: [
@@ -566,7 +562,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                               return "Kindly,Enter Student RegNo";
                                                             }
                                                           },
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               color: Colors
                                                                   .black),
                                                           onSaved: (e) =>
@@ -579,14 +575,14 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                     GridView.count(
                                                       crossAxisCount: 2,
                                                       shrinkWrap: true,
-                                                      physics: NeverScrollableScrollPhysics(),
+                                                      physics: const NeverScrollableScrollPhysics(),
                                                       childAspectRatio: 2,
                                                       children: [
                                                         if(status.contains(
                                                             "1Fee Balance - Management"))
                                                           InkWell(
                                                               child: Container(
-                                                                margin: EdgeInsets
+                                                                margin: const EdgeInsets
                                                                     .all(8),
                                                                 width: MediaQuery
                                                                     .of(context)
@@ -636,7 +632,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                             "1Fee Collections - Management"))
                                                           InkWell(
                                                               child: Container(
-                                                                margin: EdgeInsets
+                                                                margin: const EdgeInsets
                                                                     .all(8),
                                                                 width: MediaQuery
                                                                     .of(context)
@@ -686,7 +682,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                             "1Hostel - Management"))
                                                           InkWell(
                                                               child: Container(
-                                                                margin: EdgeInsets
+                                                                margin: const EdgeInsets
                                                                     .all(8),
                                                                 width: MediaQuery
                                                                     .of(context)
@@ -736,7 +732,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                             "1Transport - Management"))
                                                           InkWell(
                                                               child: Container(
-                                                                margin: EdgeInsets
+                                                                margin: const EdgeInsets
                                                                     .all(8),
                                                                 width: MediaQuery
                                                                     .of(context)
@@ -787,7 +783,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                             "1Admission Report - Management"))
                                                           InkWell(
                                                               child: Container(
-                                                                margin: EdgeInsets
+                                                                margin: const EdgeInsets
                                                                     .all(8),
                                                                 width: MediaQuery
                                                                     .of(context)
@@ -837,7 +833,7 @@ class _Admin_HomePageState extends State<Admin_HomePage> {
                                                       ],
                                                     ),
                                                     Container(
-                                                      margin: EdgeInsets.only(
+                                                      margin: const EdgeInsets.only(
                                                           top: 20),),
                                                   ],
                                                 )

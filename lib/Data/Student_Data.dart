@@ -587,6 +587,7 @@ class HolidayNetwork{
 
   Future <HolidayData_List> HolidayloadData () async {
     final response = await get(Uri.parse("http://$IpAddress/api/$url"));
+    print("http://$IpAddress/api/$url");
     if (response.statusCode == 200){
       return HolidayData_List.fromJson(json.decode(response.body));
     }
@@ -682,6 +683,7 @@ class ExamCertificateNetwork{
 
   Future <ExamCertificateData_List> ExamCertificateloadData () async {
     final response = await get(Uri.parse("http://$IpAddress/api/$url"));
+    print("http://$IpAddress/api/$url");
     if (response.statusCode == 200){
       return ExamCertificateData_List.fromJson(json.decode(response.body));
     }
@@ -727,6 +729,7 @@ class StudentDCBAPI_data {
 }
 
 class StudentDCBNetwork{
+
   final String url;
 
   StudentDCBNetwork(this.url);
