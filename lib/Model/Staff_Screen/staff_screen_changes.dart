@@ -41,6 +41,7 @@ class StaffAttendanceTimetable extends StatefulWidget {
 class _StaffAttendanceTimetableState extends State<StaffAttendanceTimetable> {
   late Future<StaffAttendanceTableData_List> AttendanceAPIData;
   late StaffAPI_data StaffAPI = widget.StaffAPI;
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -118,7 +119,7 @@ class _StaffAttendanceTimetableState extends State<StaffAttendanceTimetable> {
                                   ),
                                   SizedBox(height: sHeight(2, context),),
                     Center(
-                      child: Container(
+                      child: SizedBox(
                         height: sHeight(75, context),
                         child: SingleChildScrollView(
                           child: Column(
@@ -159,8 +160,8 @@ class _StaffAttendanceTimetableState extends State<StaffAttendanceTimetable> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -187,6 +188,7 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
   late List <int> StudentNoList = [0];
   late List <StudentListAPI_data> FinalList = [];
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -274,7 +276,7 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
                                   ),
                                  SizedBox(height: sHeight(2, context),),
                     Center(
-                      child: Container(
+                      child: SizedBox(
                         height: sHeight(75, context),
                         child: SingleChildScrollView(
                           child: Column(
@@ -360,8 +362,8 @@ class _StaffAttendanceListState extends State<StaffAttendanceList> {
             }
           } else {
             return Container(
-              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
         });
@@ -390,6 +392,7 @@ class _StaffAttendanceViewState extends State<StaffAttendanceView> {
   late List <String> StudentList = [""];
   late List <StudentListAPI_data> FinalList = [];
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -474,8 +477,8 @@ class _StaffAttendanceViewState extends State<StaffAttendanceView> {
             }
           } else {
             return Container(
-              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
         });
@@ -554,7 +557,7 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
                       ),
                     ),
                     SizedBox(height: sHeight(2, context),),
-                    Container(
+                    SizedBox(
                       width: sWidth(90, context),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -588,7 +591,7 @@ class _AttendanceCheckState extends State<AttendanceCheck> {
                       ),
                     ),
                     SizedBox(height: sHeight(2, context),),
-          Container(
+          SizedBox(
               height: sHeight(75, context) ,
             child: SingleChildScrollView(
               child: Column(
@@ -879,8 +882,8 @@ class _AttendanceMarkState extends State<AttendanceMark> {
             }
             else {
               return Container(
-                child: const Center(child: CircularProgressIndicator()),
                 color: Colors.white,
+                child: const Center(child: CircularProgressIndicator()),
               );
             }
           }
@@ -985,8 +988,8 @@ class _StaffTimetableState extends State<StaffTimetable> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -1128,8 +1131,8 @@ class _StaffHolidayState extends State<StaffHoliday> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -1229,8 +1232,8 @@ class _StaffCircularState extends State<StaffCircular> {
           ),
                   backgroundColor: const Color(0xFFF84259),),
               body: Container(
-                child: Center(child: SearchingDataLottie(context)),
                 color: Colors.white,
+                child: Center(child: SearchingDataLottie(context)),
               ),
             );
           }
@@ -1373,7 +1376,7 @@ class _StaffOpacState extends State<StaffOpac> {
                                     children: [
                                       Stack(
                                         children:[
-                                          Container(
+                                          SizedBox(
                                             height: sHeight(20, context),
                                             width: sWidth(30, context),
                                             child: ClipRRect(
@@ -1536,8 +1539,8 @@ class _StaffOpacState extends State<StaffOpac> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -1752,8 +1755,8 @@ class _StaffOpacSearchState extends State<StaffOpacSearch> {
             }
           } else {
             return Container(
-              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
         });
@@ -1865,8 +1868,8 @@ class _StaffLibraryHistoryState extends State<StaffLibraryHistory> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -1977,8 +1980,8 @@ class _StaffLibraryOverdueState extends State<StaffLibraryOverdue> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -2223,8 +2226,8 @@ class _StaffAttendaceRecordState extends State<StaffAttendaceRecord> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -2316,8 +2319,8 @@ class _StaffLeaveBalanceState extends State<StaffLeaveBalance> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -2459,8 +2462,8 @@ class _StaffProformaState extends State<StaffProforma> {
                 elevation: 10.0,
               ),
               body: Container(
-                child: Center(child: SearchingDataLottie(context)),
                 color: Colors.white,
+                child: Center(child: SearchingDataLottie(context)),
               ),
             );
           }
@@ -2481,6 +2484,7 @@ class _StaffLessonPlanState extends State<StaffLessonPlan> {
   late Future<StaffAttendanceTableData_List> AttendanceAPIData;
   late StaffAPI_data StaffAPI = widget.StaffAPI;
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -2555,7 +2559,7 @@ class _StaffLessonPlanState extends State<StaffLessonPlan> {
                           ),
                           SizedBox(height: sHeight(2, context),),
                     Center(
-                      child: Container(
+                      child: SizedBox(
                         height: sHeight(75, context),
                         child: SingleChildScrollView(
                           child: Column(
@@ -2602,8 +2606,8 @@ class _StaffLessonPlanState extends State<StaffLessonPlan> {
             }
           } else {
             return Container(
-              child: Center(child: SearchingDataLottie(context)),
               color: Colors.white,
+              child: Center(child: SearchingDataLottie(context)),
             );
           }
         });
@@ -2626,6 +2630,7 @@ class _StaffLessonPlanListState extends State<StaffLessonPlanList> {
   late StaffAPI_data StaffAPI = widget.StaffAPI;
   String type = '';
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -2716,8 +2721,8 @@ class _StaffLessonPlanListState extends State<StaffLessonPlanList> {
             }
           } else {
             return Container(
-              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
         });
@@ -2744,6 +2749,7 @@ class _StaffLessonPlanPracticalsState extends State<StaffLessonPlanPracticals> {
   late List <int> StudentNoList = [0];
   late List <LessonPlanPracticalAPI_data> FinalList = [];
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -2864,8 +2870,8 @@ class _StaffLessonPlanPracticalsState extends State<StaffLessonPlanPracticals> {
             }
           } else {
             return Container(
-              child: const Center(child: CircularProgressIndicator()),
               color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
         });
@@ -2955,7 +2961,7 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
           else{
             if (Attendancesnapshot.hasData) {
               data = Attendancesnapshot.data!.Markingdata_list;
-              if (data.length > 0) {
+              if (data.isNotEmpty) {
                 return Scaffold(
                   appBar: AppBar(
                     title: Text(
@@ -3050,8 +3056,8 @@ class _StaffLessonPlanMarkState extends State<StaffLessonPlanMark> {
             }
             else {
               return Container(
-                child: const Center(child: CircularProgressIndicator()),
                 color: Colors.white,
+                child: const Center(child: CircularProgressIndicator()),
               );
             }
           }
@@ -3214,8 +3220,8 @@ class _StaffLessonPlanPracticalsMarkState extends State<StaffLessonPlanPractical
             }
             else {
               return Container(
-                child: const Center(child: CircularProgressIndicator()),
                 color: Colors.white,
+                child: const Center(child: CircularProgressIndicator()),
               );
             }
           }

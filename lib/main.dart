@@ -48,7 +48,7 @@ refreshNotes() async {
   KLK = (await DatabaseHandler().getCount())!;
   print("-x--x-x-x--x-x$KLK");
 }
-final DarwinInitializationSettings initializationSettings = DarwinInitializationSettings();
+final DarwinInitializationSettings initializationSettings = const DarwinInitializationSettings();
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
@@ -78,7 +78,7 @@ Future _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       notification.hashCode,
       notification.title,
       notification.body,
-      NotificationDetails(
+      const NotificationDetails(
         // android: AndroidNotificationDetails(
         //   channel.id,
         //   channel.name,

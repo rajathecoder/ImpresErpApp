@@ -137,6 +137,16 @@ class _ApplyScreenState extends State<ApplyScreen> {
               ),
             ],
           ),
+          const Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "* Long press to cancel leave you proposed",style: TextStyle(color: Colors.red,fontSize: 10,),
+                ),
+              ),
+            ],
+          ),
           SingleChildScrollView(
             child: FutureBuilder(
                 future: Leave_status_api,
@@ -154,7 +164,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
                     if (leaveData.length > 0) {
                       return SizedBox(
                         //height: MediaQuery.of(context).size.height,
-                        height: sHeight(70, context),
+                        height: sHeight(65, context),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Padding(
@@ -162,175 +172,14 @@ class _ApplyScreenState extends State<ApplyScreen> {
                             child: Column(
                               children: [
                                 for (int i = leaveData.length - 1; i >= 0; i--)
-                                  leaveData[i].Status == "Approved".toString() ?
-                                  Column(
-                                    children: [
-                                      InkWell(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(5),
-                                              color: const Color(0xFFECFFF4),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(13.0),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    SizedBox(
-                                                      height: sHeight(2.5, context),
-                                                      width: sWidth(60, context),
-                                                      child: FittedBox(
-                                                        fit: BoxFit.contain,
-                                                          child: Text(" ${leaveData[i].LeaveApplied}".toUpperCase(),style: const TextStyle(color: Color(0xFF141414),),))
-                                                    ),
-                                                    Container(
-                                                      height: sHeight(3.5, context),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10),
-                                                        color: const Color(0xFFD1FFF1)
-                                                      ),
-                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          const Icon(Icons.timelapse,color: Color(0xFF01BE84),size: 15,),
-                                                          FittedBox(
-                                                              fit: BoxFit.contain,
-                                                              child: Text(leaveData[i].Status,style: const TextStyle(color: Color(0xFF01BE84)),)),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                SizedBox(height: sHeight(2, context),),
-                                                Row(
-                                                  children: [
-                                                    SizedBox(
-                                                        height: sHeight(2.5, context),
-                                                        width: sWidth(85, context),
-                                                        child: FittedBox(
-                                                            fit: BoxFit.contain,
-                                                            child: Text(leaveData[i].Reason,maxLines: 2,)
-                                                        )
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: sHeight(2, context),),
-                                                Row(
-                                                  children: [
-                                                    const CircleAvatar(
-                                                      backgroundColor: Color(0xFF01BE84),radius: 13,
-                                                      child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
-                                                    ),
-                                                    const Text(" Leave Date : ",style: TextStyle(color: Colors.black54)),
-                                                    Text(leaveData[i].Date)
-                                                  ],
-                                                ),
-                                                SizedBox(height: sHeight(2, context),),
-                                                Row(
-                                                  children: [
-                                                    const CircleAvatar(
-                                                      backgroundColor: Color(0xFFE23F8B),radius: 13,
-                                                      child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
-                                                    ),
-                                                    const Text(" Applied Date : ",style: TextStyle(color: Colors.black54),),
-                                                    Text(leaveData[i].Forword)
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        onLongPress: (){
-                                          print("${leaveData[i].LeaveId}");
-                                          showDialog(
-                                              context: context,
-                                              barrierDismissible:
-                                              true,
-                                              builder: (context) =>
-                                                  AlertDialog(
-                                                      content:
-                                                      SizedBox(
-                                                        height: sHeight(15, context),
-                                                        width: sWidth(60, context),
-                                                        child: Column(
-                                                          children: [
-                                                            const Text("Do you want to Cancel Leave?"),
-                                                            SizedBox(height: sHeight(5,context),
-                                                            ),
-                                                            Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                InkWell(
-                                                                  child:
-                                                                  Container(
-                                                                      height: sHeight(5, context),
-                                                                      width: sWidth(17, context),
-                                                                      decoration:
-                                                                    BoxDecoration(
-                                                                      borderRadius:
-                                                                      BorderRadius.circular(10),
-                                                                      color:
-                                                                      Colors.red,
-                                                                    ),
-                                                                    child: Center(
-                                                                        child: Text(
-                                                                          "NO",
-                                                                          style:
-                                                                          ErrorText(),
-                                                                        )),
-                                                                  ),
-                                                                  onTap:
-                                                                      () {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                ),
-                                                                InkWell(
-                                                                  child:
-                                                                  Container(
-                                                                    height: sHeight(
-                                                                        5,
-                                                                        context),
-                                                                    width: sWidth(
-                                                                        17,
-                                                                        context),
-                                                                    decoration:
-                                                                    BoxDecoration(
-                                                                      borderRadius:
-                                                                      BorderRadius.circular(10),
-                                                                      color:
-                                                                      Colors.green,
-                                                                    ),
-                                                                    child: Center(
-                                                                        child: Text(
-                                                                          "Yes",
-                                                                          style:
-                                                                          ErrorText(),
-                                                                        )),
-                                                                  ),
-                                                                  onTap:
-                                                                      () async {
-                                                                        _submit();
-                                                                  },
-                                                                )
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ),
-                                                      )));
-                                        },
-                                      ),
-                                      SizedBox(height: sHeight(2, context),)
-                                    ],
-                                  ) :
+                                  leaveData[i].Status == "Proposal".toString() ?
                                   InkWell(
                                     child: Column(
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
-                                              color: const Color(0xFFFFF1F0)
+                                              color:  Color.fromRGBO(66, 133, 244, 1)
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(13.0),
@@ -344,7 +193,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                         width: sWidth(60, context),
                                                         child: FittedBox(
                                                             fit: BoxFit.contain,
-                                                            child: Text(leaveData[i].Reason.toUpperCase(),style: const TextStyle(color: Color(0xFF141414),),textAlign: TextAlign.start,))
+                                                            child: Text(leaveData[i].Reason.toUpperCase(),style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
                                                     ),
                                                     Container(
                                                       height: sHeight(3.5, context),
@@ -354,8 +203,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                       ),
                                                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
-                                                          const Icon(Icons.timelapse,color: Color(0xFFFF343E),size: 15,),
-                                                          Text(leaveData[i].Status,style: const TextStyle(color: Color(0xFFFF343E)),),
+                                                          const Icon(Icons.timelapse,color: Colors.black87,size: 15,),
+                                                          Text(leaveData[i].Status,style: const TextStyle(color: Colors.black87),),
                                                         ],
                                                       ),
                                                     )
@@ -364,7 +213,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                 SizedBox(height: sHeight(2, context),),
                                                 Row(
                                                   children: [
-                                                    Text(leaveData[i].LeaveApplied)
+                                                    Text(leaveData[i].LeaveApplied,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
@@ -374,10 +223,10 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                       backgroundColor: Color(0xFF01BE84),radius: 13,
                                                       child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
                                                     ),
-                                                    const Text(" Leave Date : "),
+                                                    const Text(" Leave Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                                     FittedBox(
                                                         fit:  BoxFit.contain,
-                                                        child: Text(leaveData[i].Date))
+                                                        child: Text(leaveData[i].Date, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
@@ -389,8 +238,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                     ),
                                                     const FittedBox(
                                                         fit:  BoxFit.contain,
-                                                        child: Text(" Applied Date : ")),
-                                                    Text(leaveData[i].Forword)
+                                                        child: Text(" Applied Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                                                    Text(leaveData[i].Forword, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
                                                   ],
                                                 )
                                               ],
@@ -469,39 +318,39 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                               ),
                                                               onTap:
                                                                   () async {
-                                                                      final resp = await http.get(Uri.parse("http://$IpAddress/api/LeaveCancel?StaffCode=${widget.username}&LeaveId=${leaveData[i].LeaveId}&Password=${widget.password}"),);
-                                                                      print("http://$IpAddress/api/LeaveCancel?StaffCode=${widget.username}&LeaveId=${leaveData[i].LeaveId}&Password=${widget.password}");
-                                                                      if (resp.statusCode == 200) {
-                                                                        print(resp.statusCode);
-                                                                        Leave_Cancel_ID = json.decode(resp.body);
-                                                                        Leave_Cancel_MSG =(Leave_Cancel_ID[0]['msg']);
-                                                                        print(Leave_Cancel_MSG);
-                                                                        await Fluttertoast.showToast(
-                                                                            backgroundColor: Colors.green,
-                                                                            msg: "Your Request been Send Successfully!",
-                                                                            toastLength: Toast.LENGTH_SHORT,
-                                                                            gravity: ToastGravity.SNACKBAR,
-                                                                            textColor: Colors.white,
-                                                                            fontSize: 16.0
-                                                                        );
-                                                                        Navigator.pop(context);
-                                                                        Navigator.pop(context);
-                                                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
-                                                                            (username: widget.username, password: widget.password,)));
-                                                                      } else {
-                                                                        // print('Request failed with status: ${resp.statusCode}.');
-                                                                        await Fluttertoast.showToast(
-                                                                            backgroundColor: Colors.red,
-                                                                            msg: "Leave Request Has Been Approved",
-                                                                            toastLength: Toast.LENGTH_SHORT,
-                                                                            gravity: ToastGravity.SNACKBAR,
-                                                                            textColor: Colors.white,
-                                                                            fontSize: 16.0
-                                                                        );
-                                                                        Navigator.pop(context);
-                                                                      }
-                                                                      // Navigator.pop(context, _selectedItems);
-                                                                  },
+                                                                final resp = await http.get(Uri.parse("http://$IpAddress/api/LeaveCancel?StaffCode=${widget.username}&LeaveId=${leaveData[i].LeaveId}&Password=${widget.password}"),);
+                                                                print("http://$IpAddress/api/LeaveCancel?StaffCode=${widget.username}&LeaveId=${leaveData[i].LeaveId}&Password=${widget.password}");
+                                                                if (resp.statusCode == 200) {
+                                                                  print(resp.statusCode);
+                                                                  Leave_Cancel_ID = json.decode(resp.body);
+                                                                  Leave_Cancel_MSG =(Leave_Cancel_ID[0]['msg']);
+                                                                  print(Leave_Cancel_MSG);
+                                                                  await Fluttertoast.showToast(
+                                                                      backgroundColor: Colors.green,
+                                                                      msg: "Your Request been Canceled Successfully!",
+                                                                      toastLength: Toast.LENGTH_SHORT,
+                                                                      gravity: ToastGravity.SNACKBAR,
+                                                                      textColor: Colors.white,
+                                                                      fontSize: 16.0
+                                                                  );
+                                                                  Navigator.pop(context);
+                                                                  Navigator.pop(context);
+                                                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
+                                                                    (username: widget.username, password: widget.password,)));
+                                                                } else {
+                                                                  // print('Request failed with status: ${resp.statusCode}.');
+                                                                  await Fluttertoast.showToast(
+                                                                      backgroundColor: Colors.red,
+                                                                      msg: "Leave Request Has Been Approved",
+                                                                      toastLength: Toast.LENGTH_SHORT,
+                                                                      gravity: ToastGravity.SNACKBAR,
+                                                                      textColor: Colors.white,
+                                                                      fontSize: 16.0
+                                                                  );
+                                                                  Navigator.pop(context);
+                                                                }
+                                                                // Navigator.pop(context, _selectedItems);
+                                                              },
                                                             )
                                                           ],
                                                         )
@@ -509,7 +358,560 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                     ),
                                                   )));
                                     },
-                                  )
+                                  ) :
+                                  Container(),
+                                for (int i = leaveData.length - 1; i >= 0; i--)
+                                  leaveData[i].Status == "Escalated".toString() ?
+                                  /*InkWell(
+                                    child:*/
+                                  Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                           color: Color.fromRGBO(247,181,41,1),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(13.0),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                        height: sHeight(2.5, context),
+                                                        width: sWidth(60, context),
+                                                        child: FittedBox(
+                                                            fit: BoxFit.contain,
+                                                            child: Text(leaveData[i].Reason.toUpperCase(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
+                                                    ),
+                                                    Container(
+                                                      height: sHeight(3.5, context),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(5),
+                                                          color: const Color(0xFFFCDEE2)
+                                                      ),
+                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          const Icon(Icons.timelapse,color: Color.fromRGBO(252,124,69,0.7977207977207977),size: 15,),
+                                                          Text(leaveData[i].Status,style: const TextStyle(color: Color.fromRGBO(252,124,69,0.7977207977207977)),),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    Text(leaveData[i].LeaveApplied, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    const CircleAvatar(
+                                                      backgroundColor: Color(0xFF01BE84),radius: 13,
+                                                      child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
+                                                    ),
+                                                    const Text(" Leave Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                    FittedBox(
+                                                        fit:  BoxFit.contain,
+                                                        child: Text(leaveData[i].Date, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    const CircleAvatar(
+                                                      backgroundColor: Color(0xFFE23F8B),radius: 13,
+                                                      child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
+                                                    ),
+                                                    const FittedBox(
+                                                        fit:  BoxFit.contain,
+                                                        child: Text(" Applied Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                                                    Text(leaveData[i].Forword, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: sHeight(2, context),)
+                                      ],
+                                    ):
+                                    /*onLongPress: (){
+                                      print("${leaveData[i].LeaveId}");
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible:
+                                          true,
+                                          builder: (context) =>
+                                              AlertDialog(
+                                                  content:
+                                                  SizedBox(
+                                                    height: sHeight(15, context),
+                                                    width: sWidth(60, context),
+                                                    child: Column(
+                                                      children: [
+                                                        const Text("Do you want to Cancel Leave?"),
+                                                        SizedBox(height: sHeight(5,context),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            InkWell(
+                                                              child:
+                                                              Container(
+                                                                height: sHeight(5, context),
+                                                                width: sWidth(17, context),
+                                                                decoration:
+                                                                BoxDecoration(
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(10),
+                                                                  color:
+                                                                  Colors.red,
+                                                                ),
+                                                                child: Center(
+                                                                    child: Text(
+                                                                      "NO",
+                                                                      style:
+                                                                      ErrorText(),
+                                                                    )),
+                                                              ),
+                                                              onTap:
+                                                                  () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                            ),
+                                                            InkWell(
+                                                              child:
+                                                              Container(
+                                                                height: sHeight(
+                                                                    5,
+                                                                    context),
+                                                                width: sWidth(
+                                                                    17,
+                                                                    context),
+                                                                decoration:
+                                                                BoxDecoration(
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(10),
+                                                                  color:
+                                                                  Colors.green,
+                                                                ),
+                                                                child: Center(
+                                                                    child: Text(
+                                                                      "Yes",
+                                                                      style:
+                                                                      ErrorText(),
+                                                                    )),
+                                                              ),
+                                                              onTap:
+                                                                  () async {
+                                                                final resp = await http.get(Uri.parse("http://$IpAddress/api/LeaveCancel?StaffCode=${widget.username}&LeaveId=${leaveData[i].LeaveId}&Password=${widget.password}"),);
+                                                                print("http://$IpAddress/api/LeaveCancel?StaffCode=${widget.username}&LeaveId=${leaveData[i].LeaveId}&Password=${widget.password}");
+                                                                if (resp.statusCode == 200) {
+                                                                  print(resp.statusCode);
+                                                                  Leave_Cancel_ID = json.decode(resp.body);
+                                                                  Leave_Cancel_MSG =(Leave_Cancel_ID[0]['msg']);
+                                                                  print(Leave_Cancel_MSG);
+                                                                  await Fluttertoast.showToast(
+                                                                      backgroundColor: Colors.green,
+                                                                      msg: "Your Request been Canceled Successfully!",
+                                                                      toastLength: Toast.LENGTH_SHORT,
+                                                                      gravity: ToastGravity.SNACKBAR,
+                                                                      textColor: Colors.white,
+                                                                      fontSize: 16.0
+                                                                  );
+                                                                  Navigator.pop(context);
+                                                                  Navigator.pop(context);
+                                                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
+                                                                    (username: widget.username, password: widget.password,)));
+                                                                } else {
+                                                                  // print('Request failed with status: ${resp.statusCode}.');
+                                                                  await Fluttertoast.showToast(
+                                                                      backgroundColor: Colors.red,
+                                                                      msg: "Leave Request Has Been Approved",
+                                                                      toastLength: Toast.LENGTH_SHORT,
+                                                                      gravity: ToastGravity.SNACKBAR,
+                                                                      textColor: Colors.white,
+                                                                      fontSize: 16.0
+                                                                  );
+                                                                  Navigator.pop(context);
+                                                                }
+                                                                // Navigator.pop(context, _selectedItems);
+                                                              },
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )));
+                                    },
+                                  ) */
+                                  Container(),
+                                for (int i = leaveData.length - 1; i >= 0; i--)
+                                  leaveData[i].Status == "Approved".toString() ?
+                                  Column(
+                                    children: [
+                                      /*InkWell(
+                                        child:*/ Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(5),
+                                              color:  Color.fromRGBO(51,182,121,1),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(13.0),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: sHeight(2.5, context),
+                                                      width: sWidth(60, context),
+                                                      child: FittedBox(
+                                                        fit: BoxFit.contain,
+                                                          child: Text(" ${leaveData[i].LeaveApplied}".toUpperCase(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),))
+                                                    ),
+                                                    Container(
+                                                      height: sHeight(3.5, context),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(10),
+                                                        color: const Color(0xFFD1FFF1)
+                                                      ),
+                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          const Icon(Icons.timelapse,color: Colors.black87,size: 15,),
+                                                          FittedBox(
+                                                              fit: BoxFit.contain,
+                                                              child: Text(leaveData[i].Status,style: const TextStyle(color: Colors.black87,),)),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                        height: sHeight(2.5, context),
+                                                        width: sWidth(85, context),
+                                                        child: FittedBox(
+                                                            fit: BoxFit.contain,
+                                                            child: Text(leaveData[i].Reason,maxLines: 2, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                        )
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    const CircleAvatar(
+                                                      backgroundColor: Colors.white,radius: 13,
+                                                      child: Icon(Icons.calendar_today,color: Color(0xFF01BE84),size: 15,),
+                                                    ),
+                                                    const Text(" Leave Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                    Text(leaveData[i].Date, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    const CircleAvatar(
+                                                      backgroundColor: Color(0xFFE23F8B),radius: 13,
+                                                      child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
+                                                    ),
+                                                    const Text(" Applied Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                    Text(leaveData[i].Forword, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        /*onLongPress: (){
+                                          print("${leaveData[i].LeaveId}");
+                                          showDialog(
+                                              context: context,
+                                              barrierDismissible:
+                                              true,
+                                              builder: (context) =>
+                                                  AlertDialog(
+                                                      content:
+                                                      SizedBox(
+                                                        height: sHeight(15, context),
+                                                        width: sWidth(60, context),
+                                                        child: Column(
+                                                          children: [
+                                                            const Text("Do you want to Cancel Leave?"),
+                                                            SizedBox(height: sHeight(5,context),
+                                                            ),
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                InkWell(
+                                                                  child:
+                                                                  Container(
+                                                                      height: sHeight(5, context),
+                                                                      width: sWidth(17, context),
+                                                                      decoration:
+                                                                    BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius.circular(10),
+                                                                      color:
+                                                                      Colors.red,
+                                                                    ),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                          "NO",
+                                                                          style:
+                                                                          ErrorText(),
+                                                                        )),
+                                                                  ),
+                                                                  onTap:
+                                                                      () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                ),
+                                                                InkWell(
+                                                                  child:
+                                                                  Container(
+                                                                    height: sHeight(
+                                                                        5,
+                                                                        context),
+                                                                    width: sWidth(
+                                                                        17,
+                                                                        context),
+                                                                    decoration:
+                                                                    BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius.circular(10),
+                                                                      color:
+                                                                      Colors.green,
+                                                                    ),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                          "Yes",
+                                                                          style:
+                                                                          ErrorText(),
+                                                                        )),
+                                                                  ),
+                                                                  onTap:
+                                                                      () async {
+                                                                        _submit();
+                                                                  },
+                                                                )
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      )));
+                                        },*/
+                                      //),
+                                      SizedBox(height: sHeight(2, context),)
+                                    ],
+                                  ) :
+                                      Container(),
+                                for (int i = leaveData.length - 1; i >= 0; i--)
+                                  leaveData[i].Status == "Cancelled".toString() ?
+                                  /*InkWell(
+                                    child:*/ Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              color: Color.fromRGBO(219,65,55,1)
+                                    /*gradient: const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment(0, 1),
+                                    colors: [
+                                      Color.fromRGBO(250,80,100,1),
+                                      Color.fromRGBO(250,80,100,1),
+                                    ], */// Gradient from https://learnui.design/tools/gradient-generator.html
+                                    //tileMode: TileMode.mirror,
+                                  //),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(13.0),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                        height: sHeight(2.5, context),
+                                                        width: sWidth(60, context),
+                                                        child: FittedBox(
+                                                            fit: BoxFit.contain,
+                                                            child: Text(leaveData[i].Reason.toUpperCase(),style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
+                                                    ),
+                                                    Container(
+                                                      height: sHeight(3.5, context),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(5),
+                                                          color: const Color(0xFFFCDEE2)
+                                                      ),
+                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          const Icon(Icons.timelapse,color: Color(0xFFFF343E),size: 15,),
+                                                          Text(leaveData[i].Status,style: const TextStyle(color: Color(0xFFFF343E)),),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    Text(leaveData[i].LeaveApplied, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    const CircleAvatar(
+                                                      backgroundColor: Color(0xFF01BE84),radius: 13,
+                                                      child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
+                                                    ),
+                                                    const Text(" Leave Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                    FittedBox(
+                                                        fit:  BoxFit.contain,
+                                                        child: Text(leaveData[i].Date, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),))
+                                                  ],
+                                                ),
+                                                SizedBox(height: sHeight(2, context),),
+                                                Row(
+                                                  children: [
+                                                    const CircleAvatar(
+                                                      backgroundColor: Colors.white,radius: 13,
+                                                      child: Icon(Icons.calendar_today,color: Colors.red,size: 15,),
+                                                    ),
+                                                    const FittedBox(
+                                                        fit:  BoxFit.contain,
+                                                        child: Text(" Applied Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                                                    Text(leaveData[i].Forword, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: sHeight(2, context),)
+                                      ],
+                                    ) :
+                                    /*onLongPress: (){
+                                      print("${leaveData[i].LeaveId}");
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible:
+                                          true,
+                                          builder: (context) =>
+                                              AlertDialog(
+                                                  content:
+                                                  SizedBox(
+                                                    height: sHeight(15, context),
+                                                    width: sWidth(60, context),
+                                                    child: Column(
+                                                      children: [
+                                                        const Text("Do you want to Cancel Leave?"),
+                                                        SizedBox(height: sHeight(5,context),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            InkWell(
+                                                              child:
+                                                              Container(
+                                                                height: sHeight(5, context),
+                                                                width: sWidth(17, context),
+                                                                decoration:
+                                                                BoxDecoration(
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(10),
+                                                                  color:
+                                                                  Colors.red,
+                                                                ),
+                                                                child: Center(
+                                                                    child: Text(
+                                                                      "NO",
+                                                                      style:
+                                                                      ErrorText(),
+                                                                    )),
+                                                              ),
+                                                              onTap:
+                                                                  () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                            ),
+                                                            InkWell(
+                                                              child:
+                                                              Container(
+                                                                height: sHeight(
+                                                                    5,
+                                                                    context),
+                                                                width: sWidth(
+                                                                    17,
+                                                                    context),
+                                                                decoration:
+                                                                BoxDecoration(
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(10),
+                                                                  color:
+                                                                  Colors.green,
+                                                                ),
+                                                                child: Center(
+                                                                    child: Text(
+                                                                      "Yes",
+                                                                      style:
+                                                                      ErrorText(),
+                                                                    )),
+                                                              ),
+                                                              onTap:
+                                                                  () async {
+                                                                final resp = await http.get(Uri.parse("http://$IpAddress/api/LeaveCancel?StaffCode=${widget.username}&LeaveId=${leaveData[i].LeaveId}&Password=${widget.password}"),);
+                                                                print("http://$IpAddress/api/LeaveCancel?StaffCode=${widget.username}&LeaveId=${leaveData[i].LeaveId}&Password=${widget.password}");
+                                                                if (resp.statusCode == 200) {
+                                                                  print(resp.statusCode);
+                                                                  Leave_Cancel_ID = json.decode(resp.body);
+                                                                  Leave_Cancel_MSG =(Leave_Cancel_ID[0]['msg']);
+                                                                  print(Leave_Cancel_MSG);
+                                                                  await Fluttertoast.showToast(
+                                                                      backgroundColor: Colors.green,
+                                                                      msg: "Your Request been Canceled Successfully!",
+                                                                      toastLength: Toast.LENGTH_SHORT,
+                                                                      gravity: ToastGravity.SNACKBAR,
+                                                                      textColor: Colors.white,
+                                                                      fontSize: 16.0
+                                                                  );
+                                                                  Navigator.pop(context);
+                                                                  Navigator.pop(context);
+                                                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
+                                                                    (username: widget.username, password: widget.password,)));
+                                                                } else {
+                                                                  // print('Request failed with status: ${resp.statusCode}.');
+                                                                  await Fluttertoast.showToast(
+                                                                      backgroundColor: Colors.red,
+                                                                      msg: "Leave Request Has Been Approved",
+                                                                      toastLength: Toast.LENGTH_SHORT,
+                                                                      gravity: ToastGravity.SNACKBAR,
+                                                                      textColor: Colors.white,
+                                                                      fontSize: 16.0
+                                                                  );
+                                                                  Navigator.pop(context);
+                                                                }
+                                                                // Navigator.pop(context, _selectedItems);
+                                                              },
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )));
+                                    },*/
+                                  //) :
+                                  Container(),
                               ],
                             ),
                           ),

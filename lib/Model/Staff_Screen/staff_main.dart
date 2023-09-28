@@ -822,9 +822,9 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                           child: Row(
                                                             children: [
                                                               Text("Inbox", style: SecondaryText1()),
-                                                              Text(" (", style: SecondaryText1()),
+                                                             /* Text(" (", style: SecondaryText1()),
                                                               Text("$Counts", style: const TextStyle(color: Colors.green,fontWeight: FontWeight.w900,fontSize: 15)),
-                                                              Text(")", style: SecondaryText1()),
+                                                              Text(")", style: SecondaryText1()),*/
                                                             ],
                                                           ),
                                                         ),
@@ -837,7 +837,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                         Staff_Request_Inbox(username: widget.username, password: widget.password,)));
                                                   },
                                                 ),
-                                              if(status.contains("1Club Attendance - Staff"))
+                                              /*if(status.contains("1Club Attendance - Staff"))
                                                 InkWell(
                                                   child: Container(
                                                     margin: const EdgeInsets.all(8),
@@ -863,8 +863,8 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                     checkInternet();
                                                     Navigator.push(context, MaterialPageRoute(builder: (context)=> Club_Activity(username: widget.username, password: widget.password,)));
                                                   },
-                                                ),
-                                              if(status.contains("1Transport Attendance - Staff"))
+                                                ),*/
+                                              /*if(status.contains("1Transport Attendance - Staff"))
                                                 InkWell(
                                                   child: Container(
                                                     margin: const EdgeInsets.all(8),
@@ -890,7 +890,7 @@ class _StaffHomePageState extends State<StaffHomePage> {
                                                     checkInternet();
                                                     Navigator.push(context, MaterialPageRoute(builder: (context)=> Club_Activity(username: widget.username, password: widget.password,)));
                                                   },
-                                                ),
+                                                ),*/
                                             ],
                                           ),
                                           Container(margin: const EdgeInsets.only(top: 20),),

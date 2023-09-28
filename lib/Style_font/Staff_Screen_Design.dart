@@ -1218,6 +1218,7 @@ Widget StaffTimetableGeneratorTitle(BuildContext context) {
   }
 }
 
+
 Widget StaffTimetableGenerator(
     BuildContext context, StaffTimetableAPI_data data) {
   switch (GetAttencanceHours()) {

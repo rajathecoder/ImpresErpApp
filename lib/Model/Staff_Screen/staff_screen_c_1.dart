@@ -374,9 +374,9 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
         } */
         if (One_An != -1) {
           print(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_An}&toSessionId=${One_An}&Password=${widget.password}");
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=$One_An&toSessionId=$One_An&Password=${widget.password}");
           final resp = await http.get(Uri.parse(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_An}&toSessionId=${One_An}&Password=${widget.password}"));
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=$One_An&toSessionId=$One_An&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print(Responce_For_Facultyorhod[0]['Msg'].toString());
@@ -400,9 +400,9 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
           }
         } else if (One_Fn != -1) {
           print(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Fn}&toSessionId=${One_Fn}&Password=${widget.password}");
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=$One_Fn&toSessionId=$One_Fn&Password=${widget.password}");
           final resp = await http.get(Uri.parse(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${One_Fn}&toSessionId=${One_Fn}&Password=${widget.password}"));
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${LeaveFromDate.toString()}&leaveTill=${LeaveTODate.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=$One_Fn&toSessionId=$One_Fn&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print(Responce_For_Facultyorhod[0]['Msg'].toString());
@@ -429,9 +429,9 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
       if (Multiday_select == true) {
         if (Multi_From_AN != -1 && Multi_TO_AN != -1) {
           print(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=20&Password=${widget.password}");
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=20&toSessionId=20&Password=${widget.password}");
           final resp = await http.get(Uri.parse(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=20&Password=${widget.password}"));
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=20&toSessionId=20&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print(Responce_For_Facultyorhod[0]['Msg'].toString());
@@ -455,9 +455,9 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
           }
         } else if (Multi_From_FN != -1 && Multi_TO_FN != -1) {
           print(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=19&Password=${widget.password}");
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=19&toSessionId=19&Password=${widget.password}");
           final resp = await http.get(Uri.parse(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=19&toSessionId=19&Password=${widget.password}"));
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=19&toSessionId=19&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print(Responce_For_Facultyorhod[0]['Msg'].toString());
@@ -481,9 +481,9 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
           }
         } else if (Multi_From_FN != -1 && Multi_TO_AN != -1) {
           print(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=20&Password=${widget.password}");
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=20&Password=${widget.password}");
           final resp = await http.get(Uri.parse(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=20&Password=${widget.password}"));
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=${Multi_From_FN!.toInt()}&toSessionId=20&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print(Responce_For_Facultyorhod[0]['Msg'].toString());
@@ -507,9 +507,9 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
           }
         } else if (Multi_From_AN != -1 && Multi_TO_FN != -1) {
           print(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=19&Password=${widget.password}");
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=20&toSessionId=19&Password=${widget.password}");
           final resp = await http.get(Uri.parse(
-              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=${HOD_ID}&frSessionId=20&toSessionId=19&Password=${widget.password}"));
+              "http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${Multi_From_Date.toString()}&leaveTill=${Multi_TO_Date.toString()}&reason=${Addreason.text}&leaveTypeId=${Type_id.toString()}&forwardedPers1=$HOD_ID&frSessionId=20&toSessionId=19&Password=${widget.password}"));
           if (resp.statusCode == 200) {
             Responce_For_Facultyorhod = json.decode(resp.body);
             print(Responce_For_Facultyorhod[0]['Msg'].toString());
@@ -840,8 +840,19 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                                                   ),
                                                 ],
                                               ),
+                                              /*Row(
+                                                children: [
+                                                  SizedBox(
+                                                    height: sHeight(2, context),
+                                                    child: const Text(
+                                                      "* Permission will be Consider for one hour",
+                                                      style: TextStyle(color: Colors.red,fontSize: 10,),textAlign: TextAlign.left,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),*/
                                               SizedBox(
-                                                height: sHeight(2.5, context),
+                                                height: sHeight(1, context),
                                               ),
                                               Column(
                                                 children: [
@@ -980,7 +991,7 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                                                                                         child: Row(
                                                                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                                           children: [
-                                                                                            LeaveFromDate == null ? const Text("Select") : Text("${LeaveFromDate}"),
+                                                                                            LeaveFromDate == null ? const Text("Select") : Text("$LeaveFromDate"),
                                                                                             IconButton(
                                                                                               onPressed: () async {
                                                                                                 showDatePicker(
@@ -1106,7 +1117,7 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                                                                                         child: Row(
                                                                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                                           children: [
-                                                                                            Multi_From_Date == null ? const Text("Select") : Text("${Multi_From_Date}"),
+                                                                                            Multi_From_Date == null ? const Text("Select") : Text("$Multi_From_Date"),
                                                                                             IconButton(
                                                                                               onPressed: () async {
                                                                                                 showDatePicker(
@@ -1151,7 +1162,7 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
                                                                                             child: Row(
                                                                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                                               children: [
-                                                                                                Multi_TO_Date == null ? const Text("Select") : Text("${Multi_TO_Date}"),
+                                                                                                Multi_TO_Date == null ? const Text("Select") : Text("$Multi_TO_Date"),
                                                                                                 IconButton(
                                                                                                   onPressed: () async {
                                                                                                     showDatePicker(
@@ -1999,7 +2010,6 @@ class _Staff_Leave_ApplyState extends State<Staff_Leave_Apply> {
 }
 
 //Staff Leave apply alternate Hours list
-
 class Staff_Leave_Apply_Alter_List extends StatefulWidget {
   const Staff_Leave_Apply_Alter_List(
       {Key? key,
@@ -2036,6 +2046,7 @@ class _Staff_Leave_Apply_Alter_ListState
   bool checkboxValue1 = false;
   bool isChecked = false;
   int? selectedIndexID;
+  int requestCount = 0;
 
   @override
   void initState() {
@@ -2154,11 +2165,11 @@ class _Staff_Leave_Apply_Alter_ListState
                                               if (selectedIndexID ==
                                                   alterHours[i].id) {
                                                 selectedIndexID = null;
-                                                print("1${selectedIndexID}");
+                                                print("1$selectedIndexID");
                                               } else {
                                                 selectedIndexID =
                                                     alterHours[i].id;
-                                                print("2---${selectedIndexID}");
+                                                print("2---$selectedIndexID");
                                                 Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
@@ -2239,25 +2250,33 @@ class _Staff_Leave_Apply_Alter_ListState
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(30)),
                     child: ElevatedButton(onPressed: ()
+                    //int requestCount = 0;
+
                     async{
-                      for (int i = 0; i < alterHours.length; i--)
+                      for (int i = alterHours.length - 1; i >= 0; i--)
                         {
-                          if(alterHours[i].rqst == 0){
-                           await Fluttertoast
-                                .showToast(
-                                backgroundColor:
-                                Colors.red,
-                                msg:
-                                "kindly! Send a Alternative the class ",
-                                toastLength:
-                                Toast.LENGTH_SHORT,
-                                gravity: ToastGravity
-                                    .SNACKBAR,
+                          if(alterHours[i].rqst == 0) {
+                            requestCount += 1;
+                          }
+                          else {
+                            await Fluttertoast.showToast(
+                                backgroundColor: Colors.red,
+                                msg: "kindly! Send an alternative to the class ",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.SNACKBAR,
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                           }
-                          else
-                            {
+                        /*  if(alterHours[i].rqst == requestCount){
+                           await Fluttertoast.showToast(
+                                backgroundColor: Colors.red,
+                                msg: "kindly! Send a Alternative the class ",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.SNACKBAR,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          }
+                          else {
                               final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${widget.fromdateuh}&leaveTill=${widget.TOdateuh }&reason=${widget.Reason}&leaveTypeId=${widget.Typeid}&forwardedPers1=${widget.Hodid}&frSessionId=${widget.FromSesion}&toSessionId=${widget.TOSessin}&Password=${widget.password}"),);
                               print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${widget.fromdateuh}&leaveTill=${widget.TOdateuh }&reason=${widget.Reason}&leaveTypeId=${widget.Typeid}&forwardedPers1=${widget.Hodid}&frSessionId=${widget.FromSesion}&toSessionId=${widget.TOSessin}&Password=${widget.password}");
                               if (resp.statusCode == 200) {
@@ -2286,9 +2305,50 @@ class _Staff_Leave_Apply_Alter_ListState
                                 );
                               }
                               // Navigator.pop(context, _selectedItems);
-                          }
+                          }*/
                         }
-
+                      if(requestCount == 0){
+                          /*for (int i = alterHours.length - 1; i >= 0; i--)
+                          {*/
+                            final resp = await http.get(Uri.parse("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${widget.fromdateuh}&leaveTill=${widget.TOdateuh }&reason=${widget.Reason}&leaveTypeId=${widget.Typeid}&forwardedPers1=${widget.Hodid}&frSessionId=${widget.FromSesion}&toSessionId=${widget.TOSessin}&Password=${widget.password}"),);
+                            print("http://$StaticIP/api/StaffLeaveApply?StaffCode=${widget.username}&leaveFrom=${widget.fromdateuh}&leaveTill=${widget.TOdateuh }&reason=${widget.Reason}&leaveTypeId=${widget.Typeid}&forwardedPers1=${widget.Hodid}&frSessionId=${widget.FromSesion}&toSessionId=${widget.TOSessin}&Password=${widget.password}");
+                            if (resp.statusCode == 200) {
+                              await Fluttertoast.showToast(
+                                  backgroundColor: Colors.green,
+                                  msg: "Your request been sent Successfully!",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.SNACKBAR,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> ApplyScreen
+                                (username: widget.username, password: widget.password,)));
+                            } else {
+                              // print('Request failed with status: ${resp.statusCode}.');
+                              await Fluttertoast.showToast(
+                                  backgroundColor: Colors.red,
+                                  msg: "Send alternative for all classes ",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.SNACKBAR,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                            }
+                          //}
+                      }
+                      else
+                        {
+                          await Fluttertoast.showToast(
+                              backgroundColor: Colors.red,
+                              msg: "kindly! Send a Alternative the class ",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.SNACKBAR,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }
                     },
             style: ButtonStyle(
                 backgroundColor:
@@ -2308,7 +2368,7 @@ class _Staff_Leave_Apply_Alter_ListState
                         borderRadius:
                         BorderRadius.circular(
                             10)))),
-          child: Text("Apply Leave"),
+          child: const Text("Apply Leave"),
           )),
               );
             } else {
@@ -2386,7 +2446,7 @@ class _Staff_Leave_Apply_Alter_ListState
                                     RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)))),
-                        child: Text("Apply Leave"),
+                        child: const Text("Apply Leave"),
                       )));
             }
           } else {
@@ -2411,7 +2471,6 @@ class _Staff_Leave_Apply_Alter_ListState
 }
 
 //leave Alters send Request AlertDialog
-
 class Staff_Alternate_Dialogbox extends StatefulWidget {
   const Staff_Alternate_Dialogbox(
       {Key? key,
@@ -2469,7 +2528,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   Future_Date_Functions() async {
     StaffAlternateHourRequestNetwork staffAlternateHourRequestNetwork =
         StaffAlternateHourRequestNetwork(
-            "StaffAlternateHourRequest?StaffCode=${widget.username}&Password=${widget.password}&FromTimeTableId=${widget.fromID}&AlterDate=${Future_Date}");
+            "StaffAlternateHourRequest?StaffCode=${widget.username}&Password=${widget.password}&FromTimeTableId=${widget.fromID}&AlterDate=$Future_Date");
     Staff_Alter_Req_API_Data_For_Future =
         staffAlternateHourRequestNetwork.StaffAlternateHourRequestloadData();
   }
@@ -2486,9 +2545,9 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   Responce_Function_SelectedDate() async {
     final resp = await http.get(
       Uri.parse(
-          "http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndexID2}&ReqStaffId=${Staff_ID}&ChangeType=11"), // server login url
+          "http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&FromTimetableId=${widget.fromID}&ToTimetableId=$selectedIndexID2&ReqStaffId=$Staff_ID&ChangeType=11&Password=${widget.password}"), // server login url
     );
-    print("http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndexID2}&ReqStaffId=${Staff_ID}&ChangeType=11");
+    print("http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&FromTimetableId=${widget.fromID}&ToTimetableId=$selectedIndexID2&ReqStaffId=$Staff_ID&ChangeType=11&Password=${widget.password}");
     if (resp.statusCode == 200) {
       Responce_Details_SelectedDate = json.decode(resp.body);
       Selected_MSG = (Responce_Details_SelectedDate[0]['msg'].toString());
@@ -2531,9 +2590,9 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   Responce_Function_Future_Date() async {
     final resp = await http.get(
       Uri.parse(
-          "http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndex_Future}&ReqStaffId=${Staff_ID}&ChangeType=13"), // server login url
+          "http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&FromTimetableId=${widget.fromID}&ToTimetableId=$selectedIndex_Future&ReqStaffId=$Staff_ID&ChangeType=13&Password=${widget.password}"), // server login url
     );
-    print("http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ToTimetableId=${selectedIndex_Future}&ReqStaffId=${Staff_ID}&ChangeType=13");
+    print("http://$StaticIP/api/StaffAlternateRequestSend?StaffCode=${widget.username}&FromTimetableId=${widget.fromID}&ToTimetableId=$selectedIndex_Future&ReqStaffId=$Staff_ID&ChangeType=13&Password=${widget.password}");
     if (resp.statusCode == 200) {
       Responce_Details_Future_Date = json.decode(resp.body);
       Selected_MSG_Future = (Responce_Details_Future_Date[0]['msg'].toString());
@@ -2574,15 +2633,15 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   }
   Staff_Lists_Get_Function() async {
     All_Staff_Network allStaffNetwork =
-        All_Staff_Network("StaffList?StaffCode=${widget.username}&Password=${widget.password}&DeptId=${Dept_Id}");
+        All_Staff_Network("StaffList?StaffCode=${widget.username}&Password=${widget.password}&DeptId=$Dept_Id");
     Staff_API_Data = allStaffNetwork.Staffss_loadData();
   }
 
   Responce_Function_OtherType_Engaged() async {
     final resp = await http.get(
-      Uri.parse("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ReqStaffId=${Staff_ID}&ChangeType=14"), // server login url
+      Uri.parse("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ReqStaffId=$Staff_ID&ChangeType=14"), // server login url
     );
-    print("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ReqStaffId=${Staff_ID}&ChangeType=14");
+    print("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ReqStaffId=$Staff_ID&ChangeType=14");
     if (resp.statusCode == 200) {
       Responce_OtherT_Engaged = json.decode(resp.body);
       Other_Type_MSG = (Responce_OtherT_Engaged[0]['msg'].toString());
@@ -2696,7 +2755,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                   if (datesnapshot.hasData) {
                                     Alterdata = datesnapshot.data!.StaffAlternateHourrequest_List;
                                     print("sucess");
-                                     if (departmentData .length > 0) {
+                                     if (departmentData.length > 0) {
                                       print("sucess");
                                       return WillPopScope(
                                         onWillPop: () async => _onBackButtonPressed(),
@@ -3002,7 +3061,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                             Future_Date == ""
                                                                 ? const Text("Select")
                                                                 : Text(
-                                                                    "${Future_Date}"),
+                                                                    "$Future_Date"),
                                                             IconButton(
                                                               onPressed:
                                                                   () async {
@@ -3150,10 +3209,10 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                                       onChanged: (value) {
                                                                                         if (selectedIndex_Future == Alterdata[i].fId) {
                                                                                           selectedIndex_Future = 0;
-                                                                                          print("${selectedIndex_Future}");
+                                                                                          print("$selectedIndex_Future");
                                                                                         } else {
                                                                                           selectedIndex_Future = Alterdata[i].fId;
-                                                                                          print("2---${selectedIndex_Future}");
+                                                                                          print("2---$selectedIndex_Future");
                                                                                         }
                                                                                         setState(() {});
                                                                                       },
@@ -3420,10 +3479,10 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                               setState(() {
                                                                                 if (selectedIndexID2 == alterHoursReq[i].fId) {
                                                                                   selectedIndexID2 = null;
-                                                                                  print("1${selectedIndexID2}");
+                                                                                  print("1$selectedIndexID2");
                                                                                 } else {
                                                                                   selectedIndexID2 = alterHoursReq[i].fId;
-                                                                                  print("2---${selectedIndexID2}");
+                                                                                  print("2---$selectedIndexID2");
                                                                                 }
                                                                               });
                                                                             },
@@ -3725,7 +3784,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                                 sHeight(1, context),
                                                                           ),
                                                                           Text(
-                                                                            "${Department_Name}",
+                                                                            "$Department_Name",
                                                                             style:
                                                                                 const TextStyle(
                                                                               fontWeight: FontWeight.w900,
@@ -3749,7 +3808,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                                                                 sHeight(1, context),
                                                                           ),
                                                                           Text(
-                                                                            "${Staff_Name}",
+                                                                            "$Staff_Name",
                                                                             style:
                                                                                 const TextStyle(
                                                                               fontWeight: FontWeight.w900,
@@ -3893,7 +3952,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
                                             ),
                                             centerTitle: true,
                                             backgroundColor:
-                                                Color.fromRGBO(255, 98, 118, 1),
+                                                const Color.fromRGBO(255, 98, 118, 1),
                                             elevation: 20.0,
                                           ),
                                           body: Center(
@@ -4209,12 +4268,20 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  inbData[i].subjectName,
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.black),
+                                                SizedBox(
+                                                  height: sHeight(2.5, context),
+                                                  width: sWidth(60, context),
+                                                  child: FittedBox(
+                                                    fit:  BoxFit.contain,
+                                                    child: Text(
+                                                      inbData[i].subjectName,
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          color: Colors.black),
+                                                      maxLines: 2,
+                                                    ),
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   height: sHeight(1, context),
@@ -4400,7 +4467,13 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                               ],
                                             ),
                                             // SizedBox(width: sWidth(40, context),),
-                                            ElevatedButton(
+                                            inbData[i].stCode == 0 ?
+                                            Container(
+                                              width: sWidth(40, context),
+                                              child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                              ElevatedButton(
                                               onPressed: () async {
                                                 if (inbData[i].subjectCode ==
                                                     'Other Staff') {
@@ -4410,9 +4483,9 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                         (BuildContext context) {
                                                       return Find_Staffs_Subject(
                                                         username:
-                                                            widget.username,
+                                                        widget.username,
                                                         password:
-                                                            widget.password,
+                                                        widget.password,
                                                         classID: inbData[i]
                                                             .clsid
                                                             .toInt(),
@@ -4433,9 +4506,9 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                         (BuildContext context) {
                                                       return AlertDialog(
                                                         backgroundColor:
-                                                            Colors.white,
+                                                        Colors.white,
                                                         content:
-                                                            SingleChildScrollView(
+                                                        SingleChildScrollView(
                                                           child: SizedBox(
                                                             height: sHeight(
                                                                 8, context),
@@ -4449,7 +4522,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                                         color: Colors
                                                                             .indigo,
                                                                         fontWeight:
-                                                                            FontWeight.w700),
+                                                                        FontWeight.w700),
                                                                   ),
                                                                   SizedBox(
                                                                     height: sHeight(
@@ -4463,53 +4536,29 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                           ElevatedButton(
                                                             onPressed:
                                                                 () async {
-                                                              final resp =
-                                                                  await http
-                                                                      .get(
-                                                                Uri.parse(
-                                                                    "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}"
-                                                                    "&AlternateId=${inbData[i].id}&Type=1&StaffSubject=0"), // server login url
+                                                              final resp = await http.get(
+                                                                Uri.parse("http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&AlternateId=${inbData[i].id}&Type=1&StaffSubject=0&Password=${widget.password}"), // server login url
                                                               );
-                                                              if (resp.statusCode ==
-                                                                  200) {
-                                                                Responce_Normal_Accept_List =
-                                                                    json.decode(
-                                                                        resp.body);
-                                                                Normal_Accept_MSG =
-                                                                    (Responce_Normal_Accept_List[0]
-                                                                            [
-                                                                            'Msg']
-                                                                        .toString());
+                                                              if (resp.statusCode == 200) {
+                                                                Responce_Normal_Accept_List = json.decode(resp.body);
+                                                                Normal_Accept_MSG = (Responce_Normal_Accept_List[0]['Msg'].toString());
                                                                 await Fluttertoast.showToast(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .teal,
-                                                                    msg:
-                                                                        "${Normal_Accept_MSG}",
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_SHORT,
-                                                                    gravity:
-                                                                        ToastGravity
-                                                                            .SNACKBAR,
-                                                                    textColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    fontSize:
-                                                                        16.0);
-                                                                await Navigator.pushReplacement(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) => Staff_Request_Inbox(
-                                                                              username: widget.username,
-                                                                              password: widget.password,
-                                                                            )));
-                                                              } else {}
+                                                                    backgroundColor: Colors.teal,
+                                                                    msg: "$Normal_Accept_MSG",
+                                                                    toastLength: Toast.LENGTH_SHORT,
+                                                                    gravity: ToastGravity.SNACKBAR,
+                                                                    textColor: Colors.white,
+                                                                    fontSize: 16.0);
+                                                                Navigator.pushReplacement(context,
+                                                                    MaterialPageRoute(builder: (context) => Staff_Request_Inbox(username: widget.username, password: widget.password,)));
+                                                              } else {
+                                                                print("Nothing");
+                                                              }
                                                             },
                                                             style: ElevatedButton
                                                                 .styleFrom(
-                                                                    primary: Colors
-                                                                        .green),
+                                                                primary: Colors
+                                                                    .green),
                                                             child: const Text("yes"),
                                                           ),
                                                           ElevatedButton(
@@ -4520,9 +4569,9 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                             },
                                                             style: ElevatedButton
                                                                 .styleFrom(
-                                                                    primary:
-                                                                        Colors
-                                                                            .red),
+                                                                primary:
+                                                                Colors
+                                                                    .red),
                                                             child: const Text("No"),
                                                           ),
                                                         ],
@@ -4536,119 +4585,122 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
                                                   primary: Colors.green),
                                               child: const Icon(Icons.check),
                                             ),
-                                            ElevatedButton(
-                                                onPressed: () async {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return AlertDialog(
-                                                        backgroundColor:
-                                                            Colors.white,
-                                                        content:
-                                                            SingleChildScrollView(
-                                                          child: SizedBox(
-                                                            height: sHeight(
-                                                                8, context),
-                                                            width: sWidth(
-                                                                90, context),
-                                                            child: Column(
-                                                                children: [
-                                                                  const Text(
-                                                                    "Do you confirm Reject this Request?",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .red,
-                                                                        fontWeight:
-                                                                            FontWeight.w700),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: sHeight(
-                                                                        3,
-                                                                        context),
-                                                                  ),
-                                                                ]),
+                                              ElevatedButton(
+                                                  onPressed: () async {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (BuildContext context) {
+                                                        return AlertDialog(
+                                                          backgroundColor:
+                                                          Colors.white,
+                                                          content:
+                                                          SingleChildScrollView(
+                                                            child: SizedBox(
+                                                              height: sHeight(
+                                                                  8, context),
+                                                              width: sWidth(
+                                                                  90, context),
+                                                              child: Column(
+                                                                  children: [
+                                                                    const Text(
+                                                                      "Do you confirm Reject this Request?",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .red,
+                                                                          fontWeight:
+                                                                          FontWeight.w700),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: sHeight(
+                                                                          3,
+                                                                          context),
+                                                                    ),
+                                                                  ]),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        actions: [
-                                                          ElevatedButton(
-                                                            onPressed:
-                                                                () async {
-                                                              final resp =
-                                                                  await http
-                                                                      .get(
-                                                                Uri.parse(
-                                                                    "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}"
-                                                                    "&AlternateId=${inbData[i].id}&Type=0&StaffSubject=0"), // server login url
-                                                              );
-                                                              if (resp.statusCode ==
-                                                                  200) {
-                                                                Responce_Reject__List =
-                                                                    json.decode(
-                                                                        resp.body);
-                                                                Normal_Reject_MSG =
-                                                                    (Responce_Reject__List[0]
-                                                                            [
-                                                                            'Msg']
-                                                                        .toString());
-                                                                await Fluttertoast.showToast(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .blueAccent,
-                                                                    msg:
-                                                                        "${Normal_Reject_MSG}",
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_SHORT,
-                                                                    gravity:
-                                                                        ToastGravity
-                                                                            .SNACKBAR,
-                                                                    textColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    fontSize:
-                                                                        16.0);
-                                                                await Navigator.pushReplacement(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) => Staff_Request_Inbox(
-                                                                              username: widget.username,
-                                                                              password: widget.password,
-                                                                            )));
-                                                              } else {}
-                                                            },
-                                                            style: ElevatedButton
-                                                                .styleFrom(
-                                                                    primary: Colors
-                                                                        .green),
-                                                            child: const Text("yes"),
-                                                          ),
-                                                          ElevatedButton(
-                                                            onPressed:
-                                                                () async {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            style: ElevatedButton
-                                                                .styleFrom(
-                                                                    backgroundColor: Colors
-                                                                            .red),
-                                                            child: const Text("No"),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20)),
-                                                    primary: Colors.red),
-                                                child: const Icon(Icons.close)),
+                                                          actions: [
+                                                            ElevatedButton(
+                                                              onPressed:
+                                                                  () async {
+                                                                final resp =
+                                                                await http
+                                                                    .get(
+                                                                  Uri.parse(
+                                                                      "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&AlternateId=${inbData[i].id}&Type=0&StaffSubject=0&Password=${widget.password}"), // server login url
+                                                                );
+                                                                if (resp.statusCode ==
+                                                                    200) {
+                                                                  Responce_Reject__List =
+                                                                      json.decode(
+                                                                          resp.body);
+                                                                  Normal_Reject_MSG =
+                                                                  (Responce_Reject__List[0]
+                                                                  [
+                                                                  'Msg']
+                                                                      .toString());
+                                                                  await Fluttertoast.showToast(
+                                                                      backgroundColor:
+                                                                      Colors
+                                                                          .blueAccent,
+                                                                      msg:
+                                                                      "$Normal_Reject_MSG",
+                                                                      toastLength:
+                                                                      Toast
+                                                                          .LENGTH_SHORT,
+                                                                      gravity:
+                                                                      ToastGravity
+                                                                          .SNACKBAR,
+                                                                      textColor:
+                                                                      Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                      16.0);
+                                                                  await Navigator.pushReplacement(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) => Staff_Request_Inbox(
+                                                                            username: widget.username,
+                                                                            password: widget.password,
+                                                                          )));
+                                                                } else {}
+                                                              },
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                  primary: Colors
+                                                                      .green),
+                                                              child: const Text("yes"),
+                                                            ),
+                                                            ElevatedButton(
+                                                              onPressed:
+                                                                  () async {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                  backgroundColor: Colors
+                                                                      .red),
+                                                              child: const Text("No"),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  style: ElevatedButton.styleFrom(
+                                                      shape:
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              20)),
+                                                      primary: Colors.red),
+                                                  child: const Icon(Icons.close)),
+                                              ],
+                                            ),
+                                            ):
+                                                Container(),
                                           ],
                                         ),
                                         SizedBox(
@@ -4718,7 +4770,7 @@ class _Staff_Request_InboxState extends State<Staff_Request_Inbox> {
               );
             } else {
               return Scaffold(
-                backgroundColor: const Color.fromRGBO(242, 249, 255, 0.9),
+                //backgroundColor: const Color.fromRGBO(242, 249, 255, 0.9),
                 appBar: AppBar(
                   title: Text("Inbox", style: PrimaryText(context)),
                   backgroundColor: const Color.fromRGBO(255, 98, 118, 1),
@@ -4780,8 +4832,7 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
   Responce_Function_Accept_With_SUb() async {
     final resp = await http.get(
       Uri.parse(
-          "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}"
-          "&AlternateId=${widget.From_Alt_id}&Type=1&StaffSubject=${Lesson_Id}"), // server login url
+          "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}&AlternateId=${widget.From_Alt_id}&Type=1&StaffSubject=$Lesson_Id"), // server login url
     );
     if (resp.statusCode == 200) {
       Responce_Accept_With_Subject = json.decode(resp.body);
@@ -4789,7 +4840,7 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
           (Responce_Accept_With_Subject[0]['Msg'].toString());
       await Fluttertoast.showToast(
           backgroundColor: Colors.deepPurple,
-          msg: "${Accept_withSubject_MSG}",
+          msg: "$Accept_withSubject_MSG",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,
@@ -4807,8 +4858,7 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
   Responce_Function_Accept_WithOUT_SUb() async {
     final resp = await http.get(
       Uri.parse(
-          "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}"
-          "&AlternateId=${widget.From_Alt_id}&Type=1&StaffSubject=0"), // server login url
+          "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}&AlternateId=${widget.From_Alt_id}&Type=1&StaffSubject=0"), // server login url
     );
     if (resp.statusCode == 200) {
       Responce_Accept_WithOUT_Subject = json.decode(resp.body);
@@ -4816,7 +4866,7 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
           (Responce_Accept_WithOUT_Subject[0]['Msg'].toString());
       await Fluttertoast.showToast(
           backgroundColor: Colors.blue,
-          msg: "${Accept_withOUTSubject_MSG}",
+          msg: "$Accept_withOUTSubject_MSG",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.SNACKBAR,
           textColor: Colors.white,
@@ -4838,8 +4888,7 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
     // TODO: implement initState
     super.initState();
     Staff_Inbox_Lesson_Network staffInboxLessonNetwork =
-        Staff_Inbox_Lesson_Network(
-            "AlterHoursSubjectFind?StaffCode=${widget.username}&Password=${widget.password}&classId=${widget.classID}&TimetableId=${widget.TimetableID}");
+        Staff_Inbox_Lesson_Network("AlterHoursSubjectFind?StaffCode=${widget.username}&classId=${widget.classID}&TimetableId=${widget.TimetableID}&Password=${widget.password}");
     Inbox_Lesson_API_Data = staffInboxLessonNetwork.Inbox_Lesson_loadData();
   }
 
@@ -4961,8 +5010,7 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
                     onPressed: () async {
                       final resp = await http.get(
                         Uri.parse(
-                            "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&Password=${widget.password}"
-                            "&AlternateId=${widget.From_Alt_id}&Type=1&StaffSubject=0"), // server login url
+                            "http://$StaticIP/api/InboxAlternateHourAcceptancy?StaffCode=${widget.username}&AlternateId=${widget.From_Alt_id}&Type=1&StaffSubject=0&Password=${widget.password}"), // server login url
                       );
                       if (resp.statusCode == 200) {
                         Responce_Normal_Accept_SUB_List =
@@ -4972,7 +5020,7 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
                                 .toString());
                         await Fluttertoast.showToast(
                             backgroundColor: Colors.teal,
-                            msg: "${Normal_Accept_SUB_MSG}",
+                            msg: "$Normal_Accept_SUB_MSG",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.SNACKBAR,
                             textColor: Colors.white,
@@ -4984,7 +5032,9 @@ class _Find_Staffs_SubjectState extends State<Find_Staffs_Subject> {
                                       username: widget.username,
                                       password: widget.password,
                                     )));
-                      } else {}
+                      } else {
+                        print("nothing line 4953");
+                      }
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.green),
                     child: const Text("yes"),
@@ -5171,9 +5221,9 @@ class _Club_FunctionState extends State<Club_Function> {
 
   Responce_ClubFunAdd() async {
     print(
-        "http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=${Clubid}&FunctionName=${addFunname.text}&FromDate=${ClubFromDate}&ToDate=${ClubToDate}&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}");
+        "http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=$Clubid&FunctionName=${addFunname.text}&FromDate=$ClubFromDate&ToDate=$ClubToDate&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}");
     final resp = await http.get(Uri.parse(
-        "http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=${Clubid}&FunctionName=${addFunname.text}&FromDate=${ClubFromDate}&ToDate=${ClubToDate}&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}"));
+        "http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=$Clubid&FunctionName=${addFunname.text}&FromDate=$ClubFromDate&ToDate=$ClubToDate&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}"));
     if (resp.statusCode == 200) {
       Responce_For_AddClubFun = json.decode(resp.body);
       print('Send Succesfully');
@@ -5187,7 +5237,7 @@ class _Club_FunctionState extends State<Club_Function> {
           fontSize: 16.0);
     } else {
       print(
-          "http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=${Clubid}&FunctionName=${addFunname.text}&FromDate=${ClubFromDate}&ToDate=${ClubToDate}&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}");
+          "http://$StaticIP/api/AddClubFun?StaffCode=${widget.username}&ClubFunId=0&ClubId=$Clubid&FunctionName=${addFunname.text}&FromDate=$ClubFromDate&ToDate=$ClubToDate&ProgrammeFor=${addPrograme.text}&Levels=${addLevel.text}&Highlights=${addhigh.text}&GuestDetails=${addGuest.text}&Password=${widget.password}");
       await Fluttertoast.showToast(
           backgroundColor: Colors.grey,
           msg: "Already have a Same function Name",
@@ -5321,7 +5371,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                         // Text("From Date"),
                                         ClubFromDate == null
                                             ? const Text("Select")
-                                            : Text("${ClubFromDate}"),
+                                            : Text("$ClubFromDate"),
                                         IconButton(
                                           onPressed: () async {
                                             showDatePicker(
@@ -5369,7 +5419,7 @@ class _Club_FunctionState extends State<Club_Function> {
                                       children: [
                                         ClubToDate == null
                                             ? const Text("Select")
-                                            : Text("${ClubToDate}"),
+                                            : Text("$ClubToDate"),
                                         IconButton(
                                           onPressed: () async {
                                             showDatePicker(
@@ -5858,7 +5908,7 @@ class _Club_AttendanceState extends State<Club_Attendance> {
     // TODO: implement initState
     super.initState();
     Clun_Attend_Network clunAttendNetwork = Clun_Attend_Network(
-        "SelectClub?StaffCode=${widget.username}&FromDate=${CirATdate}&ToDate=${CirATdate}&Password=${widget.password}");
+        "SelectClub?StaffCode=${widget.username}&FromDate=$CirATdate&ToDate=$CirATdate&Password=${widget.password}");
     ClubAttend_API = clunAttendNetwork.ClubA_loadData();
   }
 
@@ -6004,6 +6054,8 @@ class _Club_AttendanceState extends State<Club_Attendance> {
   }
 }
 
+
+//Club Attendance Select Page
 class ClubAttend_Page extends StatefulWidget {
   const ClubAttend_Page(
       {Key? key,
@@ -6047,7 +6099,7 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
     // TODO: implement initState
     super.initState();
     ClubStud_Network clubstudNetwork = ClubStud_Network(
-        "ClubAttend?StaffCode=${widget.username}&ClubId=${widget.id}&InstId=1&FunctionId=${widget.Funtionid}&SemSettingId=9&Date=${CirATdate}&Password=${widget.password}");
+        "ClubAttend?StaffCode=${widget.username}&ClubId=${widget.id}&InstId=1&FunctionId=${widget.Funtionid}&SemSettingId=9&Date=$CirATdate&Password=${widget.password}");
     Stud_Club_API = clubstudNetwork.ClubStud_loadData();
     AttendTerms_Network attendtermsNetwork = AttendTerms_Network(
         "AttendanceTerms?StaffCode=${widget.username}&Password=${widget.password}");
@@ -6518,6 +6570,7 @@ class _ClubAttend_PageState extends State<ClubAttend_Page> {
   }
 }
 
+// Final Send Attendance
 class ClubAttfinal extends StatefulWidget {
   const ClubAttfinal(
       {Key? key,
@@ -6552,7 +6605,7 @@ class _ClubAttfinalState extends State<ClubAttfinal> {
     // TODO: implement initState
     super.initState();
     Club_Final_Network attendclubnetwork = Club_Final_Network(
-        "clubstudattend?StaffCode=${widget.username}&SettingId=0&ClubId=${widget.Funtionid}&Date=${CirATdate}&SemSettingId=9&StudId=${widget.Studentid.toString()}&AttendanceId=${widget.Terms}&Session=${widget.Session.toInt()}&Password=${widget.password}");
+        "clubstudattend?StaffCode=${widget.username}&SettingId=0&ClubId=${widget.Funtionid}&Date=$CirATdate&SemSettingId=9&StudId=${widget.Studentid.toString()}&AttendanceId=${widget.Terms}&Session=${widget.Session.toInt()}&Password=${widget.password}");
     AttendFinalClub = attendclubnetwork.FinalClub_LoadData();
   }
 
