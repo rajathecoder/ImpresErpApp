@@ -76,6 +76,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
     Leave_status_api = Leavestatusnetwork.Leave_st_data();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,7 +180,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                         Container(
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
-                                              color:  Color.fromRGBO(66, 133, 244, 1)
+                                              color:  Colors.white
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(13.0),
@@ -193,19 +194,22 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                         width: sWidth(60, context),
                                                         child: FittedBox(
                                                             fit: BoxFit.contain,
-                                                            child: Text(leaveData[i].Reason.toUpperCase(),style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
+                                                            child: Text(leaveData[i].Reason.toUpperCase(),style: const TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
                                                     ),
                                                     Container(
                                                       height: sHeight(3.5, context),
                                                       decoration: BoxDecoration(
                                                           borderRadius: BorderRadius.circular(5),
-                                                          color: const Color(0xFFFCDEE2)
+                                                          color: Color.fromRGBO(66, 133, 244, 1)
                                                       ),
-                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          const Icon(Icons.timelapse,color: Colors.black87,size: 15,),
-                                                          Text(leaveData[i].Status,style: const TextStyle(color: Colors.black87),),
-                                                        ],
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            const Icon(Icons.timelapse,color: Colors.white,size: 15,),
+                                                            Text(leaveData[i].Status,style: const TextStyle(color: Colors.white),),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                   ],
@@ -213,7 +217,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                 SizedBox(height: sHeight(2, context),),
                                                 Row(
                                                   children: [
-                                                    Text(leaveData[i].LeaveApplied,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
+                                                    Text(leaveData[i].LeaveApplied,style: const TextStyle(fontWeight: FontWeight.bold),)
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
@@ -223,10 +227,10 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                       backgroundColor: Color(0xFF01BE84),radius: 13,
                                                       child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
                                                     ),
-                                                    const Text(" Leave Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                    const Text(" Leave Date : ", style: TextStyle( fontWeight: FontWeight.bold)),
                                                     FittedBox(
                                                         fit:  BoxFit.contain,
-                                                        child: Text(leaveData[i].Date, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))
+                                                        child: Text(leaveData[i].Date, style: TextStyle( fontWeight: FontWeight.bold)))
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
@@ -238,8 +242,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                     ),
                                                     const FittedBox(
                                                         fit:  BoxFit.contain,
-                                                        child: Text(" Applied Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-                                                    Text(leaveData[i].Forword, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                        child: Text(" Applied Date : ", style: TextStyle( fontWeight: FontWeight.bold))),
+                                                    Text(leaveData[i].Forword, style: TextStyle( fontWeight: FontWeight.bold))
                                                   ],
                                                 )
                                               ],
@@ -369,7 +373,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                         Container(
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
-                                           color: Color.fromRGBO(247,181,41,1),
+                                           color: Colors.white,
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(13.0),
@@ -383,40 +387,43 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                         width: sWidth(60, context),
                                                         child: FittedBox(
                                                             fit: BoxFit.contain,
-                                                            child: Text(leaveData[i].Reason.toUpperCase(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
+                                                            child: Text(leaveData[i].Reason.toUpperCase(), style: TextStyle( fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
                                                     ),
                                                     Container(
                                                       height: sHeight(3.5, context),
                                                       decoration: BoxDecoration(
                                                           borderRadius: BorderRadius.circular(5),
-                                                          color: const Color(0xFFFCDEE2)
+                                                          color: Color.fromRGBO(247,181,41,1)
                                                       ),
-                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          const Icon(Icons.timelapse,color: Color.fromRGBO(252,124,69,0.7977207977207977),size: 15,),
-                                                          Text(leaveData[i].Status,style: const TextStyle(color: Color.fromRGBO(252,124,69,0.7977207977207977)),),
-                                                        ],
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            const Icon(Icons.timelapse,color: Colors.white,size: 15,),
+                                                            Text(leaveData[i].Status,style: const TextStyle(color: Colors.white),),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                   ],
                                                 ),
-                                                SizedBox(height: sHeight(2, context),),
+                                                SizedBox(height: sHeight(1.5, context),),
                                                 Row(
                                                   children: [
-                                                    Text(leaveData[i].LeaveApplied, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                    Text(leaveData[i].LeaveApplied, style: TextStyle( fontWeight: FontWeight.bold))
                                                   ],
                                                 ),
-                                                SizedBox(height: sHeight(2, context),),
+                                                SizedBox(height: sHeight(1.5, context),),
                                                 Row(
                                                   children: [
                                                     const CircleAvatar(
                                                       backgroundColor: Color(0xFF01BE84),radius: 13,
                                                       child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
                                                     ),
-                                                    const Text(" Leave Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                    const Text(" Leave Date : ", style: TextStyle( fontWeight: FontWeight.bold)),
                                                     FittedBox(
                                                         fit:  BoxFit.contain,
-                                                        child: Text(leaveData[i].Date, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))
+                                                        child: Text(leaveData[i].Date, style: TextStyle( fontWeight: FontWeight.bold)))
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
@@ -428,8 +435,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                     ),
                                                     const FittedBox(
                                                         fit:  BoxFit.contain,
-                                                        child: Text(" Applied Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-                                                    Text(leaveData[i].Forword, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                        child: Text(" Applied Date : ", style: TextStyle( fontWeight: FontWeight.bold))),
+                                                    Text(leaveData[i].Forword, style: TextStyle( fontWeight: FontWeight.bold))
                                                   ],
                                                 )
                                               ],
@@ -558,7 +565,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                         child:*/ Container(
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(5),
-                                              color:  Color.fromRGBO(51,182,121,1),
+                                              color: Colors.white
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(13.0),
@@ -572,47 +579,47 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                       width: sWidth(60, context),
                                                       child: FittedBox(
                                                         fit: BoxFit.contain,
-                                                          child: Text(" ${leaveData[i].LeaveApplied}".toUpperCase(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),))
+                                                          child: Text(leaveData[i].Reason.toUpperCase(), style: TextStyle( fontWeight: FontWeight.bold),))
                                                     ),
                                                     Container(
                                                       height: sHeight(3.5, context),
                                                       decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10),
-                                                        color: const Color(0xFFD1FFF1)
+                                                        borderRadius: BorderRadius.circular(5),
+                                                        color: Color.fromRGBO(51,182,121,1)
                                                       ),
-                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          const Icon(Icons.timelapse,color: Colors.black87,size: 15,),
-                                                          FittedBox(
-                                                              fit: BoxFit.contain,
-                                                              child: Text(leaveData[i].Status,style: const TextStyle(color: Colors.black87,),)),
-                                                        ],
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            const Icon(Icons.timelapse,color: Colors.white,size: 15,),
+                                                            FittedBox(
+                                                                fit: BoxFit.contain,
+                                                                child: Text(leaveData[i].Status,style: const TextStyle(color: Colors.white,),)),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                   ],
                                                 ),
-                                                SizedBox(height: sHeight(2, context),),
+                                                SizedBox(height: sHeight(1.5, context),),
                                                 Row(
                                                   children: [
                                                     SizedBox(
                                                         height: sHeight(2.5, context),
                                                         width: sWidth(85, context),
-                                                        child: FittedBox(
-                                                            fit: BoxFit.contain,
-                                                            child: Text(leaveData[i].Reason,maxLines: 2, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
-                                                        )
+                                                        child: Text(" ${leaveData[i].LeaveApplied}",maxLines: 2, style: TextStyle( fontWeight: FontWeight.bold))
                                                     ),
                                                   ],
                                                 ),
-                                                SizedBox(height: sHeight(2, context),),
+                                                SizedBox(height: sHeight(1.5, context),),
                                                 Row(
                                                   children: [
                                                     const CircleAvatar(
-                                                      backgroundColor: Colors.white,radius: 13,
-                                                      child: Icon(Icons.calendar_today,color: Color(0xFF01BE84),size: 15,),
+                                                      backgroundColor:  Color(0xFF01BE84),radius: 13,
+                                                      child: Icon(Icons.calendar_today,color:  Colors.white,size: 15,),
                                                     ),
-                                                    const Text(" Leave Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                                                    Text(leaveData[i].Date, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                    const Text(" Leave Date : ", style: TextStyle( fontWeight: FontWeight.bold)),
+                                                    Text(leaveData[i].Date, style: TextStyle( fontWeight: FontWeight.bold))
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
@@ -622,8 +629,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                       backgroundColor: Color(0xFFE23F8B),radius: 13,
                                                       child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
                                                     ),
-                                                    const Text(" Applied Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                                                    Text(leaveData[i].Forword, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                    const Text(" Applied Date : ", style: TextStyle( fontWeight: FontWeight.bold)),
+                                                    Text(leaveData[i].Forword, style: TextStyle( fontWeight: FontWeight.bold))
                                                   ],
                                                 )
                                               ],
@@ -722,7 +729,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                         Container(
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
-                                              color: Color.fromRGBO(219,65,55,1)
+                                              color: Colors.white
+
                                     /*gradient: const LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment(0, 1),
@@ -745,53 +753,56 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                                         width: sWidth(60, context),
                                                         child: FittedBox(
                                                             fit: BoxFit.contain,
-                                                            child: Text(leaveData[i].Reason.toUpperCase(),style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
+                                                            child: Text(leaveData[i].Reason.toUpperCase(),style: TextStyle( fontWeight: FontWeight.bold),textAlign: TextAlign.start,))
                                                     ),
                                                     Container(
                                                       height: sHeight(3.5, context),
                                                       decoration: BoxDecoration(
                                                           borderRadius: BorderRadius.circular(5),
-                                                          color: const Color(0xFFFCDEE2)
+                                                          color: Color.fromRGBO(219,65,55,1)
                                                       ),
-                                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          const Icon(Icons.timelapse,color: Color(0xFFFF343E),size: 15,),
-                                                          Text(leaveData[i].Status,style: const TextStyle(color: Color(0xFFFF343E)),),
-                                                        ],
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            const Icon(Icons.timelapse,color: Colors.white,size: 15,),
+                                                            Text(leaveData[i].Status,style: const TextStyle(color: Colors.white),),
+                                                          ],
+                                                        ),
                                                       ),
                                                     )
                                                   ],
                                                 ),
-                                                SizedBox(height: sHeight(2, context),),
+                                                SizedBox(height: sHeight(1.5, context),),
                                                 Row(
                                                   children: [
-                                                    Text(leaveData[i].LeaveApplied, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                    Text(leaveData[i].LeaveApplied, style: TextStyle( fontWeight: FontWeight.bold))
                                                   ],
                                                 ),
-                                                SizedBox(height: sHeight(2, context),),
+                                                SizedBox(height: sHeight(1.5, context),),
                                                 Row(
                                                   children: [
                                                     const CircleAvatar(
                                                       backgroundColor: Color(0xFF01BE84),radius: 13,
                                                       child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
                                                     ),
-                                                    const Text(" Leave Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                    const Text(" Leave Date : ", style: TextStyle( fontWeight: FontWeight.bold)),
                                                     FittedBox(
                                                         fit:  BoxFit.contain,
-                                                        child: Text(leaveData[i].Date, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),))
+                                                        child: Text(leaveData[i].Date, style: TextStyle( fontWeight: FontWeight.bold),))
                                                   ],
                                                 ),
                                                 SizedBox(height: sHeight(2, context),),
                                                 Row(
                                                   children: [
                                                     const CircleAvatar(
-                                                      backgroundColor: Colors.white,radius: 13,
-                                                      child: Icon(Icons.calendar_today,color: Colors.red,size: 15,),
+                                                      backgroundColor:  Colors.red,radius: 13,
+                                                      child: Icon(Icons.calendar_today,color: Colors.white,size: 15,),
                                                     ),
                                                     const FittedBox(
                                                         fit:  BoxFit.contain,
-                                                        child: Text(" Applied Date : ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-                                                    Text(leaveData[i].Forword, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                                                        child: Text(" Applied Date : ", style: TextStyle( fontWeight: FontWeight.bold))),
+                                                    Text(leaveData[i].Forword, style: TextStyle( fontWeight: FontWeight.bold))
                                                   ],
                                                 )
                                               ],

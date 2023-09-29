@@ -457,7 +457,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
         onNavigationRequest: (NavigationRequest request) {
           if (request.url.startsWith(
               'https://www.impreserp.co.in/wp-content/Privacy_Policy.html')) {
-            return NavigationDecision.prevent;
+            return NavigationDecision.navigate;
           }
           return NavigationDecision.navigate;
         },
