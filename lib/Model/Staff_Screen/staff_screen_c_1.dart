@@ -2528,7 +2528,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   Future_Date_Functions() async {
     StaffAlternateHourRequestNetwork staffAlternateHourRequestNetwork =
         StaffAlternateHourRequestNetwork(
-            "StaffAlternateHourRequest?StaffCode=${widget.username}&Password=${widget.password}&FromTimeTableId=${widget.fromID}&AlterDate=$Future_Date");
+            "StaffAlternateHourRequest?StaffCode=${widget.username}&FromTimeTableId=${widget.fromID}&AlterDate=$Future_Date&Password=${widget.password}");
     Staff_Alter_Req_API_Data_For_Future =
         staffAlternateHourRequestNetwork.StaffAlternateHourRequestloadData();
   }
@@ -2633,15 +2633,15 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   }
   Staff_Lists_Get_Function() async {
     All_Staff_Network allStaffNetwork =
-        All_Staff_Network("StaffList?StaffCode=${widget.username}&Password=${widget.password}&DeptId=$Dept_Id");
+        All_Staff_Network("StaffList?StaffCode=${widget.username}&DeptId=$Dept_Id&Password=${widget.password}");
     Staff_API_Data = allStaffNetwork.Staffss_loadData();
   }
 
   Responce_Function_OtherType_Engaged() async {
     final resp = await http.get(
-      Uri.parse("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ReqStaffId=$Staff_ID&ChangeType=14"), // server login url
+      Uri.parse("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&FromTimetableId=${widget.fromID}&ReqStaffId=$Staff_ID&ChangeType=14&Password=${widget.password}"), // server login url
     );
-    print("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&Password=${widget.password}&FromTimetableId=${widget.fromID}&ReqStaffId=$Staff_ID&ChangeType=14");
+    print("http://$StaticIP/api/StaffAlterOtherType?StaffCode=${widget.username}&FromTimetableId=${widget.fromID}&ReqStaffId=$Staff_ID&ChangeType=14&Password=${widget.password}");
     if (resp.statusCode == 200) {
       Responce_OtherT_Engaged = json.decode(resp.body);
       Other_Type_MSG = (Responce_OtherT_Engaged[0]['msg'].toString());
@@ -2681,7 +2681,7 @@ class _Staff_Alternate_DialogboxState extends State<Staff_Alternate_Dialogbox> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StaffAlternateHourRequestNetwork staffAlternateHourRequestNetwork = StaffAlternateHourRequestNetwork("StaffAlternateHourRequest?StaffCode=${widget.username}&Password=${widget.password}&FromTimeTableId=${widget.fromID}&AlterDate=");
+    StaffAlternateHourRequestNetwork staffAlternateHourRequestNetwork = StaffAlternateHourRequestNetwork("StaffAlternateHourRequest?StaffCode=${widget.username}&FromTimeTableId=${widget.fromID}&AlterDate=&Password=${widget.password}");
     Staff_Alter_Req_API_Data = staffAlternateHourRequestNetwork.StaffAlternateHourRequestloadData();
     Future_Date_Functions();
     Staff_Lists_Get_Function();
